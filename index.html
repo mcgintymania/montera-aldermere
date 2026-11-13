@@ -395,7 +395,7 @@ DATA.pockets = [
   { id: 'collect', name: 'Collectibles' },
 ];
 DATA.items = {
-  parcel: { name: "Prof's Parcel", pocket: 'key', desc: 'A sealed parcel addressed to Professor Thorne. It clinks softly, like glass.' },
+  parcel: { name: 'Kindled Lanterns', pocket: 'key', desc: 'Three new Lanterns, still warm from the Fernwick shrine flame. Something stirs inside each one.' },
   town_map: { name: 'Aldermere Map', pocket: 'key', use: 'map', desc: 'A folding map of Aldermere. Places you have visited are marked on it.' },
   running_shoes: { name: 'Trail Boots', pocket: 'key', use: 'autorun', desc: 'Hold B (or Shift) to run. Use them to switch Always Run on or off.' },
   sea_glass: { name: 'Sea Glass', pocket: 'collect', desc: 'Frosted glass rolled smooth by the tide. Old Fenn on the Emberlow pier collects it.' },
@@ -419,10 +419,10 @@ DATA.shops = { fernwick: ['lantern', 'potion', 'antidote', 'unknot', 'burn_salve
 /* ---------- Quests ---------- */
 DATA.quests = {
   parcel: {
-    name: "The Professor's Parcel", kind: 'main', giver: 'Professor Thorne',
+    name: 'The Shrine Lanterns', kind: 'main', giver: 'Professor Thorne',
     stages: [
-      'Collect the parcel from the Mart in Fernwick, north along Route 1.',
-      "Bring the parcel back to Professor Thorne's lab in Emberlow.",
+      'Collect the kindled Lanterns from Keeper Edda at the shrine in Fernwick, north along Route 1.',
+      "Bring the Lanterns back to Professor Thorne's lab in Emberlow.",
     ],
     reward: 'Trail Boots, 500 Cr',
   },
@@ -460,7 +460,7 @@ DATA.milestones = [
 /* ---------- Achievements ---------- */
 DATA.achievements = {
   first_steps: { name: 'First Steps', desc: 'Leave Emberlow Village.' },
-  errand: { name: 'Errand Runner', desc: "Deliver the Professor's parcel." },
+  errand: { name: 'Errand Runner', desc: 'Bring the shrine Lanterns back to Professor Thorne.' },
   cartographer: { name: 'Cartographer', desc: 'Obtain the Aldermere Map.' },
   treasure: { name: 'Treasure Hunter', desc: 'Find a hidden item.' },
   beachcomber: { name: 'Beachcomber', desc: 'Help Old Fenn with his Sea Glass.' },
@@ -585,7 +585,7 @@ DATA.scripts = {
         "While you wait, why not explore? Old Fenn on the pier could use a sharp pair of eyes."], o);
     }
     if (q && q.stage === 1 && s.has('parcel')) {
-      await s.say(['Is that... it is! My Lanterns, safe and sound!'], o);
+      await s.say(['Is that... it is! My Lanterns, kindled and ready!', 'The shrine flame was grey, you say? And Edda saw a grey Wildmon? ...Hm. That is troubling. I will look into it.'], o);
       s.take('parcel');
       await s.say(['Each of these will carry a Wildmon safely at your side. Some trainers say they can feel their partner\'s light through the glass.',
         "Now, a thank-you. You'll be covering a lot of ground on your journey, so take these."], o);
@@ -600,23 +600,23 @@ DATA.scripts = {
         "Let them settle in, and come back soon. I promise it'll be worth the wait!"], o);
       return;
     }
-    if (q && q.stage === 0) return s.say(['The parcel is waiting at Fernwick Mart, north along Route 1. Look for the blue roof!'], o);
-    if (q && q.stage === 1) return s.say(["Hmm? You've misplaced the parcel? Check your Bag."], o);
+    if (q && q.stage === 0) return s.say(['Keeper Edda is at the shrine in Fernwick, north along Route 1. Look for the stone lantern by the flowers.'], o);
+    if (q && q.stage === 1) return s.say(["Hmm? You've misplaced the Lanterns? Check your Bag."], o);
 
     if (!s.flag('prof_intro')) {
       s.set('prof_intro');
       await s.say(['Ah, {player}! Come in, come in. Mind the cables.',
         'As you know, Aldermere is home to all sorts of Wildmon. People and Wildmon have lived side by side here for centuries.',
         "Most trainers start their journey with a partner Wildmon, and this year I have three looking for new friends.",
-        "But there's a snag. My new Lanterns were meant to arrive from Fernwick Mart this morning, and they haven't.",
-        "Without a Lantern, a Wildmon can't travel safely."], o);
+        "But there's a snag. A new Lantern has to be kindled in the Fernwick shrine flame before a Wildmon can rest inside it.",
+        'Keeper Edda has been tending three of mine up there since yesterday. Without a lit Lantern, a Wildmon can\'t travel safely.'], o);
     }
-    const yes = await s.ask('Would you fetch the parcel from Fernwick for me?', ['Yes', 'No'], o);
+    const yes = await s.ask('Would you collect the Lanterns from the Fernwick shrine for me?', ['Yes', 'No'], o);
     if (yes === 0) {
-      await s.say(['Splendid! Fernwick is north of here along Route 1. The Mart is the building with the blue roof.'], o);
+      await s.say(['Splendid! Fernwick is north of here along Route 1. The shrine is the stone lantern by the flowers, east of the main road.'], o);
       await s.startQuest('parcel');
       s.set('met_prof');
-      await s.say(["Kit has already run off ahead. That grandson of mine never waits for anyone!"], o);
+      await s.say(["Kit has already run off ahead. My apprentice never waits for anyone!"], o);
     } else {
       await s.say(["Hmm. Well, I'll be right here when you're ready."], o);
     }
@@ -624,7 +624,7 @@ DATA.scripts = {
 
   async kitTown(s, npc) {
     const o = { name: 'Kit' };
-    await s.say(['Hey, {player}. Gran called you to the lab too?',
+    await s.say(['Hey, {player}. The Professor called you to the lab too?',
       "Don't bother hurrying. I'm getting the strongest partner, and then I'm going to be Champion of the Lantern League.",
       'Just watch me.'], o);
   },
@@ -638,8 +638,8 @@ DATA.scripts = {
     await s.emote('player', '!');
     await s.walk('kit_r1', 'UUU');
     s.face('player', 'down');
-    await s.say(['There you are! Gran sent me to make sure you hadn\'t fallen in a pond.',
-      "Is that the parcel? Lanterns! That means we get our partners today!",
+    await s.say(['There you are! The Professor sent me to make sure you hadn\'t fallen in a pond.',
+      "Are those the shrine Lanterns? They're glowing! That means we get our partners today!",
       'Last one back to the lab gets the Wildmon nobody wants. See you at the finish line, slowcoach!'], { name: 'Kit' });
     await s.walk('kit_r1', 'DDDDD', 2);
     s.remove('kit_r1');
@@ -696,14 +696,8 @@ DATA.scripts = {
   async clerk(s) {
     const o = { name: 'Clerk' };
     const q = Q(s, 'parcel');
-    if (q && q.stage === 0 && !q.done) {
-      await s.say(['Welcome to Fernwick Mart! Oh, you\'re from Emberlow?', 'Then this must be for Professor Thorne. It came in on the morning cart.'], o);
-      await s.give('parcel');
-      await s.setStage('parcel', 1);
-      return s.say(['Careful with it. The box clinks!'], o);
-    }
     if (q) return s.say(["Sorry, the shelves are bare until the next delivery comes up from Port Calder. Do call again!"], o);
-    return s.say(["Welcome! There's a parcel here for Professor Thorne, but I can only hand it to someone she sends."], o);
+    return s.say(["Welcome to Fernwick Mart! I'm afraid the shelves are bare until the next cart comes up from Port Calder."], o);
   },
 
   async nurse(s) {
@@ -970,12 +964,15 @@ DATA.maps.fernwick = {
     { type: 'sign', x: 10, y: 13, text: 'FERNWICK TRAINER SCHOOL\nAll new trainers welcome!' },
     { type: 'lamp', x: 12, y: 9 },
     { type: 'lamp', x: 15, y: 15 },
+    { type: 'shrine', x: 22, y: 15 },
     { type: 'barrier', x: 14, y: 2, text: 'A wooden barrier. BRAMBLEWOOD: NO ENTRY WITHOUT A PARTNER WILDMON.' },
   ],
   items: [
     { id: 'pouch', x: 2, y: 20, money: 300, hidden: true },
   ],
+  tileScripts: { '22,15': 'fernShrine' },
   npcs: [
+    { id: 'edda', x: 23, y: 15, dir: 'left', look: 'old', name: 'Keeper Edda', script: 'edda' },
     { id: 'holt', x: 13, y: 2, dir: 'down', look: 'ranger', name: 'Ranger Holt',
       talk: ["Bramblewood's just past here, and it's thick with Wildmon this season.", "I can't let anyone through without a partner Wildmon. Rules are rules!"] },
     { id: 'pip', x: 6, y: 19, dir: 'up', look: 'student', move: 'turn', name: 'Pip',
@@ -1249,9 +1246,9 @@ Object.assign(DATA.scripts, {
     // Kit arrives and picks the counter
     const kitSp = RIVAL_PICK[sp]; s.set('kit_starter', kitSp);
     s.spawn({ id: 'kit_lab', x: 6, y: 8, dir: 'up', look: 'kit' });
-    await s.say("Gran! I'm here! Did I miss anything?", { name: 'Kit' });
+    await s.say("Professor! I'm here! Did I miss anything?", { name: 'Kit' });
     await s.walk('kit_lab', 'UUU');
-    await s.say([`You picked ${DATA.species[sp].name}? Then I'll take ${DATA.species[kitSp].name}!`, "Gran says partners get stronger by battling. So let's battle!"], { name: 'Kit' });
+    await s.say([`You picked ${DATA.species[sp].name}? Then I'll take ${DATA.species[kitSp].name}!`, "The Professor says partners get stronger by battling. So let's battle!"], { name: 'Kit' });
     const T = Object.assign({}, DATA.trainers.kit1, { team: [] });
     const res = await s.battle({ kind: 'trainer', trainer: T, enemy: [Mon.create(kitSp, 5, { lustre: false, mark: null, pot: evenPot() })], noWhiteout: true });
     if (res !== 'win') await s.say(DATA.trainers.kit1.win, { name: 'Kit' });
@@ -1298,15 +1295,9 @@ Object.assign(DATA.scripts, {
   async clerk(s) {
     const o = { name: 'Clerk' };
     const q = Q(s, 'parcel');
-    if (q && q.stage === 0 && !q.done) {
-      await s.say(['Welcome to Fernwick Mart! Oh, you\'re from Emberlow?', 'Then this must be for Professor Thorne. It came in on the morning cart.'], o);
-      await s.give('parcel');
-      await s.setStage('parcel', 1);
-      return s.say(['Careful with it. The box clinks!'], o);
-    }
     if (s.flag('parcel_done')) return UI.shop(DATA.shops.fernwick, s.flag('shop_greeted') ? 'Welcome back! What can I get you?' : (s.set('shop_greeted'), 'The delivery from Port Calder finally arrived! What can I get you?'));
     if (q) return s.say(["Sorry, the shelves are bare until the next delivery comes up from Port Calder. Do call again!"], o);
-    return s.say(["Welcome! There's a parcel here for Professor Thorne, but I can only hand it to someone she sends."], o);
+    return s.say(["Welcome to Fernwick Mart! I'm afraid the shelves are bare until the next cart comes up from Port Calder."], o);
   },
 
   async nurse(s) {
@@ -1316,11 +1307,11 @@ Object.assign(DATA.scripts, {
       return s.say(['Welcome to the Fernwick Hearthhouse! We restore tired Wildmon to full health, free of charge.',
         "You haven't got a partner yet, have you? Come back when you do. We'll take very good care of them."], o);
     }
-    const yes = await s.ask('Welcome to the Hearthhouse! Shall I restore your Wildmon to full health?', ['Yes', 'No'], o);
-    if (yes !== 0) return s.say('We hope to see you again!', o);
-    await s.say('Okay, I\'ll take your Lanterns for a moment...', o);
+    const yes = await s.ask('Welcome to the Hearthhouse! Shall I rest your Wildmon by the fire?', ['Yes', 'No'], o);
+    if (yes !== 0) return s.say('The fire is always lit. Come back any time.', o);
+    await s.say('Let them sit by the hearth a while...', o);
     await s.healParty(); await s.wait(900);
-    await s.say(['Thank you for waiting. Your Wildmon are fighting fit!', 'We hope to see you again!'], o);
+    await s.say(['There. Every one of them is glowing bright again.', 'Safe travels, and mind the dark.'], o);
   },
 
   async storagePc(s) {
@@ -1342,7 +1333,7 @@ DATA.scripts.profEarly = async function (s) {
   const q = Q(s, 'parcel');
   if (s.flag('parcel_done')) return;
   if (q && q.stage === 1 && s.has('parcel')) {
-    await s.say(['Is that... it is! My Lanterns, safe and sound!'], o);
+    await s.say(['Is that... it is! My Lanterns, kindled and ready!', 'The shrine flame was grey, you say? And Edda saw a grey Wildmon? ...Hm. That is troubling. I will look into it.'], o);
     s.take('parcel');
     await s.say(["Each of these will carry a Wildmon safely at your side. Some trainers say they can feel their partner's light through the glass.",
       "Now, a thank-you. You'll be covering a lot of ground on your journey, so take these."], o);
@@ -1357,23 +1348,45 @@ DATA.scripts.profEarly = async function (s) {
       'Their Lanterns are on the table in front of me. Have a look at each one and choose your partner.'], o);
     return;
   }
-  if (q && q.stage === 0) return s.say(['The parcel is waiting at Fernwick Mart, north along Route 1. Look for the blue roof!'], o);
-  if (q && q.stage === 1) return s.say(["Hmm? You've misplaced the parcel? Check your Bag."], o);
+  if (q && q.stage === 0) return s.say(['Keeper Edda is at the shrine in Fernwick, north along Route 1. Look for the stone lantern by the flowers.'], o);
+  if (q && q.stage === 1) return s.say(["Hmm? You've misplaced the Lanterns? Check your Bag."], o);
   if (!s.flag('prof_intro')) {
     s.set('prof_intro');
     await s.say(['Ah, {player}! Come in, come in. Mind the cables.',
       'As you know, Aldermere is home to all sorts of Wildmon. People and Wildmon have lived side by side here for centuries.',
       'Most trainers start their journey with a partner Wildmon, and this year I have three looking for new friends.',
-      "But there's a snag. My new Lanterns were meant to arrive from Fernwick Mart this morning, and they haven't.",
-      "Without a Lantern, a Wildmon can't travel safely."], o);
+      "But there's a snag. A new Lantern has to be kindled in the Fernwick shrine flame before a Wildmon can rest inside it.",
+      'Keeper Edda has been tending three of mine up there since yesterday. Without a lit Lantern, a Wildmon can\'t travel safely.'], o);
   }
-  const yes = await s.ask('Would you fetch the parcel from Fernwick for me?', ['Yes', 'No'], o);
+  const yes = await s.ask('Would you collect the Lanterns from the Fernwick shrine for me?', ['Yes', 'No'], o);
   if (yes === 0) {
-    await s.say(['Splendid! Fernwick is north of here along Route 1. The Mart is the building with the blue roof.'], o);
+    await s.say(['Splendid! Fernwick is north of here along Route 1. The shrine is the stone lantern by the flowers, east of the main road.'], o);
     await s.startQuest('parcel');
     s.set('met_prof');
-    await s.say(['Kit has already run off ahead. That grandson of mine never waits for anyone!'], o);
+    await s.say(['Kit has already run off ahead. My apprentice never waits for anyone!'], o);
   } else await s.say(["Hmm. Well, I'll be right here when you're ready."], o);
+};
+/* ---------- The Fernwick shrine ---------- */
+DATA.scripts.edda = async function (s) {
+  const o = { name: 'Keeper Edda' };
+  const q = Q(s, 'parcel');
+  if (q && q.stage === 0 && !q.done) {
+    await s.say(['You\'re from Emberlow? Then you\'ve come for Thorne\'s Lanterns. They\'re ready.',
+      'But look at the shrine flame. It\'s gone grey. Sixty years I\'ve tended it, and it has never once done that.',
+      'A Wildmon wandered out of Bramblewood last night, grey as ash, as if something had drunk the light right out of it.',
+      'The Lanterns took the flame before it faltered. Here, carry them carefully.'], o);
+    await s.give('parcel');
+    await s.setStage('parcel', 1);
+    return s.say(['And tell Thorne what you saw. She\'ll want to know.'], o);
+  }
+  if (s.flag('beat_morrow2')) return s.say(['The flame burns gold again, brighter than I have ever seen it.', 'Whatever was stealing the light, I think you put a stop to it.'], o);
+  if (q && q.stage === 1 && !q.done) return s.say(['Off you go. Thorne will be waiting, and those Lanterns are eager to be opened.'], o);
+  if (q && q.done) return s.say(['The flame is still grey at the edges.', 'If you find out what is draining the light, come and tell an old keeper, won\'t you?'], o);
+  return s.say(['This is the Fernwick shrine. Every new Lantern on the island is kindled in its flame.', 'Lately the flame has been... tired.'], o);
+};
+DATA.scripts.fernShrine = async function (s) {
+  if (s.flag('beat_morrow2')) return s.say('The Fernwick shrine. Its flame burns warm and gold.');
+  return s.say('The Fernwick shrine. Its flame flickers a dull, ashen grey.');
 };
 DATA.scripts.fennEarly = async function (s) {
   const o = { name: 'Old Fenn' };
@@ -3325,7 +3338,7 @@ Object.assign(DATA.scripts, {
     await s.say(DATA.trainers.kit2.intro, o);
     const res = await trainerBattle(s, 'kit2', { noWhiteout: true });
     if (res !== 'win') { s.set('beat_kit2'); await s.say(['Ha! See? Told you.', 'Better luck next time, {player}. I am off to Port Calder for Badge number two!'], o); }
-    else await s.say(['Okay, okay. You are good. Annoyingly good.', 'Gran says the Hollow Order is up to something in Port Calder. Not that I care.', 'I am just going there for the Badge. Obviously. See ya!'], o);
+    else await s.say(['Okay, okay. You are good. Annoyingly good.', 'The Professor says the Hollow Order is up to something in Port Calder. Not that I care.', 'I am just going there for the Badge. Obviously. See ya!'], o);
     s.set('beat_kit2');
     await s.walk('kit', 'LLLLLL', 1.8); s.remove('kit');
   },
@@ -3446,7 +3459,7 @@ Object.assign(DATA.moves, {
 Object.assign(DATA.species, {
   fizzbat: { n: 64, name: 'Fizzbat', types: ['electric', 'air'], base: [42, 44, 38, 58, 44, 74], growth: 'medium', catch: 190, exp: 62, rarity: 'common', line: 'fizzbat',
     evo: [{ to: 'thunderwing', lv: 25 }], moves: [[1, 'thundershock'], [1, 'gust'], [8, 'quick_attack'], [13, 'confuse_ray'], [18, 'wing_attack'], [22, 'spark']], traits: ['static', 'night_eyes'],
-    habitat: 'Hollowpeak Cave; Voltara Power Plant', desc: 'A bat that sleeps hanging from power lines. Its fur crackles when it is excited.',
+    habitat: 'Hollowpeak Cave; Voltara Dynamo Works', desc: 'A bat that sleeps hanging from power lines. Its fur crackles when it is excited.',
     art: { plan: 'bird', c: '#4a4a6a', c2: '#f0d040', b: '#8a8aaa', s: 0.66, eye: 'cute' } },
   thunderwing: { n: 65, name: 'Thunderwing', types: ['electric', 'air'], base: [68, 70, 60, 92, 66, 104], growth: 'medium', catch: 60, exp: 168, rarity: 'common', line: 'fizzbat',
     evo: [], moves: [[1, 'thundershock'], [1, 'gust'], [8, 'quick_attack'], [13, 'confuse_ray'], [18, 'wing_attack'], [22, 'spark'], [25, 'air_slash'], [32, 'thunderbolt']], traits: ['static', 'night_eyes'],
@@ -3454,7 +3467,7 @@ Object.assign(DATA.species, {
     art: { plan: 'bird', c: '#3a3a5a', c2: '#f8e050', b: '#7a7aa0', s: 1.0, eye: 'sharp', extra: ['crest'] } },
   coilbug: { n: 66, name: 'Coilbug', types: ['electric', 'steel'], base: [48, 50, 66, 52, 50, 40], growth: 'medium', catch: 150, exp: 64, rarity: 'uncommon', line: 'coilbug',
     evo: [{ to: 'dynacoil', lv: 27 }], moves: [[1, 'tackle'], [1, 'thundershock'], [7, 'harden'], [12, 'metal_claw'], [17, 'spark'], [23, 'thunder_wave']], traits: ['static', 'sturdy'],
-    habitat: 'Voltara Power Plant', desc: 'A beetle with a copper-coil shell. Engineers find them nesting inside warm transformers.',
+    habitat: 'Voltara Dynamo Works', desc: 'A beetle with a copper-coil shell. Engineers find them nesting inside warm transformers.',
     art: { plan: 'crab', c: '#c88a40', c2: '#f0d040', b: '#f0d8a0', s: 0.66, eye: 'cute' } },
   dynacoil: { n: 67, name: 'Dynacoil', types: ['electric', 'steel'], base: [70, 82, 100, 80, 72, 56], growth: 'medium', catch: 45, exp: 172, rarity: 'uncommon', line: 'coilbug',
     evo: [], moves: [[1, 'tackle'], [1, 'thundershock'], [7, 'harden'], [12, 'metal_claw'], [17, 'spark'], [23, 'thunder_wave'], [27, 'arc_bolt'], [33, 'iron_head'], [40, 'thunderbolt']], traits: ['static', 'sturdy'],
@@ -3530,7 +3543,7 @@ Object.assign(DATA.masteryTraits, { fizzbat: 'static', coilbug: 'iron_hide', gea
 
 /* ---------- Items ---------- */
 Object.assign(DATA.items, {
-  plant_pass: { name: 'Plant Keycard', pocket: 'key', desc: 'An engineer\'s keycard for the Voltara Power Plant.' },
+  plant_pass: { name: 'Dynamo Keycard', pocket: 'key', desc: 'An engineer\'s keycard for the Voltara Dynamo Works.' },
   ember_glass: { name: 'Ember Glass', pocket: 'collect', desc: 'Volcanic glass from Emberforge, still faintly warm.' },
   scroll_arcbolt: { name: 'Scroll: Arc Bolt', pocket: 'scrolls', scroll: 'arc_bolt', sell: 1000, desc: `Teaches Arc Bolt (electric). Can be used again and again. ${DATA.moves.arc_bolt.desc}` },
   scroll_magma: { name: 'Scroll: Magma Slam', pocket: 'scrolls', scroll: 'magma_slam', sell: 1000, desc: `Teaches Magma Slam (fire). Can be used again and again. ${DATA.moves.magma_slam.desc}` },
@@ -3572,7 +3585,7 @@ Object.assign(DATA.trainers, {
   rhea: { cls: 'Hall Master', name: 'Rhea', look: 'rhea', team: [['fizzbat', 24], ['coilbug', 25], ['joltfox', 27, 'swift_feather']], prize: 100, ai: 'expert', items: { super_potion: 1 }, pot: 8,
     intro: 'Rhea', lose: 'Ha! What a jolt!', after: '' },
   grunt7: { cls: 'Order Grunt', name: 'Grunt', look: 'grunt', team: [['rookling', 22], ['fizzbat', 22]], prize: 28, ai: 'tactical', music: 'order',
-    intro: 'Nobody gets into the plant!', lose: 'Ugh...', after: '...' },
+    intro: 'Nobody gets into the Works!', lose: 'Ugh...', after: '...' },
   grunt8: { cls: 'Order Grunt', name: 'Grunt', look: 'grunt2', team: [['shadepaw', 22], ['coilbug', 22]], prize: 28, ai: 'tactical', music: 'order',
     intro: 'Two against two? Fine by us!', lose: 'Lights out for us...', after: '...' },
   grunt9: { cls: 'Order Grunt', name: 'Grunt', look: 'grunt', team: [['driftveil', 23], ['gearling', 23], ['rookling', 24]], prize: 30, ai: 'tactical', music: 'order',
@@ -3646,9 +3659,9 @@ DATA.quests.act2 = {
   name: 'The Power Thieves', kind: 'main', giver: 'Coral',
   stages: [
     "The Order's ship sailed west. Take Route 3 west from Port Calder, through Hollowpeak Cave, to Voltara.",
-    'Voltara has lost all its power! Find out what is going on at the Power Plant in the north of the city.',
-    'Wren is waiting outside the Power Plant. Team up with her and get inside.',
-    'Stop Admin Sable at the heart of the Power Plant.',
+    'Voltara has lost all its power! Find out what is going on at the Dynamo Works in the north of the city.',
+    'Wren is waiting outside the Dynamo Works. Team up with her and get inside.',
+    'Stop Admin Sable at the heart of the Dynamo Works.',
     'The power is back on. Challenge Hall Master Rhea at the Spark Hall.',
     "Wren's Tide Board lets you paddle across water. Head south down Route 4 and cross the sea to Cinderhollow.",
     'Earn the Forge Badge from Hall Master Brann at the Forge Hall in Cinderhollow.',
@@ -3657,7 +3670,7 @@ DATA.quests.act2 = {
 };
 
 DATA.region = DATA.region.map((r) => Object.assign({}, r, ({
-  voltara: { desc: 'The city of lights in the central highlands, powered by its great Power Plant. Home of the Spark Hall.' },
+  voltara: { desc: 'The city of lights in the central highlands, powered by its great Dynamo Works. Home of the Spark Hall.' },
   cinderhollow: { desc: 'A smoky town on a volcanic isle, famous for its hot springs and the Forge Hall.' },
 })[r.id] || {}));
 DATA.region.splice(DATA.region.findIndex((r) => r.id === 'voltara'), 0,
@@ -3670,7 +3683,7 @@ DATA.regionRoutes = DATA.regionRoutes.filter(([a, b]) => !(a === 'port_calder' &
 
 'use strict';
 /* =====================================================================
-   ACT II MAPS + STORY — Route 3 → Hollowpeak Cave → Voltara (Power Plant,
+   ACT II MAPS + STORY — Route 3 → Hollowpeak Cave → Voltara (Dynamo Works,
    Spark Hall) → Route 4 (sea) → Cinderhollow (Forge Hall) → Emberforge
    ===================================================================== */
 const a2 = () => (G.quests.act2 ? (G.quests.act2.done ? 99 : G.quests.act2.stage) : -1);
@@ -3835,7 +3848,7 @@ DATA.maps.voltara = {
   ],
   items: [{ id: 'hp', x: 31, y: 24, item: 'hyper_potion', hidden: true }],
   npcs: [
-    { id: 'g7', x: 10, y: 16, dir: 'down', look: 'grunt', name: 'Order Grunt', talk: ['Plant is closed. Morrow Lumen Industries is doing "maintenance". Get lost.'], cond: (g) => !g.flags.plant_open },
+    { id: 'g7', x: 10, y: 16, dir: 'down', look: 'grunt', name: 'Order Grunt', talk: ['The Works is closed. Morrow Lumen Industries is doing "maintenance". Get lost.'], cond: (g) => !g.flags.plant_open },
     { id: 'g8', x: 11, y: 16, dir: 'down', look: 'grunt2', name: 'Order Grunt', talk: ['You heard him. Scram!'], cond: (g) => !g.flags.plant_open },
     { id: 'wren', x: 13, y: 17, dir: 'left', look: 'wren', script: 'wrenPlant', cond: (g) => !!g.quests.act2 && !g.flags.plant_open },
     { id: 'chief', x: 7, y: 17, dir: 'right', look: 'engineer', script: 'chiefEng' },
@@ -3882,7 +3895,7 @@ DATA.maps.spark_hall = {
   ],
 };
 DATA.maps.volt_plant = {
-  name: 'Voltara Power Plant', region: 'voltara', music: 'order', outdoor: false, caveEnc: true, battleBg: 'plant', dim: 0.35,
+  name: 'Voltara Dynamo Works', region: 'voltara', music: 'order', outdoor: false, caveEnc: true, battleBg: 'plant', dim: 0.35,
   rows: [
     'WWWWWWWWWWWWWWWWWWWW',
     'WWWWWWWWMMMMWWWWWWWW',
@@ -4113,7 +4126,7 @@ Object.assign(DATA.scripts, {
   async wrenPlant(s) {
     const o = { name: 'Wren' };
     if (a2() === 1) await s.setStage('act2', 2);
-    await s.say(['{player}! I followed the Order all the way from Port Calder. They are draining the plant\'s core with a giant Siphon.',
+    await s.say(['{player}! I followed the Order all the way from Port Calder. They are draining the Works\' core with a giant Siphon.',
       'Two guards on the door. Two of us. Want to team up?'], o);
     const yes = await s.ask('Team up with Wren for a double battle?', ['Let\'s go!', 'Not yet']);
     if (yes !== 0) return s.say('Okay. Heal up first if you need to. I will be right here.', o);
@@ -4141,13 +4154,13 @@ Object.assign(DATA.scripts, {
     await s.say(['Interesting. Very interesting. Your Wildmon fight as though they trust you.', 'No matter. The core is already drained. The Siphon has what we need.',
       'We will meet again in Glasswater City, I think. Goodbye.'], o);
     Sound.sfx('flee'); await Game.fadeOut(250); s.remove('sable'); s.set('plant_fixed'); await Game.fadeIn(250);
-    Sound.sfx('heal'); await s.say(['With the Siphon gone, the core flickers... and roars back to life!', 'Lights flicker on all through the plant.']);
+    Sound.sfx('heal'); await s.say(['With the Siphon gone, the core flickers... and roars back to life!', 'Lights flicker on all through the Works.']);
     await s.setStage('act2', 4); s.achieve('order_foiled');
   },
   async hallGuide2(s) {
     const o = { name: 'Hall Guide' };
     const spark = World.id === 'spark_hall';
-    if (spark && !s.flag('plant_fixed')) return s.say(['Sorry, challenger! With the power out, every laser fence in the Hall is stuck on.', 'Until the Power Plant is fixed, nobody can reach Rhea.'], o);
+    if (spark && !s.flag('plant_fixed')) return s.say(['Sorry, challenger! With the power out, every laser fence in the Hall is stuck on.', 'Until the Dynamo Works is fixed, nobody can reach Rhea.'], o);
     if (spark && !s.flag('beat_rhea')) return s.say(['Welcome to the Spark Hall! Red switches flip the laser fences. Conveyor belts carry you along.', 'Rhea uses Electric types. Earth moves will ground them, but watch out for her flying ones!'], o);
     return s.say(['What a battle! You are a credit to the Hall.'], o);
   },
@@ -4180,7 +4193,7 @@ Object.assign(DATA.scripts, {
   async voltWoman(s) {
     const o = { name: 'Woman' };
     if (s.flag('plant_fixed')) return s.say(['The power is back! Voltara is the city of lights again!'], o);
-    return s.say(['No power, no lights, no hot water...', 'Morrow Lumen Industries said they would fix the plant. Instead they locked everyone out.'], o);
+    return s.say(['No power, no lights, no hot water...', 'Morrow Lumen Industries said they would fix the Works. Instead they locked everyone out.'], o);
   },
   async voltGran(s) {
     const o = { name: 'Granny Ampere' };
@@ -4447,7 +4460,7 @@ Object.defineProperty(DATA.trainers.kit4, 'team', {
     return [['gustfinch', 31], ['joltfox', 31], ['thicketrat', 30], ['psylet', 30], [evo[pick], 34, 'hearth_ember']];
   },
 });
-Object.defineProperty(DATA.trainers.kit4, 'intro', { get() { return ['{player}! I saw you go into that tower. Are you mad?!', 'Gran is worried sick. So am I. A bit. Not really.', 'Anyway, I have been training. Battle me!']; } });
+Object.defineProperty(DATA.trainers.kit4, 'intro', { get() { return ['{player}! I saw you go into that tower. Are you mad?!', 'The Professor is worried sick. So am I. A bit. Not really.', 'Anyway, I have been training. Battle me!']; } });
 
 /* ---------- Encounters ---------- */
 Object.assign(DATA.encounters, {
@@ -5116,7 +5129,7 @@ Object.assign(DATA.scripts, {
     }
   },
 });
-DATA.trainers.kit4.after = 'Next time I am beating you. For real this time. Gran says hi, by the way.';
+DATA.trainers.kit4.after = 'Next time I am beating you. For real this time. The Professor says hi, by the way.';
 
 /* Port Calder ferry office joins the network once the ferries run */
 {
@@ -6989,7 +7002,7 @@ DATA.achievements.dawn = { name: 'Dawn Bringer', desc: 'Calm Nocthra and bring b
 'use strict';
 /* =====================================================================
    LANTERN LEAGUE DATA — Lantern Road, Lantern Isle, the four Gatekeepers of
-   the Lantern League, Champion Kit, the Hall of Fame and the credits.
+   the Lantern League, Champion Kit, the Roll of Lights and the credits.
    ===================================================================== */
 
 Object.assign(DATA.tiles, {
@@ -7327,7 +7340,7 @@ const ROWS7 = {
 /* =====================================================================
    LANTERN LEAGUE MAPS + STORY — the Lantern Road gate, Lantern Road and its
    cave, Lantern Isle, the League Sanctum and its four Gatekeepers,
-   Champion Kit, the Hall of Fame and the credits.
+   Champion Kit, the Roll of Lights and the credits.
    ===================================================================== */
 const GATEKEEPERS = [
   { id: 'gk_ilsa', name: 'Ilsa', title: 'Gate of Insight', type: 'Psychic', map: 'gate_ilsa', back: { x: 4, y: 2 } },
@@ -7433,8 +7446,8 @@ DATA.maps.champion_room = {
   npcs: [{ id: 'kit', x: 6, y: 3, dir: 'down', look: 'kit', script: 'championKit' }],
 };
 DATA.maps.hall_of_fame = {
-  name: 'Hall of Fame', region: 'lantern_isle', music: 'fanfare', outdoor: false, rows: ROWS7.hall_of_fame,
-  tileText: { '4,2': 'The Hall of Fame. Every Champion\'s team shines here forever.', '5,2': 'The Hall of Fame. Every Champion\'s team shines here forever.', '6,2': 'The Hall of Fame. Every Champion\'s team shines here forever.' },
+  name: 'Roll of Lights', region: 'lantern_isle', music: 'fanfare', outdoor: false, rows: ROWS7.hall_of_fame,
+  tileText: { '4,2': 'The Roll of Lights. Every Champion\'s team shines here forever.', '5,2': 'The Roll of Lights. Every Champion\'s team shines here forever.', '6,2': 'The Roll of Lights. Every Champion\'s team shines here forever.' },
   npcs: [],
 };
 
@@ -7520,7 +7533,7 @@ Object.assign(DATA.scripts, {
   },
   async championKit(s) {
     const o = { name: 'Kit' };
-    if (s.flag('champion') && s.flag('hof_done_run')) return s.say('Go on. The Hall of Fame is waiting for you. Don\'t keep it waiting.', o);
+    if (s.flag('champion') && s.flag('hof_done_run')) return s.say('Go on. The Roll of Lights is waiting for you. Don\'t keep it waiting.', o);
     if (s.flag('champion')) {
       await s.say(['Back again? Good. I\'ve been training non-stop.', 'Title defence! Let\'s go!'], o);
     } else {
@@ -7543,11 +7556,11 @@ Object.assign(DATA.scripts, {
   async hallOfFame(s) {
     s.set('hof_done_run');
     s.player().walking = false;
-    await s.say(['This is the Hall of Fame. Every Champion\'s team is recorded here, so their names shine for as long as the Lanterns burn.', 'Place your Lanterns in the light, {player}.'], { name: 'Kit' });
+    await s.say(['This is the Roll of Lights. Every Champion\'s team is recorded here, so their names shine for as long as the Lanterns burn.', 'Place your Lanterns in the light, {player}.'], { name: 'Kit' });
     const entry = { date: Date.now(), name: G.name, playtime: G.playtime || 0, team: G.party.map((m) => ({ sp: m.sp, name: Mon.name(m), lv: m.lv, lustre: !!m.lustre })) };
     G.hof = (G.hof || []).concat([entry]);
     Sound.play('fanfare');
-    for (const m of entry.team) { await s.say(`${m.name} (${DATA.species[m.sp].name}, Lv. ${m.lv}) was entered into the Hall of Fame!`); }
+    for (const m of entry.team) { await s.say(`${m.name} (${DATA.species[m.sp].name}, Lv. ${m.lv}) was entered into the Roll of Lights!`); }
     await s.say(['Congratulations, Champion!'], { sign: true });
     Game.autosave && Game.autosave();
     await Credits.roll(entry);
@@ -7981,7 +7994,7 @@ Object.assign(DATA.scripts, {
     await s.say([`Welcome to the Battle Spire! You have ${G.bp || 0} Battle Points. Your best streak is ${best}.`], o);
     if (G.party.length < 3) return s.say('You need at least three Wildmon in your party to take the challenge.', o);
     const c = await s.ask('Take the seven-battle challenge?', ['Yes', 'No'], o);
-    if (c !== 0) return s.say('We hope to see you again!', o);
+    if (c !== 0) return s.say('Come back when you feel ready.', o);
     await s.say(['Your first three party Wildmon will fight at level 50, and they\'ll be healed between battles. Good luck!'], o);
     const saved = G.party; const team = saved.slice(0, 3).map(spireClone);
     let wins = 0;
@@ -12177,11 +12190,11 @@ DATA.scripts.nurse = async function (s, npc) {
     return s.say([`Welcome to the ${town} Hearthhouse! We restore tired Wildmon to full health, free of charge.`,
       "You haven't got a partner yet, have you? Come back when you do. We'll take very good care of them."], o);
   }
-  const yes = await s.ask('Welcome to the Hearthhouse! Shall I restore your Wildmon to full health?', ['Yes', 'No'], o);
-  if (yes !== 0) return s.say('We hope to see you again!', o);
-  await s.say('Okay, I\'ll take your Lanterns for a moment...', o);
+  const yes = await s.ask('Welcome to the Hearthhouse! Shall I rest your Wildmon by the fire?', ['Yes', 'No'], o);
+  if (yes !== 0) return s.say('The fire is always lit. Come back any time.', o);
+  await s.say('Let them sit by the hearth a while...', o);
   await s.healParty(); await s.wait(900);
-  await s.say(['Thank you for waiting. Your Wildmon are fighting fit!', 'We hope to see you again!'], o);
+  await s.say(['There. Every one of them is glowing bright again.', 'Safe travels, and mind the dark.'], o);
 };
 
 /* ---------- Badges ---------- */
@@ -12310,6 +12323,24 @@ BattleScene.drawLantern = function (ctx, x, y, wob, stars) {
   if (stars || it.master) { ctx.fillStyle = it.master ? '#e0a0ff' : '#ffe060'; for (let i = 0; i < 5; i++) { const a = i * 1.3 + this.t * 2; ctx.fillRect(Math.round(x + Math.cos(a) * 12), Math.round(y - 6 + Math.sin(a) * 8), 2, 2); } }
 };
 DATA.achievements.lamplighter = { name: 'Lamplighter', desc: 'Catch Wildmon with five different kinds of Lantern.' };
+
+/* ---------- The Fernwick shrine ---------- */
+{
+  const baseDP = drawProp;
+  drawProp = function (ctx, pr, sx, sy, t) {
+    if (pr.type !== 'shrine') return baseDP(ctx, pr, sx, sy, t);
+    const p = pen(ctx); const R = (c, x, y, w, h) => p.r(c, sx + x, sy + y, w, h);
+    const lit = G && G.flags && G.flags.beat_morrow2;
+    const flick = Math.round(Math.sin(t * 7) + Math.sin(t * 11.3));
+    R('rgba(0,0,0,0.22)', 1, 13, 14, 3);
+    R('#5c5a62', 2, 11, 12, 4); R('#7a7882', 2, 11, 12, 1);
+    R('#6a6872', 5, 2, 6, 9); R('#8a8892', 5, 2, 1, 9);
+    R('#3e3c44', 3, -2, 10, 4); R('#56545e', 4, -3, 8, 1);
+    R('#2a2830', 6, 3, 4, 5);
+    R(lit ? '#ffcf5a' : '#9a9aa6', 7, 4 - Math.max(0, flick), 2, 4 + Math.max(0, flick));
+    R(lit ? '#fff3c4' : '#c8c8d0', 7, 6, 2, 2);
+  };
+}
 
 'use strict';
 /* =====================================================================
