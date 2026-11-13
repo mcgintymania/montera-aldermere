@@ -295,6 +295,16 @@ body.touch.landscape #controls > * { pointer-events: auto; opacity: .85; }
 .panel.index .tdot { display: inline-block; width: calc(var(--u) * 4); height: calc(var(--u) * 4); border-radius: 50%; margin-right: calc(var(--u) * 3); vertical-align: middle; }
 .panel.index .detail .step { white-space: normal; }
 .panel.index .row { justify-content: flex-start; }
+.broster { position: absolute; left: calc(var(--u) * 4); top: 100%; margin-top: calc(var(--u) * 2); display: flex; gap: calc(var(--u) * 1.5); padding: calc(var(--u) * 1.5) calc(var(--u) * 2.5); background: rgba(16, 20, 32, .72); border-radius: calc(var(--u) * 4); }
+.broster.up { top: auto; bottom: calc(var(--u) * 5.5); left: calc(var(--u) * 5); margin: 0; padding: 0; background: none; }
+.broster .pip { width: calc(var(--u) * 5); height: calc(var(--u) * 5); border-radius: 50%; background: radial-gradient(circle at 40% 35%, #fff2b0 0 25%, #f2b53a 55%, #b8741a 100%); box-shadow: 0 0 calc(var(--u) * 2) rgba(242, 181, 58, .7); border: calc(var(--u) * .5) solid #2a1c0c; }
+.broster .pip.st { background: radial-gradient(circle at 40% 35%, #f6d6ff 0 25%, #b06ad0 60%, #6a3488 100%); box-shadow: none; }
+.broster .pip.out { background: #4a4a56; box-shadow: none; opacity: .75; }
+.broster.hidden { display: none; }
+.dros { position: absolute; margin: 0; }
+.dbox .broster.up { bottom: calc(var(--u) * 2.2); left: calc(var(--u) * 4); gap: var(--u); }
+.dbox .broster .pip { width: calc(var(--u) * 4); height: calc(var(--u) * 4); }
+.dros1 { left: calc(var(--u) * 4); top: calc(var(--u) * 56); }
 
 </style>
 </head>
@@ -9917,6 +9927,16 @@ const BattleEngine = {
 /* =====================================================================
    BATTLE SCENE — draws the battle and runs the turn loop with the player
    ===================================================================== */
+/* one lantern pip per party member: lit, statused or spent */
+function paintRoster(el, party) {
+  if (!el) return;
+  const key = party ? party.map((m) => (m.hp <= 0 ? 'x' : m.status ? 's' : 'o')).join('') : '';
+  if (el.dataset.key === key) return;
+  el.dataset.key = key; el.innerHTML = '';
+  el.classList.toggle('hidden', !party);
+  for (const c of key) el.appendChild(h('i', 'pip' + (c === 'x' ? ' out' : c === 's' ? ' st' : '')));
+  if (party) el.setAttribute('aria-label', `${party.filter((m) => m.hp > 0).length} of ${party.length} able to battle`);
+}
 const BattleScene = {
   B: null, anim: {}, t: 0,
   bg(kind) {
@@ -10310,6 +10330,7 @@ const BattleScene = {
       top.prepend(caught); top.appendChild(st);
       o.chips = h('div', 'bchips', ''); b.appendChild(o.chips);
       if (player) { o.num = h('div', 'hpnum', ''); b.appendChild(o.num); const xw = h('div', 'xpbar'); o.xp = h('div', 'xpfill'); xw.appendChild(o.xp); b.appendChild(xw); }
+      o.roster = h('div', 'broster' + (player ? ' up' : '')); b.appendChild(o.roster);
       root.appendChild(b); return o;
     };
     this.hud = { el: root, e: mk('benemy', false), p: mk('bplayer', true), remove: () => root.remove() };
@@ -10327,6 +10348,7 @@ const BattleScene = {
       const chips = Object.entries(a.st).filter(([, v]) => v).map(([k, v]) => `${ab[k]}${v > 0 ? '+' : ''}${v}`);
       if (a.conf > 0) chips.push('CONF'); if (a.seeded != null) chips.push('SEED'); if (a.regen > 0) chips.push('ROOTS'); if (a.kindled) chips.push('KINDLED');
       const ct = chips.join(' '); if (box.chips.textContent !== ct) box.chips.textContent = ct;
+      paintRoster(box.roster, this.B.kind === 'trainer' ? this.B.sides[si].party : null);
       if (si === 1) box.caught.classList.toggle('hidden', !(this.B.kind === 'wild' && G.dex[m.sp] && G.dex[m.sp].caught));
       if (reset || box.shownHp == null || box.uid !== m.uid) { box.shownHp = m.hp; box.uid = m.uid; }
       this.paintHp(box, box.shownHp, Mon.maxHp(m));
@@ -12583,6 +12605,7 @@ const Doubles = {
     };
     this.hud = { el: root, boxes: [[mk(0, 0), mk(0, 1)], [mk(1, 0), mk(1, 1)]], remove: () => root.remove() };
     this.hud.wx = h('div', 'bweather hidden', ''); root.appendChild(this.hud.wx);
+    this.hud.ros = [h('div', 'broster up dros0'), h('div', 'broster dros dros1')]; this.hud.boxes[0][0].el.appendChild(this.hud.ros[0]); root.appendChild(this.hud.ros[1]);
     $('#stage').appendChild(root);
   },
   updateHud() {
@@ -12597,6 +12620,8 @@ const Doubles = {
       const pct = Math.max(0, m.hp / max); box.bar.style.width = (pct * 100).toFixed(1) + '%'; box.bar.className = 'hpfill' + (pct < 0.2 ? ' red' : pct < 0.5 ? ' amber' : '');
       box.num.textContent = si === 0 && D.own[0][s].kind === 'player' ? `${m.hp}/${max}` : (si === 0 ? D.ally.name : '');
     }
+    paintRoster(this.hud.ros[0], G.party);
+    paintRoster(this.hud.ros[1], D.foes.flatMap((f) => f.party));
     const w = D.E.weather; this.hud.wx.textContent = w ? WEATHER[w.k].label : ''; this.hud.wx.classList.toggle('hidden', !w);
   },
   update(dt) {
