@@ -319,21 +319,21 @@ DATA.pockets = [
 ];
 DATA.items = {
   parcel: { name: "Prof's Parcel", pocket: 'key', desc: 'A sealed parcel addressed to Professor Thorne. It clinks softly, like glass.' },
-  town_map: { name: 'Town Map', pocket: 'key', use: 'map', desc: 'A folding map of Aldermere. Places you have visited are marked on it.' },
-  running_shoes: { name: 'Running Shoes', pocket: 'key', use: 'autorun', desc: 'Hold B (or Shift) to run. Use them to switch Always Run on or off.' },
+  town_map: { name: 'Aldermere Map', pocket: 'key', use: 'map', desc: 'A folding map of Aldermere. Places you have visited are marked on it.' },
+  running_shoes: { name: 'Trail Boots', pocket: 'key', use: 'autorun', desc: 'Hold B (or Shift) to run. Use them to switch Always Run on or off.' },
   sea_glass: { name: 'Sea Glass', pocket: 'collect', desc: 'Frosted glass rolled smooth by the tide. Old Fenn on the Emberlow pier collects it.' },
   old_coin: { name: 'Old Coin', pocket: 'collect', desc: 'A worn coin stamped with a lighthouse. Collectors might pay well for it one day.' },
   shiny_pebble: { name: 'Shiny Pebble', pocket: 'collect', desc: 'A pebble that glitters with tiny flecks of light.' },
   fenn_shell: { name: "Fenn's Shell", pocket: 'collect', desc: 'A spiral shell from Old Fenn. Hold it to your ear and you can hear the Sound.' },
   lantern: { name: 'Lantern', pocket: 'lanterns', battle: 'catch', ball: 1, price: 200, sell: 100, desc: 'A glass Lantern for catching Wildmon. Weaken a Wildmon first to improve your chances.' },
-  potion: { name: 'Potion', pocket: 'items', battle: 'heal', field: true, heal: 20, price: 300, sell: 150, desc: 'A herbal spray that restores 20 HP to one Wildmon.' },
-  super_potion: { name: 'Super Potion', pocket: 'items', battle: 'heal', field: true, heal: 50, price: 700, sell: 350, desc: 'A stronger spray that restores 50 HP to one Wildmon.' },
-  antidote: { name: 'Antidote', pocket: 'items', battle: 'cure', field: true, cure: 'psn', cureText: 'no longer poisoned', price: 100, sell: 50, desc: 'Cures a poisoned Wildmon.' },
+  potion: { name: 'Tonic', pocket: 'items', battle: 'heal', field: true, heal: 20, price: 300, sell: 150, desc: 'A herbal spray that restores 20 HP to one Wildmon.' },
+  super_potion: { name: 'Strong Tonic', pocket: 'items', battle: 'heal', field: true, heal: 50, price: 700, sell: 350, desc: 'A stronger spray that restores 50 HP to one Wildmon.' },
+  antidote: { name: 'Antivenom', pocket: 'items', battle: 'cure', field: true, cure: 'psn', cureText: 'no longer poisoned', price: 100, sell: 50, desc: 'Cures a poisoned Wildmon.' },
   unknot: { name: 'Unknot Salve', pocket: 'items', battle: 'cure', field: true, cure: 'par', cureText: 'no longer paralysed', price: 200, sell: 100, desc: 'Loosens stiff muscles. Cures paralysis.' },
   burn_salve: { name: 'Burn Salve', pocket: 'items', battle: 'cure', field: true, cure: 'brn', cureText: 'no longer burned', price: 250, sell: 125, desc: 'A cooling balm that heals a burn.' },
   wake_bell: { name: 'Wake Bell', pocket: 'items', battle: 'cure', field: true, cure: 'slp', cureText: 'wide awake', price: 250, sell: 125, desc: 'A tiny bell whose chime wakes a sleeping Wildmon.' },
   thaw_tea: { name: 'Thaw Tea', pocket: 'items', battle: 'cure', field: true, cure: 'frz', cureText: 'thawed out', price: 250, sell: 125, desc: 'Piping-hot tea that thaws a frozen Wildmon.' },
-  old_rod: { name: 'Old Rod', pocket: 'key', use: 'fish', desc: "Old Fenn's first fishing rod. Face water and press A to fish." },
+  old_rod: { name: 'Driftwood Rod', pocket: 'key', use: 'fish', desc: "Old Fenn's first fishing rod. Face water and press A to fish." },
   lustre_lens: { name: 'Lustre Lens', pocket: 'key', desc: 'A lens that catches strange colours. Lustre Wildmon appear twice as often.' },
   prof_medal: { name: "Professor's Medal", pocket: 'collect', desc: 'Awarded by Professor Thorne for catching 40 different species.' },
 };
@@ -347,7 +347,7 @@ DATA.quests = {
       'Collect the parcel from the Mart in Fernwick, north along Route 1.',
       "Bring the parcel back to Professor Thorne's lab in Emberlow.",
     ],
-    reward: 'Running Shoes, 500 Cr',
+    reward: 'Trail Boots, 500 Cr',
   },
   seaglass: {
     name: 'Sea Glass for Old Fenn', kind: 'side', giver: 'Old Fenn',
@@ -363,18 +363,18 @@ DATA.quests = {
       "Catch a Wildmon in Route 1's tall grass. Weaken it, then throw a Lantern from your Bag.",
       'Show Professor Thorne your Wildbook in Emberlow.',
     ],
-    reward: '5 Potions and 5 Lanterns',
+    reward: '5 Tonics and 5 Lanterns',
   },
   exam: {
     name: 'The Practice Exam', kind: 'side', giver: 'Ms Hollis',
     stages: ["Beat Ms Hollis's practice exam at the Fernwick Trainer School."],
-    reward: '2 Super Potions, 600 Cr',
+    reward: '2 Strong Tonics, 600 Cr',
   },
 };
 DATA.milestones = [
-  { id: 's10', seen: 10, text: 'See 10 species', rewardText: '5 Potions', items: [['potion', 5]] },
+  { id: 's10', seen: 10, text: 'See 10 species', rewardText: '5 Tonics', items: [['potion', 5]] },
   { id: 'c5', need: 5, text: 'Catch 5 species', rewardText: '5 Lanterns', items: [['lantern', 5]] },
-  { id: 'c10', need: 10, text: 'Catch 10 species', rewardText: '3 Super Potions', items: [['super_potion', 3]] },
+  { id: 'c10', need: 10, text: 'Catch 10 species', rewardText: '3 Strong Tonics', items: [['super_potion', 3]] },
   { id: 'c20', need: 20, text: 'Catch 20 species', rewardText: '10 Lanterns, 1000 Cr', items: [['lantern', 10]], money: 1000 },
   { id: 'c30', need: 30, text: 'Catch 30 species', rewardText: 'Lustre Lens', items: [['lustre_lens', 1]] },
   { id: 'c40', need: 40, text: 'Catch 40 species', rewardText: "Professor's Medal", items: [['prof_medal', 1]], rep: 50 },
@@ -384,13 +384,13 @@ DATA.milestones = [
 DATA.achievements = {
   first_steps: { name: 'First Steps', desc: 'Leave Emberlow Village.' },
   errand: { name: 'Errand Runner', desc: "Deliver the Professor's parcel." },
-  cartographer: { name: 'Cartographer', desc: 'Obtain the Town Map.' },
+  cartographer: { name: 'Cartographer', desc: 'Obtain the Aldermere Map.' },
   treasure: { name: 'Treasure Hunter', desc: 'Find a hidden item.' },
   beachcomber: { name: 'Beachcomber', desc: 'Help Old Fenn with his Sea Glass.' },
   explorer: { name: 'Explorer', desc: 'Visit Emberlow, Route 1 and Fernwick.' },
   chatterbox: { name: 'Chatterbox', desc: 'Talk to 12 different people.' },
   partner: { name: 'Partners', desc: 'Choose your first Wildmon.' },
-  first_catch: { name: 'Gotcha!', desc: 'Catch a Wildmon.' },
+  first_catch: { name: 'Lantern Lit', desc: 'Catch a Wildmon.' },
   first_win: { name: 'First Victory', desc: 'Win a battle against a trainer.' },
   collector: { name: 'Collector', desc: 'Catch 10 different species.' },
   evolution: { name: 'Metamorphosis', desc: 'Evolve a Wildmon.' },
@@ -404,7 +404,7 @@ DATA.reputation = [
   [0, 'Newcomer'], [20, 'Helping Hand'], [50, 'Known Face'], [100, 'Local Hero'], [200, 'Regional Name'],
 ];
 
-/* ---------- Region map (Town Map) ---------- */
+/* ---------- Region map (Aldermere Map) ---------- */
 DATA.region = [
   { id: 'emberlow', name: 'Emberlow Village', x: 190, y: 150, desc: 'A quiet fishing village on the south-east coast, home of Professor Thorne and the Emberlow Light.' },
   { id: 'route1', name: 'Route 1', x: 190, y: 129, desc: 'A gentle route of meadows and ledges linking Emberlow and Fernwick.' },
@@ -490,7 +490,7 @@ const Q = (s, id) => s.quest(id);
 DATA.scripts = {
   async mum(s) {
     const o = { name: 'Mum' };
-    if (s.flag('parcel_done')) return s.say(['Running Shoes? Your dad had a pair just like those.', 'Remember, love: you can always come home for a rest.'], o);
+    if (s.flag('parcel_done')) return s.say(['Trail Boots? Your dad had a pair just like those.', 'Remember, love: you can always come home for a rest.'], o);
     const q = Q(s, 'parcel');
     if (q) return s.say(["Fernwick's straight up Route 1. Stay on the path and you'll be fine."], o);
     if (!s.flag('mum_intro')) {
@@ -563,7 +563,7 @@ DATA.scripts = {
     s.face('player', 'down');
     await s.say(['There you are! Gran sent me to make sure you hadn\'t fallen in a pond.',
       "Is that the parcel? Lanterns! That means we get our partners today!",
-      'Last one back to the lab gets the Wildmon nobody wants. See you at the finish line, slowpoke!'], { name: 'Kit' });
+      'Last one back to the lab gets the Wildmon nobody wants. See you at the finish line, slowcoach!'], { name: 'Kit' });
     await s.walk('kit_r1', 'DDDDD', 2);
     s.remove('kit_r1');
     s.music();
@@ -573,7 +573,7 @@ DATA.scripts = {
     const o = { name: 'Clover' };
     if (!s.flag('got_map')) {
       await s.say(['Oh, hi {player}! Kit left in a hurry again.',
-        'He never even opened this Town Map. You should have it. Someone ought to use it!'], o);
+        'He never even opened this Aldermere Map. You should have it. Someone ought to use it!'], o);
       s.set('got_map');
       await s.give('town_map');
       s.achieve('cartographer');
@@ -954,7 +954,7 @@ DATA.maps.fern_mart = {
   npcs: [
     { id: 'clerk', x: 1, y: 2, dir: 'down', look: 'clerk', script: 'clerk' },
     { id: 'shopper', x: 7, y: 4, dir: 'up', look: 'villager', move: 'wander', name: 'Shopper',
-      talk: ['No Lanterns, no Potions, not even a Berry!', 'I walked all the way from Emberlow for nothing.'] },
+      talk: ['No Lanterns, no Tonics, not even a Berry!', 'I walked all the way from Emberlow for nothing.'] },
   ],
 };
 
@@ -1063,11 +1063,11 @@ async function trainerEncounter(s, npc, spotted) {
 }
 
 async function fishing(s) {
-  const yes = await s.ask('The water looks inviting. Fish with the Old Rod?', ['Yes', 'No']);
+  const yes = await s.ask('The water looks inviting. Fish with the Driftwood Rod?', ['Yes', 'No']);
   if (yes !== 0) return;
   if (!G.party.some((m) => m.hp > 0)) return s.say("You'd better heal your Wildmon before fishing.");
   const tab = DATA.encounters[World.id] && DATA.encounters[World.id].fish;
-  await s.say(`${G.name} cast the Old Rod...`);
+  await s.say(`${G.name} cast the Driftwood Rod...`);
   await s.wait(700 + Math.random() * 1400);
   if (!tab || Math.random() < 0.3) return s.say('Not even a nibble...');
   s.sfx('bite'); await s.emote('player', '!');
@@ -1120,7 +1120,7 @@ Object.assign(DATA.scripts, {
       if (!s.flag('got_ember')) { s.set('got_ember'); await s.say(["Oh, and take this. It's a Hearth Ember from our fireplace.", 'Give it to one of your Wildmon to hold. It keeps them warm and patches them up a little in battle.'], o); await s.give('hearth_ember'); }
       return;
     }
-    if (s.flag('parcel_done')) return s.say(['Running Shoes? Your dad had a pair just like those.', 'Remember, love: you can always come home for a rest.'], o);
+    if (s.flag('parcel_done')) return s.say(['Trail Boots? Your dad had a pair just like those.', 'Remember, love: you can always come home for a rest.'], o);
     const q = Q(s, 'parcel');
     if (q) return s.say(["Fernwick's straight up Route 1. Stay on the path and you'll be fine."], o);
     if (!s.flag('mum_intro')) { s.set('mum_intro'); return s.say(['Morning, sleepyhead! Professor Thorne knocked earlier. She wants to see you at the lab.', "It's the big building down by the beach. Go on, don't keep her waiting!"], o); }
@@ -1180,7 +1180,7 @@ Object.assign(DATA.scripts, {
     if (res !== 'win') await s.say(DATA.trainers.kit1.win, { name: 'Kit' });
     else s.set('beat_kit1');
     await s.healParty();
-    await s.say(["I'm heading north. Bramblewood, then the Halls, then the League. See you around, slowpoke!"], { name: 'Kit' });
+    await s.say(["I'm heading north. Bramblewood, then the Halls, then the League. See you around, slowcoach!"], { name: 'Kit' });
     await s.walk('kit_lab', 'DDD');
     s.remove('kit_lab');
     const o = { name: 'Prof. Thorne' };
@@ -1378,7 +1378,7 @@ DATA.typeMult = function (atk, defTypes) {
   return m;
 };
 
-DATA.statNames = { hp: 'HP', atk: 'Attack', def: 'Defence', spa: 'Sp. Atk', spd: 'Sp. Def', spe: 'Speed' };
+DATA.statNames = { hp: 'HP', atk: 'Attack', def: 'Defence', spa: 'Spirit', spd: 'Resolve', spe: 'Speed' };
 DATA.statKeys = ['hp', 'atk', 'def', 'spa', 'spd', 'spe'];
 DATA.temperaments = [
   ['Fierce', 'atk', 'spe'], ['Steadfast', 'def', 'atk'], ['Studious', 'spa', 'atk'], ['Serene', 'spd', 'atk'], ['Skittish', 'spe', 'atk'],
@@ -1387,7 +1387,7 @@ DATA.temperaments = [
   ['Hotheaded', 'spa', 'spd'], ['Curious', 'spe', 'spd'], ['Lazy', 'def', 'spe'], ['Pensive', 'spa', 'spe'], ['Proud', 'spd', 'spe'],
   ['Even', null, null], ['Placid', null, null], ['Quirky', null, null], ['Earnest', null, null],
 ];
-DATA.statusNames = { psn: 'PSN', brn: 'BRN', par: 'PAR', slp: 'SLP', frz: 'FRZ' };
+DATA.statusNames = { psn: 'Venom', brn: 'Seared', par: 'Jolted', slp: 'Dozing', frz: 'Frozen' };
 DATA.marks = ['stars', 'spots', 'stripes', 'heart', 'swirl'];
 DATA.rarityEssence = { common: 2, uncommon: 3, rare: 5, veryrare: 8, legendary: 0 };
 DATA.masteryRanks = [
@@ -1401,65 +1401,65 @@ DATA.masteryRanks = [
 /* ---------- Moves ----------
    cat: phys | spec | status.  eff: effect keyword handled by the battle engine. */
 DATA.moves = {
-  tackle: { name: 'Tackle', type: 'normal', cat: 'phys', pow: 40, acc: 100, pp: 35, desc: 'A full-body charge.' },
-  scratch: { name: 'Scratch', type: 'normal', cat: 'phys', pow: 40, acc: 100, pp: 35, desc: 'Rakes the target with sharp claws.' },
-  quick_attack: { name: 'Quick Attack', type: 'normal', cat: 'phys', pow: 40, acc: 100, pp: 30, pri: 1, desc: 'A lightning-fast strike that always goes first.' },
-  headbutt: { name: 'Headbutt', type: 'normal', cat: 'phys', pow: 70, acc: 100, pp: 15, eff: 'flinch', ch: 30, desc: 'A hard headbutt. May make the target flinch.' },
-  body_slam: { name: 'Body Slam', type: 'normal', cat: 'phys', pow: 85, acc: 100, pp: 15, eff: 'par', ch: 30, desc: 'Drops its full weight. May cause paralysis.' },
-  growl: { name: 'Growl', type: 'normal', cat: 'status', acc: 100, pp: 40, eff: 'foe', st: { atk: -1 }, desc: "A cute growl that lowers the foe's Attack." },
-  tail_whip: { name: 'Tail Whip', type: 'normal', cat: 'status', acc: 100, pp: 30, eff: 'foe', st: { def: -1 }, desc: "Wags its tail to lower the foe's Defence." },
-  harden: { name: 'Harden', type: 'normal', cat: 'status', acc: null, pp: 30, eff: 'self', st: { def: 1 }, desc: 'Stiffens its body to raise Defence.' },
+  tackle: { name: 'Barge', type: 'normal', cat: 'phys', pow: 40, acc: 100, pp: 35, desc: 'A full-body charge.' },
+  scratch: { name: 'Claw Swipe', type: 'normal', cat: 'phys', pow: 40, acc: 100, pp: 35, desc: 'Rakes the target with sharp claws.' },
+  quick_attack: { name: 'Dart Rush', type: 'normal', cat: 'phys', pow: 40, acc: 100, pp: 30, pri: 1, desc: 'A lightning-fast strike that always goes first.' },
+  headbutt: { name: 'Brow Ram', type: 'normal', cat: 'phys', pow: 70, acc: 100, pp: 15, eff: 'flinch', ch: 30, desc: 'A hard headbutt. May make the target flinch.' },
+  body_slam: { name: 'Belly Flop', type: 'normal', cat: 'phys', pow: 85, acc: 100, pp: 15, eff: 'par', ch: 30, desc: 'Drops its full weight. May cause paralysis.' },
+  growl: { name: 'Grumble', type: 'normal', cat: 'status', acc: 100, pp: 40, eff: 'foe', st: { atk: -1 }, desc: "A cute growl that lowers the foe's Attack." },
+  tail_whip: { name: 'Tail Wag', type: 'normal', cat: 'status', acc: 100, pp: 30, eff: 'foe', st: { def: -1 }, desc: "Wags its tail to lower the foe's Defence." },
+  harden: { name: 'Brace Up', type: 'normal', cat: 'status', acc: null, pp: 30, eff: 'self', st: { def: 1 }, desc: 'Stiffens its body to raise Defence.' },
   lullaby: { name: 'Lullaby', type: 'normal', cat: 'status', acc: 55, pp: 15, eff: 'slp', ch: 100, desc: 'A soothing song that may send the foe to sleep.' },
-  ember: { name: 'Ember', type: 'fire', cat: 'spec', pow: 40, acc: 100, pp: 25, eff: 'brn', ch: 10, desc: 'Small flames. May cause a burn.' },
-  fire_fang: { name: 'Fire Fang', type: 'fire', cat: 'phys', pow: 65, acc: 95, pp: 15, eff: 'brn', ch: 10, desc: 'Bites with flame-wreathed fangs. May burn.' },
-  flame_burst: { name: 'Flame Burst', type: 'fire', cat: 'spec', pow: 70, acc: 100, pp: 15, desc: 'A burst of searing flame.' },
-  ashen_pounce: { name: 'Ashen Pounce', type: 'fire', cat: 'phys', pow: 75, acc: 95, pp: 15, crit: 1, eff: 'brn', ch: 10, desc: 'A smouldering leap. High critical-hit ratio; may burn.' },
-  will_o: { name: 'Will-o-Glow', type: 'fire', cat: 'status', acc: 85, pp: 15, eff: 'brn', ch: 100, desc: 'An eerie flame that burns the foe.' },
-  bubble: { name: 'Bubble', type: 'water', cat: 'spec', pow: 40, acc: 100, pp: 30, eff: 'foe', st: { spe: -1 }, ch: 10, desc: 'A spray of bubbles. May lower Speed.' },
-  water_gun: { name: 'Water Gun', type: 'water', cat: 'spec', pow: 40, acc: 100, pp: 25, desc: 'Squirts water at the foe.' },
-  aqua_jet: { name: 'Aqua Jet', type: 'water', cat: 'phys', pow: 40, acc: 100, pp: 20, pri: 1, desc: 'A rushing jet of water that always strikes first.' },
+  ember: { name: 'Cinder', type: 'fire', cat: 'spec', pow: 40, acc: 100, pp: 25, eff: 'brn', ch: 10, desc: 'Small flames. May cause a burn.' },
+  fire_fang: { name: 'Scorch Bite', type: 'fire', cat: 'phys', pow: 65, acc: 95, pp: 15, eff: 'brn', ch: 10, desc: 'Bites with flame-wreathed fangs. May burn.' },
+  flame_burst: { name: 'Flare Pop', type: 'fire', cat: 'spec', pow: 70, acc: 100, pp: 15, desc: 'A burst of searing flame.' },
+  ashen_pounce: { name: 'Ashen Pounce', type: 'fire', cat: 'phys', pow: 75, acc: 95, pp: 15, crit: 1, eff: 'brn', ch: 10, desc: 'A smouldering leap. Often lands a clean strike; may burn.' },
+  will_o: { name: 'Wisp Glow', type: 'fire', cat: 'status', acc: 85, pp: 15, eff: 'brn', ch: 100, desc: 'An eerie flame that burns the foe.' },
+  bubble: { name: 'Froth', type: 'water', cat: 'spec', pow: 40, acc: 100, pp: 30, eff: 'foe', st: { spe: -1 }, ch: 10, desc: 'A spray of bubbles. May lower Speed.' },
+  water_gun: { name: 'Squirt', type: 'water', cat: 'spec', pow: 40, acc: 100, pp: 25, desc: 'Squirts water at the foe.' },
+  aqua_jet: { name: 'Surge Dash', type: 'water', cat: 'phys', pow: 40, acc: 100, pp: 20, pri: 1, desc: 'A rushing jet of water that always strikes first.' },
   brine_bite: { name: 'Brine Bite', type: 'water', cat: 'phys', pow: 65, acc: 95, pp: 15, eff: 'flinch', ch: 20, desc: 'Salt-crusted jaws. May make the foe flinch.' },
-  bubble_beam: { name: 'Bubble Beam', type: 'water', cat: 'spec', pow: 65, acc: 100, pp: 20, eff: 'foe', st: { spe: -1 }, ch: 10, desc: 'A torrent of bubbles. May lower Speed.' },
+  bubble_beam: { name: 'Froth Stream', type: 'water', cat: 'spec', pow: 65, acc: 100, pp: 20, eff: 'foe', st: { spe: -1 }, ch: 10, desc: 'A torrent of bubbles. May lower Speed.' },
   tide_rally: { name: 'Tide Rally', type: 'water', cat: 'status', acc: null, pp: 20, eff: 'self', st: { atk: 1, spe: 1 }, desc: 'Rides a surging wave of spirit. Raises Attack and Speed.' },
-  vine_whip: { name: 'Vine Whip', type: 'grass', cat: 'phys', pow: 45, acc: 100, pp: 25, desc: 'Strikes with slender vines.' },
-  absorb: { name: 'Absorb', type: 'grass', cat: 'spec', pow: 25, acc: 100, pp: 25, eff: 'drain', desc: 'Drains energy. Restores half the damage dealt.' },
-  mega_drain: { name: 'Mega Drain', type: 'grass', cat: 'spec', pow: 45, acc: 100, pp: 15, eff: 'drain', desc: 'A stronger drain. Restores half the damage dealt.' },
-  razor_leaf: { name: 'Razor Leaf', type: 'grass', cat: 'phys', pow: 55, acc: 95, pp: 25, crit: 1, desc: 'Sharp leaves. High critical-hit ratio.' },
-  sleep_powder: { name: 'Sleep Powder', type: 'grass', cat: 'status', acc: 75, pp: 15, eff: 'slp', ch: 100, desc: 'A cloud of spores that causes sleep.' },
-  stun_spore: { name: 'Stun Spore', type: 'grass', cat: 'status', acc: 75, pp: 30, eff: 'par', ch: 100, desc: 'Scatters spores that paralyse.' },
-  rootwall: { name: 'Rootwall', type: 'grass', cat: 'status', acc: null, pp: 15, eff: 'self', st: { def: 1, spd: 1 }, regen: 3, desc: 'Roots down. Raises Defence and Sp. Def and restores HP for 3 turns.' },
-  thundershock: { name: 'Thundershock', type: 'electric', cat: 'spec', pow: 40, acc: 100, pp: 30, eff: 'par', ch: 10, desc: 'A jolt of electricity. May paralyse.' },
-  spark: { name: 'Spark', type: 'electric', cat: 'phys', pow: 65, acc: 100, pp: 20, eff: 'par', ch: 30, desc: 'An electrified tackle. May paralyse.' },
-  thunder_wave: { name: 'Thunder Wave', type: 'electric', cat: 'status', acc: 90, pp: 20, eff: 'par', ch: 100, desc: 'A weak current that paralyses.' },
-  mud_slap: { name: 'Mud-Slap', type: 'earth', cat: 'spec', pow: 20, acc: 100, pp: 10, eff: 'foe', st: { acc: -1 }, ch: 100, desc: 'Flings mud in the face. Lowers accuracy.' },
-  mud_shot: { name: 'Mud Shot', type: 'earth', cat: 'spec', pow: 55, acc: 95, pp: 15, eff: 'foe', st: { spe: -1 }, ch: 100, desc: 'Hurls mud. Lowers Speed.' },
+  vine_whip: { name: 'Creeper Lash', type: 'grass', cat: 'phys', pow: 45, acc: 100, pp: 25, desc: 'Strikes with slender vines.' },
+  absorb: { name: 'Sap', type: 'grass', cat: 'spec', pow: 25, acc: 100, pp: 25, eff: 'drain', desc: 'Drains energy. Restores half the damage dealt.' },
+  mega_drain: { name: 'Deep Sap', type: 'grass', cat: 'spec', pow: 45, acc: 100, pp: 15, eff: 'drain', desc: 'A stronger drain. Restores half the damage dealt.' },
+  razor_leaf: { name: 'Leaf Flurry', type: 'grass', cat: 'phys', pow: 55, acc: 95, pp: 25, crit: 1, desc: 'Sharp leaves. Often lands a clean strike.' },
+  sleep_powder: { name: 'Drowse Dust', type: 'grass', cat: 'status', acc: 75, pp: 15, eff: 'slp', ch: 100, desc: 'A cloud of spores that causes sleep.' },
+  stun_spore: { name: 'Numb Spores', type: 'grass', cat: 'status', acc: 75, pp: 30, eff: 'par', ch: 100, desc: 'Scatters spores that paralyse.' },
+  rootwall: { name: 'Rootwall', type: 'grass', cat: 'status', acc: null, pp: 15, eff: 'self', st: { def: 1, spd: 1 }, regen: 3, desc: 'Roots down. Raises Defence and Resolve and restores HP for 3 turns.' },
+  thundershock: { name: 'Jolt', type: 'electric', cat: 'spec', pow: 40, acc: 100, pp: 30, eff: 'par', ch: 10, desc: 'A jolt of electricity. May paralyse.' },
+  spark: { name: 'Zap', type: 'electric', cat: 'phys', pow: 65, acc: 100, pp: 20, eff: 'par', ch: 30, desc: 'An electrified tackle. May paralyse.' },
+  thunder_wave: { name: 'Numb Pulse', type: 'electric', cat: 'status', acc: 90, pp: 20, eff: 'par', ch: 100, desc: 'A weak current that paralyses.' },
+  mud_slap: { name: 'Mud Fling', type: 'earth', cat: 'spec', pow: 20, acc: 100, pp: 10, eff: 'foe', st: { acc: -1 }, ch: 100, desc: 'Flings mud in the face. Lowers accuracy.' },
+  mud_shot: { name: 'Mud Volley', type: 'earth', cat: 'spec', pow: 55, acc: 95, pp: 15, eff: 'foe', st: { spe: -1 }, ch: 100, desc: 'Hurls mud. Lowers Speed.' },
   dig_claw: { name: 'Dig Claw', type: 'earth', cat: 'phys', pow: 70, acc: 100, pp: 15, desc: 'Tears up the ground under the foe.' },
-  peck: { name: 'Peck', type: 'air', cat: 'phys', pow: 35, acc: 100, pp: 35, desc: 'Jabs with a beak.' },
-  gust: { name: 'Gust', type: 'air', cat: 'spec', pow: 40, acc: 100, pp: 35, desc: 'Whips up a gust of wind.' },
-  wing_attack: { name: 'Wing Attack', type: 'air', cat: 'phys', pow: 60, acc: 100, pp: 35, desc: 'Strikes with wide wings.' },
-  rock_throw: { name: 'Rock Throw', type: 'rock', cat: 'phys', pow: 50, acc: 90, pp: 15, desc: 'Lobs a small rock.' },
-  rock_tomb: { name: 'Rock Tomb', type: 'rock', cat: 'phys', pow: 60, acc: 95, pp: 15, eff: 'foe', st: { spe: -1 }, ch: 100, desc: 'Boulders that lower Speed.' },
-  powder_snow: { name: 'Powder Snow', type: 'ice', cat: 'spec', pow: 40, acc: 100, pp: 25, eff: 'frz', ch: 10, desc: 'A chilly flurry. May freeze.' },
-  ice_fang: { name: 'Ice Fang', type: 'ice', cat: 'phys', pow: 65, acc: 95, pp: 15, eff: 'frz', ch: 10, desc: 'Frozen fangs. May freeze.' },
-  low_kick: { name: 'Low Kick', type: 'fighting', cat: 'phys', pow: 50, acc: 100, pp: 20, desc: 'A sweeping kick to the legs.' },
-  rock_smash: { name: 'Rock Smash', type: 'fighting', cat: 'phys', pow: 40, acc: 100, pp: 15, eff: 'foe', st: { def: -1 }, ch: 50, desc: 'A rock-breaking punch. May lower Defence.' },
-  bulk_up: { name: 'Bulk Up', type: 'fighting', cat: 'status', acc: null, pp: 20, eff: 'self', st: { atk: 1, def: 1 }, desc: 'Tenses its muscles. Raises Attack and Defence.' },
-  poison_sting: { name: 'Poison Sting', type: 'poison', cat: 'phys', pow: 15, acc: 100, pp: 35, eff: 'psn', ch: 30, desc: 'A toxic barb. May poison.' },
-  acid: { name: 'Acid', type: 'poison', cat: 'spec', pow: 40, acc: 100, pp: 30, eff: 'foe', st: { spd: -1 }, ch: 10, desc: 'A spray of acid. May lower Sp. Def.' },
-  smog: { name: 'Smog', type: 'poison', cat: 'spec', pow: 30, acc: 70, pp: 20, eff: 'psn', ch: 40, desc: 'Noxious fumes. May poison.' },
-  confusion: { name: 'Confusion', type: 'psychic', cat: 'spec', pow: 50, acc: 100, pp: 25, eff: 'conf', ch: 10, desc: 'A telekinetic blow. May confuse.' },
-  hypnosis: { name: 'Hypnosis', type: 'psychic', cat: 'status', acc: 60, pp: 20, eff: 'slp', ch: 100, desc: 'A swaying gaze that causes sleep.' },
-  lick: { name: 'Lick', type: 'ghost', cat: 'phys', pow: 30, acc: 100, pp: 30, eff: 'par', ch: 30, desc: 'A cold, ghostly lick. May paralyse.' },
-  night_shade: { name: 'Night Shade', type: 'ghost', cat: 'spec', pow: 1, acc: 100, pp: 15, eff: 'level', desc: "Deals damage equal to the user's level." },
-  confuse_ray: { name: 'Confuse Ray', type: 'ghost', cat: 'status', acc: 100, pp: 10, eff: 'conf', ch: 100, desc: 'A sinister ray that confuses the foe.' },
-  bite: { name: 'Bite', type: 'dark', cat: 'phys', pow: 60, acc: 100, pp: 25, eff: 'flinch', ch: 30, desc: 'Bites hard. May make the foe flinch.' },
+  peck: { name: 'Beak Jab', type: 'air', cat: 'phys', pow: 35, acc: 100, pp: 35, desc: 'Jabs with a beak.' },
+  gust: { name: 'Gale Puff', type: 'air', cat: 'spec', pow: 40, acc: 100, pp: 35, desc: 'Whips up a gust of wind.' },
+  wing_attack: { name: 'Wing Clip', type: 'air', cat: 'phys', pow: 60, acc: 100, pp: 35, desc: 'Strikes with wide wings.' },
+  rock_throw: { name: 'Stone Toss', type: 'rock', cat: 'phys', pow: 50, acc: 90, pp: 15, desc: 'Lobs a small rock.' },
+  rock_tomb: { name: 'Rubble Trap', type: 'rock', cat: 'phys', pow: 60, acc: 95, pp: 15, eff: 'foe', st: { spe: -1 }, ch: 100, desc: 'Boulders that lower Speed.' },
+  powder_snow: { name: 'Snow Flurry', type: 'ice', cat: 'spec', pow: 40, acc: 100, pp: 25, eff: 'frz', ch: 10, desc: 'A chilly flurry. May freeze.' },
+  ice_fang: { name: 'Rime Fang', type: 'ice', cat: 'phys', pow: 65, acc: 95, pp: 15, eff: 'frz', ch: 10, desc: 'Frozen fangs. May freeze.' },
+  low_kick: { name: 'Sweep Kick', type: 'fighting', cat: 'phys', pow: 50, acc: 100, pp: 20, desc: 'A sweeping kick to the legs.' },
+  rock_smash: { name: 'Stone Breaker', type: 'fighting', cat: 'phys', pow: 40, acc: 100, pp: 15, eff: 'foe', st: { def: -1 }, ch: 50, desc: 'A rock-breaking punch. May lower Defence.' },
+  bulk_up: { name: 'Pump Up', type: 'fighting', cat: 'status', acc: null, pp: 20, eff: 'self', st: { atk: 1, def: 1 }, desc: 'Tenses its muscles. Raises Attack and Defence.' },
+  poison_sting: { name: 'Venom Barb', type: 'poison', cat: 'phys', pow: 15, acc: 100, pp: 35, eff: 'psn', ch: 30, desc: 'A toxic barb. May poison.' },
+  acid: { name: 'Caustic Spit', type: 'poison', cat: 'spec', pow: 40, acc: 100, pp: 30, eff: 'foe', st: { spd: -1 }, ch: 10, desc: 'A spray of acid. May lower Resolve.' },
+  smog: { name: 'Fume', type: 'poison', cat: 'spec', pow: 30, acc: 70, pp: 20, eff: 'psn', ch: 40, desc: 'Noxious fumes. May poison.' },
+  confusion: { name: 'Mind Jolt', type: 'psychic', cat: 'spec', pow: 50, acc: 100, pp: 25, eff: 'conf', ch: 10, desc: 'A telekinetic blow. May confuse.' },
+  hypnosis: { name: 'Trance', type: 'psychic', cat: 'status', acc: 60, pp: 20, eff: 'slp', ch: 100, desc: 'A swaying gaze that causes sleep.' },
+  lick: { name: 'Chill Lick', type: 'ghost', cat: 'phys', pow: 30, acc: 100, pp: 30, eff: 'par', ch: 30, desc: 'A cold, ghostly lick. May paralyse.' },
+  night_shade: { name: 'Night Terror', type: 'ghost', cat: 'spec', pow: 1, acc: 100, pp: 15, eff: 'level', desc: "Deals damage equal to the user's level." },
+  confuse_ray: { name: 'Daze Light', type: 'ghost', cat: 'status', acc: 100, pp: 10, eff: 'conf', ch: 100, desc: 'A sinister ray that confuses the foe.' },
+  bite: { name: 'Chomp', type: 'dark', cat: 'phys', pow: 60, acc: 100, pp: 25, eff: 'flinch', ch: 30, desc: 'Bites hard. May make the foe flinch.' },
   shadow_swipe: { name: 'Shadow Swipe', type: 'dark', cat: 'phys', pow: 60, acc: null, pp: 20, desc: 'A strike from the shadows that never misses.' },
-  metal_claw: { name: 'Metal Claw', type: 'steel', cat: 'phys', pow: 50, acc: 95, pp: 35, eff: 'self', st: { atk: 1 }, ch: 10, desc: 'Steel claws. May raise Attack.' },
+  metal_claw: { name: 'Steel Talon', type: 'steel', cat: 'phys', pow: 50, acc: 95, pp: 35, eff: 'self', st: { atk: 1 }, ch: 10, desc: 'Steel claws. May raise Attack.' },
   iron_defense: { name: 'Iron Guard', type: 'steel', cat: 'status', acc: null, pp: 15, eff: 'self', st: { def: 2 }, desc: 'Hardens like iron. Sharply raises Defence.' },
   glimmer: { name: 'Glimmer', type: 'light', cat: 'spec', pow: 40, acc: 100, pp: 30, desc: 'A pulse of soft light.' },
   dazzle: { name: 'Dazzle', type: 'light', cat: 'status', acc: 100, pp: 20, eff: 'foe', st: { acc: -1 }, desc: "A bright flash that lowers the foe's accuracy." },
   radiant_pulse: { name: 'Radiant Pulse', type: 'light', cat: 'spec', pow: 65, acc: 100, pp: 15, eff: 'conf', ch: 10, desc: 'A wave of radiant light. May confuse.' },
-  splash: { name: 'Splash', type: 'water', cat: 'status', acc: null, pp: 40, eff: 'nothing', desc: 'Flops about. Nothing happens... at all.' },
+  splash: { name: 'Flounder', type: 'water', cat: 'status', acc: null, pp: 40, eff: 'nothing', desc: 'Flops about. Nothing happens... at all.' },
 };
 
 /* ---------- Species ----------
@@ -1656,7 +1656,7 @@ DATA.trainers = {
   ivy: { cls: 'Picnicker', name: 'Ivy', look: 'girl', team: [['flopfin', 5], ['grubble', 4]], prize: 20, ai: 'basic',
     intro: "You scared it away! Right, you'll have to battle me instead!", lose: 'Even my Flopfin tried. Sort of.', after: 'Try fishing in this pond at night. Something glows down there!' },
   stud1: { cls: 'Student', name: 'Ada', look: 'student', team: [['twigwing', 5], ['burrowbit', 5]], prize: 20, ai: 'basic',
-    intro: "A practice battle? Yes please! I've been reading all week!", lose: 'Oh! I should have read chapter two.', after: 'Status moves like Growl look weak, but they really add up!' },
+    intro: "A practice battle? Yes please! I've been reading all week!", lose: 'Oh! I should have read chapter two.', after: 'Status moves like Grumble look weak, but they really add up!' },
   stud2: { cls: 'Student', name: 'Ben', look: 'student2', team: [['zappik', 6]], prize: 24, ai: 'basic',
     intro: "My Zappik is the fastest in class. Want to see?", lose: 'Fast is not the same as strong, huh.', after: "Speed decides who moves first. Paralysis halves it, though!" },
   hollis: { cls: 'Teacher', name: 'Ms Hollis', look: 'teacher', team: [['shellsnip', 7], ['twigwing', 7], ['murkle', 8]], prize: 40, ai: 'basic', repeat: true,
@@ -2004,20 +2004,20 @@ const MonArt = {
    ===================================================================== */
 
 DATA.traits = {
-  overgrowth: { name: 'Overgrowth', desc: 'Grass moves hit 50% harder when HP is below a third.' },
-  blaze: { name: 'Blaze', desc: 'Fire moves hit 50% harder when HP is below a third.' },
-  torrent: { name: 'Torrent', desc: 'Water moves hit 50% harder when HP is below a third.' },
-  shell_armor: { name: 'Shell Armour', desc: 'A hard shell. Cannot take critical hits.' },
+  overgrowth: { name: 'Wild Bloom', desc: 'Grass moves hit 50% harder when HP is below a third.' },
+  blaze: { name: 'Flare Up', desc: 'Fire moves hit 50% harder when HP is below a third.' },
+  torrent: { name: 'Undertow', desc: 'Water moves hit 50% harder when HP is below a third.' },
+  shell_armor: { name: 'Hard Shell', desc: 'A hard shell. Cannot be hit by clean strikes.' },
   glare: { name: 'Glare', desc: "Lowers the foe's Attack when it enters battle." },
   night_eyes: { name: 'Night Eyes', desc: 'Dark moves hit 20% harder at night.' },
   grit: { name: 'Grit', desc: 'Attack rises by 50% while it has a status condition. Burns do not weaken it.' },
-  run_away: { name: 'Run Away', desc: 'Always escapes from wild Wildmon.' },
-  pickup: { name: 'Pickup', desc: 'Sometimes picks up an item after battle if it is not holding one.' },
-  keen_eye: { name: 'Keen Eye', desc: 'Its accuracy cannot be lowered.' },
-  shed_skin: { name: 'Shed Skin', desc: 'May shed a status condition at the end of each turn.' },
+  run_away: { name: 'Skittish', desc: 'Always escapes from wild Wildmon.' },
+  pickup: { name: 'Forager', desc: 'Sometimes picks up an item after battle if it is not holding one.' },
+  keen_eye: { name: 'Sharp Sight', desc: 'Its accuracy cannot be lowered.' },
+  shed_skin: { name: 'Molt', desc: 'May shed a status condition at the end of each turn.' },
   radiance: { name: 'Radiance', desc: 'Light moves hit 20% harder.' },
-  static: { name: 'Static', desc: 'Contact with it may paralyse the attacker.' },
-  sturdy: { name: 'Sturdy', desc: 'Survives a knockout blow with 1 HP when at full health.' },
+  static: { name: 'Charged Coat', desc: 'Contact with it may paralyse the attacker.' },
+  sturdy: { name: 'Steadfast', desc: 'Survives a knockout blow with 1 HP when at full health.' },
   iron_hide: { name: 'Iron Hide', desc: 'Foes cannot lower its stats.' },
   toxic_touch: { name: 'Toxic Touch', desc: 'Contact with it may poison the attacker.' },
   riptide_dash: { name: 'Riptide Dash', desc: 'Speed doubles in the rain.' },
@@ -2054,27 +2054,27 @@ Object.assign(DATA.moves, {
   reckless_charge: { name: 'Reckless Charge', type: 'normal', cat: 'phys', pow: 100, acc: 100, pp: 15, recoil: 3, desc: 'A reckless charge. The user takes a third of the damage as recoil.' },
   war_cry: { name: 'War Cry', type: 'normal', cat: 'status', acc: null, pp: 20, eff: 'self', st: { atk: 2 }, desc: 'A rousing roar. Sharply raises Attack.' },
   swift_step: { name: 'Swift Step', type: 'air', cat: 'status', acc: null, pp: 20, eff: 'self', st: { spe: 2 }, desc: 'Light on its feet. Sharply raises Speed.' },
-  focus_mind: { name: 'Focus Mind', type: 'psychic', cat: 'status', acc: null, pp: 20, eff: 'self', st: { spa: 1, spd: 1 }, desc: 'Clears its mind. Raises Sp. Atk and Sp. Def.' },
-  seed_leech: { name: 'Seed Leech', type: 'grass', cat: 'status', acc: 90, pp: 10, eff: 'seed', desc: 'Plants a seed that drains the foe each turn. Grass types are immune.' },
-  rain_dance: { name: 'Rain Dance', type: 'water', cat: 'status', acc: null, pp: 5, eff: 'weather', w: 'rain', desc: 'Summons rain for five turns. Water moves strengthen; Fire moves weaken.' },
-  sunny_day: { name: 'Sunny Day', type: 'fire', cat: 'status', acc: null, pp: 5, eff: 'weather', w: 'sun', desc: 'Summons harsh sun for five turns. Fire moves strengthen; Water moves weaken.' },
-  sandstorm: { name: 'Sandstorm', type: 'rock', cat: 'status', acc: null, pp: 10, eff: 'weather', w: 'sand', desc: 'A five-turn sandstorm that hurts all but Rock, Earth and Steel types.' },
-  hailstorm: { name: 'Hailstorm', type: 'ice', cat: 'status', acc: null, pp: 10, eff: 'weather', w: 'hail', desc: 'A five-turn hailstorm that hurts all but Ice types.' },
-  thunderbolt: { name: 'Thunderbolt', type: 'electric', cat: 'spec', pow: 90, acc: 100, pp: 15, eff: 'par', ch: 10, desc: 'A strong bolt of lightning. May paralyse.' },
-  flamethrower: { name: 'Flamethrower', type: 'fire', cat: 'spec', pow: 90, acc: 100, pp: 15, eff: 'brn', ch: 10, desc: 'A stream of fire. May burn.' },
+  focus_mind: { name: 'Focus Mind', type: 'psychic', cat: 'status', acc: null, pp: 20, eff: 'self', st: { spa: 1, spd: 1 }, desc: 'Clears its mind. Raises Spirit and Resolve.' },
+  seed_leech: { name: 'Siphon Seed', type: 'grass', cat: 'status', acc: 90, pp: 10, eff: 'seed', desc: 'Plants a seed that drains the foe each turn. Grass types are immune.' },
+  rain_dance: { name: 'Raincall', type: 'water', cat: 'status', acc: null, pp: 5, eff: 'weather', w: 'rain', desc: 'Summons rain for five turns. Water moves strengthen; Fire moves weaken.' },
+  sunny_day: { name: 'Suncall', type: 'fire', cat: 'status', acc: null, pp: 5, eff: 'weather', w: 'sun', desc: 'Summons harsh sun for five turns. Fire moves strengthen; Water moves weaken.' },
+  sandstorm: { name: 'Dustcall', type: 'rock', cat: 'status', acc: null, pp: 10, eff: 'weather', w: 'sand', desc: 'A five-turn sandstorm that hurts all but Rock, Earth and Steel types.' },
+  hailstorm: { name: 'Sleetcall', type: 'ice', cat: 'status', acc: null, pp: 10, eff: 'weather', w: 'hail', desc: 'A five-turn hailstorm that hurts all but Ice types.' },
+  thunderbolt: { name: 'Storm Lance', type: 'electric', cat: 'spec', pow: 90, acc: 100, pp: 15, eff: 'par', ch: 10, desc: 'A strong bolt of lightning. May paralyse.' },
+  flamethrower: { name: 'Cinder Gout', type: 'fire', cat: 'spec', pow: 90, acc: 100, pp: 15, eff: 'brn', ch: 10, desc: 'A stream of fire. May burn.' },
   hydro_pulse: { name: 'Hydro Pulse', type: 'water', cat: 'spec', pow: 90, acc: 100, pp: 15, desc: 'A pulsing blast of water.' },
   solar_leaf: { name: 'Solar Leaf', type: 'grass', cat: 'spec', pow: 90, acc: 100, pp: 15, desc: 'Leaves charged with sunlight.' },
   frost_beam: { name: 'Frost Beam', type: 'ice', cat: 'spec', pow: 90, acc: 100, pp: 10, eff: 'frz', ch: 10, desc: 'A freezing beam. May freeze.' },
   tremor: { name: 'Tremor', type: 'earth', cat: 'phys', pow: 100, acc: 100, pp: 10, desc: 'Shakes the ground violently.' },
-  rock_slide: { name: 'Rock Slide', type: 'rock', cat: 'phys', pow: 75, acc: 90, pp: 10, eff: 'flinch', ch: 30, desc: 'A rockfall. May make the foe flinch.' },
+  rock_slide: { name: 'Rockfall', type: 'rock', cat: 'phys', pow: 75, acc: 90, pp: 10, eff: 'flinch', ch: 30, desc: 'A rockfall. May make the foe flinch.' },
   focus_strike: { name: 'Focus Strike', type: 'fighting', cat: 'phys', pow: 75, acc: 100, pp: 15, desc: 'A focused, crushing blow.' },
-  psybeam: { name: 'Psybeam', type: 'psychic', cat: 'spec', pow: 65, acc: 100, pp: 20, eff: 'conf', ch: 10, desc: 'A strange beam. May confuse.' },
-  shade_orb: { name: 'Shade Orb', type: 'ghost', cat: 'spec', pow: 80, acc: 100, pp: 15, eff: 'foe', st: { spd: -1 }, ch: 20, desc: 'An orb of shadow. May lower Sp. Def.' },
-  crunch: { name: 'Crunch', type: 'dark', cat: 'phys', pow: 80, acc: 100, pp: 15, eff: 'foe', st: { def: -1 }, ch: 20, desc: 'Crunches with sharp fangs. May lower Defence.' },
-  iron_head: { name: 'Iron Head', type: 'steel', cat: 'phys', pow: 80, acc: 100, pp: 15, eff: 'flinch', ch: 30, desc: 'A steel-hard headbutt. May make the foe flinch.' },
+  psybeam: { name: 'Mind Beam', type: 'psychic', cat: 'spec', pow: 65, acc: 100, pp: 20, eff: 'conf', ch: 10, desc: 'A strange beam. May confuse.' },
+  shade_orb: { name: 'Shade Orb', type: 'ghost', cat: 'spec', pow: 80, acc: 100, pp: 15, eff: 'foe', st: { spd: -1 }, ch: 20, desc: 'An orb of shadow. May lower Resolve.' },
+  crunch: { name: 'Grind Bite', type: 'dark', cat: 'phys', pow: 80, acc: 100, pp: 15, eff: 'foe', st: { def: -1 }, ch: 20, desc: 'Crunches with sharp fangs. May lower Defence.' },
+  iron_head: { name: 'Steel Brow', type: 'steel', cat: 'phys', pow: 80, acc: 100, pp: 15, eff: 'flinch', ch: 30, desc: 'A steel-hard headbutt. May make the foe flinch.' },
   dazzling_ray: { name: 'Dazzling Ray', type: 'light', cat: 'spec', pow: 90, acc: 100, pp: 10, eff: 'foe', st: { acc: -1 }, ch: 20, desc: 'A blinding ray. May lower accuracy.' },
-  air_slash: { name: 'Air Slash', type: 'air', cat: 'spec', pow: 75, acc: 95, pp: 15, eff: 'flinch', ch: 30, desc: 'A blade of air. May make the foe flinch.' },
-  sludge: { name: 'Sludge', type: 'poison', cat: 'spec', pow: 65, acc: 100, pp: 20, eff: 'psn', ch: 30, desc: 'Hurls toxic sludge. May poison.' },
+  air_slash: { name: 'Wind Blade', type: 'air', cat: 'spec', pow: 75, acc: 95, pp: 15, eff: 'flinch', ch: 30, desc: 'A blade of air. May make the foe flinch.' },
+  sludge: { name: 'Muck Toss', type: 'poison', cat: 'spec', pow: 65, acc: 100, pp: 20, eff: 'psn', ch: 30, desc: 'Hurls toxic sludge. May poison.' },
 });
 (() => {
   const ADD = {
@@ -2176,7 +2176,7 @@ DATA.species.burrowbit.evo = [{ to: 'warrenbuck', lv: 18, path: 'phys' }, { to: 
 DATA.species.silkcase.evo = [{ to: 'lumoth', lv: 10, time: 'day' }, { to: 'duskmoth', lv: 10, time: 'night' }];
 DATA.species.zappik.evo = [{ to: 'joltfox', item: 'thunder_shard' }, { to: 'voltpaw', lv: 22, path: 'phys', strict: true }];
 DATA.speciesList = Object.keys(DATA.species).sort((a, b) => DATA.species[a].n - DATA.species[b].n);
-DATA.pathNames = { phys: 'Physical', spec: 'Special', support: 'Support' };
+DATA.pathNames = { phys: 'Physical', spec: 'Spirit', support: 'Support' };
 
 /* ---------- Items ---------- */
 DATA.pockets = [
@@ -2201,7 +2201,7 @@ for (const [id, mv] of Object.entries(DATA.scrolls)) {
 DATA.shops.fernwick = DATA.shops.fernwick.concat(['thunder_shard', 'sun_shard', 'dusk_shard']);
 DATA.shops.fernwick_scrolls = ['scroll_guard', 'scroll_headbutt', 'scroll_swift', 'scroll_bubble', 'scroll_flame', 'scroll_drain', 'scroll_rocktomb', 'scroll_rain', 'scroll_sun', 'scroll_sand', 'scroll_hail'];
 DATA.milestones.find((m) => m.id === 'c10').items.push(['spark_prism', 1]);
-DATA.milestones.find((m) => m.id === 'c10').rewardText = '3 Super Potions, Spark Prism';
+DATA.milestones.find((m) => m.id === 'c10').rewardText = '3 Strong Tonics, Spark Prism';
 
 /* ---------- Quests ---------- */
 DATA.quests.training = {
@@ -2277,13 +2277,13 @@ DATA.tiles.y = { t: 'gate', solid: true, text: 'A thick, neatly trimmed hedge.' 
 
 /* ---------- Moves ---------- */
 Object.assign(DATA.moves, {
-  poison_jab: { name: 'Poison Jab', type: 'poison', cat: 'phys', pow: 80, acc: 100, pp: 20, eff: 'psn', ch: 30, desc: 'Stabs with a toxic barb. May poison.' },
-  thorn_lash: { name: 'Thorn Lash', type: 'grass', cat: 'phys', pow: 75, acc: 95, pp: 15, crit: 1, desc: 'Whips the foe with a thorny vine. High critical-hit ratio.' },
+  poison_jab: { name: 'Venom Jab', type: 'poison', cat: 'phys', pow: 80, acc: 100, pp: 20, eff: 'psn', ch: 30, desc: 'Stabs with a toxic barb. May poison.' },
+  thorn_lash: { name: 'Thorn Lash', type: 'grass', cat: 'phys', pow: 75, acc: 95, pp: 15, crit: 1, desc: 'Whips the foe with a thorny vine. Often lands a clean strike.' },
   gull_dive: { name: 'Gull Dive', type: 'air', cat: 'phys', pow: 80, acc: 95, pp: 15, desc: 'Folds its wings and drops on the foe from above.' },
   hex_wave: { name: 'Hex Wave', type: 'ghost', cat: 'spec', pow: 65, acc: 100, pp: 15, eff: 'conf', ch: 20, desc: 'A cold, eerie wave. May confuse.' },
-  bramble_jab: { name: 'Bramble Jab', type: 'fighting', cat: 'phys', pow: 65, acc: 100, pp: 20, crit: 1, desc: 'A quick jab with a thorn-wrapped fist. High critical-hit ratio.' },
+  bramble_jab: { name: 'Bramble Jab', type: 'fighting', cat: 'phys', pow: 65, acc: 100, pp: 20, crit: 1, desc: 'A quick jab with a thorn-wrapped fist. Often lands a clean strike.' },
   tide_slam: { name: 'Tide Slam', type: 'water', cat: 'phys', pow: 80, acc: 100, pp: 15, eff: 'flinch', ch: 20, desc: 'Crashes into the foe like a breaking wave. May make it flinch.' },
-  leer: { name: 'Leer', type: 'normal', cat: 'status', acc: 100, pp: 30, eff: 'foe', st: { def: -1 }, desc: "A hard stare that lowers the foe's Defence." },
+  leer: { name: 'Glower', type: 'normal', cat: 'status', acc: 100, pp: 30, eff: 'foe', st: { def: -1 }, desc: "A hard stare that lowers the foe's Defence." },
 });
 
 /* ---------- Species #44–63 ---------- */
@@ -2410,7 +2410,7 @@ Object.assign(DATA.trainers, {
   ned: { cls: 'Camper', name: 'Ned', look: 'boy', team: [['sporelet', 9], ['burrowbit', 9]], prize: 18, ai: 'basic',
     intro: "I've been camping out here all week! I'm basically a forest expert now.", lose: "Okay, maybe I'm not an expert yet.", after: "Sporelet spores make you sleepy. Don't breathe in! ...Zzz... oh! Sorry." },
   tamsin: { cls: 'Ranger', name: 'Tamsin', look: 'ranger', team: [['glimwig', 10], ['sprigrat', 10], ['stinglet', 11]], prize: 30, ai: 'tactical',
-    intro: 'A trainer heading for Mossgate? Then show me you can handle the forest.', lose: 'You will do just fine at the Bloom Hall.', after: 'Hazel, the Bloom Hall Master, loves status moves. Pack an Antidote or two.' },
+    intro: 'A trainer heading for Mossgate? Then show me you can handle the forest.', lose: 'You will do just fine at the Bloom Hall.', after: 'Hazel, the Bloom Hall Master, loves status moves. Pack an Antivenom or two.' },
   grunt1: { cls: 'Order Grunt', name: 'Grunt', look: 'grunt', team: [['rookling', 9], ['shadepaw', 9]], prize: 20, ai: 'basic', music: 'order',
     intro: "A kid? Out of the way! We've got orders from the Captain.", lose: "Tch! The Captain won't like this.", after: 'Hmph.' },
   grunt2: { cls: 'Order Grunt', name: 'Poacher', look: 'grunt2', team: [['sporelet', 10], ['rookling', 11]], prize: 24, ai: 'tactical', music: 'order',
@@ -2486,7 +2486,7 @@ Object.assign(DATA.music, {
     melody: 'C5:2 F5:2 A5:2 G5:2 F5:4 C5:4 D5:2 F5:2 Bb5:4 A5:2 G5:2 C5:4 C5:2 F5:2 A5:2 C6:2 Bb5:2 A5:2 G5:4 A5:2 G5:2 F5:2 E5:2 F5:8' },
 });
 
-/* ---------- Town Map ---------- */
+/* ---------- Aldermere Map ---------- */
 DATA.region = DATA.region.map((r) => Object.assign({}, r, ({
   bramblewood: { desc: 'An old, tangled forest between Fernwick and Mossgate. Thorny bushes hide its quieter corners.' },
   mossgate: { desc: 'A green town built around the Bloom Hall, home of Hall Master Hazel.' },
@@ -2507,7 +2507,7 @@ Object.assign(DATA.quests, {
       'Climb the Sunken Lighthouse and stop Captain Rook.',
       'Coral is back at the Tide Hall. Challenge her for the Tide Badge!',
     ],
-    reward: 'Super Potion x3, Scroll: Tide Slam',
+    reward: 'Strong Tonic x3, Scroll: Tide Slam',
   },
   grey: {
     name: 'The Grey Wildmon', kind: 'side', giver: 'A grey Fawnlight',
@@ -2522,7 +2522,7 @@ Object.assign(DATA.quests, {
 });
 DATA.items.scroll_tideslam = { name: 'Scroll: Tide Slam', pocket: 'scrolls', scroll: 'tide_slam', sell: 1000, desc: `Teaches Tide Slam (water). Can be used again and again. ${DATA.moves.tide_slam.desc}` };
 DATA.scrolls.scroll_tideslam = 'tide_slam';
-DATA.items.scroll_poisonjab = { name: 'Scroll: Poison Jab', pocket: 'scrolls', scroll: 'poison_jab', price: 2000, sell: 1000, desc: `Teaches Poison Jab (poison). Can be used again and again. ${DATA.moves.poison_jab.desc}` };
+DATA.items.scroll_poisonjab = { name: 'Scroll: Venom Jab', pocket: 'scrolls', scroll: 'poison_jab', price: 2000, sell: 1000, desc: `Teaches Venom Jab (poison). Can be used again and again. ${DATA.moves.poison_jab.desc}` };
 DATA.scrolls.scroll_poisonjab = 'poison_jab';
 DATA.shops.fernwick_scrolls.push('scroll_poisonjab');
 DATA.trainerGifts.tamsin = 'calm_incense';
@@ -2756,7 +2756,7 @@ DATA.maps.mossgate = {
   items: [{ id: 'inc', x: 27, y: 21, item: 'calm_incense', hidden: true }],
   npcs: [
     { id: 'mv1', x: 9, y: 10, dir: 'down', look: 'villager', move: 'wander', name: 'Gardener',
-      talk: ['Everyone in Mossgate grows something. Even the Hall Master!', "Hazel's Wildmon love sleep and poison powders. An Antidote or a Wake Bell might save your skin."] },
+      talk: ['Everyone in Mossgate grows something. Even the Hall Master!', "Hazel's Wildmon love sleep and poison powders. An Antivenom or a Wake Bell might save your skin."] },
     { id: 'mv2', x: 8, y: 18, dir: 'left', look: 'old', move: 'turn', name: 'Old Tobin',
       talk: ['The pond here is older than the town.', 'They say the Bloom Hall tower was a Beacon once. Ancient history. Nowadays it is just the finest Hall in the east.'] },
     { id: 'mv3', x: 20, y: 9, dir: 'down', look: 'student', move: 'wander', name: 'Girl',
@@ -3202,7 +3202,7 @@ Object.assign(DATA.scripts, {
     await s.badge('bloom');
     await s.say(['And take this Brush Hook. It cuts through thorny bushes, so you can reach places other trainers miss.'], o);
     await s.give('brush_hook');
-    await s.say(['One more thing: a Move Scroll for Mega Drain. It heals your Wildmon while it hits.'], o);
+    await s.say(['One more thing: a Move Scroll for Deep Sap. It heals your Wildmon while it hits.'], o);
     await s.give('scroll_drain');
     await s.wait(300); Sound.sfx('door');
     const w = s.spawn({ id: 'wren_h', x: 8, y: 3, dir: 'left', look: 'wren', name: 'Wren' });
@@ -3307,7 +3307,7 @@ Object.assign(DATA.scripts, {
     s.achieve('puzzler');
     await s.say(['Hah! You sailed right through my fleet.', 'Here, the Tide Badge. You have more than earned it.'], o);
     await s.badge('tide');
-    await s.say(['And a Move Scroll for Bubble Beam. Water moves that slow foes down are a sailor\'s best friend.'], o);
+    await s.say(['And a Move Scroll for Froth Stream. Water moves that slow foes down are a sailor\'s best friend.'], o);
     await s.give('scroll_bubble');
     await s.say(['One last thing. Thank you for what you did at the lighthouse.', 'Professor Thorne should hear about all this. And Wren too.'], o);
     if (!s.quest('act1').done) {
@@ -3356,7 +3356,7 @@ Object.assign(DATA.tiles, {
 /* ---------- Moves ---------- */
 Object.assign(DATA.moves, {
   magma_slam: { name: 'Magma Slam', type: 'fire', cat: 'phys', pow: 85, acc: 95, pp: 10, eff: 'brn', ch: 20, desc: 'Slams into the foe with a molten body. May burn.' },
-  drill_peck: { name: 'Drill Peck', type: 'air', cat: 'phys', pow: 80, acc: 100, pp: 20, desc: 'A spinning, corkscrew peck.' },
+  drill_peck: { name: 'Spiral Peck', type: 'air', cat: 'phys', pow: 80, acc: 100, pp: 20, desc: 'A spinning, corkscrew peck.' },
   jab_rush: { name: 'Jab Rush', type: 'fighting', cat: 'phys', pow: 40, acc: 100, pp: 30, pri: 1, desc: 'A lightning-quick jab that always strikes first.' },
   arc_bolt: { name: 'Arc Bolt', type: 'electric', cat: 'phys', pow: 80, acc: 100, pp: 15, eff: 'par', ch: 20, desc: 'Charges in wrapped in electricity. May paralyse.' },
   gear_grind: { name: 'Gear Grind', type: 'steel', cat: 'phys', pow: 70, acc: 95, pp: 15, eff: 'foe', st: { def: -1 }, ch: 30, desc: 'Grinds the foe between steel gears. May lower Defence.' },
@@ -3457,12 +3457,12 @@ Object.assign(DATA.items, {
   ember_glass: { name: 'Ember Glass', pocket: 'collect', desc: 'Volcanic glass from Emberforge, still faintly warm.' },
   scroll_arcbolt: { name: 'Scroll: Arc Bolt', pocket: 'scrolls', scroll: 'arc_bolt', sell: 1000, desc: `Teaches Arc Bolt (electric). Can be used again and again. ${DATA.moves.arc_bolt.desc}` },
   scroll_magma: { name: 'Scroll: Magma Slam', pocket: 'scrolls', scroll: 'magma_slam', sell: 1000, desc: `Teaches Magma Slam (fire). Can be used again and again. ${DATA.moves.magma_slam.desc}` },
-  scroll_drill: { name: 'Scroll: Drill Peck', pocket: 'scrolls', scroll: 'drill_peck', price: 2200, sell: 1100, desc: `Teaches Drill Peck (air). Can be used again and again. ${DATA.moves.drill_peck.desc}` },
+  scroll_drill: { name: 'Scroll: Spiral Peck', pocket: 'scrolls', scroll: 'drill_peck', price: 2200, sell: 1100, desc: `Teaches Spiral Peck (air). Can be used again and again. ${DATA.moves.drill_peck.desc}` },
 });
 Object.assign(DATA.scrolls, { scroll_arcbolt: 'arc_bolt', scroll_magma: 'magma_slam', scroll_drill: 'drill_peck' });
 DATA.shops.voltara = ['lantern', 'great_lantern', 'bright_lantern', 'kin_lantern', 'patience_lantern', 'potion', 'super_potion', 'calm_incense', 'antidote', 'unknot', 'burn_salve', 'wake_bell', 'thaw_tea', 'thunder_shard', 'scroll_drill'];
 DATA.shops.cinderhollow = ['great_lantern', 'bright_lantern', 'dusk_lantern', 'swift_lantern', 'super_potion', 'calm_incense', 'burn_salve', 'cure_berry', 'sun_shard', 'dusk_shard'];
-DATA.items.hyper_potion = { name: 'Hyper Potion', pocket: 'items', battle: 'heal', field: true, heal: 120, price: 1200, sell: 600, desc: 'A powerful spray that restores 120 HP to one Wildmon.' };
+DATA.items.hyper_potion = { name: 'Grand Tonic', pocket: 'items', battle: 'heal', field: true, heal: 120, price: 1200, sell: 600, desc: 'A powerful spray that restores 120 HP to one Wildmon.' };
 DATA.shops.voltara.splice(6, 0, 'hyper_potion'); DATA.shops.cinderhollow.splice(4, 0, 'hyper_potion');
 
 /* ---------- Looks ---------- */
@@ -3576,7 +3576,7 @@ DATA.quests.act2 = {
     "Wren's Tide Board lets you paddle across water. Head south down Route 4 and cross the sea to Cinderhollow.",
     'Earn the Forge Badge from Hall Master Brann at the Forge Hall in Cinderhollow.',
   ],
-  reward: 'Hyper Potion x3, Bright Lantern x5',
+  reward: 'Grand Tonic x3, Bright Lantern x5',
 };
 
 DATA.region = DATA.region.map((r) => Object.assign({}, r, ({
@@ -4205,9 +4205,9 @@ Object.assign(DATA.tiles, {
 
 /* ---------- Moves ---------- */
 Object.assign(DATA.moves, {
-  psy_cutter: { name: 'Psy Cutter', type: 'psychic', cat: 'phys', pow: 70, acc: 100, pp: 20, crit: 1, desc: 'Slashes with blades of psychic force. High critical-hit ratio.' },
-  shadow_claw: { name: 'Shadow Claw', type: 'ghost', cat: 'phys', pow: 70, acc: 100, pp: 15, crit: 1, desc: 'Rakes with a claw of shadow. High critical-hit ratio.' },
-  mud_bomb: { name: 'Mud Bomb', type: 'earth', cat: 'spec', pow: 65, acc: 85, pp: 10, eff: 'foe', st: { acc: -1 }, ch: 30, desc: 'Hurls a ball of mud. May lower accuracy.' },
+  psy_cutter: { name: 'Mind Cleaver', type: 'psychic', cat: 'phys', pow: 70, acc: 100, pp: 20, crit: 1, desc: 'Slashes with blades of psychic force. Often lands a clean strike.' },
+  shadow_claw: { name: 'Shade Talon', type: 'ghost', cat: 'phys', pow: 70, acc: 100, pp: 15, crit: 1, desc: 'Rakes with a claw of shadow. Often lands a clean strike.' },
+  mud_bomb: { name: 'Mud Burst', type: 'earth', cat: 'spec', pow: 65, acc: 85, pp: 10, eff: 'foe', st: { acc: -1 }, ch: 30, desc: 'Hurls a ball of mud. May lower accuracy.' },
   venom_fang: { name: 'Venom Fang', type: 'poison', cat: 'phys', pow: 65, acc: 100, pp: 20, eff: 'psn', ch: 40, desc: 'Bites with toxic fangs. Often poisons.' },
   eel_shock: { name: 'Eel Shock', type: 'electric', cat: 'spec', pow: 70, acc: 100, pp: 15, eff: 'par', ch: 20, desc: 'Discharges a jolt through the water. May paralyse.' },
   hex_gaze: { name: 'Hex Gaze', type: 'dark', cat: 'status', acc: 90, pp: 15, eff: 'foe', st: { spd: -2 }, desc: 'A cursed stare that harshly lowers Speed.' },
@@ -4305,12 +4305,12 @@ Object.assign(DATA.items, {
   ferry_ticket: { name: 'Sound Ferry Pass', pocket: 'key', desc: 'A season pass for the ferries that cross the Sound between Glasswater City, Saltmere and Port Calder.' },
   tower_key: { name: 'Tower Lift Key', pocket: 'key', desc: 'A Morrow Lumen keycard. It opens the private lift to the top floor of the tower.' },
   climbing_gear: { name: 'Climbing Gear', pocket: 'key', desc: 'Ropes, pitons and a good pair of boots from Hall Master Vesper. Lets you climb certain rocky slopes.' },
-  scroll_shadowclaw: { name: 'Scroll: Shadow Claw', pocket: 'scrolls', scroll: 'shadow_claw', sell: 1000, desc: `Teaches Shadow Claw (ghost). Can be used again and again. ${DATA.moves.shadow_claw.desc}` },
-  scroll_psycutter: { name: 'Scroll: Psy Cutter', pocket: 'scrolls', scroll: 'psy_cutter', price: 2500, sell: 1250, desc: `Teaches Psy Cutter (psychic). Can be used again and again. ${DATA.moves.psy_cutter.desc}` },
+  scroll_shadowclaw: { name: 'Scroll: Shade Talon', pocket: 'scrolls', scroll: 'shadow_claw', sell: 1000, desc: `Teaches Shade Talon (ghost). Can be used again and again. ${DATA.moves.shadow_claw.desc}` },
+  scroll_psycutter: { name: 'Scroll: Mind Cleaver', pocket: 'scrolls', scroll: 'psy_cutter', price: 2500, sell: 1250, desc: `Teaches Mind Cleaver (psychic). Can be used again and again. ${DATA.moves.psy_cutter.desc}` },
   scroll_divebomb: { name: 'Scroll: Dive Bomb', pocket: 'scrolls', scroll: 'dive_bomb', price: 3000, sell: 1500, desc: `Teaches Dive Bomb (air). Can be used again and again. ${DATA.moves.dive_bomb.desc}` },
-  rare_candy: { name: 'Rare Candy', pocket: 'items', field: true, levelup: true, sell: 1200, desc: 'A sweet, glowing candy. Raises a Wildmon by one level.' },
-  max_potion: { name: 'Max Potion', pocket: 'items', battle: 'heal', field: true, heal: 999, price: 2500, sell: 1250, desc: 'Fully restores one Wildmon\'s HP.' },
-  full_heal: { name: 'Full Heal', pocket: 'items', battle: 'cure', field: true, cure: 'all', cureText: 'cured', price: 600, sell: 300, desc: 'Cures any status condition.' },
+  rare_candy: { name: 'Starseed Honey', pocket: 'items', field: true, levelup: true, sell: 1200, desc: 'A sweet, glowing candy. Raises a Wildmon by one level.' },
+  max_potion: { name: 'Vital Draught', pocket: 'items', battle: 'heal', field: true, heal: 999, price: 2500, sell: 1250, desc: 'Fully restores one Wildmon\'s HP.' },
+  full_heal: { name: 'Cure-All', pocket: 'items', battle: 'cure', field: true, cure: 'all', cureText: 'cured', price: 600, sell: 300, desc: 'Cures any status condition.' },
 });
 Object.assign(DATA.scrolls, { scroll_shadowclaw: 'shadow_claw', scroll_psycutter: 'psy_cutter', scroll_divebomb: 'dive_bomb' });
 DATA.shops.glasswater = ['lantern', 'great_lantern', 'bright_lantern', 'kin_lantern', 'patience_lantern', 'dusk_lantern', 'tide_lantern', 'heal_lantern', 'friend_lantern', 'swift_lantern',
@@ -4428,7 +4428,7 @@ DATA.quests.act3 = {
     'Head north from Saltmere along Route 7 to Ashgrave.',
     'Earn the Veil Badge from Hall Master Vesper in Ashgrave.',
   ],
-  reward: 'Max Potion x3, Rare Candy x2',
+  reward: 'Vital Draught x3, Starseed Honey x2',
 };
 Object.assign(DATA.region.find((r) => r.id === 'glasswater') || {}, { desc: 'The glittering capital of the Sound, home of the Morrow Lumen Tower and the ferry docks.' });
 Object.assign(DATA.region.find((r) => r.id === 'saltmere') || {}, { desc: 'A misty fishing town on stilts at the edge of the western marshes.' });
@@ -4943,7 +4943,7 @@ Object.assign(DATA.scripts, {
   async candyGran(s) {
     const o = { name: 'Granny Toffee' };
     if (!s.flag('candy_gift')) { s.set('candy_gift'); await s.say(['Oh, a young trainer! You look peaky. Have a sweetie.', 'My special recipe. One of these and a Wildmon grows up quicker than you can say "toffee".'], o); return s.give('rare_candy', 2); }
-    return s.say(['Rare Candy raises a Wildmon by one whole level. Don\'t give them all to the same one, mind!'], o);
+    return s.say(['Starseed Honey raises a Wildmon by one whole level. Don\'t give them all to the same one, mind!'], o);
   },
   async exWorker(s) {
     const o = { name: 'Former Employee' };
@@ -5030,7 +5030,7 @@ Object.assign(DATA.scripts, {
     s.achieve('puzzler');
     await s.say(['The spirits sing for you tonight. Here is the Veil Badge.'], o);
     await s.badge('veil');
-    await s.say(['And this Climbing Gear. There are rocky slopes north of here that no one can cross without it.', 'Take this Scroll too: Shadow Claw.'], o);
+    await s.say(['And this Climbing Gear. There are rocky slopes north of here that no one can cross without it.', 'Take this Scroll too: Shade Talon.'], o);
     await s.give('climbing_gear'); await s.give('scroll_shadowclaw');
     if (!s.quest('act3').done) {
       await s.completeQuest('act3');
@@ -5070,9 +5070,9 @@ Object.assign(DATA.moves, {
   gale_burst: { name: 'Gale Burst', type: 'air', cat: 'spec', pow: 85, acc: 95, pp: 10, desc: 'Hurls a howling blast of wind at the foe.' },
   updraft: { name: 'Updraft', type: 'air', cat: 'status', acc: null, pp: 15, eff: 'self', st: { atk: 1, spe: 1 }, desc: 'Rides a rising wind. Raises Attack and Speed.' },
   crag_charge: { name: 'Crag Charge', type: 'rock', cat: 'phys', pow: 85, acc: 90, pp: 10, desc: 'Charges headlong like a falling boulder.' },
-  thunder_fang: { name: 'Thunder Fang', type: 'electric', cat: 'phys', pow: 65, acc: 95, pp: 15, eff: 'par', ch: 10, desc: 'Bites with crackling fangs. May paralyse.' },
-  frost_breath: { name: 'Frost Breath', type: 'ice', cat: 'spec', pow: 60, acc: 95, pp: 15, crit: 1, desc: 'Breathes a freezing mist. High critical-hit ratio.' },
-  cloud_veil: { name: 'Cloud Veil', type: 'light', cat: 'status', acc: null, pp: 15, eff: 'self', st: { def: 1, spd: 1 }, desc: 'Wraps itself in soft cloud. Raises Defence and Sp. Def.' },
+  thunder_fang: { name: 'Volt Fang', type: 'electric', cat: 'phys', pow: 65, acc: 95, pp: 15, eff: 'par', ch: 10, desc: 'Bites with crackling fangs. May paralyse.' },
+  frost_breath: { name: 'Chill Breath', type: 'ice', cat: 'spec', pow: 60, acc: 95, pp: 15, crit: 1, desc: 'Breathes a freezing mist. Often lands a clean strike.' },
+  cloud_veil: { name: 'Cloud Veil', type: 'light', cat: 'status', acc: null, pp: 15, eff: 'self', st: { def: 1, spd: 1 }, desc: 'Wraps itself in soft cloud. Raises Defence and Resolve.' },
 });
 
 /* ---------- Species #104–123 ---------- */
@@ -5254,7 +5254,7 @@ DATA.quests.gale = {
     'The Hollow Order has seized the Skyreach Beacon. Get inside and stop them.',
     'Earn the Gale Badge from Hall Master Aerin at the Gale Hall.',
   ],
-  reward: 'Full Heal x3, Rare Candy',
+  reward: 'Cure-All x3, Starseed Honey',
 };
 DATA.quests.mirror = {
   name: 'The Sealed Signal Tower', kind: 'side', giver: 'Keeper Ivo',
@@ -5745,11 +5745,11 @@ Object.assign(DATA.tiles, {
 
 /* ---------- Moves ---------- */
 Object.assign(DATA.moves, {
-  avalanche: { name: 'Avalanche', type: 'ice', cat: 'phys', pow: 80, acc: 100, pp: 10, desc: 'Brings a wall of snow and ice crashing down on the foe.' },
-  blizzard: { name: 'Blizzard', type: 'ice', cat: 'spec', pow: 110, acc: 70, pp: 5, eff: 'frz', ch: 10, desc: 'A howling blizzard. Hard to aim, but may freeze.' },
-  ice_shard: { name: 'Ice Shard', type: 'ice', cat: 'phys', pow: 40, acc: 100, pp: 30, pri: 1, desc: 'Flings a chunk of ice. Always goes first.' },
+  avalanche: { name: 'Icefall', type: 'ice', cat: 'phys', pow: 80, acc: 100, pp: 10, desc: 'Brings a wall of snow and ice crashing down on the foe.' },
+  blizzard: { name: 'Snow Squall', type: 'ice', cat: 'spec', pow: 110, acc: 70, pp: 5, eff: 'frz', ch: 10, desc: 'A howling blizzard. Hard to aim, but may freeze.' },
+  ice_shard: { name: 'Rime Dart', type: 'ice', cat: 'phys', pow: 40, acc: 100, pp: 30, pri: 1, desc: 'Flings a chunk of ice. Always goes first.' },
   frost_armor: { name: 'Frost Armour', type: 'ice', cat: 'status', acc: null, pp: 15, eff: 'self', st: { def: 2 }, desc: 'Coats itself in thick ice. Sharply raises Defence.' },
-  aurora_beam: { name: 'Aurora Beam', type: 'ice', cat: 'spec', pow: 65, acc: 100, pp: 20, eff: 'foe', st: { atk: -1 }, ch: 10, desc: 'A shimmering rainbow beam. May lower Attack.' },
+  aurora_beam: { name: 'Polar Ray', type: 'ice', cat: 'spec', pow: 65, acc: 100, pp: 20, eff: 'foe', st: { atk: -1 }, ch: 10, desc: 'A shimmering rainbow beam. May lower Attack.' },
 });
 
 /* ---------- Species #124–143 ---------- */
@@ -5840,9 +5840,9 @@ Object.assign(DATA.masteryTraits, { pengling: 'grit', frostbun: 'keen_eye', yetl
 
 /* ---------- Items ---------- */
 Object.assign(DATA.items, {
-  scroll_avalanche: { name: 'Scroll: Avalanche', pocket: 'items', scroll: 'avalanche', sell: 2000, desc: 'A Move Scroll. Teaches Avalanche to a Wildmon that can use Ice moves.' },
-  scroll_auroabeam: { name: 'Scroll: Aurora Beam', pocket: 'items', scroll: 'aurora_beam', price: 4000, sell: 1500, desc: 'A Move Scroll. Teaches Aurora Beam to a Wildmon that can use Ice moves.' },
-  scroll_iceshard: { name: 'Scroll: Ice Shard', pocket: 'items', scroll: 'ice_shard', price: 3000, sell: 1200, desc: 'A Move Scroll. Teaches Ice Shard to a Wildmon that can use Ice moves.' },
+  scroll_avalanche: { name: 'Scroll: Icefall', pocket: 'items', scroll: 'avalanche', sell: 2000, desc: 'A Move Scroll. Teaches Icefall to a Wildmon that can use Ice moves.' },
+  scroll_auroabeam: { name: 'Scroll: Polar Ray', pocket: 'items', scroll: 'aurora_beam', price: 4000, sell: 1500, desc: 'A Move Scroll. Teaches Polar Ray to a Wildmon that can use Ice moves.' },
+  scroll_iceshard: { name: 'Scroll: Rime Dart', pocket: 'items', scroll: 'ice_shard', price: 3000, sell: 1200, desc: 'A Move Scroll. Teaches Rime Dart to a Wildmon that can use Ice moves.' },
   hot_cocoa: { name: 'Hot Cocoa', pocket: 'items', battle: 'heal', field: true, heal: 120, price: 900, sell: 450, desc: 'A Frosthaven favourite. Restores 120 HP to one Wildmon.' },
 });
 Object.assign(DATA.scrolls, { scroll_avalanche: 'avalanche', scroll_auroabeam: 'aurora_beam', scroll_iceshard: 'ice_shard' });
@@ -5862,7 +5862,7 @@ Object.assign(DATA.trainers, {
   fp2: { cls: 'Mountain Guide', name: 'Sten', look: 'guide', team: [['mammote', 38], ['yetling', 39]], prize: 41, ai: 'tactical',
     intro: 'Nobody crosses my pass without proving they can handle the cold!', lose: 'You\'ll do.', after: 'Frosthaven is just over the ridge. Watch out for the Order. They came through yesterday.' },
   fp3: { cls: 'Skier', name: 'Bram', look: 'skier', team: [['frostmoth', 38], ['huskpup', 38], ['blizzhare', 39]], prize: 41, ai: 'tactical',
-    intro: 'Race you to the bottom! Loser buys cocoa!', lose: 'I\'ll get the cocoa...', after: 'Hot Cocoa from the Frosthaven Mart heals better than a Hyper Potion. Tastes better too.' },
+    intro: 'Race you to the bottom! Loser buys cocoa!', lose: 'I\'ll get the cocoa...', after: 'Hot Cocoa from the Frosthaven Mart heals better than a Grand Tonic. Tastes better too.' },
   og5: { cls: 'Order Grunt', name: 'Grunt', look: 'grunt', team: [['scraprat', 38], ['hexcat', 38], ['tombwing', 38]], prize: 40, ai: 'tactical', music: 'order',
     intro: 'Brr! You\'re not supposed to be up here! The Director said nobody follows us!', lose: 'Too cold to fight properly...', after: 'The Director is up at the Glacier Beacon. Bet you can\'t even find it.' },
   kit5: { cls: 'Rival', name: 'Kit', look: 'kit', team: [], prize: 90, ai: 'expert', items: { hyper_potion: 2 }, pot: 9 },
@@ -5929,7 +5929,7 @@ DATA.quests.act4 = {
     'The Order is at the Glacier Beacon, north of Frosthaven. Stop them before they take its Core!',
     'The sun has gone dark, and the Drowned Spire is rising out of the Sound.',
   ],
-  reward: 'Max Potion x5, Rare Candy x3',
+  reward: 'Vital Draught x5, Starseed Honey x3',
 };
 
 /* ---------- Region ---------- */
@@ -6118,7 +6118,7 @@ DATA.maps.frosthaven = {
 DATA.maps.frost_hearth = HEARTH('Frosthaven Hearthhouse', 'frosthaven', 'frosthaven', { map: 'frosthaven', x: 7, y: 8, dir: 'down' }, 'Nurse Sigrid',
   [{ id: 'fhh', x: 9, y: 5, dir: 'left', look: 'skier', move: 'wander', name: 'Skier', talk: ['The Hearthhouse fire never goes out. Thank goodness.'] }]);
 DATA.maps.frost_mart = MART('Frosthaven Mart', 'frosthaven', { map: 'frosthaven', x: 12, y: 8, dir: 'down' }, 'frosthaven',
-  [{ id: 'fmc', x: 7, y: 4, dir: 'up', look: 'girl', move: 'wander', name: 'Girl', talk: ['Hot Cocoa! It heals 120 HP and it\'s cheaper than a Hyper Potion. Everyone up here swears by it.'] }]);
+  [{ id: 'fmc', x: 7, y: 4, dir: 'up', look: 'girl', move: 'wander', name: 'Girl', talk: ['Hot Cocoa! It heals 120 HP and it\'s cheaper than a Grand Tonic. Everyone up here swears by it.'] }]);
 DATA.maps.frost_house = HOUSE('Cocoa House', 'frosthaven', { map: 'frosthaven', x: 9, y: 18, dir: 'down' },
   [{ id: 'cocoa', x: 7, y: 4, dir: 'left', look: 'old', script: 'cocoaGran' }], { '1,1': 'Tins of cocoa, stacked to the ceiling.' });
 DATA.maps.frost_house2 = HOUSE('Guide\'s Lodge', 'frosthaven', { map: 'frosthaven', x: 22, y: 18, dir: 'down' },
@@ -6218,7 +6218,7 @@ Object.assign(DATA.scripts, {
     if (res !== 'win') return;
     await s.say(['Ha! Strong as a spring thaw. You\'ve earned this. The Frost Badge!'], o);
     await s.badge('frost');
-    await s.say(['And this Scroll. Avalanche. Hits like the mountain itself.'], o);
+    await s.say(['And this Scroll. Icefall. Hits like the mountain itself.'], o);
     await s.give('scroll_avalanche');
     await s.say(['Now listen. The grey coats went up the glacier path, north of town. They\'re after the Beacon Core, I\'d bet my boots on it.',
       'I\'ve told the Ranger to let you through. Go. I\'m too old to climb that path quickly, but you aren\'t.'], o);
@@ -6286,9 +6286,9 @@ DATA.achievements.long_night = { name: 'The Long Night', desc: 'Witness the ecli
 /* ---------- Moves ---------- */
 Object.assign(DATA.moves, {
   gyro_slam: { name: 'Gyro Slam', type: 'steel', cat: 'phys', pow: 90, acc: 90, pp: 10, desc: 'Spins like a flywheel and slams into the foe.' },
-  abyssal_pull: { name: 'Abyssal Pull', type: 'dark', cat: 'spec', pow: 80, acc: 100, pp: 15, eff: 'foe', st: { spd: -1 }, ch: 20, desc: 'Drags the foe toward the dark deep. May lower Sp. Def.' },
+  abyssal_pull: { name: 'Abyssal Pull', type: 'dark', cat: 'spec', pow: 80, acc: 100, pp: 15, eff: 'foe', st: { spd: -1 }, ch: 20, desc: 'Drags the foe toward the dark deep. May lower Resolve.' },
   magnet_pulse: { name: 'Magnet Pulse', type: 'electric', cat: 'spec', pow: 75, acc: 100, pp: 15, eff: 'par', ch: 20, desc: 'A pulse of magnetic force. May paralyse.' },
-  plate_shield: { name: 'Plate Shield', type: 'steel', cat: 'status', acc: null, pp: 15, eff: 'self', st: { def: 1, spd: 1 }, desc: 'Raises a wall of riveted plates. Raises Defence and Sp. Def.' },
+  plate_shield: { name: 'Plate Shield', type: 'steel', cat: 'status', acc: null, pp: 15, eff: 'self', st: { def: 1, spd: 1 }, desc: 'Raises a wall of riveted plates. Raises Defence and Resolve.' },
 });
 
 /* ---------- Species #144–163 ---------- */
@@ -6454,7 +6454,7 @@ DATA.quests.act4.stages.push(
   'The sun has returned! Route 9 north of Mossgate has reopened. Head for Ironmouth.',
   'Earn the eighth Badge from Hall Master Vance at the Iron Hall in Ironmouth.',
 );
-DATA.quests.act4.reward = 'Max Potion x5, Rare Candy x3';
+DATA.quests.act4.reward = 'Vital Draught x5, Starseed Honey x3';
 
 /* ---------- Region ---------- */
 DATA.region.push({ id: 'drowned_spire', name: 'Drowned Spire', x: 132, y: 92, desc: 'An ancient tower that rose out of the Sound when the sun went dark.' });
@@ -6950,8 +6950,8 @@ Object.assign(DATA.masteryTraits, { emberwick: 'floating', gargrim: 'grit', iron
 
 /* ---------- Items ---------- */
 Object.assign(DATA.items, {
-  revive: { name: 'Revive', pocket: 'items', battle: 'heal', field: true, revive: true, price: 1500, sell: 750, desc: 'Revives a fainted Wildmon with half its HP.' },
-  full_restore: { name: 'Full Restore', pocket: 'items', battle: 'heal', field: true, heal: 999, cure: 'all', cureText: 'cured', price: 3000, sell: 1500, desc: 'Fully restores one Wildmon\'s HP and cures any status condition.' },
+  revive: { name: 'Rekindle', pocket: 'items', battle: 'heal', field: true, revive: true, price: 1500, sell: 750, desc: 'Rekindles a faded Wildmon with half its HP.' },
+  full_restore: { name: 'Hearth Draught', pocket: 'items', battle: 'heal', field: true, heal: 999, cure: 'all', cureText: 'cured', price: 3000, sell: 1500, desc: 'Fully restores one Wildmon\'s HP and cures any status condition.' },
   champion_crest: { name: 'Champion\'s Crest', pocket: 'key', desc: 'Proof that you are the Champion of the Lantern League. It glows warmly in your hand.' },
 });
 DATA.shops.lantern_isle = ['great_lantern', 'bright_lantern', 'swift_lantern', 'dusk_lantern', 'patience_lantern', 'kin_lantern', 'friend_lantern', 'heal_lantern', 'hyper_potion', 'max_potion', 'full_restore', 'revive', 'full_heal', 'calm_incense'];
@@ -6973,7 +6973,7 @@ const ACE = (name, look, team, intro, lose, after) => ({ cls: 'Ace Trainer', nam
 Object.assign(DATA.trainers, {
   lr1: ACE('Mara', 'ace', [['crestram', 49], ['thundermane', 50], ['floemperor', 50]], 'Eight Badges? So have I. Let\'s see whose are shinier!', 'Yours are shinier.', 'Lantern Road weeds out anyone who isn\'t ready. Stay sharp.'),
   lr2: ACE('Dorian', 'ace2', [['pyrowyrm', 50], ['hullgaunt', 50], ['nimbusoft', 50]], 'I\'ve been training on this road for a month. You\'ve been here five minutes.', 'Five minutes was enough, apparently.', 'The Gatekeepers can be fought in any order. Pick the one your team handles best first.'),
-  lr3: ACE('Sasha', 'ace', [['rimefox', 50], ['gloomowl', 50], ['cragrook', 51]], 'Halfway up Lantern Road! Prove you belong here!', 'You belong here.', 'Stock up on Revives on Lantern Isle. You can\'t go back for healing once you\'re inside.'),
+  lr3: ACE('Sasha', 'ace', [['rimefox', 50], ['gloomowl', 50], ['cragrook', 51]], 'Halfway up Lantern Road! Prove you belong here!', 'You belong here.', 'Stock up on Rekindles on Lantern Isle. You can\'t go back for healing once you\'re inside.'),
   lr4: ACE('Wolfe', 'ace2', [['mammaul', 51], ['dynamaus', 51], ['abyssray', 51]], 'The cave is dark, but my battling is darker!', 'That... didn\'t make sense, did it?', 'Push the boulders. Power Gloves on.'),
   lr5: ACE('Juno', 'ace', [['paladross', 52], ['yetimaul', 52], ['cyclonix', 52]], 'Last one before the Isle. Give it everything!', 'That was everything.', 'Good luck with the Gatekeepers. You\'ll need it.'),
   lr6: ACE('Hale', 'ace2', [['slagolem', 52], ['leviathorn', 52], ['prismafrost', 52]], 'You found me! Most people walk straight past.', 'Should\'ve stayed hidden.', 'Some say an Augurine lives on Lantern Isle. I\'ve never seen one, but it always seems to see me.'),
@@ -7310,7 +7310,7 @@ DATA.maps.lantern_isle = {
   ],
   npcs: [
     { id: 'wren', x: 12, y: 15, dir: 'right', look: 'wren', script: 'isleWren' },
-    { id: 'li1', x: 24, y: 17, dir: 'left', look: 'ace', move: 'wander', name: 'Ace Trainer', talk: ['I\'ve challenged the League four times. I keep losing to the third Gatekeeper.', 'Stock up on Revives and Full Restores. You can\'t leave once you\'re inside.'] },
+    { id: 'li1', x: 24, y: 17, dir: 'left', look: 'ace', move: 'wander', name: 'Ace Trainer', talk: ['I\'ve challenged the League four times. I keep losing to the third Gatekeeper.', 'Stock up on Rekindles and Hearth Draughts. You can\'t leave once you\'re inside.'] },
     { id: 'li2', x: 5, y: 17, dir: 'right', look: 'old', move: 'turn', name: 'Old Man', talk: ['The Lantern League was founded by the very people who built the eight Beacons.', 'Four Gatekeepers guard the way to the Champion. One for each of the old Beacon Keepers.'] },
   ],
 };
@@ -7493,7 +7493,7 @@ DATA.achievements.champion = { name: 'Champion of Aldermere', desc: 'Defeat Kit 
 Object.assign(DATA.moves, {
   star_shower: { name: 'Star Shower', type: 'light', cat: 'spec', pow: 90, acc: 100, pp: 10, desc: 'Rains down a shower of falling stars.' },
   meteor_strike: { name: 'Meteor Strike', type: 'rock', cat: 'phys', pow: 100, acc: 85, pp: 5, desc: 'Crashes into the foe like a falling star.' },
-  nebula_veil: { name: 'Nebula Veil', type: 'psychic', cat: 'status', acc: null, pp: 10, eff: 'self', st: { spa: 1, spd: 1 }, desc: 'Wraps itself in starlit mist. Raises Sp. Atk and Sp. Def.' },
+  nebula_veil: { name: 'Nebula Veil', type: 'psychic', cat: 'status', acc: null, pp: 10, eff: 'self', st: { spa: 1, spd: 1 }, desc: 'Wraps itself in starlit mist. Raises Spirit and Resolve.' },
 });
 
 /* ---------- Species #169–173 ---------- */
@@ -7608,7 +7608,7 @@ DATA.region.push(
 );
 DATA.regionRoutes = DATA.regionRoutes.concat([['port_calder', 'starfall'], ['starfall', 'starfall_peak']]);
 
-/* ---------- Balance: marsh encounters in Saltmere, Revives in later shops ---------- */
+/* ---------- Balance: marsh encounters in Saltmere, Rekindles in later shops ---------- */
 if (DATA.encounters.saltmere && !DATA.encounters.saltmere.grass && DATA.encounters.route7 && DATA.encounters.route7.grass) {
   const g = DATA.encounters.route7.grass;
   const down = (list) => list.map(([sp, w, a, b]) => [sp, w, Math.max(2, a - 1), Math.max(2, b - 1)]);
@@ -8027,7 +8027,7 @@ for (const sp of WARDENS) DATA.achievements['legend_' + sp] = { name: `${DATA.sp
 DATA.terms = [
   ['Wildmon', 'The creatures of Aldermere.', 'Wildmon live everywhere: in tall grass, caves, water and towns. Trainers catch them in Lanterns, raise them and battle alongside them.'],
   ['Lantern', 'What you catch Wildmon in.', 'Throw a Lantern at a weakened wild Wildmon to catch it. Different Lanterns work better in different situations. See the Lanterns tab.'],
-  ['Hearthhouse', 'Every town\'s rest stop.', 'Talk to the nurse to fully heal your team. The Hearthhouse you last rested at is where you wake up if your whole team faints.'],
+  ['Hearthhouse', 'Every town\'s rest stop.', 'Talk to the nurse to fully heal your team. The Hearthhouse you last rested at is where you wake up if your whole team fades out.'],
   ['Lantern Shelf', 'Storage for Wildmon you are not carrying.', 'Every Hearthhouse has a Lantern Shelf. All shelves are linked to the Lantern Warehouse in Port Calder, so you can reach your stored Wildmon from any town.'],
   ['Lantern Warehouse', 'Where storage space is upgraded.', 'Keeper Lumley in Port Calder upgrades your storage: Shelf (30), Storeroom (90), Warehouse (240) and Bunker (600). Bigger tiers cost Credits and need more Badges.'],
   ['Hall', 'A battle arena in a major town.', 'Each of the eight Halls has a puzzle to solve and trainers to beat before you can challenge its Hall Master.'],
@@ -8129,7 +8129,7 @@ const hiddenPlace = (id) => !prefs.spoilers && SECRET_PLACES.includes(id);
 const RARITY = { common: 'Common', uncommon: 'Uncommon', rare: 'Rare', veryrare: 'Very rare', legendary: 'Legendary' };
 const GROWTH = { fast: 'Fast', mfast: 'Medium fast', medium: 'Medium', mslow: 'Medium slow', slow: 'Slow' };
 const METHOD = { grass: 'Tall grass', cave: 'Cave', surf: 'Surfing', fish: 'Fishing' };
-const CAT = { phys: 'Physical', spec: 'Special', status: 'Status' };
+const CAT = { phys: 'Physical', spec: 'Spirit', status: 'Status' };
 const POCKET = { items: 'Items', lanterns: 'Lanterns', shards: 'Shards', scrolls: 'Move Scrolls', collect: 'Collectables', key: 'Key items' };
 
 /* sprites are drawn by the game's own renderer, then cached as images */
@@ -8202,7 +8202,7 @@ const HALLS = [
   { id: 'forge', master: 'brann', town: 'cinderhollow', map: 'forge_hall', type: 'fire', reward: 'Power Gloves', act: 2 },
   { id: 'veil', master: 'vesper', town: 'ashgrave', map: 'veil_hall', type: 'ghost', reward: 'Climbing Gear', act: 3 },
   { id: 'gale', master: 'aerin', town: 'skyreach', map: 'gale_hall', type: 'air', reward: 'Gale Glider', act: 4 },
-  { id: 'frost', master: 'torvald', town: 'frosthaven', map: 'frost_hall', type: 'ice', reward: 'Scroll: Avalanche', act: 5 },
+  { id: 'frost', master: 'torvald', town: 'frosthaven', map: 'frost_hall', type: 'ice', reward: 'Scroll: Icefall', act: 5 },
   { id: 'iron', master: 'vance', town: 'ironmouth', map: 'iron_hall', type: 'steel', reward: 'Lantern Road Pass', act: 6 },
 ];
 const BADGES = { bloom: ['Bloom Badge', 'Bloom Hall'], tide: ['Tide Badge', 'Tide Hall'], spark: ['Spark Badge', 'Spark Hall'], forge: ['Forge Badge', 'Forge Hall'],
@@ -8595,7 +8595,7 @@ function movePage(id) {
   <div style="margin-bottom:10px">${typeTag(m.type)} <span class="tag">${CAT[m.cat]}</span>${m.pri ? ' <span class="tag">goes first</span>' : ''}</div>
   <p>${esc(m.desc || '')}</p>
   <dl class="facts"><dt>Power</dt><dd>${m.eff === 'level' ? 'Equal to the user’s level' : m.pow || '–'}</dd><dt>Accuracy</dt><dd>${m.acc ? m.acc + '%' : 'Never misses'}</dd><dt>PP</dt><dd>${m.pp}</dd>
-  ${m.cat !== 'status' ? `<dt>Super effective on</dt><dd>${DATA.chart[m.type].se.map(typeTag).join('') || 'nothing'}</dd><dt>Weak against</dt><dd>${DATA.chart[m.type].nv.map(typeTag).join('') || 'nothing'}</dd>${DATA.chart[m.type].im.length ? `<dt>No effect on</dt><dd>${DATA.chart[m.type].im.map(typeTag).join('')}</dd>` : ''}` : ''}</dl>
+  ${m.cat !== 'status' ? `<dt>Hits hard against</dt><dd>${DATA.chart[m.type].se.map(typeTag).join('') || 'nothing'}</dd><dt>Weak against</dt><dd>${DATA.chart[m.type].nv.map(typeTag).join('') || 'nothing'}</dd>${DATA.chart[m.type].im.length ? `<dt>No effect on</dt><dd>${DATA.chart[m.type].im.map(typeTag).join('')}</dd>` : ''}` : ''}</dl>
   ${scroll ? `<p>Taught by ${itLink(scroll)}${(IX.soldAt[scroll] || []).length ? `, sold in ${[...new Set((IX.soldAt[scroll] || []).flatMap(shopPlaces))].map(placeLink).join(', ')}` : ''}.</p>` : ''}</div>
   <div class="page"><h2>Learned by levelling</h2>${learners.length ? `<div class="grid">${learners.map((l) => `<a class="card" href="#/wildmon/${l.sp}"><span class="no">${l.lv === 1 ? 'Start' : 'Lv ' + l.lv}</span><span class="spr">${img(l.sp)}</span><div class="nm">${esc(spName(l.sp))}</div></a>`).join('')}</div>` : '<p class="muted">No Wildmon learns this by levelling.</p>'}</div>
   ${scroll ? `<div class="page"><h2>Can learn it from the scroll</h2><p class="muted">Any ${esc(m.type)} or Normal-friendly Wildmon, plus a few others.</p><p>${scrollers.map(spLink).join(', ')}</p></div>` : ''}`;
