@@ -10554,6 +10554,34 @@ const UI = {
     addEventListener('pointerdown', () => Sound.init(), { capture: true });
     setInterval(() => this.updateHud(), 300);
     this.fileInput = $('#file');
+    this.followSelection();
+  },
+  /* keep the highlighted row of any list on screen when the D-pad moves past the edge */
+  followSelection() {
+    const reveal = (el) => {
+      for (let p = el.parentElement; p && p !== document.body; p = p.parentElement) {
+        const oy = getComputedStyle(p).overflowY;
+        if ((oy === 'auto' || oy === 'scroll') && p.scrollHeight > p.clientHeight + 1) {
+          const r = el.getBoundingClientRect(), pr = p.getBoundingClientRect(); const pad = Math.min(8, r.height / 4);
+          if (r.top < pr.top) p.scrollTop -= pr.top - r.top + pad;
+          else if (r.bottom > pr.bottom) p.scrollTop += r.bottom - pr.bottom + pad;
+          return;
+        }
+      }
+    };
+    let queued = new Set(), pending = false;
+    const flush = () => { pending = false; const els = [...queued]; queued = new Set(); els.forEach((el) => { if (el.isConnected && el.classList.contains('sel')) reveal(el); }); };
+    new window.MutationObserver((muts) => {
+      for (const m of muts) {
+        if (m.type === 'attributes') { if (m.target.classList && m.target.classList.contains('sel')) queued.add(m.target); continue; }
+        for (const n of m.addedNodes) {
+          if (n.nodeType !== 1) continue;
+          if (n.classList.contains('sel')) queued.add(n);
+          n.querySelectorAll('.sel').forEach((x) => queued.add(x));
+        }
+      }
+      if (queued.size && !pending) { pending = true; requestAnimationFrame(flush); }
+    }).observe(document.body, { subtree: true, childList: true, attributes: true, attributeFilter: ['class'] });
   },
   get open() { return this.stack.length > 0; },
   push(p) { this.stack.push(p); this.root.appendChild(p.el); },
