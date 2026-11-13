@@ -320,6 +320,21 @@ body.touch.landscape #controls > * { pointer-events: auto; opacity: .85; }
 .bcmd.lane .bmv small { font-size: calc(var(--u) * 4.4); opacity: .75; margin-top: calc(var(--u) * .8); }
 .bcmd.lane .bmv::before { content: none; }
 .bcmd.lane .bmv.sel { background: linear-gradient(#ffd77a, #f2b53a); color: #1b2236; box-shadow: 0 0 calc(var(--u) * 4) rgba(242, 181, 58, .6); }
+.panel.learn { gap: calc(var(--u) * 3); padding-top: calc(var(--u) * 18); }
+.panel.learn .lcard { padding: calc(var(--u) * 2.5) calc(var(--u) * 5); font-size: calc(var(--u) * 6); border-color: #b8741a; box-shadow: inset 0 0 0 var(--u) var(--paper), inset 0 0 0 calc(var(--u) * 1.6) #f2b53a; }
+.panel.learn .lhead { display: flex; align-items: center; gap: calc(var(--u) * 3); flex-wrap: wrap; font-size: calc(var(--u) * 6.6); }
+.panel.learn .lnew { background: #f2b53a; color: var(--ink); font-size: calc(var(--u) * 4.8); padding: 0 calc(var(--u) * 2.5); border-radius: calc(var(--u) * 2); }
+.panel.learn .lcat { font-size: calc(var(--u) * 5); opacity: .75; }
+.panel.learn .lstats { font-size: calc(var(--u) * 5.4); margin-top: calc(var(--u) * 1); }
+.panel.learn .lstab { color: #2f7a3a; }
+.panel.learn .ldesc { font-size: calc(var(--u) * 5.4); opacity: .85; margin-top: calc(var(--u) * 1); line-height: 1.25; }
+.panel.learn .llist { flex: none; max-height: calc(var(--u) * 56); }
+.panel.learn .lrowm { font-size: calc(var(--u) * 6); padding-top: calc(var(--u) * 1.2); padding-bottom: calc(var(--u) * 1.2); position: relative; }
+.panel.learn .lrowm .val { font-size: calc(var(--u) * 5); }
+.panel.learn .lrowm .iname { display: flex; align-items: center; gap: var(--u); }
+.panel.learn .lskip { opacity: .8; font-style: italic; }
+.panel.learn .ldet { padding: calc(var(--u) * 2.5) calc(var(--u) * 5); font-size: calc(var(--u) * 6); }
+.panel.learn .lverdict { margin-top: calc(var(--u) * 1.5); font-size: calc(var(--u) * 5.6); color: #7a4a10; }
 
 </style>
 </head>
@@ -11337,21 +11352,83 @@ Object.assign(UI, {
     if (m.moves.some((x) => x.id === id)) return;
     const name = DATA.moves[id].name;
     if (m.moves.length < 4) { m.moves.push({ id, pp: DATA.moves[id].pp }); Sound.sfx('levelup'); await say(`${Mon.name(m)} learned ${name}!`); return; }
+    await say(`${Mon.name(m)} wants to learn ${name}, but it already knows four moves.`);
     for (;;) {
-      const yes = await this.ask(`${Mon.name(m)} wants to learn ${name}, but it already knows four moves. Forget a move to make room?`, ['Yes', 'No']);
-      if (yes !== 0) {
-        const sure = await this.ask(`Stop learning ${name}?`, ['Yes', 'No']);
+      const i = await this.moveSwap(m, id);
+      if (i < 0) {
+        const sure = await this.ask(`Give up on learning ${name}?`, ['Yes', 'No']);
         if (sure === 0) { await say(`${Mon.name(m)} did not learn ${name}.`); return; }
         continue;
       }
-      const opts = m.moves.map((x) => `${DATA.moves[x.id].name}  (${DATA.moves[x.id].type})`);
-      const i = await this.menu([...opts, `Keep all (skip ${name})`], { cls: 'slots', header: `Forget which move for ${name}?` });
-      if (i < 0 || i === 4) continue;
       const old = DATA.moves[m.moves[i].id].name;
+      const ok = await this.ask(`Forget ${old} and learn ${name}?`, ['Yes', 'No']);
+      if (ok !== 0) continue;
       m.moves[i] = { id, pp: DATA.moves[id].pp };
-      await say(`1, 2 and... Poof! ${Mon.name(m)} forgot ${old}. And... ${Mon.name(m)} learned ${name}!`);
+      Sound.sfx('levelup');
+      await say(`${Mon.name(m)} let go of ${old}... and learned ${name}!`);
       return;
     }
+  },
+  /* side-by-side view for choosing which move to replace: resolves with the slot index, or -1 to skip */
+  moveSwap(m, newId) {
+    const st = Mon.stats(m); const types = DATA.species[m.sp].types;
+    const catName = (d) => (d.cat === 'status' ? 'Status' : d.cat === 'phys' ? 'Physical' : 'Spirit');
+    const powTxt = (d) => (d.cat === 'status' ? '\u2013' : d.eff === 'level' ? 'Lv' : String(d.pow));
+    const strength = (d) => (d.cat === 'status' ? 0 : (d.eff === 'level' ? m.lv : d.pow) * (types.includes(d.type) ? 1.5 : 1) * ((d.acc || 100) / 100));
+    const uses = (d) => (d.cat === 'status' ? '' : d.cat === 'phys' ? `Uses Attack (${st.atk})` : `Uses Spirit (${st.spa})`);
+    const tag = (d) => `<span class="ttag" style="background:${DATA.typeColors[d.type]}">${d.type.toUpperCase()}</span>`;
+    const nd = DATA.moves[newId];
+    return new Promise((res) => {
+      const p = this.panel('learn', `${Mon.name(m)}: replace a move?`);
+      const card = h('div', 'box lcard');
+      card.innerHTML = `<div class="lhead"><span class="lnew">New</span><b>${nd.name}</b>${tag(nd)}<span class="lcat">${catName(nd)}</span></div>
+        <div class="lstats">Power ${powTxt(nd)} \u00b7 Accuracy ${nd.acc ? nd.acc + '%' : 'never misses'} \u00b7 PP ${nd.pp}${nd.cat !== 'status' ? ' \u00b7 ' + uses(nd) : ''}${types.includes(nd.type) && nd.cat !== 'status' ? ' \u00b7 <span class="lstab">same type +50%</span>' : ''}</div>
+        <div class="ldesc">${nd.desc || ''}</div>`;
+      const list = h('div', 'list llist'); const det = h('div', 'box detail ldet');
+      p.el.append(card, list, det);
+      let sel = 0;
+      const rows = m.moves.map((x) => ({ id: x.id, pp: x.pp })); rows.push({ skip: true });
+      const draw = () => {
+        list.innerHTML = '';
+        rows.forEach((r, i) => {
+          const row = h('div', 'row lrowm' + (i === sel ? ' sel' : '') + (r.skip ? ' lskip' : ''));
+          if (r.skip) row.appendChild(h('span', 'iname', `Don't learn ${nd.name}`));
+          else {
+            const d = DATA.moves[r.id];
+            const dot = h('span', 'tdot'); dot.style.background = DATA.typeColors[d.type];
+            const left = h('span', 'iname'); left.append(dot, document.createTextNode(' ' + d.name));
+            row.append(left, h('span', 'val', `${catName(d)} \u00b7 Pow ${powTxt(d)} \u00b7 ${d.acc ? d.acc + '%' : '\u2013'} \u00b7 PP ${r.pp}/${d.pp}`));
+          }
+          row.addEventListener('pointerdown', (e) => { e.preventDefault(); if (sel === i) pick(); else { sel = i; Sound.sfx('select'); draw(); } });
+          list.appendChild(row);
+        });
+        const r = rows[sel];
+        if (r.skip) { det.innerHTML = `<div class="ldesc">Keep all four current moves. ${Mon.name(m)} won't learn ${nd.name}.</div>`; return; }
+        const d = DATA.moves[r.id];
+        const a = strength(d), b = strength(nd);
+        let verdict;
+        if (d.cat === 'status' && nd.cat === 'status') verdict = 'Both are status moves. Read what each one does.';
+        else if (d.cat === 'status') verdict = `${d.name} doesn't deal damage. ${nd.name} would add another attack.`;
+        else if (nd.cat === 'status') verdict = `${nd.name} doesn't deal damage. You would lose one of your attacks.`;
+        else if (b > a * 1.1) verdict = `${nd.name} hits harder (about ${Math.round(b)} vs ${Math.round(a)}).`;
+        else if (a > b * 1.1) verdict = `${d.name} hits harder (about ${Math.round(a)} vs ${Math.round(b)}).`;
+        else verdict = `They hit about as hard as each other (${Math.round(a)} vs ${Math.round(b)}).`;
+        const sameType = m.moves.filter((x) => x.id !== r.id && DATA.moves[x.id].type === d.type && DATA.moves[x.id].cat !== 'status').length;
+        const note = d.cat !== 'status' && !sameType && nd.type !== d.type ? ` It is your only ${d.type} attack.` : '';
+        det.innerHTML = `<div class="lhead"><b>${d.name}</b>${tag(d)}<span class="lcat">${catName(d)}${d.cat !== 'status' ? ' \u00b7 ' + uses(d) : ''}</span></div>
+          <div class="ldesc">${d.desc || ''}</div><div class="lverdict">${verdict}${note}</div>`;
+      };
+      const finish = (v) => { p.finish(); res(v); };
+      const pick = () => { Sound.sfx('confirm'); finish(rows[sel].skip ? -1 : sel); };
+      p.input = (a) => {
+        if (a === 'up') { sel = (sel + rows.length - 1) % rows.length; Sound.sfx('select'); draw(); }
+        else if (a === 'down') { sel = (sel + 1) % rows.length; Sound.sfx('select'); draw(); }
+        else if (a === 'a') pick();
+        else if (a === 'b' || a === 'menu') { Sound.sfx('cancel'); finish(-1); }
+      };
+      p.el.querySelector('.pclose').addEventListener('pointerdown', () => res(-1));
+      draw();
+    });
   },
 
   /* ---------- storage ---------- */
