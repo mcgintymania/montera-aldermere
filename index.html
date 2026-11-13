@@ -9395,6 +9395,14 @@ const Game = {
     for (const n of World.npcs) list.push({ y: n.drawY, f: () => this.drawEntity(ctx, n, cx, cy) });
     list.push({ y: this.player.drawY + 0.5, f: () => this.drawEntity(ctx, this.player, cx, cy) });
     list.sort((a, b) => a.y - b.y).forEach((d) => d.f());
+    // hidden items give a brief, faint glint every few seconds
+    for (const it of World.items) {
+      if (!it.hidden) continue;
+      const ph = ((t + ((it.x * 7 + it.y * 13) % 17) * 0.29) % 4.6) / 0.42; if (ph >= 1) continue;
+      const a = Math.sin(ph * Math.PI) * 0.85; const r = ph > 0.3 && ph < 0.7 ? 2 : 1; const gx = it.x * TS - cx + 8, gy = it.y * TS - cy + 7;
+      ctx.fillStyle = `rgba(255,252,230,${a.toFixed(2)})`;
+      ctx.fillRect(gx, gy - r, 1, r * 2 + 1); ctx.fillRect(gx - r, gy, r * 2 + 1, 1);
+    }
     // tall grass over feet
     for (const e of [this.player, ...World.npcs]) {
       if (e.moving && e.prog < 0.5) continue;
