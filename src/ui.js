@@ -458,6 +458,7 @@ const UI = {
       opts.push({ label: 'Import Save File', fn: async () => { const st = await this.importSave(); if (st) { logo.remove(); Game.enterWorld(st); return true; } return false; } });
       opts.push({ label: 'Settings', fn: async () => { await this.settings(false); return false; } });
       if (AppShell.hosted()) opts.push({ label: 'Companion Guide', fn: async () => { window.open('companion.html', '_blank', 'noopener'); return false; } });
+      if (AppShell.hosted()) opts.push({ label: 'Back to Montera', fn: async () => { location.href = './'; return new Promise(() => {}); } });
       if (AppShell.canInstall()) opts.push({ label: 'Install App', fn: async () => { if (await AppShell.install()) await this.dialog('Montera is installed. You can open it from your home screen or app list, even offline.'); return false; } });
       const i = await this.menu(opts.map((o) => o.label), { cls: 'titlemenu', cancel: false });
       if (await opts[i].fn()) return;
