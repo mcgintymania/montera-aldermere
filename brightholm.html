@@ -8112,6 +8112,10 @@ Object.assign(DATA.scripts, {
   async bhDad(s) {
     const o = { name: 'Dad' };
     if (!s.flag('hall_intro')) return DATA.scripts.bhHallIntro(s);
+    if (!s.flag('has_starter') && !s.flag('choose_starter')) {
+      s.set('choose_starter');
+      return s.say(['There you are. They are ready at last!', 'Three Wildmon were born on the farm this spring. Your mum has been raising them, and they are ready for trainers of their own.', 'Their Lanterns are on the table. Have a good look at each one.'], o);
+    }
     if (!s.flag('has_starter')) return s.say(['Take your time. Have a good look at each Lantern on the table.'], o);
     const m = G.party[0];
     return s.say([`${m ? Mon.name(m) : 'Your partner'} looks happy with you already.`, "When you've earned seven Badges, come home. I'll be waiting right here."], o);
