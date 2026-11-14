@@ -1,8 +1,8 @@
 {
   "id": "./",
-  "name": "Montera: The Lanterns of Aldermere",
+  "name": "Montera",
   "short_name": "Montera",
-  "description": "Catch Wildmon, earn eight Badges and stop the Hollow Order in this retro monster-catching adventure.",
+  "description": "Retro monster-catching adventures: catch Wildmon, earn Badges and become Champion.",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
@@ -44,6 +44,17 @@
     }
   ],
   "shortcuts": [
+    {
+      "name": "The Lanterns of Aldermere",
+      "short_name": "Aldermere",
+      "url": "aldermere.html",
+      "icons": [
+        {
+          "src": "icons/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
     {
       "name": "Companion Guide",
       "short_name": "Guide",

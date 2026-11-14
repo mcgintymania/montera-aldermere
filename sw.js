@@ -1,6 +1,7 @@
-const CACHE = 'montera-4b9547fab787';
-const SHELL = ["./", "index.html", "companion.html", "manifest.webmanifest", "icons/apple-touch-icon.png", "icons/favicon-64.png", "icons/icon-192.png", "icons/icon-512.png", "icons/maskable-192.png", "icons/maskable-512.png"];
+const CACHE = 'montera-8b431c17bda4';
+const SHELL = ["./", "index.html", "aldermere.html", "brightholm.html", "companion.html", "logo.webp", "manifest.webmanifest", "icons/apple-touch-icon.png", "icons/favicon-64.png", "icons/icon-192.png", "icons/icon-512.png", "icons/maskable-192.png", "icons/maskable-512.png"];
 const FONTS = 'montera-fonts';
+const PAGES = ['aldermere.html', 'brightholm.html', 'companion.html'];
 
 self.addEventListener('install', (e) => {
   e.waitUntil(caches.open(CACHE).then((c) => c.addAll(SHELL)).then(() => self.skipWaiting()));
@@ -18,7 +19,7 @@ self.addEventListener('fetch', (e) => {
   const url = new URL(req.url);
   if (url.origin === location.origin) {
     e.respondWith(caches.open(CACHE).then(async (c) => {
-      const hit = await c.match(req, { ignoreSearch: true }) || (req.mode === 'navigate' ? await c.match(url.pathname.endsWith('companion.html') ? 'companion.html' : 'index.html') : null);
+      const hit = await c.match(req, { ignoreSearch: true }) || (req.mode === 'navigate' ? await c.match(PAGES.find((p) => url.pathname.endsWith('/' + p)) || 'index.html') : null);
       if (hit) return hit;
       const res = await fetch(req);
       if (res.ok) c.put(req, res.clone());
