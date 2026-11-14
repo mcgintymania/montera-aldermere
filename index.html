@@ -11101,7 +11101,7 @@ const UI = {
         const a = h('a', 'btn', 'Download file'); a.href = URL.createObjectURL(blob); a.download = fname;
         a.addEventListener('click', () => { msg.textContent = 'Downloading. Look in your Downloads (on iPhone: Files, then Downloads).'; Sound.sfx('confirm'); });
         row.appendChild(a);
-        let file = null; try { file = new File([text], fname, { type: 'application/octet-stream' }); } catch { file = null; }
+        let file = null; try { file = new window.File([text], fname, { type: 'application/octet-stream' }); } catch { file = null; }
         if (navigator.share && file && (!navigator.canShare || navigator.canShare({ files: [file] }))) {
           btn('Share', () => { navigator.share({ files: [file], title: 'Montera save' }).then(() => { msg.textContent = 'Shared!'; }, () => {}); });
         }

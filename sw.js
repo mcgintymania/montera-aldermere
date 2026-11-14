@@ -1,4 +1,4 @@
-const CACHE = 'montera-f17ebf09d31a';
+const CACHE = 'montera-2a4e7afa6f0a';
 const SHELL = ["./", "index.html", "companion.html", "manifest.webmanifest", "icons/apple-touch-icon.png", "icons/favicon-64.png", "icons/icon-192.png", "icons/icon-512.png", "icons/maskable-192.png", "icons/maskable-512.png"];
 const FONTS = 'montera-fonts';
 
