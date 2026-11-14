@@ -6455,6 +6455,7 @@ Object.assign(DATA.scripts, {
       return;
     }
     await s.say(['Nocthra lets out a long, low cry... and sinks slowly back into the deep water beneath the Spire.']);
+    await s.say('Nocthra is too wild to catch while the eclipse holds. Once you are Champion, it may rise again at the top of the Spire.', { sign: true });
     World.props = World.props.filter((p) => p !== pr);
     Sound.sfx('badge');
     await Game.fadeOut(600);

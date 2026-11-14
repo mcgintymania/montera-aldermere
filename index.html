@@ -36,6 +36,11 @@ body { font-family: ui-monospace, "Cascadia Mono", Consolas, "Lucida Console", "
 
 /* menus */
 .menu { padding: calc(var(--u) * 4) calc(var(--u) * 6); min-width: calc(var(--u) * 60); }
+.menu { display: flex; flex-direction: column; max-height: calc(var(--u) * 150); }
+.menu .mlist { overflow-y: auto; min-height: 0; overscroll-behavior: contain; scrollbar-width: thin; }
+.menu.choice { max-height: calc(var(--u) * 100); }
+.menu.slots { max-height: calc(var(--u) * 144); }
+.menu.titlemenu { max-height: calc(var(--u) * 120); }
 .menu .mi { padding: calc(var(--u) * 1) calc(var(--u) * 2) calc(var(--u) * 1) calc(var(--u) * 9); position: relative; white-space: nowrap; cursor: pointer; border-radius: calc(var(--u) * 2); }
 .menu .mi.sel::before { content: "▶"; position: absolute; left: var(--u); font-size: calc(var(--u) * 6); top: calc(var(--u) * 2); }
 .menu .mi.sel { background: rgba(232, 176, 48, .25); }
@@ -6561,6 +6566,7 @@ Object.assign(DATA.scripts, {
       return;
     }
     await s.say(['Nocthra lets out a long, low cry... and sinks slowly back into the deep water beneath the Spire.']);
+    await s.say('Nocthra is too wild to catch while the eclipse holds. Once you are Champion, it may rise again at the top of the Spire.', { sign: true });
     World.props = World.props.filter((p) => p !== pr);
     Sound.sfx('badge');
     await Game.fadeOut(600);
@@ -11118,11 +11124,14 @@ const UI = {
     return new Promise((res) => {
       const el = h('div', 'box menu ' + (opt.cls || ''));
       if (opt.header) el.appendChild(h('div', 'mhead', opt.header));
+      const box = h('div', 'mlist'); el.appendChild(box);
       let i = opt.index || 0;
       const items = options.map((o, k) => {
         const it = h('div', 'mi' + (o && o.disabled ? ' dis' : ''), typeof o === 'string' ? o : o.label);
-        it.addEventListener('pointerdown', (e) => { e.preventDefault(); i = k; draw(); choose(); });
-        el.appendChild(it); return it;
+        // a tap chooses; a drag scrolls a long menu without choosing anything
+        it.addEventListener('pointerdown', () => { if (i !== k) { i = k; draw(); } });
+        it.addEventListener('click', (e) => { e.preventDefault(); i = k; draw(); choose(); });
+        box.appendChild(it); return it;
       });
       const draw = () => items.forEach((it, k) => it.classList.toggle('sel', k === i));
       const choose = () => { const o = options[i]; if (o && o.disabled) { Sound.sfx('bump'); return; } Sound.sfx('confirm'); UI.close(panel); res(i); };
