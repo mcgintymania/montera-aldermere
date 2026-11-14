@@ -27,6 +27,7 @@ const BattleEngine = {
       if (B && t === 'sunsoak' && this.wx(B) === 'sun') v *= 2;
     }
     if (k === 'atk' && a.mon.status && this.trait(a) === 'grit') v *= 1.5;
+    if (k === 'atk' && this.trait(a) === 'pack' && typeof Doubles !== 'undefined' && Doubles.D) for (const side of Doubles.D.slots) { const i = side.findIndex((x) => x && x.a === a); if (i < 0) continue; const o = side[1 - i]; if (o && o.a.mon.hp > 0 && DATA.species[o.a.mon.sp].line === DATA.species[a.mon.sp].line) v *= 1.5; }
     if (k === 'spd' && B && this.wx(B) === 'sand' && this.types(a).includes('rock')) v *= 1.5;
     return v;
   },

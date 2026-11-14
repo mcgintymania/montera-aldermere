@@ -33,7 +33,7 @@ const Store = {
   set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); return true; } catch { return false; } },
   del(k) { try { localStorage.removeItem(k); } catch { /* storage unavailable */ } },
 };
-const Settings = Object.assign({ textSpeed: 1, music: 0.5, sfx: true, autosave: true, touch: 'auto', autorun: false, battleStyle: 'shift' },
+const Settings = Object.assign({ textSpeed: 1, music: 0.5, sfx: true, autosave: true, touch: 'auto', autorun: false, battleStyle: 'shift', follow: true },
   Store.get('mtb_settings', {}));
 function saveSettings() { Store.set('mtb_settings', Settings); }
 
@@ -1246,6 +1246,7 @@ const Game = {
     for (const it of World.items) if (!it.hidden) list.push({ y: it.y * TS, f: () => drawItemBall(ctx, it.x * TS - cx, it.y * TS - cy, t) });
     for (const n of World.npcs) list.push({ y: n.drawY, f: () => this.drawEntity(ctx, n, cx, cy) });
     list.push({ y: this.player.drawY + 0.5, f: () => this.drawEntity(ctx, this.player, cx, cy) });
+    if (typeof Follow !== 'undefined' && Follow.visible()) list.push({ y: Follow.e.drawY + 0.25, f: () => Follow.draw(ctx, cx, cy, t) });
     list.sort((a, b) => a.y - b.y).forEach((d) => d.f());
     // hidden items give a brief, faint glint every few seconds
     for (const it of World.items) {

@@ -12,7 +12,7 @@ The full source for **Montera: The Lanterns of Aldermere**. The published game l
 | `src/artdata.js` | Generated Wildmon looks. Edit `tools/artspec.py`, then run `tools/gen_art.py` |
 | `companion/` | The Companion web app (template, styles, app code) |
 | `launcher/` | The Montera title screen (`index.html` on the site) and the new logo |
-| `brightholm/` | Game 2, The Rising Light of Brightholm: its own copy of the engine plus `bh_data.js` (Larkfield maps, characters, scripts), `bh_build.js` (building styles: give a building `style: 'farmhouse' | 'brick' | 'stone' | 'timber' | 'cottage' | 'barn'`, or a Hall `style: 'barn'`) and `bh_story.js` (the Courier, the legend, character creation). Order is set in `build_brightholm.py` |
+| `brightholm/` | Game 2, The Rising Light of Brightholm: its own copy of the engine plus `bh_data.js` (Larkfield maps, characters, scripts), `bh_follow.js` (the lead Wildmon walks behind you; talk to it for Bond and the odd found item; Settings > Partner follows), `bh_build.js` (building styles: give a building `style: 'farmhouse' | 'brick' | 'stone' | 'timber' | 'cottage' | 'barn'`, or a Hall `style: 'barn'`) and `bh_story.js` (the Courier, the legend, character creation). Order is set in `build_brightholm.py` |
 | `pwa/` | Icon source (`lantern_sym.png`) and `mkicons.py` |
 | `tools/` | Art spec and generator, rename maps |
 | `test/` | Data validators, uniqueness checker and Playwright playthroughs |
@@ -43,6 +43,7 @@ node test/unique.js       # Wildmon names, builds and outlines must be unique be
 python3 test/act1.py      # Playwright playthroughs (act1 ... act7, post, run.py for a new game)
 python3 test/launcher.py OLD_SITE NEW_SITE RELEASED_LAUNCHER SHOT_DIR   # title screen, tester code, unlock, and saves surviving an upgrade
 python3 test/bh_opening.py SITE SHOT_DIR   # Brightholm opening: Courier, character creation, Larkfield, pronouns, separate saves
+python3 test/bh_route.py SITE SHOT_DIR     # Brightholm: following partner, Furrow Lane, trainers, Fisher Gil's quest, Pack Hunter
 ```
 
 Known test-harness limits (not game bugs): the Spark Hall plate in `act2.py` and the Glasswater Kit walk in `act3.py`.

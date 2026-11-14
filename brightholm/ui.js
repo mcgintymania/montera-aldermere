@@ -422,6 +422,7 @@ const UI = {
       { label: 'Battle style', vals: ['Shift', 'Set'], get: () => (Settings.battleStyle === 'set' ? 1 : 0), set: (v) => { Settings.battleStyle = v ? 'set' : 'shift'; } },
       { label: 'Autosave', vals: ['Off', 'On'], get: () => (Settings.autosave ? 1 : 0), set: (v) => { Settings.autosave = !!v; } },
       { label: 'Always run', vals: ['Off', 'On'], get: () => (Settings.autorun ? 1 : 0), set: (v) => { Settings.autorun = !!v; } },
+      { label: 'Partner follows', vals: ['Off', 'On'], get: () => (Settings.follow ? 1 : 0), set: (v) => { Settings.follow = !!v; } },
       { label: 'Touch controls', vals: ['Auto', 'On', 'Off'], get: () => ['auto', 'on', 'off'].indexOf(Settings.touch), set: (v) => { Settings.touch = ['auto', 'on', 'off'][v]; Layout.fit(); } },
     ];
     if (inGame) rows.push({ label: 'Export save file', action: async () => { await this.saveFilePanel('export', JSON.parse(JSON.stringify(Save.snapshot()))); } });

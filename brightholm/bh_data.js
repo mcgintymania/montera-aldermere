@@ -382,3 +382,165 @@ const BH_STARTER_BLURB = {
 };
 DATA.trainers.skye1 = { cls: 'Rival', name: 'Skye', look: 'skye', team: [], prize: 80, ai: 'basic',
   lose: 'No way! I was SO close!', win: "Yes! First battle's mine!" };
+
+/* ---------- Furrow Lane: the first road south ---------- */
+DATA.traits.pack = { name: 'Pack Hunter', desc: 'Attack rises by 50% in double battles when fighting beside one of its own kind.' };
+Object.assign(DATA.moves, {
+  nibble: { name: 'Nibble', type: 'normal', cat: 'phys', pow: 15, acc: 100, pp: 35, desc: 'A gentle nibble with toothless gums. It barely tickles.' },
+  feeding_frenzy: { name: 'Feeding Frenzy', type: 'water', cat: 'phys', pow: 100, acc: 90, pp: 10, desc: 'A churning storm of snapping teeth.' },
+});
+Object.assign(DATA.species, {
+  nibbit: { n: 191, name: 'Nibbit', types: ['water'], base: [20, 10, 55, 15, 20, 80], growth: 'medium', catch: 255, exp: 20, rarity: 'common', line: 'nibbit',
+    evo: [{ to: 'dreadfin', lv: 30 }], moves: [[1, 'splash'], [1, 'nibble'], [15, 'tackle']], traits: ['riptide_dash'],
+    habitat: 'Ponds and rivers everywhere (fishing)', desc: 'A tiny, toothless fish that can only nibble. Fishers throw it straight back without a second look.',
+    art: { f: 'fish', c: '#f0a8b8', c2: '#ffe080', b: '#fff4f0', eye: 'cute', s: 0.52, shape: 'puffer' } },
+  dreadfin: { n: 192, name: 'Dreadfin', types: ['water', 'dark'], base: [95, 135, 80, 60, 90, 82], growth: 'medium', catch: 45, exp: 189, rarity: 'rare', line: 'nibbit',
+    evo: [], moves: [[1, 'crunch'], [1, 'brine_bite'], [30, 'brine_bite'], [32, 'crunch'], [36, 'tide_slam'], [40, 'feeding_frenzy'], [46, 'reckless_charge']], traits: ['riptide_dash', 'glare'],
+    habitat: 'Evolves from Nibbit at Lv 30', desc: 'Nobody believes a Nibbit could become this. Its fin cutting through the water empties a whole bay in seconds.',
+    art: { f: 'shark', c: '#3a4a6a', c2: '#2a3a5a', b: '#d8e0e8', eye: 'sharp', s: 1.0, mouth: 'jaw', x: ['stripes'] } },
+  yipper: { n: 193, name: 'Yipper', types: ['normal'], base: [40, 52, 36, 30, 34, 60], growth: 'medium', catch: 200, exp: 55, rarity: 'common', line: 'yipper',
+    evo: [{ to: 'packhowl', lv: 20 }], moves: [[1, 'tackle'], [1, 'growl'], [5, 'quick_attack'], [9, 'bite'], [13, 'leer'], [17, 'headbutt']], traits: ['pack', 'run_away'],
+    habitat: 'Furrow Lane tall grass', desc: 'Wild pups that roam the farmland in noisy little gangs. One yip, and the whole gang comes running.',
+    art: { f: 'canine', build: 'pup', c: '#c89a5a', c2: '#5a3a20', b: '#f4e4c8', eye: 'cute', s: 0.66, ear: 'big', tail: 'thin', x: ['spots'] } },
+  packhowl: { n: 194, name: 'Packhowl', types: ['normal', 'dark'], base: [72, 94, 62, 46, 58, 92], growth: 'medium', catch: 90, exp: 160, rarity: 'uncommon', line: 'yipper',
+    evo: [], moves: [[1, 'bite'], [1, 'quick_attack'], [17, 'headbutt'], [20, 'crunch'], [26, 'shadow_swipe'], [32, 'war_cry'], [38, 'reckless_charge']], traits: ['pack', 'glare'],
+    habitat: 'Evolves from Yipper at Lv 20', desc: 'Leads its pack across the Far Reach by moonlight. Farmers hear the howling and bring the hens inside.',
+    art: { f: 'canine', c: '#7a6a5a', c2: '#2a2420', b: '#e8dcc8', eye: 'sharp', s: 0.95, ear: 'big', tail: 'bushy', mouth: 'fang', x: ['spots', 'ruff'] } },
+  hissleaf: { n: 195, name: 'Hissleaf', types: ['grass', 'poison'], base: [42, 48, 40, 46, 40, 56], growth: 'medium', catch: 180, exp: 58, rarity: 'common', line: 'hissleaf',
+    evo: [{ to: 'vinestrike', lv: 22 }], moves: [[1, 'leer'], [1, 'absorb'], [5, 'poison_sting'], [9, 'vine_whip'], [13, 'acid'], [17, 'venom_fang'], [21, 'razor_leaf']], traits: ['shed_skin'],
+    habitat: 'Furrow Lane tall grass', desc: 'A grass snake that hides among the crops. Its green scales make it almost impossible to spot until it hisses.',
+    art: { f: 'snake', c: '#6aa84a', c2: '#3a6a2a', b: '#e8f0a0', eye: 'cute', s: 0.72, x: ['bands'] } },
+  vinestrike: { n: 196, name: 'Vinestrike', types: ['grass', 'poison'], base: [64, 82, 60, 78, 62, 86], growth: 'medium', catch: 75, exp: 165, rarity: 'uncommon', line: 'hissleaf',
+    evo: [], moves: [[1, 'venom_fang'], [1, 'vine_whip'], [21, 'razor_leaf'], [22, 'thorn_lash'], [28, 'sludge'], [34, 'poison_jab'], [40, 'solar_leaf']], traits: ['shed_skin', 'glare'],
+    habitat: 'Evolves from Hissleaf at Lv 22', desc: 'It spreads a hood of leaves and sways before it strikes. Even Packhowl give it a wide berth.',
+    art: { f: 'snake', c: '#3a8a3a', c2: '#a8e060', b: '#e8f8b0', eye: 'sharp', s: 0.95, mouth: 'fang', x: ['hood', 'bands'] } },
+});
+DATA.speciesList = Object.keys(DATA.species).sort((a, b) => DATA.species[a].n - DATA.species[b].n);
+
+DATA.encounters.furrow_lane = {
+  grass: {
+    day: [['yipper', 30, 2, 4], ['hissleaf', 22, 2, 4], ['burrowbit', 18, 2, 4], ['twigwing', 14, 2, 4], ['zappy', 8, 3, 4], ['grubble', 8, 2, 3]],
+    night: [['yipper', 26, 2, 4], ['shadepaw', 20, 3, 4], ['hissleaf', 18, 2, 4], ['wispet', 14, 3, 4], ['zappy', 10, 3, 4], ['burrowbit', 12, 2, 4]],
+  },
+  fish: { day: [['nibbit', 80, 3, 6], ['flopfin', 20, 3, 5]], night: [['nibbit', 75, 3, 6], ['flopfin', 20, 3, 5], ['lumifin', 5, 5, 7]] },
+};
+DATA.trainers.rory = { cls: 'Farmhand', name: 'Rory', look: 'joss', team: [['yipper', 4], ['yipper', 4]], prize: 20, ai: 'basic',
+  intro: "Oi! You there! My Yippers have been chasing crows all morning. Fancy a battle?", lose: 'Ha! Fair enough, fair enough.', after: 'Yippers fight harder side by side. Just you wait till you meet a whole pack of them.' };
+DATA.trainers.poppy = { cls: 'Picnicker', name: 'Poppy', look: 'girl', team: [['hissleaf', 5], ['twigwing', 4]], prize: 22, ai: 'basic',
+  intro: "Careful where you step! There's a Hissleaf in every furrow. Mine included!", lose: 'Oh, well done you!', after: "If a Hissleaf bites you, go and see your mum. That's what I always do." };
+DATA.quests.teeth = {
+  name: 'Nothing But Teeth', kind: 'side', giver: 'Fisher Gil',
+  stages: ['Catch a Nibbit by fishing in the Furrow Lane pond, then show it to Fisher Gil on the jetty.', "Raise a Nibbit until it evolves, then show Fisher Gil what it becomes."],
+  reward: 'Great Lanterns, Starseed Honey, 3000 Cr',
+};
+
+DATA.maps.furrow_lane = {
+  name: 'Furrow Lane', region: 'farreach', music: 'route', outdoor: true, border: 'T', weather: ['clear', 'clear', 'rain', 'clear'],
+  rows: [
+    'TTTTTTTTTTTTT__TTTTTTTTTTTTT',
+    'TTTTTTTTTTTTT__TTTTTTTTTTTTT',
+    'TT...........__...........TT',
+    'TT..,,,,,,,..__...#######.TT',
+    'TT..,,,,,,,..__...#qqqqq#.TT',
+    'TT..,,,,,,,..__...#qqqqq#.TT',
+    'TT..,,,,,,,..__...#######.TT',
+    'TT...........__...........TT',
+    'TT......________..........TT',
+    'TT......__...............TTT',
+    'TT......__.......~~~~~~~..TT',
+    'TT.,,,,.__..,,,.~~~~~~~~..TT',
+    'TT.,,,,.__..,,,.~~~~~~~~~.TT',
+    'TT.,,,,.__......ww~~~~~~~.TT',
+    'TT.,,,,.__..,,,.~~~~~~~~~.TT',
+    'TT.,,,,.__..,,,.~~~~~~~~..TT',
+    'TT.,,,,.__......~~~~~~~...TT',
+    'TT......__........~~~.....TT',
+    'TT......__................TT',
+    'TT......________..........TT',
+    'TT...........__...........TT',
+    'TT.f.........__...,,,,,,,.TT',
+    'TT...........__...,,,,,,,.TT',
+    'TT..,,,,,,,..__...,,,,,,,.TT',
+    'TT..,,,,,,,..__...,,,,,,,.TT',
+    'TT..,,,,,,,..__...,,,,,,,.TT',
+    'TT..,,,,,,,..__...,,,,,,,.TT',
+    'TT..,,,,,,,..__...........TT',
+    'TT...........__.........f.TT',
+    'TT.f.........__...........TT',
+    'TT...........__...........TT',
+    'TT...........__...........TT',
+    'TTT..........__..........TTT',
+    'TTTT.........__.........TTTT',
+    '~~~~~~~~~~~~~ww~~~~~~~~~~~~~',
+    '~~~~~~~~~~~~~~~~~~~~~~~~~~~~',
+    '~~~~~~~~~~~~~ww~~~~~~~~~~~~~',
+    'TTTT.........__.........TTTT',
+    'TTTTTTTTTTTTT__TTTTTTTTTTTTT',
+  ],
+  connections: { north: { map: 'larkfield', dx: 0 } },
+  props: [
+    { type: 'sign', x: 12, y: 2, text: 'FURROW LANE\nNorth: Larkfield\nSouth: the Far Reach' },
+    { type: 'sign', x: 10, y: 13, text: 'FURROW POND\nNo swimming. Fishing welcome.' },
+    { type: 'sign', x: 12, y: 31, text: 'BRIDGE CLOSED\nWashed out in the spring floods. Repairs under way.' },
+  ],
+  items: [
+    { id: 'p1', x: 5, y: 12, item: 'potion' },
+    { id: 'l1', x: 22, y: 24, item: 'lantern', qty: 2 },
+    { id: 'h1', x: 3, y: 29, item: 'super_potion', hidden: true },
+  ],
+  npcs: [
+    { id: 'rory', x: 11, y: 6, dir: 'down', look: 'joss', trainer: 'rory', sight: 3, name: 'Farmhand Rory' },
+    { id: 'poppy', x: 16, y: 25, dir: 'left', look: 'girl', trainer: 'poppy', sight: 3, name: 'Picnicker Poppy' },
+    { id: 'gil', x: 17, y: 13, dir: 'left', look: 'old', script: 'bhGil', name: 'Fisher Gil' },
+    { id: 'worker', x: 13, y: 32, dir: 'down', look: 'hiker', script: 'bhWorker', name: 'Bridge Worker', noTurn: false },
+    { id: 'worker2', x: 14, y: 32, dir: 'down', look: 'clerk', script: 'bhWorker', name: 'Bridge Worker' },
+    { id: 'skye_fl', x: 9, y: 18, dir: 'up', look: 'skye', script: 'bhSkyeLane', cond: (g) => !!g.flags.skye_left && !g.flags.skye_lane },
+  ],
+};
+DATA.maps.larkfield.connections = { south: { map: 'furrow_lane', dx: 0 } };
+DATA.maps.larkfield.triggers = DATA.maps.larkfield.triggers.map((tr) => (tr.script === 'bhRoadSouth' ? Object.assign({}, tr, { cond: (g) => !g.party.length }) : tr));
+
+Object.assign(DATA.scripts, {
+  async bhWorker(s) {
+    await s.say(["Sorry, no way through! The spring floods took the middle of the bridge clean away.", "We'll have it fixed soon. The Rising Light of Brightholm continues across this bridge in the next update."], { name: 'Bridge Worker' });
+  },
+  async bhSkyeLane(s) {
+    const o = { name: 'Skye' };
+    s.set('skye_lane');
+    await s.say(["{player}! Did you see the bridge? Washed right out!", "Typical. Our first day as trainers and the road's closed.", "Well, I'm not wasting time. I'm going to catch a whole team while they fix it. Bet I catch more than you!"], o);
+    await s.walk('skye_fl', 'UUUUUUUUUU', 2);
+    s.remove('skye_fl');
+  },
+  async bhGil(s) {
+    const o = { name: 'Fisher Gil' };
+    const q = s.quest('teeth');
+    const has = (sp) => G.party.some((m) => m.sp === sp);
+    if (!q) {
+      await s.say(['Ahh, a new trainer! Come to try your luck at Furrow Pond?', "Nothing in here but Nibbits, mind. Tiny toothless things. Everyone throws them straight back.",
+        'But my old gran, she swore blind that a Nibbit grows into the most fearsome thing in all the seas.', 'Never believed her. Nobody ever raised one long enough to find out!',
+        "Tell you what. Take my spare rod. Catch me a Nibbit and bring it here so I can have a look at it."], o);
+      if (!s.has('old_rod')) { s.addItem('old_rod'); await s.say(`${G.name} received the Driftwood Rod!`, { sfx: 'item', note: 'Face water and press A to fish.' }); }
+      await s.startQuest('teeth');
+      return;
+    }
+    if (!q.done && q.stage === 0) {
+      if (!has('nibbit')) return s.say(['Face the water and press A to cast. Nibbits bite at anything!', 'Bring one here for me to look at.'], o);
+      await s.say(['A Nibbit! Look at it, gumming away at nothing.', "Gran said you have to keep training one, longer than you'd ever think was worth it. Patience, she said.",
+        "If you ever see what it turns into, you come straight back and show old Gil. I'll make it worth your while."], o);
+      await s.give('great_lantern', 3);
+      await s.setStage('teeth', 1);
+      return;
+    }
+    if (!q.done && q.stage === 1) {
+      if (!has('dreadfin')) return s.say(["Still training that Nibbit? Gran said it's well worth the wait.", 'Show me what it becomes!'], o);
+      await s.emote('gil', '!');
+      await s.say(['W-wait... is that what a Nibbit becomes?!', "Gran was right! The most fearsome thing in all the seas, and it was nibbling at my bait all these years!",
+        'You have to have these. You earned every one.'], o);
+      await s.give('rare_candy', 2);
+      await s.money(3000);
+      await s.completeQuest('teeth');
+      return;
+    }
+    return s.say(['I still cannot believe it. A Dreadfin, from a Nibbit!', 'Now every time I throw one back, I give it a little wave. Just in case.'], o);
+  },
+});
