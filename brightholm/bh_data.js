@@ -105,10 +105,10 @@ DATA.maps.larkfield = {
     'TTTTTTTTTTTTT__TTTTTTTTTTTTT',
   ],
   buildings: [
-    { kind: 'hall', theme: 'lark', x: 10, y: 2, w: 8, h: 6, door: 3, to: { map: 'lark_hall', x: 5, y: 8, dir: 'up' } },
-    { kind: 'home', x: 3, y: 9, w: 5, h: 4, door: 2, to: { map: 'bh_home', x: 4, y: 5, dir: 'up' } },
-    { kind: 'house', x: 19, y: 9, w: 5, h: 4, door: 2, to: { map: 'skye_home', x: 4, y: 4, dir: 'up' } },
-    { kind: 'barn', x: 3, y: 16, w: 6, h: 4 },
+    { kind: 'hall', theme: 'lark', style: 'barn', x: 10, y: 2, w: 8, h: 6, door: 3, to: { map: 'lark_hall', x: 5, y: 8, dir: 'up' } },
+    { kind: 'home', style: 'farmhouse', x: 3, y: 9, w: 5, h: 4, door: 2, to: { map: 'bh_home', x: 4, y: 5, dir: 'up' } },
+    { kind: 'house', style: 'brick', x: 19, y: 9, w: 5, h: 4, door: 2, to: { map: 'skye_home', x: 4, y: 4, dir: 'up' } },
+    { kind: 'barn', style: 'barn', x: 3, y: 16, w: 6, h: 4 },
   ],
   props: [
     { type: 'sign', x: 12, y: 20, text: 'LARKFIELD\nGold in the fields, light in the windows.' },
