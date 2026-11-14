@@ -8771,7 +8771,7 @@ Pages.progress = () => {
   ${slots.map((s) => saveSummary(s.d, `save slot ${s.n}`)).join('')}
   ${imported ? saveSummary(imported, 'loaded file') : ''}
   <div class="page"><h2>Load a save file</h2>${slots.length ? '' : '<p>No saves found in this browser.</p>'}
-  <div class="tools"><input type="file" id="sfile" accept=".mqsave,.txt,.json" aria-label="Choose a save file"></div>
+  <div class="tools"><input type="file" id="sfile" aria-label="Choose a save file"></div>
   <details><summary>Or paste the save text</summary><textarea id="stext" rows="4" style="width:100%;margin-top:8px;border-radius:8px;border:2px solid var(--line);padding:8px"></textarea><button class="btn" id="sparse" style="margin-top:8px">Read save</button></details>
   <p id="serr" class="warn" hidden>That doesn’t look like a Montera save. Export it again from the game and try once more.</p></div>`;
 };
