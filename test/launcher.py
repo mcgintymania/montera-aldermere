@@ -47,7 +47,7 @@ async def main():
         p = await ctx.new_page(); errs = []
         p.on('pageerror', lambda e: errs.append(str(e)))
 
-        await p.goto(BASE); await p.wait_for_timeout(1200)
+        await p.goto(BASE + ('aldermere.html' if (OLD / 'aldermere.html').exists() else '')); await p.wait_for_timeout(1200)
         hero_export = await p.evaluate(MAKE)
         before = await p.evaluate(SAVES)
         check(before[0] is not None and before[1] is not None, 'saves made on the old site')
@@ -82,8 +82,8 @@ async def main():
         check(await p.locator('.card h2', has_text='Brightholm').count() == 1, 'tester access stays after reload')
 
         await p.locator('.card h2', has_text='Brightholm').click(); await p.wait_for_timeout(800)
-        check(p.url.endswith('brightholm.html') and 'being built' in await p.inner_text('body'), 'Brightholm card opens its page')
-        await p.locator('a', has_text='Back to Montera').click(); await p.wait_for_timeout(600)
+        check(p.url.endswith('brightholm.html') and 'Brightholm' in await p.title(), 'Brightholm card opens the game')
+        await p.goto(BASE); await p.wait_for_timeout(600)
 
         await p.locator('.card').first.click(); await p.wait_for_timeout(1500)
         check(p.url.endswith('aldermere.html'), 'Aldermere card opens the game')

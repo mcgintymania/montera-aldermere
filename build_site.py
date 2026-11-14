@@ -7,13 +7,14 @@ dist, site, pwa = root / 'dist', root / 'site', root / 'pwa'
 if '--no-build' not in sys.argv:
     subprocess.run([sys.executable, str(root / 'build.py')], check=True)
     subprocess.run([sys.executable, str(root / 'build_companion.py')], check=True)
+    subprocess.run([sys.executable, str(root / 'build_brightholm.py')], check=True)
 subprocess.run([sys.executable, str(root / 'build_launcher.py')] + (['--release'] if '--release' in sys.argv else []), check=True)
 
 site.mkdir(exist_ok=True)
 (site / 'icons').mkdir(exist_ok=True)
 shutil.copy(dist / 'launcher.html', site / 'index.html')
 shutil.copy(dist / 'montera.html', site / 'aldermere.html')
-shutil.copy(root / 'launcher' / 'brightholm.html', site / 'brightholm.html')
+shutil.copy(dist / 'brightholm.html', site / 'brightholm.html')
 shutil.copy(dist / 'companion.html', site / 'companion.html')
 shutil.copy(root / 'launcher' / 'logo.webp', site / 'logo.webp')
 subprocess.run([sys.executable, 'mkicons.py', str((site / 'icons').resolve())], cwd=pwa, check=True, capture_output=True)
