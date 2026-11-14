@@ -122,7 +122,7 @@ DATA.maps.larkfield = {
   ],
   triggers: [
     { x: 3, y: 13, w: 5, h: 2, script: 'bhSkyeIntro', cond: (g) => !g.flags.skye_intro },
-    { x: 13, y: 22, w: 2, h: 1, script: 'bhRoadSouth', cond: (g) => !g.party.length },
+    { x: 13, y: 22, w: 2, h: 1, script: 'bhRoadSouth' },
   ],
   npcs: [
     { id: 'tilly', x: 10, y: 18, dir: 'down', look: 'tilly', move: 'turn', name: 'Gran Tilly',
@@ -161,7 +161,7 @@ DATA.maps.lark_hall = {
     'WWWWWWWWWWWW',
     'KKKKKKKKKKKK',
     'KKKKKKKKKKKK',
-    'KKKRRRRRRKKK',
+    'KKKRAAARRKKK',
     'KKKRRRRRRKKK',
     'KKKRRRRRRKKK',
     'KKKKKKKKKKKK',
@@ -173,9 +173,10 @@ DATA.maps.lark_hall = {
     { x: 6, y: 9, to: { map: 'larkfield', x: 13, y: 8, dir: 'down' } },
   ],
   triggers: [{ x: 0, y: 2, w: 12, h: 7, script: 'bhHallIntro', cond: (g) => !g.flags.hall_intro }],
+  tileScripts: { '4,4': 'bhPick0', '5,4': 'bhPick1', '6,4': 'bhPick2' },
   npcs: [
     { id: 'dad', x: 5, y: 3, dir: 'down', look: 'bh_dad', script: 'bhDad' },
-    { id: 'skye', x: 7, y: 6, dir: 'up', look: 'skye', script: 'bhSkyeHall', cond: (g) => !!g.flags.skye_intro },
+    { id: 'skye', x: 7, y: 6, dir: 'up', look: 'skye', script: 'bhSkyeHall', cond: (g) => !!g.flags.skye_intro && !g.flags.skye_left },
   ],
 };
 
@@ -202,6 +203,12 @@ Object.assign(DATA.scripts, {
   async bhMum(s) {
     const o = { name: 'Mum' };
     if (!s.flag('mum_morning')) return DATA.scripts.bhMumMorning(s);
+    if (G.party.length) {
+      const first = !s.flag('mum_seen_partner'); s.set('mum_seen_partner');
+      await s.say(first ? ['Oh, you chose that one! I had a feeling you would.', 'Come here, both of you. Have a little rest before you go anywhere.'] : ['You look tired, love. Have a little rest.'], o);
+      await Game.fadeOut(300); await s.healParty(); await s.wait(500); await Game.fadeIn(300);
+      return s.say('There! Full of beans again. You can always come home for a rest.', o);
+    }
     if (s.flag('hall_intro')) return s.say(['So your dad told you about the Hall. Eighth Badge, last stop before the League.', "He's been dreaming about that battle since you were tiny. Don't you dare let him win."], o);
     return s.say(["The Hall's just up the path from our front door. Go on, love!"], o);
   },
@@ -225,7 +232,8 @@ Object.assign(DATA.scripts, {
     s.remove('skye');
   },
   async bhRoadSouth(s) {
-    await s.say(['The road south winds out into the Far Reach. Wild Wildmon live in the long grass out there.', "You can't go without a partner of your own."]);
+    if (G.party.length) await s.say(['The road south winds out into the Far Reach.', 'The Rising Light of Brightholm continues down this road in the next update.']);
+    else await s.say(['The road south winds out into the Far Reach. Wild Wildmon live in the long grass out there.', "You can't go without a partner of your own."]);
     const p = s.player(); p.y = p.fy = p.y - 1; p.dir = 'up'; p.moving = false;
   },
   async bhJoss(s) {
@@ -250,17 +258,123 @@ Object.assign(DATA.scripts, {
       "So here's the deal. One day soon, you'll walk out of that door and earn seven Badges.",
       "And when you come home, you'll have to beat me for the eighth. No going easy because I'm your dad."], dad);
     if (s.ent('skye')) await s.say(["We wouldn't want you to!"], sky);
-    await s.say(['Ha! Good answer.', "But nobody leaves Larkfield without a partner of their own. I've been getting something ready for you both...",
-      "...and it's not quite ready yet. Give me a little longer."], dad);
-    await s.say(['The Rising Light of Brightholm continues in the next update.'], { sign: true });
+    await s.say(['Ha! Good answer.', "But nobody leaves Larkfield without a partner of their own.",
+      'Three Wildmon were born on the farm this spring. Your mum has been raising them, and they are ready for trainers of their own.',
+      'Their Lanterns are on the table. Have a good look at each one.'], dad);
+    s.set('choose_starter');
+    if (s.ent('skye')) await s.say(["{player} picks first. I've already decided. Whatever you choose, I'm choosing the one that beats it!"], sky);
   },
+  async bhPick(s, i) {
+    const sp = BH_STARTERS[i];
+    if (s.flag('has_starter')) {
+      if (s.flag('starter') === sp || s.flag('skye_starter') === sp) return s.say('An empty Lantern, still faintly warm.');
+      return s.say(`The last Lantern. ${DATA.species[sp].name} is curled up asleep inside. Dad will look after it.`);
+    }
+    if (!s.flag('choose_starter')) return s.say('Three Lanterns glow softly on the table. Something stirs inside each one...');
+    const yes = await UI.previewAsk(sp, `${BH_STARTER_BLURB[sp]} Choose ${DATA.species[sp].name}?`);
+    if (yes !== 0) return;
+    const m = Mon.create(sp, 5, { lustre: false, mark: null, bond: 70 });
+    DATA.statKeys.slice().sort(() => Math.random() - 0.5).slice(0, 2).forEach((k) => { m.pot[k] = Math.max(m.pot[k], 10); });
+    m.hp = Mon.maxHp(m); m.met = { map: 'Larkfield Hall', lv: 5, at: Date.now() };
+    G.party.push(m); s.set('has_starter'); s.set('starter', sp);
+    const d = G.dex[sp] || (G.dex[sp] = {}); d.seen = 1; d.caught = 1;
+    G.essence[DATA.species[sp].line] = 10; G.mastery[DATA.species[sp].line] = 10;
+    await s.say(`${G.name} received ${DATA.species[sp].name}!`, { sfx: 'caught' });
+    s.achieve('partner');
+    const nick = await s.ask(`Give a nickname to ${DATA.species[sp].name}?`, ['Yes', 'No']);
+    if (nick === 0) { const n = await UI.nameEntry({ title: `Nickname for ${DATA.species[sp].name}`, presets: [], allowEmpty: true }); if (n) m.nick = n; }
+    const sky = { name: 'Skye' }, dad = { name: 'Dad' };
+    const skySp = BH_RIVAL_PICK[sp]; s.set('skye_starter', skySp);
+    const sd = G.dex[skySp] || (G.dex[skySp] = {}); sd.seen = 1;
+    if (s.ent('skye')) { s.face('skye', 'up'); await s.walk('skye', 'U'); }
+    await s.say([`${DATA.species[sp].name}? I knew it! Then I choose ${DATA.species[skySp].name}!`, `${G.name}, partners get stronger by battling. So let's battle. Right here, right now!`], sky);
+    await s.say(['In my own Hall? Oh, go on then. Show me what you have got!'], dad);
+    const T = Object.assign({}, DATA.trainers.skye1, { team: [] });
+    const res = await s.battle({ kind: 'trainer', trainer: T, enemy: [Mon.create(skySp, 5, { lustre: false, mark: null, pot: evenPot() })], noWhiteout: true, bg: 'indoor' });
+    if (res === 'win') s.set('beat_skye1'); else await s.say(DATA.trainers.skye1.win, sky);
+    await s.healParty();
+    await s.say(res === 'win' ? ["Next time, {player}. Next time I'm winning for sure."] : ['Good battle, though. You nearly had me!'], sky);
+    await s.say(["I'm heading south first thing in the morning. Seven Badges, then home to beat your dad, then the League. See you out there!"], sky);
+    if (s.ent('skye')) { await s.walk('skye', 'DDD', 2); s.remove('skye'); }
+    s.set('skye_left');
+    await s.say(['That Skye. Exactly like I was at that age.', 'Here, you will need these. A Wildbook, to record every Wildmon you meet, and a few Lanterns.'], dad);
+    s.set('has_wildbook');
+    await s.say(`${G.name} received the Wildbook!`, { sfx: 'item', note: 'Open it from the menu.' });
+    await s.give('lantern', 5);
+    await s.say(['Weaken a wild Wildmon in battle, then throw a Lantern from your Bag to catch it.', 'Go and show your mum your new partner. She will be over the moon.'], dad);
+  },
+  async bhPick0(s) { return DATA.scripts.bhPick(s, 0); },
+  async bhPick1(s) { return DATA.scripts.bhPick(s, 1); },
+  async bhPick2(s) { return DATA.scripts.bhPick(s, 2); },
   async bhDad(s) {
     const o = { name: 'Dad' };
     if (!s.flag('hall_intro')) return DATA.scripts.bhHallIntro(s);
-    return s.say(['Not long now. Good things come to those who wait!', '...Your mum told me to say that.'], o);
+    if (!s.flag('has_starter')) return s.say(['Take your time. Have a good look at each Lantern on the table.'], o);
+    const m = G.party[0];
+    return s.say([`${m ? Mon.name(m) : 'Your partner'} looks happy with you already.`, "When you've earned seven Badges, come home. I'll be waiting right here."], o);
   },
   async bhSkyeHall(s) {
     const o = { name: 'Skye' };
+    if (s.flag('choose_starter')) return s.say(['Go on, pick one! I can hardly stand still!'], o);
     return s.say(["Whatever your dad's got for us, I'm picking first. No, wait. You can pick first.", "Then I'll know exactly how to beat you!"], o);
   },
 });
+
+/* ---------- Brightholm Wildmon ---------- */
+Object.assign(DATA.moves, {
+  bramble_charge: { name: 'Bramble Charge', type: 'grass', cat: 'phys', pow: 95, acc: 90, pp: 10, desc: 'Charges headfirst through the undergrowth, thorns and all.' },
+  blaze_talon: { name: 'Blaze Talon', type: 'fire', cat: 'phys', pow: 70, acc: 100, pp: 15, crit: 1, eff: 'brn', ch: 10, desc: 'Rakes with white-hot claws. Often lands a clean strike; may burn.' },
+  river_roll: { name: 'River Roll', type: 'water', cat: 'phys', pow: 90, acc: 95, pp: 10, eff: 'flinch', ch: 30, desc: 'Grabs hold and rolls the foe under the water. May make it flinch.' },
+});
+Object.assign(DATA.species, {
+  bristling: { n: 181, name: 'Bristling', types: ['grass'], base: [52, 60, 56, 38, 46, 58], growth: 'mslow', catch: 45, exp: 64, rarity: 'rare', line: 'bristling',
+    evo: [{ to: 'bristlehog', lv: 16 }], moves: [[1, 'tackle'], [1, 'growl'], [6, 'vine_whip'], [9, 'harden'], [13, 'mud_slap'], [17, 'razor_leaf'], [21, 'headbutt'], [25, 'seed_leech']],
+    habitat: 'Born on a farm in Larkfield', desc: 'A hedgehog that rolls into a ball of leafy spines when startled. It loves to nap in hedgerows heavy with berries.',
+    art: { f: 'hog', build: 'hedgehog', c: '#b0845a', c2: '#5aa040', b: '#f6e6c8', eye: 'cute', s: 0.86, x: ['berries'] } },
+  bristlehog: { n: 182, name: 'Bristlehog', types: ['grass'], base: [68, 82, 74, 48, 60, 74], growth: 'mslow', catch: 45, exp: 142, rarity: 'rare', line: 'bristling',
+    evo: [{ to: 'hedgeboar', lv: 36 }], moves: [[1, 'tackle'], [1, 'vine_whip'], [9, 'harden'], [13, 'mud_slap'], [16, 'thorn_lash'], [22, 'headbutt'], [27, 'seed_leech'], [32, 'rock_smash']],
+    habitat: 'Evolves from Bristling', desc: 'Its spines have grown into a thicket of thorny vines. It snuffles out roots and truffles with its broad snout.',
+    art: { f: 'hog', build: 'hog', c: '#9a7450', c2: '#3f8f3a', b: '#eedcc0', eye: 'calm', s: 0.92, x: ['vines'], tail: 'curl' } },
+  hedgeboar: { n: 183, name: 'Hedgeboar', types: ['grass', 'earth'], base: [95, 118, 98, 58, 76, 80], growth: 'mslow', catch: 45, exp: 238, rarity: 'rare', line: 'bristling',
+    evo: [], moves: [[1, 'headbutt'], [1, 'thorn_lash'], [27, 'seed_leech'], [32, 'rock_smash'], [36, 'bramble_charge'], [42, 'dig_claw'], [48, 'tremor']],
+    habitat: 'Evolves from Bristlehog', desc: 'A great boar crowned with brambles. When it charges, whole hedges are flattened and spring back greener than before.',
+    art: { f: 'hog', build: 'boar', c: '#7a5a44', c2: '#2f7a32', b: '#dcc8ae', eye: 'sharp', s: 1.12, x: ['vines', 'berries'] } },
+  blazeling: { n: 184, name: 'Blazeling', types: ['fire'], base: [44, 56, 42, 62, 44, 70], growth: 'mslow', catch: 45, exp: 62, rarity: 'rare', line: 'blazeling',
+    evo: [{ to: 'blazestride', lv: 16 }], moves: [[1, 'scratch'], [1, 'leer'], [6, 'ember'], [9, 'quick_attack'], [13, 'fire_fang'], [17, 'rock_throw'], [21, 'flame_burst'], [25, 'bite']],
+    habitat: 'Born on a farm in Larkfield', desc: 'A little lizard with a flame for a tail. It chases its own tail in circles, then sulks when it gets too hot to catch.',
+    art: { f: 'raptor', build: 'hatch', c: '#e8743a', c2: '#ffd060', b: '#fff0c0', eye: 'cute', s: 0.8, tail: 'flame' } },
+  blazestride: { n: 185, name: 'Blazestride', types: ['fire'], base: [60, 76, 56, 80, 58, 88], growth: 'mslow', catch: 45, exp: 142, rarity: 'rare', line: 'blazeling',
+    evo: [{ to: 'pyrannox', lv: 36 }], moves: [[1, 'scratch'], [1, 'ember'], [9, 'quick_attack'], [13, 'fire_fang'], [16, 'blaze_talon'], [22, 'flame_burst'], [27, 'rock_slide'], [32, 'crunch']],
+    habitat: 'Evolves from Blazeling', desc: 'It runs on two legs, faster than a galloping horse. The flame on its tail flares brighter the faster it goes.',
+    art: { f: 'raptor', build: 'raptor', c: '#d8582a', c2: '#ffb040', b: '#ffe4a8', eye: 'sharp', s: 0.92, tail: 'flame', back: 'spikes' } },
+  pyrannox: { n: 186, name: 'Pyrannox', types: ['fire', 'rock'], base: [82, 108, 84, 104, 72, 78], growth: 'mslow', catch: 45, exp: 240, rarity: 'rare', line: 'blazeling',
+    evo: [], moves: [[1, 'blaze_talon'], [1, 'rock_slide'], [27, 'crunch'], [32, 'flamethrower'], [36, 'crag_charge'], [44, 'magma_slam']],
+    habitat: 'Evolves from Blazestride', desc: 'An ancient king of fire and stone. Its footsteps leave glowing prints that smoulder for days.',
+    art: { f: 'raptor', build: 'rex', c: '#a8302a', c2: '#ffb040', b: '#ffd890', eye: 'sharp', s: 1.02, tail: 'flame', back: 'flames', x: ['stripes'] } },
+  snapling: { n: 187, name: 'Snapling', types: ['water'], base: [56, 62, 54, 42, 50, 50], growth: 'mslow', catch: 45, exp: 63, rarity: 'rare', line: 'snapling',
+    evo: [{ to: 'snaptooth', lv: 16 }], moves: [[1, 'tackle'], [1, 'tail_whip'], [6, 'water_gun'], [9, 'bite'], [13, 'aqua_jet'], [17, 'mud_slap'], [21, 'brine_bite'], [25, 'bubble_beam']],
+    habitat: 'Born on a farm in Larkfield', desc: 'A baby crocodile that bites everything once, just to check. It falls asleep floating in the duck pond.',
+    art: { f: 'croc', build: 'baby', c: '#4a9a7a', c2: '#2a6a5a', b: '#e4f0b8', eye: 'cute', s: 0.86 } },
+  snaptooth: { n: 188, name: 'Snaptooth', types: ['water'], base: [74, 86, 72, 52, 62, 60], growth: 'mslow', catch: 45, exp: 142, rarity: 'rare', line: 'snapling',
+    evo: [{ to: 'gatormaw', lv: 36 }], moves: [[1, 'tackle'], [1, 'water_gun'], [9, 'bite'], [13, 'aqua_jet'], [16, 'brine_bite'], [22, 'bubble_beam'], [27, 'crunch'], [32, 'tide_slam']],
+    habitat: 'Evolves from Snapling', desc: 'It lies perfectly still in the shallows for hours. Only its eyes show above the water, watching.',
+    art: { f: 'croc', c: '#3a8070', c2: '#2a5a50', b: '#d0e4b0', eye: 'sharp', s: 0.95, x: ['claws'] } },
+  gatormaw: { n: 189, name: 'Gatormaw', types: ['water', 'dark'], base: [100, 120, 98, 60, 80, 68], growth: 'mslow', catch: 45, exp: 239, rarity: 'rare', line: 'snapling',
+    evo: [], moves: [[1, 'brine_bite'], [1, 'crunch'], [32, 'tide_slam'], [36, 'river_roll'], [44, 'reckless_charge']],
+    habitat: 'Evolves from Snaptooth', desc: 'The undisputed king of the rivers. Boats steer wide of the dark water where it rests.',
+    art: { f: 'croc', build: 'king', c: '#2a5a6a', c2: '#1a3a4a', b: '#b8d0c0', eye: 'sharp', s: 1.0, back: 'spikes', x: ['claws', 'stripes'] } },
+  zappy: { n: 190, name: 'Zappy', types: ['electric'], base: [30, 30, 26, 44, 32, 58], growth: 'medium', catch: 190, exp: 40, rarity: 'uncommon', line: 'zappik',
+    evo: [{ to: 'zappik', bond: 220 }], moves: [[1, 'thundershock'], [1, 'growl'], [4, 'tail_whip'], [8, 'quick_attack'], [12, 'thunder_wave']],
+    habitat: 'Far Reach meadows', desc: 'A fluffy kit that can only make tiny sparks. It evolves when it trusts its trainer completely.',
+    art: { f: 'quad', build: 'rodent', c: '#f4d040', c2: '#3a3a4a', b: '#fff8d0', eye: 'cute', s: 0.54, ear: 'round', tail: 'puff' } },
+});
+DATA.speciesList = Object.keys(DATA.species).sort((a, b) => DATA.species[a].n - DATA.species[b].n);
+const BH_STARTERS = ['bristling', 'blazeling', 'snapling'];
+const BH_RIVAL_PICK = { bristling: 'blazeling', blazeling: 'snapling', snapling: 'bristling' };
+const BH_STARTER_BLURB = {
+  bristling: 'Bristling, the Grass type. Tough and stubborn. It shrugs off hits and charges straight back.',
+  blazeling: 'Blazeling, the Fire type. Fast and fiery. It strikes first with claws and flame.',
+  snapling: 'Snapling, the Water type. Strong-jawed and patient. Once it bites, it never lets go.',
+};
+DATA.trainers.skye1 = { cls: 'Rival', name: 'Skye', look: 'skye', team: [], prize: 80, ai: 'basic',
+  lose: 'No way! I was SO close!', win: "Yes! First battle's mine!" };

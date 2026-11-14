@@ -39,7 +39,7 @@ Publish: copy `site/` into the `main` branch and push.
 
 ```
 node test/validate.js     # maps, warps, scripts, encounters, items
-node test/unique.js       # Wildmon names, builds and outlines must be unique between families
+node test/unique.js       # Wildmon names, builds and outlines must be unique between families (add --brightholm for game 2)
 python3 test/act1.py      # Playwright playthroughs (act1 ... act7, post, run.py for a new game)
 python3 test/launcher.py OLD_SITE NEW_SITE RELEASED_LAUNCHER SHOT_DIR   # title screen, tester code, unlock, and saves surviving an upgrade
 python3 test/bh_opening.py SITE SHOT_DIR   # Brightholm opening: Courier, character creation, Larkfield, pronouns, separate saves

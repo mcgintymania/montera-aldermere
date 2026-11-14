@@ -149,7 +149,26 @@ async def main():
         await p.screenshot(path=str(SHOTS / '6_hall.png'))
         await run(p, "await T.clear(120); return 1", 'Hall scene')
         log = await p.evaluate("LOG.join(' | ')")
-        check("beat me for the eighth" in log and 'continues in the next update' in log and await p.evaluate("!!MQ.G.flags.hall_intro"), 'Dad explains the last Hall; stage ends')
+        check("beat me for the eighth" in log and await p.evaluate("!!MQ.G.flags.choose_starter"), 'Dad explains the last Hall and offers the Lanterns')
+        await run(p, "await T.goto(5,5); await T.face('up'); return 1", 'walk to the table')
+        await p.keyboard.press('Enter'); await p.wait_for_timeout(500)
+        await p.screenshot(path=str(SHOTS / '6b_pick.png'))
+        battled = False
+        for _ in range(400):
+            st = await p.evaluate("({ mode: MQ.Game.mode, open: !!MQ.UI.open, run: MQ.Script.running, menu: [...document.querySelectorAll('.menu .mi')].map(e => e.textContent), txt: [...document.querySelectorAll('.dialog .dtext')].map(e => e.textContent).join(' ') })")
+            if st['mode'] == 'battle':
+                if not battled:
+                    await p.wait_for_timeout(1200); await p.screenshot(path=str(SHOTS / '6c_battle.png')); battled = True
+                await p.evaluate("T.battle('fight', 60)"); continue
+            if not st['open'] and not st['run']: break
+            if st['menu'] and 'No' in st['menu'] and 'nickname' in (await p.evaluate("document.body.innerText")).lower():
+                await p.locator('.menu .mi', has_text='No').first.click(); await p.wait_for_timeout(300); continue
+            await p.keyboard.press('Enter'); await p.wait_for_timeout(220)
+        g = await p.evaluate("({ party: MQ.G.party.map(m => m.sp), starter: MQ.G.flags.starter, skye: MQ.G.flags.skye_starter, left: !!MQ.G.flags.skye_left, book: !!MQ.G.flags.has_wildbook, lanterns: MQ.G.bag.lantern || 0 })")
+        check(g['party'] == ['blazeling'] and g['skye'] == 'snapling', f'pick Blazeling (middle Lantern); Skye takes the Water type that beats it: {g}')
+        check(battled and g['left'] and g['book'] and g['lanterns'] >= 5, 'first battle with Skye, then the Wildbook and Lanterns')
+        await run(p, "await MQ.Game.warpTo({map:'larkfield',x:13,y:21,dir:'down'}); await T.sleep(600); await T.step('down'); await T.sleep(300); await T.clear(40); return 1", 'road south with a partner')
+        check('continues down this road in the next update' in await p.evaluate("LOG.join(' ')"), 'road south now says the next part is coming')
         await run(p, "await MQ.Game.warpTo({map:'skye_home',x:4,y:4,dir:'up'}); await T.sleep(500); await T.talkAt(7,2); return 1", 'Mrs Hale')
         log = await p.evaluate("LOG.join(' | ')")
         check("since he could walk" in log, 'Skye pronouns follow Skye (he)')

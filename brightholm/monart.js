@@ -607,7 +607,7 @@ MonArt.render = function (s, opt) {
 
   const croc = () => { // long and low, splayed legs, a jaw full of teeth
     const k = S, baby = a.build === 'baby', king = a.build === 'king';
-    const cx = 28, rx = (baby ? 8 : 10) * k, ry = (baby ? 4.6 : king ? 6 : 5) * k, cy = GY - 4.5 * k - ry * 0.6;
+    const cx = king ? 26 : 28, rx = (baby ? 8 : 10) * k, ry = (baby ? 4.6 : king ? 6 : 5) * k, cy = GY - 4.5 * k - ry * 0.6;
     limb([[cx + rx * 0.7, cy], [cx + rx + 4 * k, cy + 1.5 * k], [cx + rx + 8 * k, cy - 1 * k], [cx + rx + 9 * k, cy - (baby ? 4 : 7) * k]], (king ? 7 : 6) * k, 1.2, C);
     for (const fx of [0.55, -0.45]) { const x = cx + rx * fx; limb([[x + 1, cy + 1], [x + 3 * k, GY - 2], [x + 1 * k, GY]], 3.2 * k, 2.6 * k, shade(C, -0.28)); }
     ell(cx, cy, rx, ry, C);
@@ -733,8 +733,8 @@ MonArt.render = function (s, opt) {
   const raptor = () => { // two-legged dinosaur: tail out back, strong legs, toothy head
     const b = a.build || 'raptor', hatch = b === 'hatch', rex = b === 'rex';
     const legH = (hatch ? 6 : rex ? 10 : 11) * S, rx = (hatch ? 6.5 : rex ? 10 : 8.5) * S, ry = (hatch ? 5.5 : rex ? 7.5 : 5.5) * S;
-    const cx = 27, cy = GY - legH - ry * 0.4;
-    const tl = (hatch ? 7 : 13) * S;
+    const cx = rex ? 24 : 27, cy = GY - legH - ry * 0.4;
+    const tl = (hatch ? 7 : rex ? 12 : 13) * S;
     const tp = [[cx + rx * 0.7, cy - 1 * S], [cx + rx + tl * 0.5, cy - 1.5 * S], [cx + rx + tl * 0.85, cy - 4 * S], [cx + rx + tl, cy - 6 * S]];
     limb(tp, (hatch ? 5 : 6) * S, 1.2, C);
     if (a.tail === 'flame') flame(tp[3][0] - 1, tp[3][1] + 1, (hatch ? 3.5 : 4.5) * S, a.flame || '#ff8a3a', '#ffe060');

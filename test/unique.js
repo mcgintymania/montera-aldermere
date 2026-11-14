@@ -1,13 +1,14 @@
 'use strict';
 /* Uniqueness check for Wildmon: flags unrelated families whose names share a stem
    or whose sprites have near-identical outlines and colours.
-   Usage: node test/unique.js [--sheet] [--quiet]   (exit code 1 when anything is flagged) */
+   Usage: node test/unique.js [--brightholm] [--sheet] [--quiet]   (exit code 1 when anything is flagged) */
 const fs = require('fs'), vm = require('vm'), path = require('path');
 const root = path.join(__dirname, '..');
-const build = fs.readFileSync(path.join(root, 'build.py'), 'utf8');
+const BH = process.argv.includes('--brightholm'); const dir = BH ? 'brightholm' : 'src';
+const build = fs.readFileSync(path.join(root, BH ? 'build_brightholm.py' : 'build.py'), 'utf8');
 const files = build.match(/\[(.*?)\]/s)[1].match(/'([^']+)'/g).map((s) => s.slice(1, -1));
 const dataFiles = files.slice(0, files.indexOf('engine.js'));
-const engine = fs.readFileSync(path.join(root, 'src/engine.js'), 'utf8');
+const engine = fs.readFileSync(path.join(root, dir, 'engine.js'), 'utf8');
 const grab = (name) => {
   const i = /^[A-Z]+$/.test(name) ? engine.indexOf(`const ${name} = {`) : engine.indexOf(`function ${name}(`);
   let d = 0; for (let k = engine.indexOf('{', i); k < engine.length; k++) { if (engine[k] === '{') d++; else if (engine[k] === '}' && --d === 0) return engine.slice(i, k + 1) + ';'; }
@@ -19,7 +20,7 @@ function makeCanvas(w, h) { const px = new Array(w * h).fill(null); let fill = n
   return { width: w, height: h, px, getContext() { return { set fillStyle(v) { fill = v; }, get fillStyle() { return fill; }, fillRect(x, y) { px[y * w + x] = fill; } }; } }; }
 let G = null; const clamp = (v, a, b) => (v < a ? a : v > b ? b : v);
 ${grab('PAL')}\n${grab('mulberry')}\n${grab('shade')}\n${grab('pen')}`;
-const code = 'var LOGO_SRC="";' + shim + dataFiles.map((f) => fs.readFileSync(path.join(root, 'src', f), 'utf8').replace("'use strict';", '')).join('\n');
+const code = 'var LOGO_SRC="";' + shim + dataFiles.map((f) => fs.readFileSync(path.join(root, dir, f), 'utf8').replace("'use strict';", '')).join('\n');
 const ctx = { console }; vm.createContext(ctx);
 vm.runInContext(code.replace(/^const DATA/m, 'var DATA') + ';globalThis.D = DATA; globalThis.MA = MonArt;', ctx);
 const D = ctx.D, MA = ctx.MA, S = D.species, ids = D.speciesList.filter((i) => S[i]);
