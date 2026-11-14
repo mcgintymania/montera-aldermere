@@ -578,7 +578,312 @@ MonArt.render = function (s, opt) {
     if (!back) { eye(cx - r * 0.35, cy - r * 0.15, 1); eye(cx + r * 0.3, cy - r * 0.15, 1); px(cx - 1, cy + r * 0.25, INK); px(cx, cy + r * 0.3, INK); }
   };
 
-  const FORMS = { quad, rabbit, bird, bat, worm, blob, frog, wisp, mineral, bug, fish, jelly, crab, biped, plant };
+  /* ---------- Brightholm body forms ---------- */
+  const snake = () => { // coiled pile with the head raised to strike
+    const cx = 27;
+    if (a.tail === 'rattle') for (let i = 0; i < 4; i++) ell(cx + 15 * S + i * 1.2 * S, GY - 4 * S - i * 2.2 * S, 1.8 * S, 1.3 * S, i % 2 ? '#e8d8a8' : '#c8b07a');
+    else limb([[cx + 11 * S, GY - 3 * S], [cx + 16 * S, GY - 5 * S], [cx + 18 * S, GY - 9 * S]], 3 * S, 1, C);
+    ell(cx + 1, GY - 3.5 * S, 13 * S, 4 * S, shade(C, -0.12));
+    ell(cx, GY - 7.5 * S, 10.5 * S, 3.8 * S, C);
+    ell(cx - 1, GY - 11 * S, 7.5 * S, 3.4 * S, shade(C, 0.06));
+    if (!back) for (const [x, y, w] of [[-5, 2.5, 6], [-4, 6.5, 5], [-3, 10, 3.5]]) ell(cx + x * S, GY - y * S, w * S, 1.4 * S, B, { flat: true });
+    if (has('bands')) for (const [y, w, off] of [[3.5, 11, 0], [7.5, 8.5, 2.5], [11, 5.5, 0]]) for (let x = -w + off; x <= w; x += 5) { const xx = cx + x * S, yy = GY - y * S - 1.2 * S; poly([[xx - 1.8 * S, yy], [xx, yy - 1.3 * S], [xx + 1.8 * S, yy], [xx, yy + 1.3 * S]], C2, { flat: true }); }
+    const nk = [[cx - 3 * S, GY - 12 * S], [cx - 7 * S, GY - 17 * S], [cx - 6 * S, GY - 23 * S], [cx - 9 * S, GY - 28 * S]];
+    if (has('hood')) { ell(cx - 7 * S, GY - 24 * S, 6.5 * S, 7.5 * S, C2); if (!back) ell(cx - 7.5 * S, GY - 23 * S, 3.5 * S, 5 * S, shade(C2, 0.25), { flat: true }); }
+    limb(nk, 5.5 * S, 4 * S, C);
+    if (!back) limb(nk.slice(0, 3).map(([x, y]) => [x - 1.5 * S, y + 0.5]), 2.2 * S, 1.6 * S, B);
+    backs(nk[3][0] + 3 * S, nk[1][0] + 2 * S, nk[2][1] - 2 * S, a.back, a.backH || 2.5);
+    const hx = cx - 11 * S, hy = GY - 30 * S, hr = 4.2 * S;
+    poly([[hx + hr, hy - hr * 0.7], [hx - hr * 1.6, hy - hr * 0.2], [hx - hr * 1.7, hy + hr * 0.5], [hx + hr, hy + hr * 0.8]], C);
+    ell(hx + hr * 0.5, hy, hr, hr * 0.85, C);
+    horns(hx, hy, hr, a.horn); ears(hx + 1, hy, hr, a.ear);
+    if (!back) {
+      eye(hx - hr * 0.6, hy - hr * 0.35, 1);
+      px(hx - hr * 1.5, hy, INK);
+      if (a.mouth !== 'none') { const ty = hy + hr * 0.75; px(hx - hr * 1.8, ty, '#e8434f'); px(hx - hr * 2.2, ty, '#e8434f'); px(hx - hr * 2.6, ty - 1, '#e8434f'); px(hx - hr * 2.6, ty + 1, '#e8434f'); }
+      if (a.mouth === 'fang') { px(hx - hr * 1.2, hy + hr * 0.8, '#ffffff'); px(hx - hr * 0.7, hy + hr * 0.8, '#ffffff'); }
+    }
+  };
+
+  const croc = () => { // long and low, splayed legs, a jaw full of teeth
+    const k = S, baby = a.build === 'baby', king = a.build === 'king';
+    const cx = 28, rx = (baby ? 8 : 10) * k, ry = (baby ? 4.6 : king ? 6 : 5) * k, cy = GY - 4.5 * k - ry * 0.6;
+    limb([[cx + rx * 0.7, cy], [cx + rx + 4 * k, cy + 1.5 * k], [cx + rx + 8 * k, cy - 1 * k], [cx + rx + 9 * k, cy - (baby ? 4 : 7) * k]], (king ? 7 : 6) * k, 1.2, C);
+    for (const fx of [0.55, -0.45]) { const x = cx + rx * fx; limb([[x + 1, cy + 1], [x + 3 * k, GY - 2], [x + 1 * k, GY]], 3.2 * k, 2.6 * k, shade(C, -0.28)); }
+    ell(cx, cy, rx, ry, C);
+    if (!back) ell(cx - rx * 0.2, cy + ry * 0.5, rx * 0.75, ry * 0.4, B, { flat: true });
+    backs(cx - rx * 0.6, cx + rx + 6 * k, cy - ry * 0.85, a.back || 'bumps', a.backH || 2);
+    if (has('stripes')) for (let i = 0; i < 4; i++) for (let j = 0; j < ry; j++) px(cx - rx * 0.3 + i * 4 * k + (j % 2), cy - ry * 0.8 + j, shade(C, -0.3));
+    for (const fx of [0.3, -0.75]) { const x = cx + rx * fx; limb([[x, cy + 1], [x - 2 * k, GY - 2], [x - 4 * k, GY]], 3.4 * k, 2.8 * k, C); if (has('claws')) { px(x - 5 * k, GY, '#f4f0e8'); px(x - 3 * k, GY, '#f4f0e8'); } }
+    const hx = cx - rx - 1 * k, hy = cy - (baby ? 2 : 1) * k, sn = (baby ? 7 : king ? 13 : 11) * k, th = (baby ? 2.6 : 3) * k;
+    ell(hx + 2 * k, hy, (baby ? 5 : 5.5) * k, (baby ? 4.4 : 4) * k, C);
+    poly([[hx + 1, hy - th], [hx - sn, hy - th * 0.5], [hx - sn - 1, hy + 0.5], [hx + 1, hy + 0.5]], C);
+    poly([[hx + 1, hy + 1], [hx - sn + 1, hy + 1], [hx - sn, hy + th * 0.8], [hx + 1, hy + th * 1.1]], shade(C, -0.1));
+    if (!back) {
+      for (let x = hx - sn + 2; x < hx; x += 2) px(x, hy + 1, '#f6f2e4');
+      if (!baby) for (let x = hx - sn + 3; x < hx - 2; x += 4) px(x, hy, '#f6f2e4');
+      px(hx - sn, hy - th * 0.5, INK);
+      ell(hx + 2 * k, hy - (baby ? 4.2 : 3.6) * k, (baby ? 2.6 : 2.2) * k, (baby ? 2.4 : 1.9) * k, C);
+      eye(hx + 1.5 * k, hy - (baby ? 5 : 4.4) * k, baby ? 1 : 0.8);
+    } else ell(hx + 2 * k, hy - 3.6 * k, 2.2 * k, 1.9 * k, C);
+    horns(hx + 2 * k, hy, 4 * k, a.horn);
+  };
+
+  const hippo = () => { // huge barrel body, stumpy legs, enormous head
+    const cx = 28, rx = 12.5 * S, ry = 8.5 * S, legH = 4 * S, cy = GY - legH - ry + 3;
+    tail(cx + rx * 0.95, cy - ry * 0.1, a.tail || 'stub');
+    const legW = Math.round(5 * S);
+    for (const fx of [0.55, 0.05]) rect(cx + rx * fx - legW / 2, cy + ry * 0.55, legW, GY - cy - ry * 0.55 + 1, shade(C, -0.28));
+    ell(cx, cy, rx, ry, C);
+    if (!back) ell(cx - rx * 0.1, cy + ry * 0.55, rx * 0.7, ry * 0.35, B, { flat: true });
+    backs(cx - rx * 0.4, cx + rx * 0.7, cy - ry * 0.95, a.back, a.backH || 3);
+    if (has('spots')) { const R = mulberry(11); for (let i = 0; i < 6; i++) ell(cx + (R() - 0.2) * rx, cy + (R() - 0.7) * ry * 0.9, 1.6 * S, 1.2 * S, C2, { flat: true, noEdge: true }); }
+    for (const fx of [-0.45, -0.05]) rect(cx + rx * fx - legW / 2, cy + ry * 0.6, legW, GY - cy - ry * 0.6 + 1, C);
+    const hx = cx - rx * 0.9, hy = cy - ry * 0.05, hr = 6.5 * S;
+    ell(hx + 2 * S, hy - 1 * S, hr, hr * 0.95, C);
+    for (const d of [0, 1]) { ell(hx + (1 + d * 4) * S, hy - hr * 0.95, 1.6 * S, 1.3 * S, shade(C, -0.1)); }
+    ell(hx - 4.5 * S, hy + 2.5 * S, 6.5 * S, 5.2 * S, shade(C, 0.06));
+    if (!back) {
+      for (const d of [0, 1]) ell(hx - (8 - d * 2.5) * S, hy - 0.5 * S, 0.9 * S + 0.3, 0.7 * S + 0.3, shade(C, -0.45), { flat: true, noEdge: true });
+      if (a.mouth === 'jaw') {
+        rect(hx - 10 * S, hy + 3 * S, 9 * S, 3.5 * S, '#7a2a2a');
+        for (const x of [hx - 9 * S, hx - 3 * S]) { tri([[x, hy + 3 * S], [x + 1.6 * S, hy + 3 * S], [x + 0.8 * S, hy + 6 * S]], '#f6f2e4', { flat: true }); }
+      } else { for (let x = hx - 10 * S; x < hx; x++) px(x, hy + 4.5 * S, shade(C, -0.5)); if (a.mouth === 'tusks') { px(hx - 8 * S, hy + 5.5 * S, '#f6f2e4'); px(hx - 3 * S, hy + 5.5 * S, '#f6f2e4'); } }
+      ell(hx + 1 * S, hy - hr * 0.6, 2.2 * S, 1.8 * S, C); eye(hx + 0.5 * S, hy - hr * 0.7, 0.8);
+    }
+    horns(hx + 2 * S, hy, hr, a.horn);
+  };
+
+  const canine = () => { // lean wild dog: deep chest, tucked waist, long legs and snout
+    const legH = (a.build === 'pup' ? 8 : 12) * S, cx = 26, cy = GY - legH - 4 * S;
+    const chx = cx - 5 * S, hpx = cx + 7 * S;
+    if (a.tail === 'bushy') { limb([[hpx + 3 * S, cy - 1.5 * S], [hpx + 7 * S, cy + 2 * S], [hpx + 10 * S, cy + 2.5 * S], [hpx + 12 * S, cy]], 2.5 * S, 4.5 * S, C); ell(hpx + 11.5 * S, cy + 0.5 * S, 2.2 * S, 2 * S, C2); }
+    else tail(hpx + 4 * S, cy - 1 * S, a.tail || 'thin');
+    for (const x of [hpx + 1 * S, chx + 2 * S]) {
+      if (x > cx) limb([[x, cy + 2 * S], [x + 3 * S, cy + 6 * S], [x, GY - 3 * S], [x + 1 * S, GY]], 3 * S, 2 * S, shade(C, -0.28));
+      else limb([[x, cy + 3 * S], [x + 1 * S, GY - 1], [x, GY]], 2.6 * S, 2 * S, shade(C, -0.28));
+    }
+    limb([[chx + 2 * S, cy + 1 * S], [hpx - 2 * S, cy - 0.5 * S]], 6 * S, 7 * S, C);
+    ell(hpx, cy - 0.5 * S, 5 * S, 4.6 * S, C);
+    ell(chx, cy, 6.5 * S, 6 * S, C);
+    if (!back) ell(chx - 1 * S, cy + 2.5 * S, 4.5 * S, 3.5 * S, B, { flat: true });
+    if (has('stripes')) for (let i = 0; i < 3; i++) { const x = cx + i * 3 * S; for (let j = 0; j < 5 * S; j++) px(x + (j % 2), cy - 3 * S + j, shade(C, -0.35)); }
+    if (has('spots')) { const R = mulberry(13); for (let i = 0; i < 6; i++) ell(cx + (R() - 0.5) * 16 * S, cy + (R() - 0.6) * 6 * S, 1.3 * S, 1 * S, C2, { flat: true, noEdge: true }); }
+    backs(chx - 2 * S, hpx + 2 * S, cy - 5 * S, a.back, a.backH || 3);
+    for (const x of [hpx - 2 * S, chx - 2 * S]) {
+      if (x > cx) limb([[x, cy + 2 * S], [x + 3 * S, cy + 6 * S], [x, GY - 3 * S], [x + 1 * S, GY]], 3 * S, 2 * S, C);
+      else limb([[x, cy + 3 * S], [x - 1 * S, GY - 1], [x - 1.5 * S, GY]], 2.8 * S, 2.2 * S, C);
+    }
+    if (has('ruff')) ell(chx - 2 * S, cy - 3 * S, 5 * S, 4.5 * S, C2);
+    const hx = chx - 5 * S, hy = cy - 7 * S, hr = 4.3 * S;
+    limb([[chx - 1 * S, cy - 2 * S], [hx + 1 * S, hy + 1 * S]], 5 * S, 4 * S, C);
+    ears(hx + 1, hy, hr, a.ear || 'point');
+    ell(hx, hy, hr, hr * 0.9, C);
+    poly([[hx - hr * 0.3, hy - hr * 0.35], [hx - hr - 4.5 * S, hy + hr * 0.2], [hx - hr - 4 * S, hy + hr * 0.75], [hx - hr * 0.2, hy + hr * 0.85]], C);
+    if (!back) poly([[hx - hr * 0.3, hy + hr * 0.35], [hx - hr - 4 * S, hy + hr * 0.6], [hx - hr - 3 * S, hy + hr * 0.85], [hx - hr * 0.2, hy + hr * 0.85]], B, { flat: true });
+    horns(hx, hy, hr, a.horn);
+    if (!back) {
+      ell(hx - hr - 4.2 * S, hy + hr * 0.3, 1.1 * S + 0.3, 1 * S + 0.3, INK, { flat: true, noEdge: true });
+      eye(hx - hr * 0.35, hy - hr * 0.2, 0.9);
+      if (a.mouth === 'fang') { px(hx - hr - 1 * S, hy + hr * 0.9, '#ffffff'); px(hx - hr + 1 * S, hy + hr * 0.95, '#ffffff'); }
+    }
+  };
+
+  const shark = () => { // torpedo body, tall dorsal fin, crescent tail
+    const cx = 23, cy = GY - 15 * S, rx = 15 * S, ry = 6 * S;
+    tri([[cx + rx - 2, cy - 1], [cx + rx + 8 * S, cy - 10 * S], [cx + rx + 3 * S, cy + 0.5]], shade(C, -0.08));
+    tri([[cx + rx - 2, cy], [cx + rx + 6 * S, cy + 7 * S], [cx + rx + 3 * S, cy]], shade(C, -0.18));
+    poly([[cx - rx - 3 * S, cy + 1 * S], [cx - rx * 0.5, cy - ry], [cx + rx * 0.4, cy - ry * 0.75], [cx + rx, cy - 1.5 * S], [cx + rx, cy + 1.5 * S], [cx + rx * 0.4, cy + ry * 0.8], [cx - rx * 0.5, cy + ry * 0.95]], C);
+    if (!back) poly([[cx - rx - 2 * S, cy + 1.6 * S], [cx + rx * 0.5, cy + 1.5 * S], [cx + rx * 0.4, cy + ry * 0.8], [cx - rx * 0.5, cy + ry * 0.95]], B, { flat: true });
+    tri([[cx - 3 * S, cy - ry + 1], [cx + 5 * S, cy - ry + 1.5], [cx + 4 * S, cy - ry - 10 * S]], C2);
+    tri([[cx + rx * 0.55, cy - ry * 0.6], [cx + rx * 0.75, cy - ry * 0.55], [cx + rx * 0.72, cy - ry - 2 * S]], C2);
+    tri([[cx - 4 * S, cy + ry * 0.6], [cx + 2 * S, cy + ry * 0.7], [cx + 4 * S, cy + ry + 6 * S]], shade(C, -0.15));
+    if (has('stripes')) for (let i = 0; i < 4; i++) for (let j = 0; j < ry; j++) px(cx - 2 * S + i * 4 * S + (j % 2), cy - ry * 0.85 + j, shade(C, -0.32));
+    if (!back) {
+      for (let i = 0; i < 3; i++) for (let j = 0; j < 3 * S; j++) px(cx - rx * 0.55 + i * 2 * S, cy - 1 * S + j, shade(C, -0.4));
+      if (a.mouth === 'jaw') {
+        poly([[cx - rx - 2 * S, cy + 2 * S], [cx - rx * 0.6, cy + 1.5 * S], [cx - rx * 0.65, cy + 4.5 * S]], '#5a1a1a', { flat: true });
+        for (let x = cx - rx - 1 * S; x < cx - rx * 0.6; x += 2) { px(x, cy + 2 * S, '#ffffff'); px(x + 1, cy + 3.2 * S + (x - cx + rx) * 0.15, '#ffffff'); }
+      } else { for (let x = cx - rx - 1 * S; x < cx - rx * 0.6; x++) px(x, cy + 2 * S, shade(C, -0.55)); for (let x = cx - rx; x < cx - rx * 0.65; x += 2) px(x, cy + 2.6 * S, '#ffffff'); }
+      eye(cx - rx * 0.75, cy - 1.5 * S, 0.8);
+    }
+    if (has('splash')) for (let i = 0; i < 5; i++) ell(6 + i * 9, GY - 1, 3.5 * S, 1.2, '#8ac8e8', { flat: true, noEdge: true });
+    horns(cx - rx * 0.6, cy - 1, ry, a.horn);
+  };
+
+  const turtle = () => { // sea turtle mid-stroke: domed shell, wide flippers
+    const cx = 26, cy = GY - 13 * S;
+    poly([[cx + 7 * S, cy + 2 * S], [cx + 13 * S, cy + 8 * S], [cx + 7 * S, cy + 6 * S]], shade(C, -0.25));
+    poly([[cx - 4 * S, cy + 1 * S], [cx - 13 * S, cy + 10 * S], [cx - 16 * S, cy + 12 * S], [cx - 9 * S, cy + 9 * S], [cx + 1 * S, cy + 4 * S]], shade(C, -0.25));
+    tri([[cx + 11 * S, cy + 1 * S], [cx + 15 * S, cy + 3 * S], [cx + 11 * S, cy + 3.5 * S]], C);
+    ell(cx, cy + 3 * S, 11 * S, 3.4 * S, B);
+    ell(cx + 1 * S, cy - 1 * S, 11.5 * S, 7.5 * S, C2);
+    for (const [dx, dy] of [[-5, -2], [1, -4], [6, -1], [-1, 1.5], [-6, 2.5], [5, 3]]) ell(cx + (1 + dx) * S, cy + (dy - 1) * S, 2.8 * S, 2 * S, shade(C2, -0.18), { flat: true });
+    backs(cx - 7 * S, cx + 9 * S, cy - 8 * S, a.back, a.backH || 3);
+    if (has('barnacles')) for (const [bx, by] of [[cx + 6 * S, cy - 4 * S], [cx - 2 * S, cy - 6 * S], [cx + 3 * S, cy + 1 * S]]) ell(bx, by, 1.6 * S, 1.4 * S, '#e8e0d0');
+    if (has('moss')) for (let i = 0; i < 5; i++) ell(cx - 7 * S + i * 4 * S, cy - 7 * S + (i % 2), 2.6 * S, 1.6 * S, i % 2 ? '#5aa040' : '#6ab850');
+    poly([[cx - 3 * S, cy + 3 * S], [cx - 14 * S, cy - 3 * S], [cx - 18 * S, cy - 1 * S], [cx - 10 * S, cy + 5 * S]], C);
+    const hx = cx - 13 * S, hy = cy + 1 * S, hr = 3.8 * S;
+    limb([[cx - 8 * S, cy + 2.5 * S], [hx + 2 * S, hy + 0.5 * S]], 4 * S, 3.4 * S, C);
+    ell(hx, hy, hr * 1.15, hr * 0.95, C);
+    horns(hx, hy, hr, a.horn);
+    if (!back) { eye(hx - hr * 0.3, hy - hr * 0.3, 0.9); px(hx - hr * 1.1, hy + hr * 0.3, INK); if (a.mouth === 'beak' || a.mouth === 'hook') tri([[hx - hr * 0.8, hy + 1], [hx - hr * 1.2, hy + hr * 0.7], [hx - hr * 1.6, hy + 1]], a.beak || '#e8c050'); }
+  };
+
+  const raptor = () => { // two-legged dinosaur: tail out back, strong legs, toothy head
+    const b = a.build || 'raptor', hatch = b === 'hatch', rex = b === 'rex';
+    const legH = (hatch ? 6 : rex ? 10 : 11) * S, rx = (hatch ? 6.5 : rex ? 10 : 8.5) * S, ry = (hatch ? 5.5 : rex ? 7.5 : 5.5) * S;
+    const cx = 27, cy = GY - legH - ry * 0.4;
+    const tl = (hatch ? 7 : 13) * S;
+    const tp = [[cx + rx * 0.7, cy - 1 * S], [cx + rx + tl * 0.5, cy - 1.5 * S], [cx + rx + tl * 0.85, cy - 4 * S], [cx + rx + tl, cy - 6 * S]];
+    limb(tp, (hatch ? 5 : 6) * S, 1.2, C);
+    if (a.tail === 'flame') flame(tp[3][0] - 1, tp[3][1] + 1, (hatch ? 3.5 : 4.5) * S, a.flame || '#ff8a3a', '#ffe060');
+    else if (a.tail && a.tail !== 'none') tail(tp[3][0] - 2, tp[3][1], a.tail);
+    for (const [d, col] of [[3, shade(C, -0.28)], [-1, C]]) {
+      const x = cx + d * S;
+      ell(x + 1 * S, cy + 2 * S, (hatch ? 3 : 4) * S, (hatch ? 3.5 : 5) * S, col);
+      limb([[x + 1 * S, cy + 4 * S], [x + 3 * S, cy + legH * 0.55], [x, GY - 1], [x - 2.5 * S, GY]], (hatch ? 2.4 : 3) * S, 2 * S, col);
+      if (!hatch) { px(x - 3 * S, GY, '#f4f0e8'); px(x - 1 * S, GY, '#f4f0e8'); }
+    }
+    ell(cx, cy, rx, ry, C);
+    if (!back) ell(cx - rx * 0.3, cy + ry * 0.45, rx * 0.6, ry * 0.45, B, { flat: true });
+    if (has('stripes')) for (let i = 0; i < 3; i++) for (let j = 0; j < ry; j++) px(cx + i * 3 * S + (j % 2), cy - ry * 0.85 + j, shade(C, -0.3));
+    backs(cx - rx * 0.8, tp[2][0], cy - ry * 0.9, a.back, a.backH || 3);
+    const hr = (hatch ? 5.2 : rex ? 6 : 4.5) * S, hx = cx - rx - (hatch ? 1 : 3) * S, hy = cy - ry - (hatch ? 3 : rex ? 3 : 6) * S;
+    if (!hatch) limb([[cx - rx * 0.6, cy - ry * 0.3], [hx + hr * 0.6, hy + hr * 0.4]], 5 * S, 4 * S, C);
+    limb([[cx - rx * 0.75, cy + ry * 0.2], [cx - rx - 1 * S, cy + ry * 0.55], [cx - rx - 2 * S, cy + ry * 0.2]], (rex ? 1.6 : 2) * S, 1.4 * S, shade(C, -0.1));
+    ears(hx, hy, hr, a.ear);
+    ell(hx + hr * 0.3, hy, hr, hr * 0.85, C);
+    const sn = (hatch ? 3.5 : rex ? 6.5 : 6) * S;
+    poly([[hx, hy - hr * 0.55], [hx - sn, hy - hr * 0.1], [hx - sn, hy + hr * 0.45], [hx + hr * 0.3, hy + hr * 0.55]], C);
+    poly([[hx, hy + hr * 0.5], [hx - sn + 1, hy + hr * 0.5], [hx - sn + 2, hy + hr * 0.85], [hx + hr * 0.3, hy + hr * 0.85]], shade(C, -0.12));
+    horns(hx + hr * 0.3, hy, hr, a.horn);
+    if (!back) {
+      px(hx - sn + 1, hy - hr * 0.05, INK);
+      if (!hatch || a.mouth === 'fang') for (let x = hx - sn + 2; x < hx; x += 2) px(x, hy + hr * 0.5, '#f6f2e4');
+      eye(hx + hr * 0.05, hy - hr * 0.35, hatch ? 1 : 0.8);
+    }
+  };
+
+  const feline = () => { // big cat on the prowl: long low body, curving tail
+    const legH = 8 * S, cx = 27, rx = 11.5 * S, ry = 5.2 * S, cy = GY - legH - ry * 0.5;
+    limb([[cx + rx * 0.85, cy - 1 * S], [cx + rx + 4 * S, cy + 2 * S], [cx + rx + 7 * S, cy - 3 * S], [cx + rx + 6 * S, cy - 9 * S]], 2.6 * S, 2 * S, C);
+    if (has('tuft')) ell(cx + rx + 6 * S, cy - 9.5 * S, 2 * S, 2 * S, C2);
+    const legW = Math.max(2, Math.round(3 * S));
+    for (const fx of [0.6, -0.4]) { rect(cx + rx * fx - legW / 2, cy + ry * 0.3, legW, GY - cy - ry * 0.3, shade(C, -0.28)); ell(cx + rx * fx - 0.5 * S, GY - 0.5, 2 * S, 1.2 * S, shade(C, -0.28)); }
+    ell(cx, cy, rx, ry, C);
+    ell(cx - rx * 0.6, cy - ry * 0.35, rx * 0.4, ry * 0.85, C);
+    if (!back) ell(cx - rx * 0.15, cy + ry * 0.55, rx * 0.6, ry * 0.35, B, { flat: true });
+    if (has('spots')) { const R = mulberry(17); for (let i = 0; i < 8; i++) ell(cx + (R() - 0.5) * rx * 1.6, cy + (R() - 0.6) * ry * 1.1, 1.1 * S, 0.9 * S, C2, { flat: true, noEdge: true }); }
+    if (has('stripes')) for (let i = 0; i < 4; i++) { const x = cx - rx * 0.2 + i * 3.5 * S; for (let j = 0; j < ry * 1.2; j++) px(x + (j % 2), cy - ry * 0.9 + j, C2); }
+    backs(cx - rx * 0.6, cx + rx * 0.8, cy - ry * 0.95, a.back, a.backH || 3);
+    for (const fx of [0.3, -0.75]) { rect(cx + rx * fx - legW / 2, cy + ry * 0.4, legW, GY - cy - ry * 0.4, C); ell(cx + rx * fx - 1 * S, GY - 0.5, 2.2 * S, 1.3 * S, C); }
+    if (has('mane')) ell(cx - rx * 0.85, cy - ry * 1.1, 6.5 * S, 6.5 * S, C2);
+    const hx = cx - rx * 1.05, hy = cy - ry * 1.2, hr = 4.6 * S;
+    ears(hx, hy, hr, a.ear || 'round');
+    ell(hx, hy, hr, hr * 0.92, C);
+    horns(hx, hy, hr, a.horn);
+    if (!back) {
+      ell(hx - hr * 0.55, hy + hr * 0.35, hr * 0.5, hr * 0.4, B, { flat: true });
+      px(hx - hr * 0.95, hy + hr * 0.15, INK);
+      for (let i = 0; i < 3; i++) px(hx - hr * 1.15 - i, hy + hr * 0.35 + (i % 2), shade(B, -0.4));
+      if (a.mouth === 'fang') { px(hx - hr * 0.8, hy + hr * 0.75, '#ffffff'); px(hx - hr * 0.45, hy + hr * 0.75, '#ffffff'); }
+      eye(hx - hr * 0.4, hy - hr * 0.15, 0.9); eye(hx + hr * 0.2, hy - hr * 0.2, 0.7);
+    }
+  };
+
+  const octopus = () => { // bulbous mantle and curling tentacles
+    const cx = 25, cy = GY - 21 * S, rx = 8.5 * S, ry = 9.5 * S;
+    const arms = [[-8, -1, shade(C, -0.2)], [7, 1, shade(C, -0.2)], [-4, -1, C], [3, 1, C], [-1, -1, shade(C, 0.05)], [10, 1, shade(C, -0.1)]];
+    for (const [ox, d, col] of arms) {
+      const x = cx + ox * S, y0 = cy + ry * 0.6;
+      const pts = [[x, y0], [x + d * 3 * S, y0 + 6 * S], [x + d * 5 * S, GY - 2 * S], [x + d * 8 * S, GY - 1], [x + d * 9 * S, GY - 4 * S]];
+      limb(pts, 3.2 * S, 1.2, col);
+      if (!back && col === C) for (let i = 1; i < 4; i++) px(pts[i][0] - d, pts[i][1] + 1, B);
+    }
+    ell(cx + 2 * S, cy - 2 * S, rx, ry, C);
+    ell(cx - 1 * S, cy + ry * 0.45, rx * 0.95, ry * 0.45, C);
+    if (has('spots')) { const R = mulberry(19); for (let i = 0; i < 7; i++) ell(cx + 2 * S + (R() - 0.5) * rx * 1.4, cy - 2 * S + (R() - 0.7) * ry * 1.1, 1.3 * S, 1.1 * S, C2, { flat: true, noEdge: true }); }
+    if (has('stripes')) for (let i = 0; i < 3; i++) for (let x = -rx * 0.8; x < rx * 0.8; x++) px(cx + 2 * S + x, cy - ry * 0.7 + i * 3 * S + Math.sin(x / 2) * 0.8, C2);
+    backs(cx - rx * 0.6, cx + rx, cy - ry * 1.15, a.back, a.backH || 3);
+    horns(cx + 2 * S, cy - 2 * S, ry, a.horn);
+    if (!back) { eye(cx - rx * 0.45, cy + ry * 0.15, 1); eye(cx + rx * 0.15, cy + ry * 0.15, 1); if (a.mouth !== 'none') { px(cx - rx * 0.25, cy + ry * 0.6, INK); px(cx - rx * 0.1, cy + ry * 0.65, INK); } }
+  };
+
+  const manta = () => { // seen from the front, gliding on wide wing-fins
+    const cx = 24, cy = GY - 17 * S, sp = 21 * S;
+    limb([[cx + 1 * S, cy + 4 * S], [cx + 4 * S, cy + 11 * S], [cx + 9 * S, GY - 1]], 1.8 * S, 1, shade(C, -0.25));
+    poly([[cx - sp, cy + 1 * S], [cx - 9 * S, cy - 7 * S], [cx - 3 * S, cy - 6 * S], [cx + 3 * S, cy - 6 * S], [cx + 9 * S, cy - 7 * S], [cx + sp, cy + 1 * S], [cx + 8 * S, cy + 4 * S], [cx - 8 * S, cy + 4 * S]], C);
+    if (!back) ell(cx, cy + 1.5 * S, 7 * S, 3 * S, B, { flat: true });
+    for (const d of [-1, 1]) limb([[cx + d * 4 * S, cy - 5 * S], [cx + d * 6 * S, cy - 9 * S], [cx + d * 4.5 * S, cy - 11 * S]], 2.4 * S, 1.4 * S, C2);
+    if (has('spots')) for (const d of [-1, 1]) for (let i = 0; i < 3; i++) ell(cx + d * (10 + i * 3.5) * S, cy - (2 - i * 0.6) * S, 1.3 * S, 1 * S, C2, { flat: true, noEdge: true });
+    if (has('stripes')) for (const d of [-1, 1]) for (let i = 0; i < 3; i++) limb([[cx + d * (7 + i * 4) * S, cy - (5 - i) * S], [cx + d * (9 + i * 4) * S, cy + 2 * S]], 1, 1, C2);
+    backs(cx - 6 * S, cx + 6 * S, cy - 6 * S, a.back, a.backH || 2.5);
+    horns(cx, cy - 2 * S, 5 * S, a.horn);
+    if (!back) { eye(cx - 6 * S, cy - 3 * S, 0.9); eye(cx + 5 * S, cy - 3 * S, 0.9); for (let x = cx - 3 * S; x < cx + 3 * S; x++) px(x, cy + 3 * S, shade(B, -0.5)); }
+  };
+
+  const monkey = () => { // sits upright: long arms, curled tail, round face mask
+    const cx = 26, cy = GY - 10 * S;
+    limb([[cx + 6 * S, cy + 6 * S], [cx + 12 * S, cy + 2 * S], [cx + 14 * S, cy - 6 * S], [cx + 11 * S, cy - 11 * S], [cx + 8 * S, cy - 9 * S]], 2.4 * S, 1.6 * S, a.tail === 'striped' ? C2 : C);
+    limb([[cx + 4 * S, cy - 5 * S], [cx + 7 * S, cy + 2 * S], [cx + 5 * S, GY - 1]], 3 * S, 2.6 * S, shade(C, -0.28));
+    for (const d of [-1, 1]) ell(cx + d * 4 * S, GY - 1.5 * S, 3.2 * S, 2 * S, shade(C, -0.2));
+    ell(cx, cy, 7.5 * S, 8.5 * S, C);
+    if (!back) ell(cx - 1.5 * S, cy + 2 * S, 4.5 * S, 5.5 * S, B, { flat: true });
+    backs(cx - 4 * S, cx + 5 * S, cy - 8 * S, a.back, a.backH || 3);
+    limb([[cx - 4 * S, cy - 5 * S], [cx - 9 * S, cy + 1 * S], [cx - 8 * S, GY - 1]], 3 * S, 2.6 * S, C);
+    ell(cx - 8.5 * S, GY - 1.5 * S, 2.4 * S, 1.6 * S, has('hands') ? C2 : shade(C, 0.1));
+    const hx = cx - 2 * S, hy = cy - 12 * S, hr = 5.4 * S;
+    if (a.ear !== 'none') for (const d of [-1, 1]) { ell(hx + d * hr * 1.05, hy + 0.5 * S, 2.3 * S, 2.6 * S, C); if (!back) ell(hx + d * hr * 1.05, hy + 0.5 * S, 1.2 * S, 1.5 * S, B, { flat: true }); }
+    if (has('crest')) tri([[hx - 2 * S, hy - hr + 1], [hx + 3 * S, hy - hr + 1], [hx + 1 * S, hy - hr - 5 * S]], C2);
+    ell(hx, hy, hr, hr * 0.95, C);
+    horns(hx, hy, hr, a.horn);
+    if (!back) {
+      ell(hx - 1 * S, hy + 1 * S, hr * 0.75, hr * 0.68, B, { flat: true });
+      eye(hx - hr * 0.45, hy - hr * 0.05, 1); eye(hx + hr * 0.15, hy - hr * 0.05, 1);
+      px(hx - 1 * S, hy + hr * 0.35, INK); px(hx - 2 * S, hy + hr * 0.55, INK); px(hx, hy + hr * 0.55, INK);
+    }
+  };
+
+  const hog = () => { // hedgehog to boar: a spiny coat over the back, pointed or tusked snout
+    const b = a.build || 'hedgehog', boar = b === 'boar', mid = b === 'hog';
+    const rx = (boar ? 13 : mid ? 11 : 8.5) * S, ry = (boar ? 8.5 : mid ? 7.5 : 7) * S, legH = (boar ? 6 : mid ? 4 : 2) * S;
+    const cx = 27, cy = GY - legH - ry + 2;
+    const n = boar ? 9 : mid ? 10 : 11, a0 = boar ? 1.22 : 1.12, a1 = boar ? 1.85 : 1.95;
+    tail(cx + rx * 0.9, cy, a.tail);
+    const legW = Math.max(2, Math.round((boar ? 4 : mid ? 3 : 2) * S));
+    for (const fx of [0.55, 0.05]) rect(cx + rx * fx - legW / 2, cy + ry * 0.5, legW, GY - cy - ry * 0.5 + 1, shade(C, -0.28));
+    for (let i = 0; i < n; i++) {
+      const f = i / (n - 1), an = Math.PI * (a0 + f * (a1 - a0));
+      const sl = (boar ? 5 + 5 * Math.max(0, 1 - Math.abs(f - 0.25) * 2.2) : mid ? 6 : 5) * S;
+      const ex = cx + rx * 0.12 + Math.cos(an) * rx * 0.85, ey = cy - ry * 0.05 + Math.sin(an) * ry * 0.9;
+      const tx = ex + Math.cos(an + 0.3) * sl, ty = ey + Math.sin(an + 0.3) * sl;
+      tri([[ex - 2 * S, ey + 1.5 * S], [ex + 2 * S, ey + 1.5 * S], [tx, ty]], i % 2 ? C2 : shade(C2, -0.18));
+    }
+    ell(cx, cy, rx, ry, C);
+    if (!back) ell(cx - rx * 0.25, cy + ry * 0.5, rx * 0.55, ry * 0.38, B, { flat: true });
+    ell(cx + rx * 0.15, cy - ry * 0.2, rx * (boar ? 0.75 : 0.82), ry * (boar ? 0.68 : 0.78), C2);
+    for (let i = 0; i < 6; i++) { const x = cx + rx * (-0.35 + i * 0.2), y = cy - ry * (0.55 - (i % 2) * 0.25); tri([[x - 1.2 * S, y + 2 * S], [x + 1.2 * S, y + 2 * S], [x + 1.5 * S, y - 1.5 * S]], shade(C2, 0.18), { flat: true }); }
+    if (has('vines')) for (let i = 0; i < 5; i++) { const an = Math.PI * (1.25 + i * 0.15); ell(cx + rx * 0.12 + Math.cos(an) * rx * 0.95, cy + Math.sin(an) * ry * 0.98, 2.4 * S, 1.5 * S, i % 2 ? '#7ad050' : '#4aa83a'); }
+    if (has('berries')) for (const [dx, dy] of [[0.15, -0.9], [0.55, -0.7], [-0.2, -0.8]]) ell(cx + dx * rx, cy + dy * ry, 1.5 * S, 1.5 * S, '#e84a5a');
+    for (const fx of [-0.25, -0.65]) rect(cx + rx * fx - legW / 2, cy + ry * 0.55, legW, GY - cy - ry * 0.55 + 1, C);
+    if (boar) for (const fx of [-0.25, -0.65, 0.05, 0.55]) rect(cx + rx * fx - legW / 2, GY - 1, legW, 2, '#3a2a20');
+    const hr = (boar ? 6 : mid ? 5 : 4.5) * S, hx = cx - rx * 0.85, hy = cy + ry * (boar ? 0.05 : 0.15);
+    ears(hx + 1, hy - 1, hr, a.ear || 'round');
+    ell(hx, hy, hr, hr * 0.9, C);
+    horns(hx, hy, hr, a.horn);
+    if (boar || mid) {
+      ell(hx - hr * 1.0, hy + hr * 0.3, hr * 0.55, hr * 0.5, shade(C, 0.1));
+      if (!back) { ell(hx - hr * 1.45, hy + hr * 0.3, hr * 0.22, hr * 0.38, shade(C, -0.15), { flat: true }); px(hx - hr * 1.5, hy + hr * 0.2, INK); px(hx - hr * 1.5, hy + hr * 0.45, INK); }
+      if (boar && !back) for (const d of [0, 1]) limb([[hx - hr * 0.8 - d * 2, hy + hr * 0.7], [hx - hr * 1.25 - d * 2, hy + hr * 0.6], [hx - hr * 1.3 - d * 2, hy + hr * 0.05]], 1.8 * S, 1, '#f4ecd8');
+    } else {
+      poly([[hx - hr * 0.5, hy - hr * 0.2], [hx - hr - 4 * S, hy + hr * 0.35], [hx - hr * 0.4, hy + hr * 0.75]], C);
+      if (!back) ell(hx - hr - 3.8 * S, hy + hr * 0.35, 1.1 * S + 0.4, 1 * S + 0.4, INK, { flat: true, noEdge: true });
+    }
+    if (!back) eye(hx - hr * 0.3, hy - hr * 0.2, boar ? 0.8 : 1);
+  };
+
+  const FORMS = { quad, rabbit, bird, bat, worm, blob, frog, wisp, mineral, bug, fish, jelly, crab, biped, plant, snake, croc, hippo, canine, shark, turtle, raptor, feline, octopus, manta, monkey, hog };
   (FORMS[a.f] || blob)();
 
   for (const [x, y, big] of eyes) {

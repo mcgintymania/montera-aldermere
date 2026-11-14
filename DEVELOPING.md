@@ -8,7 +8,7 @@ The full source for **Montera: The Lanterns of Aldermere**. The published game l
 | --- | --- |
 | `src/*.js` | Game code. Data files first (species, moves, maps, scripts), then engine files. Order is set in `build.py` |
 | `src/template.html`, `src/style.css`, `src/logo.b64` | Page shell, styles and the logo |
-| `src/monart.js` | Sprite engine: every Wildmon is a body form plus parts |
+| `src/monart.js` | Sprite engine: every Wildmon is a body form plus parts. Brightholm's copy (`brightholm/monart.js`) adds 12 forms: `snake` (x: bands, hood; tail: rattle), `croc` (build: baby, king), `hippo` (mouth: jaw, tusks), `canine` (build: pup; tail: bushy; x: ruff, stripes, spots), `shark` (mouth: jaw; x: splash, stripes), `turtle` (x: barnacles, moss), `raptor` (build: hatch, rex; tail: flame), `feline` (x: mane, tuft, spots, stripes), `octopus`, `manta`, `monkey` (x: crest, hands; tail: striped), `hog` (build: hedgehog, hog, boar; x: vines, berries). Preview them with `python3 tools/bh_forms_sheet.py OUT.png` after building the site |
 | `src/artdata.js` | Generated Wildmon looks. Edit `tools/artspec.py`, then run `tools/gen_art.py` |
 | `companion/` | The Companion web app (template, styles, app code) |
 | `launcher/` | The Montera title screen (`index.html` on the site) and the new logo |
