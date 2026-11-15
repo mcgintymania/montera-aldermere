@@ -185,8 +185,8 @@ Object.assign(DATA.encounters, {
   volt_plant: { cave: { day: [['coilbug', 34, 21, 24], ['fizzbat', 30, 21, 24], ['zappik', 20, 21, 24], ['gearling', 16, 21, 24]] } },
   route4: {
     grass: {
-      day: [['drillbeak', 22, 23, 26], ['pummelo', 16, 23, 26], ['cindertoad', 18, 23, 26], ['sandkit', 18, 23, 26], ['gullet', 16, 23, 26], ['fawnlight', 10, 24, 26]],
-      night: [['fizzbat', 22, 23, 26], ['cindertoad', 20, 23, 26], ['shadepaw', 18, 23, 26], ['glimwig', 20, 23, 26], ['driftveil', 20, 23, 26]],
+      day: [['drillbeak', 22, 23, 26], ['pummelo', 16, 23, 26], ['cindertoad', 18, 23, 26], ['sandkit', 18, 23, 26], ['gullet', 16, 23, 26], ['fawnlight', 10, 24, 26], ['firecub', 5, 23, 25]],
+      night: [['fizzbat', 22, 23, 26], ['cindertoad', 20, 23, 26], ['shadepaw', 18, 23, 26], ['glimwig', 20, 23, 26], ['driftveil', 20, 23, 26], ['firecub', 5, 23, 25]],
     },
     surf: { day: [['gullet', 34, 24, 27], ['mantaglide', 24, 24, 27], ['flopfin', 22, 22, 26], ['glintstar', 20, 24, 27]] },
     fish: { day: [['flopfin', 40, 22, 26], ['shellsnip', 26, 24, 27], ['glintstar', 20, 24, 27], ['gyrefin', 14, 26, 28]] },

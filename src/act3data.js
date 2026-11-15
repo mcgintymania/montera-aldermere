@@ -166,8 +166,8 @@ Object.defineProperty(DATA.trainers.kit4, 'intro', { get() { return ['{player}! 
 Object.assign(DATA.encounters, {
   route5: {
     grass: {
-      day: [['rooftik', 26, 27, 30], ['psylet', 12, 27, 30], ['drillbeak', 16, 27, 30], ['pummelo', 12, 27, 30], ['sprigrat', 14, 27, 29], ['zappik', 10, 27, 30], ['hexcat', 10, 28, 30]],
-      night: [['hexcat', 22, 28, 30], ['psylet', 20, 27, 30], ['rooftik', 18, 27, 30], ['fizzbat', 20, 27, 30], ['shadepaw', 20, 27, 30]],
+      day: [['rooftik', 26, 27, 30], ['psylet', 12, 27, 30], ['drillbeak', 16, 27, 30], ['pummelo', 12, 27, 30], ['sprigrat', 14, 27, 29], ['zappik', 10, 27, 30], ['hexcat', 10, 28, 30], ['mossling', 5, 27, 29]],
+      night: [['hexcat', 22, 28, 30], ['psylet', 20, 27, 30], ['rooftik', 18, 27, 30], ['fizzbat', 20, 27, 30], ['shadepaw', 20, 27, 30], ['mossling', 5, 27, 29]],
     },
   },
   glasswater: {
