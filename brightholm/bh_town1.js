@@ -234,10 +234,10 @@ Object.assign(DATA.scripts, {
   async bhRancher(s) {
     const o = { name: 'Rancher Hale' };
     await s.say(['These are my Steerling. Best herd in the Far Reach.', 'Cassidy at the Hall raised one herself. Keeps it as her ace. You will see why if you challenge her!',
-      "If you want one of your own, they're shy in the wild. Try the long grass up past Vantage City, once the road reopens."], o);
+      "If you want one of your own, they're shy in the wild. Try the long grass on Quarry Road, south of town. They are shy, so keep looking."], o);
   },
   async bhRoadblock(s) {
-    await s.say(['Sorry, the road south to Vantage City is closed. The floods took out half the hillside.', 'The Rising Light of Brightholm continues down this road in the next update.'], { name: 'Roadworker' });
+    await s.say(['Sorry, the road south is closed. The floods took out half the hillside.', 'Cassidy at the Hall is lending us her Steerling to shift the mud. Earn her Badge and we will wave you through.'], { name: 'Roadworker' });
   },
   async bhHallGuide(s) {
     const o = { name: 'Hall Guide' };

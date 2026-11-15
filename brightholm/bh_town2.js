@@ -404,7 +404,7 @@ Object.assign(DATA.scripts, {
     await s.say(['Foreman Bram runs the Quarry Gauntlet up on the road. Worth a go if you want to toughen your team up before Petra.'], o);
   },
   async bhPass(s) {
-    await s.say(['Shalebrook Pass is blocked solid. A rockslide came down last week.', 'We are clearing it as fast as we can. The road to Vantage City opens in the next update.'], { name: 'Quarry Worker' });
+    await s.say(['Shalebrook Pass is blocked solid. A rockslide came down last week.', 'We are clearing it as fast as we can. Petra knows this rock better than anyone. Earn her Badge and she will help us shift it.'], { name: 'Quarry Worker' });
   },
   async bhHallGuide2(s) {
     const o = { name: 'Hall Guide' };

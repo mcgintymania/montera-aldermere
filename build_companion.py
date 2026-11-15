@@ -29,7 +29,7 @@ js = "\n".join([
     "const LOGO_SRC = 'data:image/jpeg;base64," + (src / 'logo.b64').read_text().strip() + "';",
     "\n".join((src / f).read_text().replace("'use strict';", '', 1) for f in data_files),
     shim,
-    '(() => {' + (comp / 'app.js').read_text().replace("'use strict';", '', 1) + '})();',
+    '(() => {' + (lambda a: a[:a.rindex('start();')] + (comp / 'brightholm.js').read_text() + '\nstart();' + a[a.rindex('start();') + 8:])((comp / 'app.js').read_text().replace("'use strict';", '', 1)) + '})();',
 ])
 html = (comp / 'template.html').read_text()
 html = html.replace('/*CSS*/', (comp / 'style.css').read_text()).replace('/*JS*/', js)

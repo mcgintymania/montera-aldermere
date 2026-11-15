@@ -339,7 +339,7 @@ Object.assign(UI, {
     const draw = () => {
       tabs.innerHTML = '';
       ['Entries', 'Collection'].forEach((n, k) => { const t = h('div', 'tab' + (k === tab ? ' on' : ''), n); t.addEventListener('pointerdown', (e) => { e.preventDefault(); tab = k; draw(); }); tabs.appendChild(t); });
-      head.textContent = `Seen ${seenSpeciesCount()} · Caught ${caughtSpeciesCount()} of ${DATA.speciesList.length} recorded (Aldermere: ${DATA.dexSize})`;
+      head.textContent = typeof bhRegionalDex === 'function' ? `Brightholm Wildbook: seen ${bhDexSeen()} · caught ${bhDexCaught()} of ${bhRegionalDex().length}  ·  All Wildmon: caught ${caughtSpeciesCount()} of ${DATA.speciesList.length}` : `Seen ${seenSpeciesCount()} · Caught ${caughtSpeciesCount()} of ${DATA.speciesList.length} recorded (Aldermere: ${DATA.dexSize})`;
       list.innerHTML = '';
       if (tab === 0) {
         DATA.speciesList.forEach((k, i) => {
