@@ -665,5 +665,16 @@ Object.assign(DATA.species, {
     habitat: 'Evolves from Starquill at Lv 35', desc: 'A falcon with wings like the night sky. When it dives, it leaves a streak of light behind it, like a shooting star.',
     art: { f: 'bird', c: '#5a3a9a', c2: '#f8d040', b: '#e8d8ff', eye: 'sharp', s: 1.1, beak: '#f8d040', pose: 'perch', tail: 'swallow', x: ['crest', 'spots'] } },
 });
+/* ---------- Larkfield fields Wildmon ---------- */
+Object.assign(DATA.species, {
+  strawkin: { n: 221, name: 'Strawkin', types: ['grass', 'ghost'], base: [50, 58, 50, 55, 55, 52], growth: 'medium', catch: 110, exp: 74, rarity: 'uncommon', line: 'strawkin',
+    evo: [{ to: 'scarecrown', lv: 36 }], moves: [[1, 'lick'], [1, 'absorb'], [6, 'confuse_ray'], [11, 'razor_leaf'], [16, 'night_shade'], [21, 'seed_leech'], [26, 'hex_wave'], [31, 'thorn_lash']], traits: ['floating', 'night_eyes'],
+    habitat: 'Wheat fields around Larkfield at dusk', desc: 'A little bundle of straw that came to life when a lantern was left burning in the field all night. It scares crows, then feels bad and says sorry.',
+    art: { f: 'biped', c: '#e8c860', c2: '#8a5a30', b: '#f8e8b0', eye: 'cute', s: 0.68, build: 'robe', x: ['leafhat', 'tuft'] } },
+  scarecrown: { n: 222, name: 'Scarecrown', types: ['grass', 'ghost'], base: [85, 100, 78, 92, 85, 80], growth: 'medium', catch: 45, exp: 186, rarity: 'rare', line: 'strawkin',
+    evo: [], moves: [[1, 'thorn_lash'], [1, 'hex_wave'], [36, 'shade_orb'], [42, 'solar_leaf'], [48, 'wraith_flame'], [54, 'bramble_charge']], traits: ['floating', 'night_eyes'],
+    habitat: 'Evolves from Strawkin at Lv 36', desc: 'It stands guard over the harvest all night with a lantern glowing inside its chest. Farmers leave it a fresh straw hat every autumn.',
+    art: { f: 'biped', c: '#c89a40', c2: '#4a3a6a', b: '#f0d890', eye: 'glow', s: 1.05, build: 'lanky', x: ['cape', 'tuft', 'crown'] } },
+});
 DATA.speciesList = Object.keys(DATA.species).sort((a, b) => DATA.species[a].n - DATA.species[b].n);
 DATA.items.scroll_hoofstomp = { name: 'Scroll: Hoof Stomp', pocket: 'scrolls', scroll: 'hoof_stomp', sell: 1000, desc: `Teaches Hoof Stomp (normal). Can be used again and again. ${DATA.moves.hoof_stomp.desc}` };
