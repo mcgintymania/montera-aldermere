@@ -71,16 +71,16 @@ DATA.shops.shalebrook = ['lantern', 'great_lantern', 'potion', 'super_potion', '
 
 /* ---------- Quarry Road ---------- */
 Object.assign(DATA.trainers, {
-  moss: { cls: 'Hiker', name: 'Moss', look: 'hiker', team: [['goatlet', 13], ['armlet', 13]], prize: 52, ai: 'basic',
+  moss: { cls: 'Hiker', name: 'Moss', look: 'hiker', team: [['goatlet', 13], ['armlet', 13]], prize: 23, ai: 'basic',
     intro: 'Up and down these hills every day! My legs are made of stone, and so are my Wildmon!', lose: 'Phew. Time for a sit down.', after: 'Armlet roll down the hill when they get scared. Watch your toes!' },
-  bert: { cls: 'Quarryman', name: 'Bert', look: 'quarry', team: [['pebblin', 13], ['drillbeak', 14]], prize: 56, ai: 'basic',
+  bert: { cls: 'Quarryman', name: 'Bert', look: 'quarry', team: [['pebblin', 13], ['drillbeak', 14]], prize: 25, ai: 'basic',
     intro: "Break's over! Let's crack on with a battle!", lose: 'Cracked like a cheap paving slab.', after: 'Petra at the Hall taught half of us to battle. She is tough as bedrock.' },
-  lena: { cls: 'Picnicker', name: 'Lena', look: 'girl', team: [['sloshum', 14], ['hissleaf', 13]], prize: 50, ai: 'basic',
+  lena: { cls: 'Picnicker', name: 'Lena', look: 'girl', team: [['sloshum', 14], ['hissleaf', 13]], prize: 22, ai: 'basic',
     intro: 'My Sloshum loves the mud by the pond. Want to see it splash?', lose: 'Oh, mud everywhere!', after: 'Sloshum look sleepy, but they get really strong when they evolve.' },
-  silas: { cls: 'Paragon Associate', name: 'Silas', look: 'paragon', team: [['yipper', 15, null, { grey: true }], ['armlet', 15, null, { grey: true }]], prize: 140, ai: 'tactical', pot: 14,
+  silas: { cls: 'Paragon Associate', name: 'Silas', look: 'paragon', team: [['yipper', 15, null, { grey: true }], ['armlet', 15, null, { grey: true }]], prize: 60, ai: 'tactical', pot: 14,
     intro: 'This pit belongs to Paragon Academy. Trespassers get a free demonstration of Paragon training!', lose: 'Impossible. They were trained with silver Lanterns!', after: 'Paragon training makes Wildmon strong. Feelings are optional.' },
 });
-DATA.trainers.skye2 = { cls: 'Rival', name: 'Skye', look: 'skye', team: [], prize: 300, ai: 'tactical',
+DATA.trainers.skye2 = { cls: 'Rival', name: 'Skye', look: 'skye', team: [], prize: 120, ai: 'tactical',
   lose: 'Argh! I was sure I had you this time!', win: 'Ha! Told you I would win the next one!' };
 
 DATA.maps.quarry_road = {
@@ -263,11 +263,11 @@ for (const id of ['shale_house1', 'shale_house2']) DATA.maps[id].region = 'shale
 
 /* ---------- Shalebrook Hall: boulders and sinkholes ---------- */
 Object.assign(DATA.trainers, {
-  greta: { cls: 'Quarrywoman', name: 'Greta', look: 'quarry2', team: [['pebblin', 16], ['goatlet', 16]], prize: 70, ai: 'basic',
+  greta: { cls: 'Quarrywoman', name: 'Greta', look: 'quarry2', team: [['pebblin', 16], ['goatlet', 16]], prize: 32, ai: 'basic',
     intro: 'No shortcuts in this quarry! Battle me or turn back!', lose: 'Well, that is a landslide.', after: 'Push a boulder into a sinkhole and it fills right up. Stuck? Ask the guide to reset the floor.' },
-  hob: { cls: 'Quarryman', name: 'Hob', look: 'quarry', team: [['armlet', 16], ['drillbeak', 17]], prize: 72, ai: 'basic',
+  hob: { cls: 'Quarryman', name: 'Hob', look: 'quarry', team: [['armlet', 16], ['drillbeak', 17]], prize: 32, ai: 'basic',
     intro: 'Petra says a good trainer thinks before they push. Let us see you think!', lose: 'Clean through me. Fair enough.', after: 'Water and Grass moves wear Petra down. Earth hurts her too, but some of her team shrugs it off.' },
-  petra: { cls: 'Hall Master', name: 'Petra', look: 'petra', team: [['pebblin', 17], ['goatlet', 18], ['aegadillo', 20, 'potion']], prize: 180, ai: 'tactical', items: { super_potion: 1 }, pot: 10,
+  petra: { cls: 'Hall Master', name: 'Petra', look: 'petra', team: [['pebblin', 17], ['goatlet', 18], ['aegadillo', 20, 'potion']], prize: 100, ai: 'tactical', items: { super_potion: 1 }, pot: 10,
     intro: 'Welcome!', lose: 'Ha! You moved a mountain today.', after: '' },
 });
 DATA.maps.shale_hall = {

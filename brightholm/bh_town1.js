@@ -25,11 +25,11 @@ DATA.looks.builder = { hair: '#5a3a1a', skin: '#e8b890', shirt: '#e8742a', pants
 DATA.shops.stockridge = ['lantern', 'potion', 'antidote', 'burn_salve', 'wake_bell', 'unknot', 'thaw_tea'];
 
 Object.assign(DATA.trainers, {
-  dale: { cls: 'Wrangler', name: 'Dale', look: 'wrangler', team: [['yipper', 9], ['burrowbit', 10]], prize: 40, ai: 'basic',
+  dale: { cls: 'Wrangler', name: 'Dale', look: 'wrangler', team: [['yipper', 9], ['burrowbit', 10]], prize: 18, ai: 'basic',
     intro: 'Yee-haw! Nobody gets to the boss without going through me first!', lose: 'Well, tie me up and call me a fence post.', after: "Cassidy's Wildmon hit hard, but they hit straight. Nothing tricky about a Normal type." },
-  jo: { cls: 'Wrangler', name: 'Jo', look: 'wrangler2', team: [['twigwing', 10], ['yipper', 10]], prize: 42, ai: 'basic',
+  jo: { cls: 'Wrangler', name: 'Jo', look: 'wrangler2', team: [['twigwing', 10], ['yipper', 10]], prize: 19, ai: 'basic',
     intro: "You've got grit, getting this far. Let's see if your partner has it too!", lose: "You're the real deal. Go on, the boss is waiting.", after: 'Fighting-type moves would make short work of us. Lucky for you, huh?' },
-  cassidy: { cls: 'Hall Master', name: 'Cassidy', look: 'cassidy', team: [['yipper', 12], ['warrenbuck', 12], ['steerling', 14, 'potion']], prize: 120, ai: 'tactical', items: { potion: 1 }, pot: 8,
+  cassidy: { cls: 'Hall Master', name: 'Cassidy', look: 'cassidy', team: [['yipper', 12], ['warrenbuck', 12], ['steerling', 14, 'potion']], prize: 80, ai: 'tactical', items: { potion: 1 }, pot: 8,
     intro: 'Welcome!', lose: 'Well, I will be. That was some fine riding.', after: '' },
 });
 

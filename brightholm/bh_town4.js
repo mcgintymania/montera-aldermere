@@ -78,15 +78,15 @@ DATA.items.paragon_pass = { name: 'Paragon Pass', pocket: 'key', desc: 'A silver
 
 /* ---------- The Training Wing ---------- */
 Object.assign(DATA.trainers, {
-  cadet_a: { cls: 'Paragon Cadet', name: 'Brio', look: 'cadet', team: [['packhowl', 25, null, { grey: true }], ['kilowatt', 25, null, { grey: true }]], prize: 200, ai: 'tactical', pot: 14,
+  cadet_a: { cls: 'Paragon Cadet', name: 'Brio', look: 'cadet', team: [['packhowl', 25, null, { grey: true }], ['kilowatt', 25, null, { grey: true }]], prize: 50, ai: 'tactical', pot: 14,
     intro: 'Intruder! This is a restricted training area!', lose: 'Our Wildmon were supposed to be unbeatable...', after: 'They never get tired. They never get scared. They never... get anything.' },
-  cadet_b: { cls: 'Paragon Cadet', name: 'Tamsin', look: 'cadet2', team: [['vinestrike', 25, null, { grey: true }], ['gibbolt', 26, null, { grey: true }]], prize: 210, ai: 'tactical', pot: 14,
+  cadet_b: { cls: 'Paragon Cadet', name: 'Tamsin', look: 'cadet2', team: [['vinestrike', 25, null, { grey: true }], ['gibbolt', 26, null, { grey: true }]], prize: 50, ai: 'tactical', pot: 14,
     intro: 'You do not have clearance! Silver Lanterns, go!', lose: 'Wait. Did my Gibbolt just look at me?', after: 'I used to call her Sparky. They told me names were a waste of time.' },
-  cadet_c: { cls: 'Paragon Cadet', name: 'Rufus', look: 'cadet', team: [['aegadillo', 26, null, { grey: true }], ['tuftfang', 25, null, { grey: true }]], prize: 210, ai: 'tactical', pot: 14,
+  cadet_c: { cls: 'Paragon Cadet', name: 'Rufus', look: 'cadet', team: [['aegadillo', 26, null, { grey: true }], ['tuftfang', 25, null, { grey: true }]], prize: 50, ai: 'tactical', pot: 14,
     intro: 'Nobody gets near the Instructor!', lose: 'I... I need to sit down.', after: 'The Instructor says the Founder hates losing. Hates it more than anything in the world.' },
-  vex: { cls: 'Paragon Instructor', name: 'Vex', look: 'vex', team: [['packhowl', 27, null, { grey: true }], ['surgibbon', 27, null, { grey: true }], ['stampede', 29, 'super_potion', { grey: true }]], prize: 600, ai: 'tactical', items: { super_potion: 2 }, pot: 18,
+  vex: { cls: 'Paragon Instructor', name: 'Vex', look: 'vex', team: [['packhowl', 27, null, { grey: true }], ['surgibbon', 27, null, { grey: true }], ['stampede', 29, 'super_potion', { grey: true }]], prize: 160, ai: 'tactical', items: { super_potion: 2 }, pot: 18,
     intro: 'Welcome!', lose: 'Unacceptable.', after: '' },
-  skye3: { cls: 'Rival', name: 'Skye', look: 'skye', team: [], prize: 500, ai: 'tactical', lose: 'No... they said we could not lose...', win: 'See? Paragon works!' },
+  skye3: { cls: 'Rival', name: 'Skye', look: 'skye', team: [], prize: 150, ai: 'tactical', lose: 'No... they said we could not lose...', win: 'See? Paragon works!' },
 });
 DATA.maps.paragon_wing = {
   name: 'Paragon Training Wing', region: 'vantage', music: 'order', outdoor: false,
@@ -134,12 +134,12 @@ DATA.maps.paragon_wing = {
 DATA.mapEnter.paragon_wing = () => { if (!G.flags.wing_entered) { G.flags.wing_entered = 1; Script.run((s) => s.say(['The service door hisses shut behind you.', 'Somewhere ahead, machines hum. And somewhere, a Wildmon is crying.'])); } };
 
 /* ---------- The Circuit Hall ---------- */
-DATA.trainers.ivo = { cls: 'Hall Master', name: 'Ivo', look: 'ivo', team: [['gibbolt', 28], ['fizzbat', 28], ['megawatt', 31, 'super_potion']], prize: 300, ai: 'tactical', items: { super_potion: 2 }, pot: 14,
+DATA.trainers.ivo = { cls: 'Hall Master', name: 'Ivo', look: 'ivo', team: [['gibbolt', 28], ['fizzbat', 28], ['megawatt', 31, 'super_potion']], prize: 140, ai: 'tactical', items: { super_potion: 2 }, pot: 14,
   intro: 'Welcome!', lose: 'Now THAT is real power.', after: '' };
 Object.assign(DATA.trainers, {
-  sparks: { cls: 'Engineer', name: 'Sparks', look: 'mechanic', team: [['kilowatt', 27], ['fizzbat', 27]], prize: 100, ai: 'basic',
+  sparks: { cls: 'Engineer', name: 'Sparks', look: 'mechanic', team: [['kilowatt', 27], ['fizzbat', 27]], prize: 45, ai: 'basic',
     intro: 'Mind the gates! And mind me!', lose: 'Short circuit!', after: 'Every switch flips every gate. Think two steps ahead.' },
-  volta: { cls: 'Engineer', name: 'Volta', look: 'mechanic', team: [['zappik', 28], ['kilowatt', 27]], prize: 104, ai: 'basic',
+  volta: { cls: 'Engineer', name: 'Volta', look: 'mechanic', team: [['zappik', 28], ['kilowatt', 27]], prize: 47, ai: 'basic',
     intro: 'The boss is back, and so are we!', lose: 'Fully discharged.', after: 'Earth moves shrug off Electric attacks completely. Ivo hates that.' },
 });
 const CIRCUIT_ROWS = [

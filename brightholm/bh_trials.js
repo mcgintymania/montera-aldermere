@@ -227,11 +227,11 @@ Object.assign(DATA.scripts, {
 
 /* ---------- Trial 2: Quarry Gauntlet ---------- */
 Object.assign(DATA.trainers, {
-  crew1: { cls: 'Quarry Crew', name: 'Dot & Pip', look: 'miner', team: [['pebblin', 14], ['armlet', 14]], prize: 60, ai: 'basic', pot: 6,
+  crew1: { cls: 'Quarry Crew', name: 'Dot & Pip', look: 'miner', team: [['pebblin', 14], ['armlet', 14]], prize: 27, ai: 'basic', pot: 6,
     intro: 'First crew! We dig it, we haul it, we battle it!', lose: 'Rubble! Pure rubble!' },
-  crew2: { cls: 'Quarry Crew', name: 'Hal & Ned', look: 'worker', team: [['drillbeak', 15], ['goatlet', 15]], prize: 64, ai: 'basic', pot: 6,
+  crew2: { cls: 'Quarry Crew', name: 'Hal & Ned', look: 'worker', team: [['drillbeak', 15], ['goatlet', 15]], prize: 29, ai: 'basic', pot: 6,
     intro: 'Second crew. No time to catch your breath!', lose: 'Well, that cracked us.' },
-  crew3: { cls: 'Quarry Crew', name: 'Big Moll', look: 'miner', team: [['sloshum', 15], ['molekin', 15], ['bouldrum', 16]], prize: 80, ai: 'tactical', pot: 8,
+  crew3: { cls: 'Quarry Crew', name: 'Big Moll', look: 'miner', team: [['sloshum', 15], ['molekin', 15], ['bouldrum', 16]], prize: 36, ai: 'tactical', pot: 8,
     intro: 'Last crew, and I am the toughest stone in the quarry!', lose: 'You have got grit, I will give you that.' },
 });
 DATA.scripts.bhBram = async function (s) {

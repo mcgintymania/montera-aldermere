@@ -627,5 +627,24 @@ Object.assign(DATA.species, {
     habitat: 'Evolves from Skimray at Lv 33', desc: 'It glides through stormy seas with lightning dancing along its wings. Fishermen head for shore when they see it leap.',
     art: { f: 'manta', c: '#2a4a8a', c2: '#f0e040', b: '#c8d8f0', eye: 'sharp', s: 1.0, x: ['stripes'] } },
 });
+/* ---------- Saltreach Key Wildmon ---------- */
+Object.assign(DATA.species, {
+  ribbonel: { n: 213, name: 'Ribbonel', types: ['water', 'poison'], base: [55, 62, 48, 50, 48, 70], growth: 'medium', catch: 120, exp: 72, rarity: 'uncommon', line: 'ribbonel',
+    evo: [{ to: 'slithersea', lv: 34 }], moves: [[1, 'water_gun'], [1, 'poison_sting'], [8, 'bite'], [14, 'acid'], [20, 'brine_bite'], [26, 'venom_fang'], [31, 'sludge']], traits: ['toxic_touch', 'riptide_dash'],
+    habitat: 'Kelp beds around Saltreach Key and the Sunken Ruins', desc: 'A ribbon-thin eel that hides in kelp and sways with it. Its stripes warn every fish to keep its distance.',
+    art: { f: 'snake', c: '#3a8ab0', c2: '#f0d040', b: '#c8e8f0', eye: 'cute', s: 0.8, x: ['bands'], mouth: 'none' } },
+  slithersea: { n: 214, name: 'Slithersea', types: ['water', 'poison'], base: [90, 108, 78, 70, 78, 96], growth: 'medium', catch: 45, exp: 185, rarity: 'rare', line: 'ribbonel',
+    evo: [], moves: [[1, 'brine_bite'], [1, 'venom_fang'], [34, 'tide_slam'], [40, 'poison_jab'], [46, 'maelstrom'], [52, 'crunch']], traits: ['toxic_touch', 'riptide_dash'],
+    habitat: 'Evolves from Ribbonel at Lv 34', desc: 'A great sea serpent that coils around shipwrecks. Old sailors swear one once tied a whole ferry in a knot.',
+    art: { f: 'snake', c: '#1a4a7a', c2: '#e8b030', b: '#a8c8e0', eye: 'sharp', s: 1.0, x: ['bands', 'hood'], mouth: 'fang', horn: 'single' } },
+  phantabby: { n: 215, name: 'Phantabby', types: ['ghost'], base: [48, 55, 42, 60, 50, 80], growth: 'medium', catch: 110, exp: 72, rarity: 'uncommon', line: 'phantabby',
+    evo: [{ to: 'hexmog', lv: 33 }], moves: [[1, 'scratch'], [1, 'lick'], [6, 'confuse_ray'], [11, 'night_shade'], [16, 'shadow_claw'], [22, 'hex_wave'], [28, 'shade_orb']], traits: ['floating', 'night_eyes'],
+    habitat: 'Foggy nights on Saltreach Key', desc: 'A see-through kitten that purrs in empty rooms. Islanders leave out a saucer of milk so it brings them good luck.',
+    art: { f: 'feline', c: '#b8c0e8', c2: '#7a80b8', b: '#eef0ff', eye: 'cute', s: 0.72, ear: 'point', x: ['stripes'] } },
+  hexmog: { n: 216, name: 'Hexmog', types: ['ghost', 'dark'], base: [78, 95, 70, 105, 80, 112], growth: 'medium', catch: 45, exp: 182, rarity: 'rare', line: 'phantabby',
+    evo: [], moves: [[1, 'shadow_claw'], [1, 'hex_wave'], [33, 'crunch'], [38, 'shade_orb'], [44, 'eclipse_pulse'], [50, 'wraith_flame']], traits: ['floating', 'night_eyes'],
+    habitat: 'Evolves from Phantabby at Lv 33', desc: 'A ghostly cat with eyes like two green lanterns. Nobody has ever seen it arrive. It is simply there.',
+    art: { f: 'feline', c: '#1e3a40', c2: '#c8f070', b: '#2e5a58', eye: 'glow', s: 0.92, ear: 'point', mouth: 'fang', back: 'spikes', x: ['mane'] } },
+});
 DATA.speciesList = Object.keys(DATA.species).sort((a, b) => DATA.species[a].n - DATA.species[b].n);
 DATA.items.scroll_hoofstomp = { name: 'Scroll: Hoof Stomp', pocket: 'scrolls', scroll: 'hoof_stomp', sell: 1000, desc: `Teaches Hoof Stomp (normal). Can be used again and again. ${DATA.moves.hoof_stomp.desc}` };

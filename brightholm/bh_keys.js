@@ -76,22 +76,22 @@ DATA.shops.coralport = ['great_lantern', 'lantern', 'super_potion', 'hyper_potio
 DATA.maps.vantage_ferry.npcs = [{ id: 'ferryclerk', x: 2, y: 3, dir: 'right', look: 'sailor', name: 'Ferry Clerk', script: 'bhFerryVantage' }];
 
 /* ---------- Coralport ---------- */
-DATA.trainers.marlowe = { cls: 'Paragon Diver Captain', name: 'Marlowe', look: 'diver', team: [['skimray', 33, null, { grey: true }], ['octorb', 33, null, { grey: true }], ['dreadfin', 35, 'super_potion', { grey: true }]], prize: 700, ai: 'tactical', items: { super_potion: 2 }, pot: 18,
+DATA.trainers.marlowe = { cls: 'Paragon Diver Captain', name: 'Marlowe', look: 'diver', team: [['skimray', 33, null, { grey: true }], ['octorb', 33, null, { grey: true }], ['dreadfin', 35, 'super_potion', { grey: true }]], prize: 170, ai: 'tactical', items: { super_potion: 2 }, pot: 18,
   intro: 'Welcome!', lose: 'The buoy... no!', after: '' };
 Object.assign(DATA.trainers, {
-  lou: { cls: 'Beachcomber', name: 'Lou', look: 'beach', team: [['octorb', 30], ['shellsnip', 30]], prize: 120, ai: 'basic',
+  lou: { cls: 'Beachcomber', name: 'Lou', look: 'beach', team: [['octorb', 30], ['shellsnip', 30]], prize: 54, ai: 'basic',
     intro: 'Found anything good on the sand? I found a battle!', lose: 'Washed up!', after: 'The rock pools used to glow at night. Not any more.' },
-  kahu: { cls: 'Surfer', name: 'Kahu', look: 'surfer', team: [['skimray', 31], ['gullet', 30]], prize: 124, ai: 'basic',
+  kahu: { cls: 'Surfer', name: 'Kahu', look: 'surfer', team: [['skimray', 31], ['gullet', 30]], prize: 56, ai: 'basic',
     intro: 'Surf is flat, so let us battle instead!', lose: 'Totally wiped out, bro.', after: 'Those Paragon divers chased everyone off the pier. Somebody should show them!' },
-  diver1: { cls: 'Paragon Diver', name: 'Fenn', look: 'diver', team: [['gullet', 31, null, { grey: true }], ['skimray', 32, null, { grey: true }]], prize: 260, ai: 'tactical', pot: 14,
+  diver1: { cls: 'Paragon Diver', name: 'Fenn', look: 'diver', team: [['gullet', 31, null, { grey: true }], ['skimray', 32, null, { grey: true }]], prize: 50, ai: 'tactical', pot: 14,
     intro: 'This pier is closed for Paragon research!', lose: 'Research... interrupted.', after: 'The Captain is out by the buoy. You will never get past her.' },
-  diver2: { cls: 'Paragon Diver', name: 'Isla', look: 'diver', team: [['octorb', 32, null, { grey: true }], ['nibbit', 31, null, { grey: true }]], prize: 260, ai: 'tactical', pot: 14,
+  diver2: { cls: 'Paragon Diver', name: 'Isla', look: 'diver', team: [['octorb', 32, null, { grey: true }], ['nibbit', 31, null, { grey: true }]], prize: 50, ai: 'tactical', pot: 14,
     intro: 'Turn back! The reef belongs to Paragon now!', lose: 'How are you so strong without silver Lanterns?', after: 'The buoy pulls light out of the reef and stores it. Every last drop goes to the Founder.' },
-  nalu: { cls: 'Hall Master', name: 'Nalu', look: 'nalu', team: [['squallgull', 34], ['fulmiray', 35], ['octomind', 37, 'super_potion']], prize: 400, ai: 'tactical', items: { super_potion: 2 }, pot: 16,
+  nalu: { cls: 'Hall Master', name: 'Nalu', look: 'nalu', team: [['squallgull', 34], ['fulmiray', 35], ['octomind', 37, 'super_potion']], prize: 160, ai: 'tactical', items: { super_potion: 2 }, pot: 16,
     intro: 'Welcome!', lose: 'You move with the tide. Beautiful.', after: '' },
-  reef1: { cls: 'Swimmer', name: 'Moana', look: 'swimmer', team: [['skimray', 33], ['gyrefin', 33]], prize: 130, ai: 'basic',
+  reef1: { cls: 'Swimmer', name: 'Moana', look: 'swimmer', team: [['skimray', 33], ['gyrefin', 33]], prize: 58, ai: 'basic',
     intro: 'The currents in here will spin you right round!', lose: 'Swept away!', after: 'Nalu says the reef taught her everything. Go with the flow!' },
-  reef2: { cls: 'Swimmer', name: 'Tavi', look: 'swimmer2', team: [['octorb', 33], ['squallgull', 33]], prize: 130, ai: 'basic',
+  reef2: { cls: 'Swimmer', name: 'Tavi', look: 'swimmer2', team: [['octorb', 33], ['squallgull', 33]], prize: 58, ai: 'basic',
     intro: 'Bet you get lost in the currents!', lose: 'Okay, you found the way.', after: 'Electric and Grass moves are the trick against Nalu.' },
 });
 DATA.maps.coralport = {

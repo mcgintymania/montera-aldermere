@@ -129,13 +129,13 @@ UI.useKey = Object.assign(UI.useKey || {}, {
 
 /* ---------- Shalebrook Pass ---------- */
 Object.assign(DATA.trainers, {
-  ash: { cls: 'Climber', name: 'Ash', look: 'climber2', team: [['rookling', 17], ['tuftfang', 17]], prize: 70, ai: 'basic',
+  ash: { cls: 'Climber', name: 'Ash', look: 'climber2', team: [['rookling', 17], ['tuftfang', 17]], prize: 32, ai: 'basic',
     intro: 'Up here the wind tests you. So do I!', lose: 'Blown clean off the ledge.', after: 'Tuftfang hunt along these ledges at dusk. They are almost impossible to spot.' },
-  ruth: { cls: 'Hiker', name: 'Ruth', look: 'hiker', team: [['goatlet', 17], ['armlet', 17], ['pebblin', 17]], prize: 72, ai: 'basic',
+  ruth: { cls: 'Hiker', name: 'Ruth', look: 'hiker', team: [['goatlet', 17], ['armlet', 17], ['pebblin', 17]], prize: 32, ai: 'basic',
     intro: 'Forty years walking this pass. Let us see what you are made of!', lose: 'My knees and my team both need a rest.', after: 'Down in Vantage City, they say Paragon trains Wildmon in a week. Took me forty years.' },
-  nova: { cls: 'Paragon Cadet', name: 'Nova', look: 'cadet2', team: [['gibbolt', 18, null, { grey: true }], ['yipper', 18, null, { grey: true }]], prize: 160, ai: 'tactical', pot: 14,
+  nova: { cls: 'Paragon Cadet', name: 'Nova', look: 'cadet2', team: [['gibbolt', 18, null, { grey: true }], ['yipper', 18, null, { grey: true }]], prize: 72, ai: 'tactical', pot: 14,
     intro: 'A wild trainer! Watch how a Paragon cadet battles!', lose: 'This... is not in the training manual.', after: 'Our Wildmon never get tired. Never get scared. Never get anything, really.' },
-  kai: { cls: 'Skater', name: 'Kai', look: 'skater', team: [['rooftik', 17], ['gibbolt', 18]], prize: 68, ai: 'basic',
+  kai: { cls: 'Skater', name: 'Kai', look: 'skater', team: [['rooftik', 17], ['gibbolt', 18]], prize: 31, ai: 'basic',
     intro: 'Whoa, dude! Battle before I bomb the hill?', lose: 'Wiped out! Totally wiped out.', after: 'Check the skate park in Vantage City. Jaz is the best skater there, and she lost her wheels again.' },
 });
 DATA.maps.shale_pass = {
@@ -208,12 +208,12 @@ DATA.encounters.shale_pass = {
 };
 
 /* ---------- Vantage City ---------- */
-DATA.trainers.zara = { cls: 'Hall Master', name: 'Zara', look: 'zara', team: [['rooftik', 22], ['gustfinch', 23], ['augerhawk', 25, 'super_potion']], prize: 240, ai: 'tactical', items: { super_potion: 2 }, pot: 12,
+DATA.trainers.zara = { cls: 'Hall Master', name: 'Zara', look: 'zara', team: [['rooftik', 22], ['gustfinch', 23], ['augerhawk', 25, 'super_potion']], prize: 120, ai: 'tactical', items: { super_potion: 2 }, pot: 12,
   intro: 'Welcome!', lose: 'Sick run! You totally stuck the landing.', after: '' };
 Object.assign(DATA.trainers, {
-  rio: { cls: 'Skater', name: 'Rio', look: 'skater', team: [['twigwing', 20], ['gibbolt', 21]], prize: 84, ai: 'basic',
+  rio: { cls: 'Skater', name: 'Rio', look: 'skater', team: [['twigwing', 20], ['gibbolt', 21]], prize: 38, ai: 'basic',
     intro: 'You found a way through the ramps? Respect. Now battle me!', lose: 'Bailed it.', after: 'Zara flies Air types. Electric and Rock moves knock them right out of the sky.' },
-  pia: { cls: 'Skater', name: 'Pia', look: 'skater2', team: [['rooftik', 21], ['fizzbat', 20]], prize: 84, ai: 'basic',
+  pia: { cls: 'Skater', name: 'Pia', look: 'skater2', team: [['rooftik', 21], ['fizzbat', 20]], prize: 38, ai: 'basic',
     intro: 'Ramps go one way, rider. Pick the right one!', lose: 'Okay, okay. Nice lines.', after: 'Stuck? Ramps always win. Look for the one that carries you where you want to go.' },
 });
 DATA.shops.vantage = ['great_lantern', 'lantern', 'super_potion', 'potion', 'revive', 'antidote', 'burn_salve', 'wake_bell', 'unknot', 'thaw_tea', 'scroll_galeburst'];
