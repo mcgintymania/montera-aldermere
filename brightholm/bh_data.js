@@ -502,7 +502,7 @@ DATA.maps.larkfield.triggers = DATA.maps.larkfield.triggers.map((tr) => (tr.scri
 
 Object.assign(DATA.scripts, {
   async bhWorker(s) {
-    await s.say(["Sorry, no way through! The spring floods took the middle of the bridge clean away.", "We'll have it fixed soon. The Rising Light of Brightholm continues across this bridge in the next update."], { name: 'Bridge Worker' });
+    await s.say(['All fixed! The spring floods took the middle clean away, but she is good as new now.', 'Stockridge is just over the river. Mind your step on the new planks!'], { name: 'Bridge Worker' });
   },
   async bhSkyeLane(s) {
     const o = { name: 'Skye' };
@@ -544,3 +544,20 @@ Object.assign(DATA.scripts, {
     return s.say(['I still cannot believe it. A Dreadfin, from a Nibbit!', 'Now every time I throw one back, I give it a little wave. Just in case.'], o);
   },
 });
+
+/* ---------- Stockridge Wildmon ---------- */
+Object.assign(DATA.moves, {
+  hoof_stomp: { name: 'Hoof Stomp', type: 'normal', cat: 'phys', pow: 65, acc: 100, pp: 20, eff: 'flinch', ch: 30, desc: 'Stamps down with heavy hooves. May make the foe flinch.' },
+});
+Object.assign(DATA.species, {
+  steerling: { n: 197, name: 'Steerling', types: ['normal'], base: [62, 58, 60, 30, 44, 36], growth: 'medium', catch: 120, exp: 70, rarity: 'uncommon', line: 'steerling',
+    evo: [{ to: 'stampede', lv: 28 }], moves: [[1, 'tackle'], [1, 'growl'], [6, 'headbutt'], [11, 'hoof_stomp'], [16, 'harden'], [21, 'body_slam']], traits: ['grit', 'sturdy'],
+    habitat: 'Stockridge ranch', desc: 'A stubborn calf with a woolly mane. It follows the ranch hands everywhere, head-butting anyone who stops for a chat.',
+    art: { f: 'bovine', c: '#a8743a', c2: '#e8d8b8', b: '#f4e8d0', eye: 'cute', s: 0.82, horn: 'twin', ear: 'floppy', tail: 'tuft', x: ['spots'] } },
+  stampede: { n: 198, name: 'Stampede', types: ['normal', 'earth'], base: [105, 110, 95, 40, 70, 62], growth: 'medium', catch: 45, exp: 182, rarity: 'rare', line: 'steerling',
+    evo: [], moves: [[1, 'hoof_stomp'], [1, 'headbutt'], [21, 'body_slam'], [28, 'tremor'], [34, 'reckless_charge'], [42, 'crag_charge']], traits: ['grit', 'sturdy'],
+    habitat: 'Evolves from Steerling at Lv 28', desc: 'A mountain of muscle and shaggy fur. When a herd of Stampede runs, the ground shakes for miles.',
+    art: { f: 'bovine', build: 'bison', c: '#6a4a2a', c2: '#3a2416', b: '#c8a878', eye: 'sharp', s: 1.0, horn: 'curl', x: ['ring'] } },
+});
+DATA.speciesList = Object.keys(DATA.species).sort((a, b) => DATA.species[a].n - DATA.species[b].n);
+DATA.items.scroll_hoofstomp = { name: 'Scroll: Hoof Stomp', pocket: 'scrolls', scroll: 'hoof_stomp', sell: 1000, desc: `Teaches Hoof Stomp (normal). Can be used again and again. ${DATA.moves.hoof_stomp.desc}` };

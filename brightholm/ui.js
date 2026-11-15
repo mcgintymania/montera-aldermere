@@ -382,7 +382,7 @@ const UI = {
         top.append(cv, info); body.appendChild(top);
         const sig = h('div', 'sigils'); sig.appendChild(h('div', 'sh', 'Hall Badges'));
         const row = h('div', 'srow');
-        ['Bloom', 'Tide', 'Spark', 'Forge', 'Veil', 'Gale', 'Frost', 'Iron'].forEach((n) => { const s = h('div', 'sig' + (G.flags['sigil_' + n.toLowerCase()] ? ' on' : '')); s.title = n + ' Badge'; row.appendChild(s); });
+        BH_BADGES.forEach((bd) => { const on = !!G.flags['sigil_' + bd.id]; const c = makeCanvas(19, 19); c.className = 'sigc'; c.getContext('2d').drawImage(BadgeArt.canvas(bd, on), 0, 0); c.title = on ? bd.name : '???'; row.appendChild(c); });
         sig.appendChild(row); body.appendChild(sig);
         body.appendChild(h('div', 'hint', `Adventure started ${new Date(G.created).toLocaleDateString()}   ▶ Achievements`));
       } else {

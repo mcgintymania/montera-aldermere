@@ -100,9 +100,8 @@ async def main():
             await p.keyboard.press('Enter'); await p.wait_for_timeout(200)
         await js("await MQ.S.healParty(); await T.goto(13, 31); await T.sleep(200); return 1")
         check(await p.evaluate("!!MQ.G.flags.beat_poppy"), 'Picnicker Poppy battles you on the way south')
-        check(await p.evaluate("MQ.Game.player.y") <= 31, 'the washed-out bridge stops you going further')
-        await js("await T.face('down'); T.key('a'); await T.sleep(300); await T.clear(40); return 1")
-        check('next update' in ' '.join(await p.evaluate("LOG")), 'the bridge workers say the next part is coming')
+        await js("await T.goto(12, 33); await T.face('left'); T.key('a'); await T.sleep(300); await T.clear(40); return 1")
+        check('All fixed' in ' '.join(await p.evaluate("LOG")), 'the bridge worker says Furrow Bridge is rebuilt')
         wild = await p.evaluate("(() => { const seen = {}; for (let i = 0; i < 400; i++) { const m = MQ.World.encounter('grass'); if (m) seen[m.sp] = 1; } return Object.keys(seen); })()")
         check({'yipper', 'hissleaf'} <= set(wild), f'wild Yipper and Hissleaf in the grass: {wild}')
         pack = await p.evaluate("""(() => { const a = MQ.BattleEngine.actor(MQ.Mon.create('yipper', 20, { mastery: {}, ti: 0 })), b = MQ.BattleEngine.actor(MQ.Mon.create('packhowl', 20, { mastery: {} }));

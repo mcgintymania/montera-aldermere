@@ -258,7 +258,7 @@ DATA.restPoints = {
 Game.whiteout = async function () {
   const lost = Math.floor(G.money / 4); G.money -= lost;
   this.mode = 'world'; this.fade = 1; this.fadeTo = 1;
-  const rp = DATA.restPoints[G.rest] || DATA.restPoints.emberlow;
+  const rp = DATA.restPoints[G.rest] || DATA.restPoints.larkfield;
   World.load(rp.map); const p = this.player; p.x = p.fx = rp.x; p.y = p.fy = rp.y; p.dir = rp.dir; p.moving = false; p.sliding = false;
   G.party.forEach((m) => Mon.heal(m));
   Sound.play(World.map.music);

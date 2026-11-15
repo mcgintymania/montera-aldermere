@@ -883,7 +883,35 @@ MonArt.render = function (s, opt) {
     if (!back) eye(hx - hr * 0.3, hy - hr * 0.2, boar ? 0.8 : 1);
   };
 
-  const FORMS = { quad, rabbit, bird, bat, worm, blob, frog, wisp, mineral, bug, fish, jelly, crab, biped, plant, snake, croc, hippo, canine, shark, turtle, raptor, feline, octopus, manta, monkey, hog };
+  const bovine = () => { // calf to bison: shoulder hump, low horned head, hooves
+    const bison = a.build === 'bison', k = S;
+    const rx = (bison ? 11 : 8.5) * k, ry = (bison ? 7 : 6) * k, legH = (bison ? 7 : 6) * k, cx = 28, cy = GY - legH - ry + 2;
+    const legW = Math.max(2, Math.round((bison ? 3.6 : 2.8) * k));
+    if (a.tail === 'tuft' || bison) { limb([[cx + rx * 0.95, cy - ry * 0.3], [cx + rx + 3 * k, cy + 2 * k], [cx + rx + 3.5 * k, cy + 6 * k]], 1.4 * k, 1, C); ell(cx + rx + 3.5 * k, cy + 7 * k, 1.8 * k, 2.2 * k, C2); }
+    else tail(cx + rx * 0.9, cy - ry * 0.2, a.tail);
+    for (const fx of [0.6, 0.1]) { rect(cx + rx * fx - legW / 2, cy + ry * 0.4, legW, GY - cy - ry * 0.4, shade(C, -0.28)); rect(cx + rx * fx - legW / 2, GY - 1, legW, 2, '#2a1a10'); }
+    ell(cx, cy, rx, ry, C);
+    if (!back) ell(cx - rx * 0.15, cy + ry * 0.5, rx * 0.6, ry * 0.35, B, { flat: true });
+    const hx0 = cx - rx * 0.55, hy0 = cy - ry * (bison ? 0.65 : 0.4);
+    ell(hx0, hy0, rx * (bison ? 0.6 : 0.5), ry * (bison ? 1.0 : 0.85), bison ? C2 : C);
+    if (has('spots')) { const R = mulberry(29); for (let i = 0; i < 5; i++) ell(cx + (R() - 0.3) * rx * 1.1, cy + (R() - 0.7) * ry, 1.6 * k, 1.2 * k, C2, { flat: true, noEdge: true }); }
+    backs(cx - rx * 0.8, cx + rx * 0.6, cy - ry * (bison ? 1.5 : 1.1), a.back, a.backH || 3);
+    for (const fx of [-0.45, -0.05]) { rect(cx + rx * fx - legW / 2, cy + ry * 0.45, legW, GY - cy - ry * 0.45, C); rect(cx + rx * fx - legW / 2, GY - 1, legW, 2, '#2a1a10'); }
+    const hr = (bison ? 5 : 4.6) * k, hx = cx - rx * (bison ? 1.0 : 0.95), hy = cy + ry * (bison ? 0.05 : -0.45);
+    if (a.ear === 'floppy' || !bison) for (const d of [-1, 1]) ell(hx + d * hr * 0.9 + 1, hy - hr * 0.35, 2.2 * k, 1.2 * k, shade(C, -0.12));
+    horns(hx, hy, hr, a.horn);
+    ell(hx, hy, hr, hr * 0.95, C);
+    if (bison) ell(hx + hr * 0.3, hy - hr * 0.55, hr * 0.85, hr * 0.6, C2);
+    ell(hx - hr * 0.6, hy + hr * 0.45, hr * 0.55, hr * 0.42, B);
+    if (bison) { tri([[hx - hr * 0.2, hy + hr * 0.8], [hx + hr * 0.5, hy + hr * 0.8], [hx + hr * 0.1, hy + hr * 1.9]], C2); }
+    if (!back) {
+      px(hx - hr * 0.85, hy + hr * 0.35, INK); px(hx - hr * 0.45, hy + hr * 0.35, INK);
+      if (has('ring')) { for (const [dx, dy] of [[-0.75, 0.75], [-0.6, 0.85], [-0.45, 0.75]]) px(hx + hr * dx, hy + hr * dy, '#e8c040'); }
+      eye(hx - hr * 0.3, hy - hr * 0.2, bison ? 0.8 : 1);
+    }
+  };
+
+  const FORMS = { quad, rabbit, bird, bat, worm, blob, frog, wisp, mineral, bug, fish, jelly, crab, biped, plant, snake, croc, hippo, canine, shark, turtle, raptor, feline, octopus, manta, monkey, hog, bovine };
   (FORMS[a.f] || blob)();
 
   for (const [x, y, big] of eyes) {
