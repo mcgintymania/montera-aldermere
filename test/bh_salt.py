@@ -26,7 +26,7 @@ START = """() => {
   st.pron = 'she'; st.friend = { gender: 'boy', pron: 'he' }; st.legend = { name: 'Hero', look: st.look, team: [], wardens: [] };
   Object.assign(st.flags, { woke: 1, mum_morning: 1, skye_intro: 1, hall_intro: 1, choose_starter: 1, has_starter: 1, starter: 'blazeling', skye_starter: 'snapling', skye_left: 1, skye_lane: 1, has_wildbook: 1,
     beat_cassidy: 1, sigil_spur: Date.now(), beat_petra: 1, sigil_bedrock: Date.now(), paragon_lobby: 1, beat_zara: 1, sigil_updraft: Date.now(), wing_done: 1, ivo_free: 1, beat_ivo: 1, sigil_circuit: Date.now(), reef_saved: 1, beat_nalu: 1, sigil_reef: Date.now() });
-  for (const [sp, lv] of [['megawatt', 50], ['pouncerra', 50], ['pyrannox', 50]]) st.party.push(MQ.Mon.create(sp, lv, { mastery: {} }));
+  for (const [sp, lv] of [['megawatt', 56], ['pouncerra', 56], ['pyrannox', 56]]) st.party.push(MQ.Mon.create(sp, lv, { mastery: {} }));
   st.bag.super_potion = 5; st.money = 3000; st.repel = 99999;
   st.map = 'sunward_shore'; st.x = 16; st.y = 32; st.dir = 'down'; MQ.Game.enterWorld(st); window.LOG = [];
   const d0 = MQ.UI.dialog.bind(MQ.UI); MQ.UI.dialog = function (t, o) { LOG.push(...[].concat(t).map((x) => ((o && o.name) ? o.name + ': ' : '') + fmt(x))); return d0(t, o); };
