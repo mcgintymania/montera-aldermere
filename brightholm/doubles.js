@@ -348,7 +348,7 @@ const Doubles = {
       if (D.lunge && D.lunge.side === si && D.lunge.slot === s) lx = (si === 0 ? 1 : -1) * Math.sin((1 - D.lunge.t / 0.2) * Math.PI) * 7;
       if (D.blink && D.blink.side === si && D.blink.slot === s && Math.floor(D.blink.t * 16) % 2) continue;
       const scale = D.pop && D.pop.si === si && D.pop.s === s ? 1 - D.pop.t / 0.35 : 1;
-      const img = MonArt.get(x.a.mon.sp, { back: si === 0, lustre: x.a.mon.lustre, mark: x.a.mon.mark });
+      const img = MonArt.get(x.a.mon.sp, { back: si === 0, lustre: x.a.mon.lustre, mark: x.a.mon.mark, grey: x.a.mon.grey });
       const clip = Math.max(0, 48 - fd * 48);
       ctx.fillStyle = 'rgba(0,0,0,0.18)'; ctx.beginPath(); ctx.ellipse(p.x + lx, p.y - 2, 15, 4, 0, 0, Math.PI * 2); ctx.fill();
       if (clip > 0 && scale > 0.05) { const w = Math.round(48 * scale); ctx.drawImage(img, 0, 0, 48, clip, Math.round(p.x + lx - w / 2), Math.round(p.y - w - 1 + fd * 30), w, Math.round(clip * scale)); }
@@ -387,7 +387,7 @@ Game.startDouble = async function (opts) {
 };
 /* Script helper: s.double({ foes: ['tidA','tidB'] | ['tid'], ally: 'wren_ally' | null }) */
 S.double = async function (o) {
-  const mk = (tid) => { const T = DATA.trainers[tid]; const pot = T.pot || 8; return { trainer: T, team: T.team.map(([sp, lv, item]) => Mon.create(sp, lv, { lustre: false, mark: null, pot: { hp: pot, atk: pot, def: pot, spa: pot, spd: pot, spe: pot }, item: item || null, ti: 0 })) }; };
+  const mk = (tid) => { const T = DATA.trainers[tid]; const pot = T.pot || 8; return { trainer: T, team: T.team.map(([sp, lv, item, ex]) => greyMark(Mon.create(sp, lv, { lustre: false, mark: null, pot: { hp: pot, atk: pot, def: pot, spa: pot, spd: pot, spe: pot }, item: item || null, ti: 0 }), ex)) }; };
   const foes = o.foes.map(mk);
   let ally = null;
   if (o.ally) { const A = DATA.allies[o.ally]; ally = { name: A.name, look: A.look, team: A.team.map(([sp, lv, item]) => Mon.create(sp, lv, { lustre: false, mark: null, pot: evenPot(), item: item || null, ti: 0 })) }; }

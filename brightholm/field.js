@@ -307,7 +307,7 @@ DATA.achievements.puzzler = { name: 'Puzzler', desc: 'Solve a Hall puzzle.' };
 async function bossBattle(s, tid, opt = {}) {
   const T = DATA.trainers[tid];
   const pot = T.pot || 10;
-  const team = T.team.map(([sp, lv, item, ex]) => Mon.create(sp, lv, { lustre: !!(ex && ex.lustre), mark: null, pot: { hp: pot, atk: pot, def: pot, spa: pot, spd: pot, spe: pot }, item: item || null, ti: 0 }));
+  const team = T.team.map(([sp, lv, item, ex]) => greyMark(Mon.create(sp, lv, { lustre: !!(ex && ex.lustre), mark: null, pot: { hp: pot, atk: pot, def: pot, spa: pot, spd: pot, spe: pot }, item: item || null, ti: 0 }), ex));
   const res = await s.battle({ kind: 'trainer', trainer: T, enemy: team, music: T.music || 'battle_master', noWhiteout: opt.noWhiteout });
   if (res === 'win') { s.set('beat_' + tid); Game.achieve('first_win'); }
   return res;

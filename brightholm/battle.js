@@ -887,7 +887,7 @@ const BattleScene = {
   },
   drawMon(ctx, m, back, cx, by, scale, clipH, tinted) {
     const blink = !back && (Math.floor(this.t * 10) % 37 === 0);
-    const img = MonArt.get(m.sp, { back, blink, lustre: m.lustre, mark: m.mark });
+    const img = MonArt.get(m.sp, { back, blink, lustre: m.lustre, mark: m.mark, grey: m.grey });
     const bob = Math.floor(this.t * 2.2 + (back ? 1 : 0)) % 2;
     const w = Math.round(48 * scale), hh = Math.round(48 * scale);
     if (w < 1) return;

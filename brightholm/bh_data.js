@@ -646,5 +646,24 @@ Object.assign(DATA.species, {
     habitat: 'Evolves from Phantabby at Lv 33', desc: 'A ghostly cat with eyes like two green lanterns. Nobody has ever seen it arrive. It is simply there.',
     art: { f: 'feline', c: '#1e3a40', c2: '#c8f070', b: '#2e5a58', eye: 'glow', s: 0.92, ear: 'point', mouth: 'fang', back: 'spikes', x: ['mane'] } },
 });
+/* ---------- Starfall Wildmon ---------- */
+Object.assign(DATA.species, {
+  lensling: { n: 217, name: 'Lensling', types: ['light', 'steel'], base: [45, 40, 65, 62, 55, 45], growth: 'medium', catch: 120, exp: 72, rarity: 'uncommon', line: 'lensling',
+    evo: [{ to: 'refractor', lv: 34 }], moves: [[1, 'tackle'], [1, 'glimmer'], [6, 'harden'], [11, 'metal_claw'], [16, 'dazzle'], [21, 'radiant_pulse'], [26, 'iron_defense'], [31, 'gear_grind']], traits: ['radiance', 'iron_hide'],
+    habitat: 'Starfall Road and the observatory grounds at night', desc: 'A little beetle with a glass lens for a shell. It sits very still on clear nights and gathers starlight until it glows.',
+    art: { f: 'bug', c: '#b8c4d4', c2: '#a8e8f8', b: '#eef6ff', eye: 'cute', s: 0.66, shape: 'mite', x: ['spots'] } },
+  refractor: { n: 218, name: 'Refractor', types: ['light', 'steel'], base: [75, 72, 108, 108, 85, 57], growth: 'medium', catch: 45, exp: 184, rarity: 'rare', line: 'lensling',
+    evo: [], moves: [[1, 'radiant_pulse'], [1, 'gear_grind'], [34, 'iron_head'], [40, 'dazzling_ray'], [46, 'gyro_slam'], [52, 'star_shower']], traits: ['radiance', 'iron_hide'],
+    habitat: 'Evolves from Lensling at Lv 34', desc: 'Its prism shell splits light into rainbows. The observatory keeps one on the roof to point the big telescope at the brightest stars.',
+    art: { f: 'bug', c: '#5a6a8a', c2: '#f8e070', b: '#c8d8f0', eye: 'glow', s: 1.05, shape: 'mite', back: 'crystals', horn: 'twin' } },
+  starquill: { n: 219, name: 'Starquill', types: ['light', 'air'], base: [44, 50, 40, 58, 45, 78], growth: 'medium', catch: 120, exp: 70, rarity: 'uncommon', line: 'starquill',
+    evo: [{ to: 'celestrel', lv: 35 }], moves: [[1, 'peck'], [1, 'glimmer'], [6, 'gust'], [11, 'quick_attack'], [16, 'wing_attack'], [21, 'radiant_pulse'], [26, 'swift_step'], [31, 'air_slash']], traits: ['radiance', 'keen_eye'],
+    habitat: 'Hilltops around Starfall, mostly after dark', desc: 'A tiny bird whose tail feathers end in little stars. Wish on the first Starquill you see at night and it is said to come true.',
+    art: { f: 'bird', c: '#3a4a8a', c2: '#f8e070', b: '#e8ecff', eye: 'cute', s: 0.62, beak: '#f8e070', pose: 'perch', tail: 'fork', x: ['spots'] } },
+  celestrel: { n: 220, name: 'Celestrel', types: ['light', 'air'], base: [78, 92, 70, 102, 75, 118], growth: 'medium', catch: 45, exp: 186, rarity: 'rare', line: 'starquill',
+    evo: [], moves: [[1, 'air_slash'], [1, 'radiant_pulse'], [35, 'dive_bomb'], [41, 'star_shower'], [47, 'gale_burst'], [53, 'dawnbreak']], traits: ['radiance', 'keen_eye'],
+    habitat: 'Evolves from Starquill at Lv 35', desc: 'A falcon with wings like the night sky. When it dives, it leaves a streak of light behind it, like a shooting star.',
+    art: { f: 'bird', c: '#5a3a9a', c2: '#f8d040', b: '#e8d8ff', eye: 'sharp', s: 1.1, beak: '#f8d040', pose: 'perch', tail: 'swallow', x: ['crest', 'spots'] } },
+});
 DATA.speciesList = Object.keys(DATA.species).sort((a, b) => DATA.species[a].n - DATA.species[b].n);
 DATA.items.scroll_hoofstomp = { name: 'Scroll: Hoof Stomp', pocket: 'scrolls', scroll: 'hoof_stomp', sell: 1000, desc: `Teaches Hoof Stomp (normal). Can be used again and again. ${DATA.moves.hoof_stomp.desc}` };

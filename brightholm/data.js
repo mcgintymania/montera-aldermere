@@ -778,7 +778,7 @@ async function trainerEncounter(s, npc, spotted) {
     await s.give('camp_pack'); return;
   }
   await s.say(T.intro, { name: `${T.cls} ${T.name}` });
-  const team = T.team.map(([sp, lv, item]) => Mon.create(sp, lv, { lustre: false, mark: null, pot: evenPot(), item: item || null, ti: 0 }));
+  const team = T.team.map(([sp, lv, item, ex]) => greyMark(Mon.create(sp, lv, { lustre: false, mark: null, pot: evenPot(), item: item || null, ti: 0 }), ex));
   const res = await s.battle({ kind: 'trainer', trainer: T, enemy: team });
   if (res === 'win') {
     s.set('beat_' + tid); s.achieve('first_win');
