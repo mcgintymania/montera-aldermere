@@ -8059,7 +8059,7 @@ Object.assign(DATA.scripts, {
     s.remove('skye');
   },
   async bhRoadSouth(s) {
-    if (G.party.length) await s.say(['The road south winds out into the Far Reach.', 'The Rising Light of Brightholm continues down this road in the next update.']);
+    if (G.party.length) await s.say(['The road south winds out into the Far Reach.']);
     else await s.say(['The road south winds out into the Far Reach. Wild Wildmon live in the long grass out there.', "You can't go without a partner of your own."]);
     const p = s.player(); p.y = p.fy = p.y - 1; p.dir = 'up'; p.moving = false;
   },
@@ -8502,6 +8502,122 @@ Object.assign(DATA.species, {
     evo: [], moves: [[1, 'thorn_lash'], [1, 'hex_wave'], [36, 'shade_orb'], [42, 'solar_leaf'], [48, 'wraith_flame'], [54, 'bramble_charge']], traits: ['floating', 'night_eyes'],
     habitat: 'Evolves from Strawkin at Lv 36', desc: 'It stands guard over the harvest all night with a lantern glowing inside its chest. Farmers leave it a fresh straw hat every autumn.',
     art: { f: 'biped', c: '#c89a40', c2: '#4a3a6a', b: '#f0d890', eye: 'glow', s: 1.05, build: 'lanky', x: ['cape', 'tuft', 'crown'] } },
+});
+/* ---------- Brightholm's legendary ---------- */
+DATA.species.halcyra = { n: 223, name: 'Halcyra', types: ['light', 'grass'], base: [100, 95, 95, 125, 110, 115], growth: 'slow', catch: 12, exp: 300, rarity: 'legendary', line: 'halcyra', legend: true,
+  evo: [], moves: [[1, 'glimmer'], [1, 'razor_leaf'], [50, 'first_light'], [55, 'solar_leaf'], [60, 'star_shower'], [65, 'dawnbreak']], traits: ['radiance', 'overgrowth'],
+  habitat: 'Under the Paragon pit, after the festival, when the night is clear', desc: 'A great bird of gold and green that rose from the light the Grand Lantern gave back. Farmers say a field it flies over will never go grey.',
+  art: { f: 'bird', c: '#f0c040', c2: '#5ab04a', b: '#fff4c0', eye: 'calm', s: 1.3, beak: '#e88a20', pose: 'soar', tail: 'fan', x: ['crest', 'plume'] } };
+/* ---------- The last 27 Wildmon (#224-250) ---------- */
+Object.assign(DATA.species, {
+  chirpling: { n: 224, name: "Chirpling", types: ["grass"], base: [40, 45, 35, 30, 35, 55], growth: 'medium', catch: 120, exp: 91, rarity: 'uncommon', line: 'chirpling',
+    evo: [{"to": "fieldfiddle", "lv": 24}], moves: [[1, "tackle"], [1, "absorb"], [5, "growl"], [9, "razor_leaf"], [14, "quick_attack"], [19, "mega_drain"], [23, "stun_spore"]], traits: ["overgrowth", "run_away"],
+    habitat: "Long grass on Furrow Lane and around Larkfield", desc: "A little green cricket that sings at sunset. Larkfield children try to catch them in jars and always let them go.",
+    art: {"f": "bug", "c": "#6ab04a", "c2": "#3a7a2a", "b": "#d8f0a0", "eye": "cute", "s": 0.6, "shape": "mantis"} },
+  fieldfiddle: { n: 225, name: "Fieldfiddle", types: ["grass", "normal"], base: [70, 80, 65, 55, 60, 90], growth: 'medium', catch: 45, exp: 159, rarity: 'rare', line: 'chirpling',
+    evo: [], moves: [[1, "razor_leaf"], [1, "quick_attack"], [24, "thorn_lash"], [30, "body_slam"], [36, "solar_leaf"], [42, "bramble_charge"]], traits: ["overgrowth", "run_away"],
+    habitat: "Evolves from Chirpling at Lv 24", desc: "It plays a tune on its long back legs that makes the wheat sway. Farmers say a good harvest follows its song.",
+    art: {"f": "bug", "c": "#4a9a3a", "c2": "#c89a40", "b": "#e8f0b0", "eye": "sharp", "s": 1.0, "shape": "mantis", "x": ["stripes"]} },
+  ashfoal: { n: 226, name: "Ashfoal", types: ["fire"], base: [45, 55, 40, 40, 40, 60], growth: 'medium', catch: 120, exp: 106, rarity: 'uncommon', line: 'ashfoal',
+    evo: [{"to": "hearthoof", "lv": 30}], moves: [[1, "tackle"], [1, "ember"], [6, "tail_whip"], [11, "fire_fang"], [16, "hoof_stomp"], [22, "flame_burst"], [27, "ashen_pounce"]], traits: ["blaze", "kindling"],
+    habitat: "Stockridge pastures and the long grass on Quarry Road", desc: "A wobbly little foal with a mane of soft embers. It sleeps by the hearth in winter and nobody minds.",
+    art: {"f": "quad", "c": "#c86a3a", "c2": "#f8b040", "b": "#f8e0c0", "eye": "cute", "s": 0.68, "build": "pup", "tail": "flame", "x": ["mane"]} },
+  hearthoof: { n: 227, name: "Hearthoof", types: ["fire", "normal"], base: [80, 100, 70, 65, 65, 95], growth: 'medium', catch: 45, exp: 180, rarity: 'rare', line: 'ashfoal',
+    evo: [], moves: [[1, "hoof_stomp"], [1, "flame_burst"], [30, "ashen_pounce"], [36, "flamethrower"], [42, "reckless_charge"], [48, "magma_slam"]], traits: ["blaze", "kindling"],
+    habitat: "Evolves from Ashfoal at Lv 30", desc: "A proud horse whose hooves leave little sparks. The ranchers of the Far Reach ride them on the coldest nights.",
+    art: {"f": "quad", "c": "#a83a2a", "c2": "#f8a030", "b": "#f0d0a8", "eye": "sharp", "s": 1.05, "build": "deer", "tail": "flame", "x": ["mane"], "horn": "single"} },
+  gritmole: { n: 228, name: "Gritmole", types: ["earth"], base: [50, 55, 55, 30, 35, 40], growth: 'medium', catch: 120, exp: 100, rarity: 'uncommon', line: 'gritmole',
+    evo: [{"to": "bedrockbore", "lv": 32}], moves: [[1, "scratch"], [1, "mud_slap"], [6, "harden"], [11, "dig_claw"], [17, "mud_shot"], [23, "rock_throw"], [28, "mud_bomb"]], traits: ["grit", "sturdy"],
+    habitat: "Quarry Road and Shalebrook Pass, in the gravel", desc: "A grumpy little mole with tough claws. It digs so fast it leaves tunnels behind like ant runs.",
+    art: {"f": "quad", "c": "#8a6a4a", "c2": "#c8a070", "b": "#e8d0b0", "eye": "sleepy", "s": 0.62, "build": "rodent", "x": ["claws"]} },
+  bedrockbore: { n: 229, name: "Bedrockbore", types: ["earth", "steel"], base: [85, 110, 110, 45, 60, 45], growth: 'medium', catch: 45, exp: 172, rarity: 'rare', line: 'gritmole',
+    evo: [], moves: [[1, "dig_claw"], [1, "metal_claw"], [32, "tremor"], [38, "iron_head"], [44, "gear_grind"], [50, "gyro_slam"]], traits: ["grit", "iron_hide"],
+    habitat: "Evolves from Gritmole at Lv 32", desc: "Its claws are harder than steel. Shalebrook quarrymen follow its tunnels to find the best stone.",
+    art: {"f": "quad", "c": "#7a5a3a", "c2": "#e0c060", "b": "#a8a8b0", "eye": "sharp", "s": 1.0, "build": "bear", "x": ["claws"], "back": "plates"} },
+  binrascal: { n: 230, name: "Binrascal", types: ["dark", "poison"], base: [45, 50, 40, 45, 40, 65], growth: 'medium', catch: 120, exp: 108, rarity: 'uncommon', line: 'binrascal',
+    evo: [{"to": "junkbandit", "lv": 30}], moves: [[1, "scratch"], [1, "smog"], [6, "leer"], [11, "bite"], [16, "acid"], [22, "shadow_swipe"], [27, "sludge"]], traits: ["pickup", "toxic_touch"],
+    habitat: "Back alleys and parks of Vantage City at night", desc: "A masked raccoon that raids Vantage bins. It always leaves the lid back on, which is very polite.",
+    art: {"f": "quad", "c": "#6a6a7a", "c2": "#2a2a34", "b": "#c8c8d0", "eye": "cute", "s": 0.66, "build": "ferret", "tail": "striped", "x": ["mask"]} },
+  junkbandit: { n: 231, name: "Junkbandit", types: ["dark", "poison"], base: [75, 90, 70, 70, 70, 95], growth: 'medium', catch: 45, exp: 178, rarity: 'rare', line: 'binrascal',
+    evo: [], moves: [[1, "shadow_swipe"], [1, "sludge"], [30, "crunch"], [36, "poison_jab"], [42, "abyssal_pull"], [48, "venom_fang"]], traits: ["pickup", "toxic_touch"],
+    habitat: "Evolves from Binrascal at Lv 30", desc: "It wears a bin lid as a shield and steals anything shiny. Vantage police say it has never been caught. Not once.",
+    art: {"f": "quad", "c": "#4a4a5a", "c2": "#8ac040", "b": "#a8a8b8", "eye": "sharp", "s": 1.0, "build": "ferret", "tail": "striped", "x": ["mask", "spikes"]} },
+  cooper: { n: 232, name: "Cooper", types: ["normal", "air"], base: [40, 45, 40, 30, 35, 60], growth: 'medium', catch: 120, exp: 95, rarity: 'uncommon', line: 'cooper',
+    evo: [{"to": "cobblecoo", "lv": 22}], moves: [[1, "peck"], [1, "growl"], [5, "gust"], [9, "quick_attack"], [14, "wing_attack"], [19, "headbutt"]], traits: ["keen_eye", "run_away"],
+    habitat: "Rooftops and pavements all over Vantage City", desc: "A plump city pigeon that will follow you anywhere for a crumb. It knows every bakery in Vantage.",
+    art: {"f": "bird", "c": "#8a8aa0", "c2": "#5ab0a0", "b": "#d8d8e0", "eye": "cute", "s": 0.6, "beak": "#e8a060", "pose": "perch", "tail": "fan"} },
+  cobblecoo: { n: 233, name: "Cobblecoo", types: ["normal", "air"], base: [75, 80, 70, 55, 60, 90], growth: 'medium', catch: 45, exp: 163, rarity: 'rare', line: 'cooper',
+    evo: [], moves: [[1, "wing_attack"], [1, "headbutt"], [22, "air_slash"], [28, "body_slam"], [34, "gull_dive"], [40, "reckless_charge"]], traits: ["keen_eye", "run_away"],
+    habitat: "Evolves from Cooper at Lv 22", desc: "The boss of every city square. A whole flock follows it, and they all strut in step.",
+    art: {"f": "bird", "c": "#6a6a88", "c2": "#3a9a8a", "b": "#c8c8d8", "eye": "sharp", "s": 0.95, "beak": "#e89040", "pose": "soar", "tail": "swallow", "x": ["crest"]} },
+  pincrab: { n: 234, name: "Pincrab", types: ["water", "rock"], base: [45, 60, 65, 30, 35, 35], growth: 'medium', catch: 120, exp: 102, rarity: 'uncommon', line: 'pincrab',
+    evo: [{"to": "fortrab", "lv": 34}], moves: [[1, "bubble"], [1, "harden"], [6, "water_gun"], [11, "rock_throw"], [17, "brine_bite"], [23, "rock_tomb"], [29, "bubble_beam"]], traits: ["shell_armor", "sturdy"],
+    habitat: "Rock pools on Sunward Shore and Coralport beach", desc: "A tiny crab that carries a pebble on its back like a house. It swaps pebbles when it outgrows one.",
+    art: {"f": "crab", "c": "#5aa0c0", "c2": "#d8c8a8", "b": "#f8d0b0", "eye": "cute", "s": 0.55, "shape": "crab", "x": ["shell"]} },
+  fortrab: { n: 235, name: "Fortrab", types: ["water", "rock"], base: [80, 110, 125, 45, 65, 40], growth: 'medium', catch: 45, exp: 176, rarity: 'rare', line: 'pincrab',
+    evo: [], moves: [[1, "brine_bite"], [1, "rock_tomb"], [34, "tide_slam"], [40, "rock_slide"], [46, "crag_charge"], [52, "maelstrom"]], traits: ["shell_armor", "sturdy"],
+    habitat: "Evolves from Pincrab at Lv 34", desc: "It carries a whole little castle of stone on its back. Hermit Wildmon move into the towers.",
+    art: {"f": "turtle", "c": "#4a6a9a", "c2": "#8a7a6a", "b": "#e8c0a0", "eye": "sharp", "s": 1.05, "shape": "crab", "back": "crystals", "x": ["bigclaw"], "mouth": "beak"} },
+  fogling: { n: 236, name: "Fogling", types: ["ghost", "air"], base: [40, 35, 40, 60, 50, 60], growth: 'medium', catch: 120, exp: 108, rarity: 'uncommon', line: 'fogling',
+    evo: [{"to": "fogmantle", "lv": 34}], moves: [[1, "gust"], [1, "lick"], [6, "confuse_ray"], [11, "night_shade"], [16, "hex_wave"], [22, "air_slash"], [28, "shade_orb"]], traits: ["floating", "night_eyes"],
+    habitat: "Foggy nights on Saltreach Key and Sunward Shore", desc: "A wisp of sea fog with two shy eyes. On calm nights, dozens drift in from the sea together.",
+    art: {"f": "wisp", "c": "#c8d4e0", "c2": "#8a9ab0", "b": "#f0f4f8", "eye": "cute", "s": 0.66, "shape": "sheet"} },
+  fogmantle: { n: 237, name: "Fogmantle", types: ["ghost", "air"], base: [70, 65, 70, 105, 90, 95], growth: 'medium', catch: 45, exp: 188, rarity: 'rare', line: 'fogling',
+    evo: [], moves: [[1, "hex_wave"], [1, "air_slash"], [34, "shade_orb"], [40, "gale_burst"], [46, "wraith_flame"], [52, "dive_bomb"]], traits: ["floating", "night_eyes"],
+    habitat: "Evolves from Fogling at Lv 34", desc: "A rolling bank of fog with a lantern-bright heart. Lost boats follow its glow home.",
+    art: {"f": "wisp", "c": "#9aa8c0", "c2": "#e8f0a0", "b": "#d8e0f0", "eye": "glow", "s": 1.05, "shape": "tall", "x": ["orb"]} },
+  comette: { n: 238, name: "Comette", types: ["light", "fire"], base: [40, 40, 40, 60, 45, 65], growth: 'medium', catch: 120, exp: 110, rarity: 'uncommon', line: 'comette',
+    evo: [{"to": "novaflare", "lv": 36}], moves: [[1, "ember"], [1, "glimmer"], [6, "dazzle"], [11, "flame_burst"], [17, "radiant_pulse"], [23, "ember_storm"], [29, "dazzling_ray"]], traits: ["radiance", "blaze"],
+    habitat: "Hilltops around Starfall on clear nights", desc: "A tiny falling star that never quite landed. It bobs around telescopes, curious about the people looking up.",
+    art: {"f": "wisp", "c": "#f8d060", "c2": "#f87a3a", "b": "#fff4c0", "eye": "cute", "s": 0.6, "shape": "flame", "x": ["stars"]} },
+  novaflare: { n: 239, name: "Novaflare", types: ["light", "fire"], base: [75, 70, 70, 115, 85, 110], growth: 'medium', catch: 45, exp: 199, rarity: 'rare', line: 'comette',
+    evo: [], moves: [[1, "radiant_pulse"], [1, "ember_storm"], [36, "flamethrower"], [42, "star_shower"], [48, "solar_flare"], [54, "dawnbreak"]], traits: ["radiance", "blaze"],
+    habitat: "Evolves from Comette at Lv 36", desc: "When it flares, the night sky over Starfall goes bright as day for a moment. Seren keeps a list of every sighting.",
+    art: {"f": "wisp", "c": "#f8a030", "c2": "#fff0a0", "b": "#fff8d8", "eye": "glow", "s": 1.1, "shape": "orb", "x": ["stars", "orb"]} },
+  moltworm: { n: 240, name: "Moltworm", types: ["light", "earth"], base: [50, 40, 55, 50, 50, 30], growth: 'medium', catch: 120, exp: 104, rarity: 'uncommon', line: 'moltworm',
+    evo: [{"to": "radiwurm", "lv": 33}], moves: [[1, "tackle"], [1, "glimmer"], [6, "mud_slap"], [11, "harden"], [16, "mud_shot"], [22, "radiant_pulse"], [28, "mud_bomb"]], traits: ["radiance", "sturdy"],
+    habitat: "Dark caves and tunnels, glowing softly", desc: "A fat little worm with a glowing tail. Miners keep one in a jar as a nightlight.",
+    art: {"f": "worm", "c": "#c8a888", "c2": "#f8e070", "b": "#f0e0c8", "eye": "sleepy", "s": 0.55, "x": ["bands"]} },
+  radiwurm: { n: 241, name: "Radiwurm", types: ["light", "earth"], base: [90, 70, 95, 90, 85, 45], growth: 'medium', catch: 45, exp: 180, rarity: 'rare', line: 'moltworm',
+    evo: [], moves: [[1, "radiant_pulse"], [1, "mud_bomb"], [33, "tremor"], [39, "dazzling_ray"], [45, "first_light"], [51, "dawnbreak"]], traits: ["radiance", "sturdy"],
+    habitat: "Evolves from Moltworm at Lv 33", desc: "Its glowing body lights whole tunnels. Lost cavers follow the glow and always find the way out.",
+    art: {"f": "worm", "c": "#c89870", "c2": "#fff070", "b": "#e8d8c0", "eye": "glow", "s": 1.2, "x": ["bands"]} },
+  grotbat: { n: 242, name: "Grotbat", types: ["dark", "air"], base: [40, 50, 35, 35, 40, 70], growth: 'medium', catch: 120, exp: 102, rarity: 'uncommon', line: 'grotbat',
+    evo: [{"to": "echowarden", "lv": 34}], moves: [[1, "bite"], [1, "gust"], [6, "leer"], [11, "wing_attack"], [16, "shadow_swipe"], [22, "air_slash"], [28, "crunch"]], traits: ["night_eyes", "keen_eye"],
+    habitat: "Dark caves, roosting upside down", desc: "A small bat with huge ears. It finds its way in the dark by humming and listening for echoes.",
+    art: {"f": "bat", "c": "#3a4a5a", "c2": "#e07aa0", "b": "#8a7a9a", "eye": "cute", "s": 0.55, "ear": "point", "x": ["spots"]} },
+  echowarden: { n: 243, name: "Echowarden", types: ["dark", "air"], base: [75, 95, 70, 65, 70, 110], growth: 'medium', catch: 45, exp: 184, rarity: 'rare', line: 'grotbat',
+    evo: [], moves: [[1, "crunch"], [1, "air_slash"], [34, "abyssal_pull"], [40, "dive_bomb"], [46, "eclipse_pulse"], [52, "gale_burst"]], traits: ["night_eyes", "keen_eye"],
+    habitat: "Evolves from Grotbat at Lv 34", desc: "It guards the deepest caves. Its screech can shake loose a stalactite, so cavers whisper near it.",
+    art: {"f": "bat", "c": "#2a2238", "c2": "#e04a6a", "b": "#5a4a6a", "eye": "sharp", "s": 1.2, "x": ["crest", "mane"], "ear": "big"} },
+  seedsprout: { n: 244, name: "Seedsprout", types: ["grass"], base: [40, 35, 40, 40, 45, 30], growth: 'medium', catch: 120, exp: 87, rarity: 'uncommon', line: 'seedsprout',
+    evo: [{"to": "petalsprite", "lv": 18}], moves: [[1, "absorb"], [1, "growl"], [5, "vine_whip"], [9, "sleep_powder"], [14, "mega_drain"]], traits: ["overgrowth", "sunsoak"],
+    habitat: "Visits gardens that are well looked after", desc: "A seed that woke up early. It sometimes turns up in a garden bed that has been watered every day.",
+    art: {"f": "plant", "c": "#7ac050", "c2": "#c89a50", "b": "#e8f0c0", "eye": "cute", "s": 0.55, "shape": "bulb"} },
+  petalsprite: { n: 245, name: "Petalsprite", types: ["grass", "light"], base: [60, 50, 55, 70, 70, 60], growth: 'medium', catch: 120, exp: 138, rarity: 'uncommon', line: 'seedsprout',
+    evo: [{"to": "orchardian", "lv": 36}], moves: [[1, "vine_whip"], [1, "glimmer"], [18, "razor_leaf"], [23, "stun_spore"], [28, "radiant_pulse"], [33, "solar_leaf"]], traits: ["overgrowth", "radiance"],
+    habitat: "Evolves from Seedsprout at Lv 18", desc: "A flower with a face that turns to follow the sun. Bees adore it and it adores them back.",
+    art: {"f": "plant", "c": "#f0a0c0", "c2": "#6ab04a", "b": "#fff0f4", "eye": "cute", "s": 0.8, "shape": "flower"} },
+  orchardian: { n: 246, name: "Orchardian", types: ["grass", "earth"], base: [100, 95, 100, 85, 90, 50], growth: 'medium', catch: 45, exp: 197, rarity: 'rare', line: 'seedsprout',
+    evo: [], moves: [[1, "solar_leaf"], [1, "mud_bomb"], [36, "bramble_charge"], [42, "tremor"], [48, "seed_leech"], [54, "rootwall"]], traits: ["old_growth", "sunsoak"],
+    habitat: "Evolves from Petalsprite at Lv 36", desc: "An old tree that walks the orchards at night, checking every branch. Apples grow sweeter where it has passed.",
+    art: {"f": "quad", "c": "#5a8a3a", "c2": "#e04a3a", "b": "#a87a4a", "eye": "calm", "s": 1.15, "shape": "tree", "build": "mammoth", "x": ["tree"]} },
+  goldkoi: { n: 247, name: "Goldkoi", types: ["water"], base: [40, 40, 45, 45, 45, 55], growth: 'medium', catch: 120, exp: 102, rarity: 'uncommon', line: 'goldkoi',
+    evo: [{"to": "regalfin", "lv": 35}], moves: [[1, "splash"], [1, "bubble"], [8, "water_gun"], [15, "aqua_jet"], [22, "bubble_beam"], [29, "brine_bite"]], traits: ["torrent", "riptide_dash"],
+    habitat: "Ponds and slow rivers, mostly the Furrow Pond; prize catch of fishing contests", desc: "A gold fish with whiskers. Catch a big one and it is said your luck will turn.",
+    art: {"f": "fish", "c": "#f0b030", "c2": "#ffffff", "b": "#fff0c0", "eye": "cute", "s": 0.62, "shape": "koi"} },
+  regalfin: { n: 248, name: "Regalfin", types: ["water", "light"], base: [85, 70, 80, 105, 100, 85], growth: 'medium', catch: 45, exp: 199, rarity: 'rare', line: 'goldkoi',
+    evo: [], moves: [[1, "bubble_beam"], [1, "glimmer"], [35, "hydro_pulse"], [41, "radiant_pulse"], [47, "dazzling_ray"], [53, "maelstrom"]], traits: ["torrent", "radiance"],
+    habitat: "Evolves from Goldkoi at Lv 35", desc: "Its long fins shine like silk in the sun. Fishing contests have been won and lost over one Regalfin.",
+    art: {"f": "fish", "c": "#f8d040", "c2": "#f07ab0", "b": "#fff8e0", "eye": "calm", "s": 1.1, "shape": "ray", "x": ["crest"]} },
+  frostpuff: { n: 249, name: "Frostpuff", types: ["ice"], base: [50, 35, 50, 45, 55, 40], growth: 'medium', catch: 120, exp: 104, rarity: 'uncommon', line: 'frostpuff',
+    evo: [{"to": "cumulamb", "lv": 32}], moves: [[1, "tackle"], [1, "powder_snow"], [6, "growl"], [11, "ice_shard"], [16, "frost_breath"], [22, "aurora_beam"], [28, "hailstorm"]], traits: ["thick_fur", "floating"],
+    habitat: "High up Lumen Climb and Shalebrook Pass in winter", desc: "A fluffy lamb made of snow cloud. It drifts a little off the ground when it is happy.",
+    art: {"f": "blob", "c": "#f0f4ff", "c2": "#a8c8e8", "b": "#ffffff", "eye": "cute", "s": 0.62, "shape": "pear", "ear": "round"} },
+  cumulamb: { n: 250, name: "Cumulamb", types: ["ice", "air"], base: [90, 65, 85, 95, 95, 65], growth: 'medium', catch: 45, exp: 188, rarity: 'rare', line: 'frostpuff',
+    evo: [], moves: [[1, "aurora_beam"], [1, "gust"], [32, "frost_beam"], [38, "air_slash"], [44, "blizzard"], [50, "gale_burst"]], traits: ["thick_fur", "floating"],
+    habitat: "Evolves from Frostpuff at Lv 32", desc: "A great woolly cloud that brings the first snow of winter. Farmers count them in the sky to guess how cold it will be.",
+    art: {"f": "blob", "c": "#e0eaff", "c2": "#6a9ad8", "b": "#ffffff", "eye": "calm", "s": 1.1, "shape": "cloud", "ear": "round", "x": ["horn"]} },
 });
 DATA.speciesList = Object.keys(DATA.species).sort((a, b) => DATA.species[a].n - DATA.species[b].n);
 DATA.items.scroll_hoofstomp = { name: 'Scroll: Hoof Stomp', pocket: 'scrolls', scroll: 'hoof_stomp', sell: 1000, desc: `Teaches Hoof Stomp (normal). Can be used again and again. ${DATA.moves.hoof_stomp.desc}` };
@@ -13130,7 +13246,7 @@ Object.assign(UI, {
     const draw = () => {
       tabs.innerHTML = '';
       ['Entries', 'Collection'].forEach((n, k) => { const t = h('div', 'tab' + (k === tab ? ' on' : ''), n); t.addEventListener('pointerdown', (e) => { e.preventDefault(); tab = k; draw(); }); tabs.appendChild(t); });
-      head.textContent = `Seen ${seenSpeciesCount()} · Caught ${caughtSpeciesCount()} of ${DATA.speciesList.length} recorded (Aldermere: ${DATA.dexSize})`;
+      head.textContent = typeof bhRegionalDex === 'function' ? `Brightholm Wildbook: seen ${bhDexSeen()} · caught ${bhDexCaught()} of ${bhRegionalDex().length}  ·  All Wildmon: caught ${caughtSpeciesCount()} of ${DATA.speciesList.length}` : `Seen ${seenSpeciesCount()} · Caught ${caughtSpeciesCount()} of ${DATA.speciesList.length} recorded (Aldermere: ${DATA.dexSize})`;
       list.innerHTML = '';
       if (tab === 0) {
         DATA.speciesList.forEach((k, i) => {
@@ -16624,10 +16740,10 @@ Object.assign(DATA.scripts, {
   async bhRancher(s) {
     const o = { name: 'Rancher Hale' };
     await s.say(['These are my Steerling. Best herd in the Far Reach.', 'Cassidy at the Hall raised one herself. Keeps it as her ace. You will see why if you challenge her!',
-      "If you want one of your own, they're shy in the wild. Try the long grass up past Vantage City, once the road reopens."], o);
+      "If you want one of your own, they're shy in the wild. Try the long grass on Quarry Road, south of town. They are shy, so keep looking."], o);
   },
   async bhRoadblock(s) {
-    await s.say(['Sorry, the road south to Vantage City is closed. The floods took out half the hillside.', 'The Rising Light of Brightholm continues down this road in the next update.'], { name: 'Roadworker' });
+    await s.say(['Sorry, the road south is closed. The floods took out half the hillside.', 'Cassidy at the Hall is lending us her Steerling to shift the mud. Earn her Badge and we will wave you through.'], { name: 'Roadworker' });
   },
   async bhHallGuide(s) {
     const o = { name: 'Hall Guide' };
@@ -17331,7 +17447,7 @@ Object.assign(DATA.scripts, {
     await s.say(['Foreman Bram runs the Quarry Gauntlet up on the road. Worth a go if you want to toughen your team up before Petra.'], o);
   },
   async bhPass(s) {
-    await s.say(['Shalebrook Pass is blocked solid. A rockslide came down last week.', 'We are clearing it as fast as we can. The road to Vantage City opens in the next update.'], { name: 'Quarry Worker' });
+    await s.say(['Shalebrook Pass is blocked solid. A rockslide came down last week.', 'We are clearing it as fast as we can. Petra knows this rock better than anyone. Earn her Badge and she will help us shift it.'], { name: 'Quarry Worker' });
   },
   async bhHallGuide2(s) {
     const o = { name: 'Hall Guide' };
@@ -20795,6 +20911,1085 @@ DATA.maps.coralport.props.push({ type: 'busstop', x: 19, y: 9, script: 'bhBus' }
 
 'use strict';
 /* =====================================================================
+   BRIGHTHOLM — After the League: rematches, Kit's second chance and
+   fair rematch, Halcyra, and the colour coming back to every Wildmon
+   ===================================================================== */
+const gameDay = () => Math.floor(((G && G.playtime) || 0) / 1200);
+
+/* ---------- Grey Wildmon get their colour back after the festival ---------- */
+{
+  const ld = World.load.bind(World);
+  World.load = function (id) {
+    const r = ld(id);
+    if (G && G.flags.festival_done) {
+      for (const p of this.props || []) {
+        if (p.type === 'wildmon' && p.grey) { p.grey = false; p.text = `The ${DATA.species[p.sp] ? DATA.species[p.sp].name : 'Wildmon'} is bright and full of colour again. It looks very pleased to see you.`; }
+      }
+    }
+    return r;
+  };
+}
+
+/* ---------- Rematches: once per game day, after you are Champion ---------- */
+const REMATCH = {
+  cassidy: [['moonhop', 61], ['sledhound', 61], ['packhowl', 62], ['roofhawk', 62], ['stampede', 64, 'super_potion']],
+  petra: [['cragmaw', 61], ['glacieryx', 62], ['crestram', 62], ['gargrim', 62], ['aegadillo', 64, 'super_potion']],
+  zara: [['gloomowl', 61], ['spirewing', 62], ['squallgull', 62], ['celestrel', 62], ['augerhawk', 64, 'super_potion']],
+  ivo: [['fulmiray', 61], ['voltpaw', 62], ['joltfox', 62], ['surgibbon', 62], ['megawatt', 64, 'super_potion']],
+  nalu: [['floemperor', 61], ['slithersea', 62], ['fulmiray', 62], ['leviathorn', 63], ['octomind', 64, 'super_potion']],
+  morwen: [['scarecrown', 61], ['auroraith', 62], ['gloamshade', 62], ['wraithtide', 62], ['hexmog', 64, 'super_potion']],
+  seren: [['solstag', 61], ['prismstar', 62], ['constellynx', 63], ['celestrel', 62], ['refractor', 64, 'super_potion']],
+  linden: [['scarecrown', 63], ['hedgeboar', 63], ['pyrannox', 63], ['gatormaw', 63], ['stampede', 66, 'super_potion']],
+};
+for (const [tid, team] of Object.entries(REMATCH)) {
+  const T = DATA.trainers[tid];
+  DATA.trainers['re_' + tid] = Object.assign({}, T, { team, pot: 24, ai: 'expert', prize: Math.max(T.prize, 180), items: { hyper_potion: 2, full_restore: 1 } });
+}
+async function rematch(s, tid, name) {
+  const o = { name };
+  if (G.flags['re_day_' + tid] === gameDay()) return s.say(['That was a great battle. Come back tomorrow and we will go again!'], o);
+  const c = await s.ask('A rematch, Champion? My team has been training too.', ['Battle!', 'Not today'], o);
+  if (c !== 0) return s.say('Any time.', o);
+  const res = await bossBattle(s, 're_' + tid, { noWhiteout: true });
+  G.flags['re_day_' + tid] = gameDay();
+  if (res !== 'win') { await s.healParty(); return s.say(['Ha! Not so easy the second time around. Come back tomorrow.'], o); }
+  await s.say(['Champion, all right. Same time tomorrow?'], o);
+  await s.give('rare_candy');
+}
+const MASTER_SCRIPTS = { cassidy: ['bhCassidy', 'Cassidy'], petra: ['bhPetra', 'Petra'], zara: ['bhZara', 'Zara'], ivo: ['bhIvo', 'Ivo'], nalu: ['bhNalu', 'Nalu'], morwen: ['bhMorwen', 'Morwen'], seren: ['bhSeren', 'Seren'], linden: ['bhLinden', 'Dad'] };
+for (const [tid, [script, name]] of Object.entries(MASTER_SCRIPTS)) {
+  const orig = DATA.scripts[script];
+  DATA.scripts[script] = async function (s, n) {
+    if (!(G.flags.bh_champion && G.flags['beat_' + tid] && (tid !== 'linden' || G.flags.starter_gift))) return orig(s, n);
+    return rematch(s, tid, name);
+  };
+}
+
+/* Skye and the Champion */
+DATA.trainers.re_skye = Object.assign({}, DATA.trainers.skye4, { team: [], pot: 24 });
+Object.defineProperty(DATA.trainers.re_skye, 'team', { get() { return DATA.trainers.skye4.team.map(([sp, lv, it]) => [sp, lv + 7, it]); } });
+DATA.maps.larkfield.npcs.push({ id: 'skye_pg', x: 14, y: 9, dir: 'down', look: 'skye', name: 'Skye', script: 'bhSkyeRematch', cond: (g) => !!g.flags.bh_champion });
+
+/* ---------- Kit after the festival ---------- */
+DATA.trainers.kit_fair = { cls: 'Ranger Volunteer', name: 'Kit', look: 'kit_adult', team: [], prize: 300, ai: 'expert', items: { full_restore: 2, max_potion: 2 }, pot: 26, music: 'champion', intro: 'Welcome!', lose: 'Ha. Fair and square.', after: '' };
+Object.defineProperty(DATA.trainers.kit_fair, 'team', {
+  get() {
+    const L = G && G.legend; const st = L && L.starter && DATA.species[L.starter.sp];
+    const pick = RIVAL_PICK[st ? st.line : 'firecub'] || 'puddlepup';
+    const ace = { mossling: 'bastionoak', firecub: 'infernyx', puddlepup: 'abyssmaul' }[pick];
+    const cover = { mossling: 'pyrowyrm', firecub: 'leviathorn', puddlepup: 'thundermane' }[pick];
+    return [['tempestral', 66], ['roofhawk', 66, null, { lustre: true }], ['joltfox', 66], ['psyren', 67], [cover, 68], [ace, 70, 'super_potion']];
+  },
+});
+DATA.maps.paragon_lobby.npcs.push({ id: 'kit_pg', x: 4, y: 6, dir: 'down', look: 'kit_adult', name: 'Kit', script: 'bhKitPost', cond: (g) => !!g.flags.kit_redeemed && !!g.flags.festival_done });
+{
+  const rs = DATA.maps.ranger_station;
+  if (rs) rs.npcs.push({ id: 'kit_cell', x: 7, y: 3, dir: 'down', look: 'kit_adult', name: 'Kit', script: 'bhKitCell', cond: (g) => !!g.flags.kit_rangers && !g.flags.kit_redeemed && !!g.flags.festival_done });
+}
+{
+  const L = DATA.maps.paragon_lobby;
+  L.npcs = L.npcs.map((n) => (n.id === 'reception' ? Object.assign({}, n, { script: 'bhRecoveryDesk' }) : n));
+}
+
+/* ---------- Halcyra: the light that came back ---------- */
+DATA.maps.grand_pit.props.push({ type: 'wildmon', sp: 'halcyra', x: 7, y: 3, script: 'bhHalcyra', cond: (g) => !!g.flags.bh_champion && !(g.dex.halcyra && g.dex.halcyra.caught) });
+DATA.maps.grand_pit.npcs.push({ id: 'seren_pit', x: 10, y: 9, dir: 'up', look: 'seren', name: 'Seren', talk: ['The light that came out of the Grand Lantern did not all go home. Some of it stayed down here, and became... something.', 'I have never seen anything like it. Be gentle.'], cond: (g) => !!g.flags.bh_champion && !(g.dex.halcyra && g.dex.halcyra.caught) });
+
+/* ---------- Scripts ---------- */
+Object.assign(DATA.scripts, {
+  async bhSkyeRematch(s) {
+    const o = { name: 'Skye' };
+    if (!s.flag('pg_skye_intro')) {
+      s.set('pg_skye_intro');
+      await s.say(['Champion {player}! I still cannot believe it.', 'I am going to train every single day until I beat you. Battle me whenever you are home!',
+        'Oh, and Seren says something strange is glowing down in the old Paragon pit. And Kit... ' + (G.flags.kit_redeemed ? 'he is helping the Rangers at the old Paragon Academy now.' : 'Wren says he is still at the Coralport Ranger Station.')], o);
+    }
+    if (G.flags.re_day_skye === gameDay()) return s.say(['Again tomorrow! I nearly had you. Probably.'], o);
+    if (await s.ask('Rematch?', ['Battle!', 'Not today'], o) !== 0) return;
+    const res = await bossBattle(s, 're_skye', { noWhiteout: true });
+    G.flags.re_day_skye = gameDay();
+    if (res !== 'win') { await s.healParty(); return s.say(['I WON! Write it down. Somewhere. Anywhere!'], o); }
+    await s.say(['Argh! Tomorrow. Definitely tomorrow.'], o);
+    await s.give('rare_candy');
+  },
+  async bhRecoveryDesk(s) {
+    const o = { name: 'Receptionist' };
+    if (!s.flag('festival_done')) return DATA.scripts.bhReception(s);
+    await s.say(['Welcome to the Brightholm Wildmon Recovery Centre! Paragon is gone, and the Rangers run this place now.', 'Every Wildmon that came through Paragon gets rest, good food and lots of love here, until its colour is back for good.'], o);
+  },
+  async bhKitCell(s) {
+    const k = { name: 'Kit' };
+    await s.say(['...Come to look at me? Go on, then.'], k);
+    const c = await s.ask('Kit sits alone, his grey partner curled at his feet.', ['Give him another chance', 'Leave him be']);
+    if (c !== 0) return s.say(['Kit turns away.'], { sign: true });
+    await s.say(['Kit. Your partner still waits for you. Every single day. That has to mean something.'], { name: G.name });
+    await s.say(['...It does. It means everything. I just could not see it.', 'Wren says the Rangers need help at the old Academy, looking after every Wildmon I hurt.', 'If they will have me, I will go. And I will make it right.'], k);
+    await s.say(['Kit\'s partner lifts its head. A little colour flickers back into its fur.'], { sign: true });
+    s.set('kit_redeemed');
+    await Game.fadeOut(300); s.remove('kit_cell'); await Game.fadeIn(300);
+  },
+  async bhKitPost(s) {
+    const k = { name: 'Kit' };
+    if (!s.flag('kit_fair_intro')) {
+      s.set('kit_fair_intro');
+      await s.say(['{player}! Or should I say, Champion.', 'I help the Rangers here now. Every Wildmon that comes in grey, we look after until it is bright again. Mine first.',
+        'My team is back to how it should be. Strong because they are happy, not because I drained them.', 'I promised you a rematch. A fair one. No masks, no relays. Just us.'], k);
+    }
+    if (G.flags.re_day_kit === gameDay()) return s.say(['Again tomorrow. I am not going anywhere. Not this time.'], k);
+    if (await s.ask('Battle Kit?', ['Battle!', 'Not today'], k) !== 0) return;
+    const res = await bossBattle(s, 'kit_fair', { noWhiteout: true });
+    G.flags.re_day_kit = gameDay();
+    if (res !== 'win') { await s.healParty(); return s.say(['Ha! Do you know how long I have waited to say that? Again tomorrow!'], k); }
+    s.set('beat_kit_fair');
+    await s.say(['Fair and square. You know, losing to you does not feel like it used to.', 'It feels like a good battle.'], k);
+    await s.give('rare_candy');
+  },
+  async bhHalcyra(s, pr) {
+    await s.say(['Where the Grand Lantern stood, a great bird of gold and green is resting in a pool of warm light.', 'It turns its head and looks right at you.']);
+    Sound.sfx('lustre'); await s.wait(300);
+    await s.say('Haaal-cyraaa!', { name: 'Halcyra' });
+    const m = Mon.create('halcyra', 65, { lustre: false, mark: null, ti: 0 });
+    const res = await s.battle({ kind: 'wild', enemy: [m], bg: 'cave', music: 'battle_master' });
+    if (res === 'caught') { World.props = World.props.filter((p) => p !== pr); s.achieve && s.achieve('halcyra'); return; }
+    if (res === 'lose') return;
+    World.props = World.props.filter((p) => p !== pr);
+    await s.say(res === 'win' ? ['Halcyra fades into the light... but the glow on the floor stays warm. It will be back.'] : ['Halcyra watches you calmly from its pool of light.']);
+    if (res !== 'win') World.props.push(pr);
+  },
+});
+DATA.achievements.halcyra = { name: 'Rising Light', desc: 'Catch Halcyra, born from the light of Brightholm.' };
+
+'use strict';
+/* =====================================================================
+   BRIGHTHOLM — The Lantern Link (bring Wildmon over from Aldermere),
+   the Brightholm Wildbook and memories of the old save
+   ===================================================================== */
+const BH_REGIONS = new Set(['larkfield', 'farreach', 'stockridge', 'shalebrook', 'vantage', 'starfall', 'sunward', 'league']);
+
+/* ---------- The Brightholm Wildbook: every Wildmon you can get in Brightholm ---------- */
+function bhRegionalDex() {
+  if (DATA.bhDex) return DATA.bhDex;
+  const set = new Set(['bristling', 'blazeling', 'snapling', 'halcyra']);
+  for (const [id, enc] of Object.entries(DATA.encounters)) {
+    const m = DATA.maps[id]; if (!m || !BH_REGIONS.has(m.region)) continue;
+    for (const kind of Object.values(enc)) for (const tod of Object.values(kind || {})) for (const e of tod || []) if (DATA.species[e[0]]) set.add(e[0]);
+  }
+  let grew = true;
+  while (grew) { grew = false; for (const sp of [...set]) for (const e of DATA.species[sp].evo || []) if (DATA.species[e.to] && !set.has(e.to)) { set.add(e.to); grew = true; } }
+  return (DATA.bhDex = DATA.speciesList.filter((k) => set.has(k)));
+}
+const bhDexCaught = () => bhRegionalDex().filter((k) => G.dex[k] && G.dex[k].caught).length;
+const bhDexSeen = () => bhRegionalDex().filter((k) => G.dex[k] && G.dex[k].seen).length;
+DATA.items.bh_crest = { name: 'Brightholm Crest', pocket: 'key', desc: 'Dad carved it from Larkfield oak. Proof that you caught every Wildmon in the Brightholm Wildbook.' };
+DATA.achievements.bh_dex = { name: 'Brightholm Wildbook', desc: 'Catch every Wildmon in the Brightholm Wildbook.' };
+
+/* ---------- Memories of the old save in dialogue ---------- */
+{
+  const f0 = fmt;
+  fmt = function (t) {
+    let s = String(t);
+    if (s.includes('{partner}') || s.includes('{warden}')) {
+      const L = (G && G.legend) || Legend.fallback();
+      s = s.replace(/\{partner\}/g, Legend.partnerName(L) || 'their partner')
+        .replace(/\{warden\}/g, L.wardens && L.wardens.length && DATA.species[L.wardens[0]] ? DATA.species[L.wardens[0]].name : 'a Warden');
+    }
+    return f0(s);
+  };
+}
+{
+  const tilly = DATA.maps.larkfield.npcs.find((n) => n.id === 'tilly');
+  if (tilly) tilly.talk = tilly.talk.concat(['I saw {legend} once, you know, at the Vantage parade. {partner} was riding on the float, waving at everybody.']);
+  const wynn = (DATA.maps.stockridge.npcs || []).find((n) => /wynn/i.test(n.id) || /Wynn/.test(n.name || ''));
+  if (wynn && wynn.talk) wynn.talk = wynn.talk.concat(['They say {legend} once caught {warden}. A Warden! With their own two hands and a Lantern.']);
+  DATA.maps.starfall.npcs.push({ id: 'oldfan', x: 5, y: 15, dir: 'right', look: 'gentleman', name: 'Collector', talk: ['I collect anything to do with {legend}. Postcards, badges, a little carved {partner}.', 'My prize? A photo of {legend} with {warden}. Signed!'] });
+}
+
+/* ---------- The Lantern Link ---------- */
+DATA.maps.bh_bedroom.tileScripts = Object.assign({}, DATA.maps.bh_bedroom.tileScripts, { '8,1': 'bhLink' });
+function aldermereSaves() {
+  const out = [];
+  for (const n of [1, 2, 3]) {
+    try { const d = JSON.parse(localStorage.getItem('mq_slot_' + n)); if (d && typeof d === 'object' && d.name && (d.party || d.box)) out.push(d); } catch { /* unreadable */ }
+  }
+  return out;
+}
+const linkCap = () => Math.min(70, 10 + Prog.sigils() * 7);
+Object.assign(DATA.scripts, {
+  async bhLink(s) {
+    const o = { name: 'Lantern Link' };
+    await s.say(['The Lantern Link. Dad set it up so you can call a Wildmon over from Aldermere.', 'It makes a copy of their light here. Nothing in Aldermere changes.'], { sign: true });
+    const saves = aldermereSaves();
+    if (!saves.length) return s.say(['No Aldermere adventure found on this device.'], o);
+    if (G.flags.link_day === Math.floor((G.playtime || 0) / 1200)) return s.say(['The Lantern Link is recharging. It can call one Wildmon each day.'], o);
+    const si = saves.length === 1 ? 0 : await s.ask('Which Aldermere adventure?', saves.map((d) => d.name).concat(['Cancel']), o);
+    if (si < 0 || si >= saves.length) return;
+    const d = saves[si];
+    const all = (d.party || []).concat(d.box || []).filter((m) => m && DATA.species[m.sp] && !(DATA.species[m.sp].legend && !G.flags.bh_champion));
+    if (!all.length) return s.say(['There is no Wildmon in that adventure the Link can call.'], o);
+    const cap = linkCap();
+    const labels = all.map((m) => `${m.nick ? m.nick + ' (' + DATA.species[m.sp].name + ')' : DATA.species[m.sp].name}  Lv ${Math.max(5, Math.min(m.lv || 5, cap))}${m.lustre ? ' ✦' : ''}`);
+    await s.say([`Choose a Wildmon to call over. It will arrive at Lv ${cap} at most. Earn more Badges to call them stronger.`], o);
+    const i = await UI.menu(labels.concat(['Cancel']), { cls: 'choice', cancel: labels.length });
+    if (i < 0 || i >= all.length) return;
+    const src = all[i];
+    const moves = (src.moves || []).map((mv) => (typeof mv === 'string' ? mv : mv && mv.id)).filter((id) => DATA.moves[id]);
+    const m = Mon.create(src.sp, Math.max(5, Math.min(src.lv || 5, cap)), { lustre: !!src.lustre, mark: src.mark || null, ti: 0, moves: moves.length ? moves.slice(0, 4) : undefined });
+    m.nick = src.nick || null; m.met = { map: 'Aldermere, by Lantern Link', lv: m.lv, at: Date.now() }; m.hp = Mon.maxHp(m);
+    const dx = G.dex[src.sp] || (G.dex[src.sp] = {}); dx.seen = 1; dx.caught = 1;
+    G.flags.link_day = Math.floor((G.playtime || 0) / 1200); Game.dirty = true;
+    Sound.sfx('lustre');
+    await s.say([`A soft light fills the screen... ${Mon.name(m)} steps out of the Lantern Link!`], { sign: true });
+    if (G.party.length < 6) { G.party.push(m); await s.say(`${Mon.name(m)} joined your team!`, { sfx: 'caught' }); }
+    else { G.box.push(m); await s.say(`${Mon.name(m)} was sent to storage.`, { sfx: 'caught' }); }
+  },
+});
+
+/* ---------- Dad rewards a complete Brightholm Wildbook ---------- */
+{
+  const dad0 = DATA.scripts.bhLinden;
+  DATA.scripts.bhLinden = async function (s, n) {
+    if (s.flag('bh_champion') && s.flag('starter_gift') && !s.has('bh_crest') && bhDexCaught() === bhRegionalDex().length) {
+      const o = { name: 'Dad' };
+      await s.say(['Hang on. Is that your Wildbook? Let me see...', 'Every single Wildmon in Brightholm. Every one! Your mum is going to cry.', 'I carved this for whoever managed it. I never thought it would be you. Well. I hoped.'], o);
+      await s.give('bh_crest'); await s.give('rare_candy', 5); Game.achieve('bh_dex');
+      return;
+    }
+    return dad0(s, n);
+  };
+}
+
+'use strict';
+/* =====================================================================
+   BRIGHTHOLM — Where the last new Wildmon live, and the Old Shale Mine:
+   a dark cave where a better Lantern lights more of the way
+   ===================================================================== */
+const addEnc = (map, kind, tods, entry) => {
+  const e = DATA.encounters[map] || (DATA.encounters[map] = {});
+  const k = e[kind] || (e[kind] = {});
+  for (const tod of tods) (k[tod] || (k[tod] = [])).push(entry);
+};
+addEnc('furrow_lane', 'grass', ['day'], ['chirpling', 14, 2, 4]);
+addEnc('furrow_lane', 'grass', ['day'], ['seedsprout', 4, 3, 4]);
+addEnc('furrow_lane', 'fish', ['day', 'night'], ['goldkoi', 6, 4, 7]);
+addEnc('quarry_road', 'grass', ['day'], ['ashfoal', 8, 8, 11]);
+addEnc('quarry_road', 'grass', ['day', 'night'], ['gritmole', 8, 8, 11]);
+addEnc('shale_pass', 'grass', ['day'], ['cooper', 12, 14, 17]);
+addEnc('shale_pass', 'grass', ['night'], ['binrascal', 12, 14, 17]);
+addEnc('starfall_road', 'grass', ['day'], ['cooper', 10, 36, 38]);
+addEnc('starfall_road', 'grass', ['night'], ['binrascal', 10, 36, 38]);
+addEnc('starfall_road', 'grass', ['night'], ['comette', 8, 36, 39]);
+addEnc('lumen_climb', 'grass', ['night'], ['comette', 8, 50, 53]);
+addEnc('lumen_climb', 'grass', ['day', 'night'], ['frostpuff', 10, 50, 53]);
+addEnc('sunward_shore', 'grass', ['day', 'night'], ['pincrab', 12, 28, 31]);
+addEnc('sunward_shore', 'grass', ['night'], ['fogling', 10, 28, 31]);
+addEnc('saltreach', 'grass', ['night'], ['fogling', 12, 33, 36]);
+Object.assign(DATA.species.binrascal, { habitat: 'Shalebrook Pass and Starfall Road at night, on its way to raid the Vantage bins' });
+Object.assign(DATA.species.cooper, { habitat: 'Shalebrook Pass and Starfall Road, on its way to the Vantage pavements' });
+Object.assign(DATA.species.seedsprout, { habitat: 'Now and then on Furrow Lane, and in gardens that are well looked after' });
+Object.assign(DATA.species.frostpuff, { habitat: 'High up Lumen Climb' });
+Object.assign(DATA.species.moltworm, { habitat: 'The Old Shale Mine, glowing softly in the dark' });
+Object.assign(DATA.species.grotbat, { habitat: 'The Old Shale Mine, roosting upside down' });
+
+/* ---------- The Old Shale Mine ---------- */
+DATA.tiles['ɘ'] = { t: 'cavefloor' };
+DATA.maps.shale_pass.buildings = (DATA.maps.shale_pass.buildings || []).concat([{ kind: 'cavemouth', x: 3, y: 4, w: 2, h: 3, door: 1, to: { map: 'shale_mine', x: 9, y: 14, dir: 'up' } }]);
+DATA.maps.shale_pass.props.push({ type: 'sign', x: 6, y: 6, text: 'OLD SHALE MINE\nClosed for forty years. Bring a bright Lantern.' });
+DATA.maps.shale_mine = {
+  name: 'Old Shale Mine', region: 'farreach', music: 'cave', outdoor: false, caveEnc: true, darkCave: true,
+  rows: [
+    'EEEEEEEEEEEEEEEEEEEE',
+    'EɘɘɘɘEEEEEEEEɘɘɘɘɘɘE',
+    'EɘɘɘɘɘɘɘEEEEɘɘɘɘɘɘɘE',
+    'EEEɘɘɘɘɘɘEEɘɘɘEEEɘɘE',
+    'EɘɘɘɘEEɘɘɘɘɘɘEEEEɘɘE',
+    'EɘɘɘɘEEEEɘɘɘEEɘɘɘɘɘE',
+    'EɘEEɘɘɘɘEɘɘɘEɘɘɘEEEE',
+    'EɘEEɘɘɘɘEEɘEEɘɘɘɘɘɘE',
+    'EɘɘɘɘEEɘɘɘɘɘɘɘEEEɘɘE',
+    'EEEɘɘEEɘɘEEEɘɘɘɘEɘɘE',
+    'EɘɘɘɘɘɘɘɘEEEEEɘɘEɘɘE',
+    'EɘEEEEEɘɘɘɘɘɘEɘɘɘɘɘE',
+    'EɘɘɘɘɘEEEEɘɘɘEEEEɘEE',
+    'EEEEɘɘɘɘɘɘɘɘɘɘɘɘɘɘɘE',
+    'EEEEEEEEɘɘɘEEEEEEEEE',
+    'EEEEEEEEEɘEEEEEEEEEE',
+  ],
+  warps: [{ x: 9, y: 15, to: { map: 'shale_pass', x: 4, y: 7, dir: 'down' } }],
+  items: [
+    { id: 'dl', x: 1, y: 1, item: 'dusk_lantern', qty: 3 }, { id: 'ns', x: 18, y: 1, item: 'scroll_cragcharge' },
+    { id: 'hp', x: 1, y: 10, item: 'super_potion', qty: 2 }, { id: 'rc', x: 18, y: 9, item: 'rare_candy', hidden: true },
+  ],
+  npcs: [
+    { id: 'oldminer', x: 10, y: 13, dir: 'down', look: 'miner', name: 'Old Miner', talk: ['Forty years I worked this mine. Dark as a pocket down here.', 'A plain Lantern lights a little. A Great Lantern lights more. A Dusk Lantern? That lights the whole tunnel.', 'Mind the Grotbat. They hum, then they bite.'] },
+  ],
+};
+DATA.encounters.shale_mine = { cave: { day: [['moltworm', 30, 14, 17], ['grotbat', 30, 14, 17], ['gritmole', 20, 14, 17], ['armlet', 10, 14, 17], ['pebblin', 10, 14, 17]] } };
+DATA.encounters.shale_mine.cave.night = DATA.encounters.shale_mine.cave.day;
+const lanternLight = () => {
+  if (!G) return 0.6;
+  if (G.bag.dusk_lantern) return 1.6;
+  if (G.bag.great_lantern) return 1.25;
+  if (G.bag.lantern) return 1;
+  return 0.6;
+};
+{
+  const dw = Game.drawWorld.bind(Game);
+  Game.drawWorld = function (ctx) {
+    dw(ctx);
+    if (!World.map || !World.map.darkCave) return;
+    const [cx, cy] = this.camera(); const p = this.player; const k = lanternLight();
+    const x = p.drawX + 8 - cx, y = p.drawY + 6 - cy;
+    const g = ctx.createRadialGradient(x, y, 10 * k, x, y, 58 * k);
+    g.addColorStop(0, 'rgba(6,6,14,0)'); g.addColorStop(1, 'rgba(6,6,14,0.94)');
+    ctx.fillStyle = g; ctx.fillRect(0, 0, SCREEN_W, SCREEN_H);
+    ctx.fillStyle = 'rgba(255,220,140,0.06)'; ctx.beginPath(); ctx.arc(x, y, 30 * k, 0, Math.PI * 2); ctx.fill();
+  };
+}
+DATA.mapEnter.shale_mine = () => {
+  if (G.flags.mine_seen) return; G.flags.mine_seen = 1;
+  Script.run((s) => s.say([lanternLight() >= 1.6 ? 'You hold up a Dusk Lantern. Its glow fills the old tunnels.' : lanternLight() >= 1 ? 'You hold up a Lantern. It lights a little way into the dark.' : 'It is pitch dark. Even a plain Lantern would help.'], { sign: true }));
+};
+
+'use strict';
+/* =====================================================================
+   BRIGHTHOLM — Homes of your own: three houses for sale, each with
+   furniture spots, the trophy cabinet and a back garden of up to 12 beds
+   ===================================================================== */
+const HOUSES = {
+  cottage: { name: 'Meadow Cottage', town: 'Stockridge', map: 'stockridge', price: 12000, base: 200, out: { map: 'stockridge', x: 3, y: 21, dir: 'down' }, b: { kind: 'house', style: 'cottage', x: 2, y: 17, w: 4, h: 4, door: 1 }, sign: [4, 21] },
+  lodge: { name: 'Starlight Lodge', town: 'Starfall', map: 'starfall', price: 20000, base: 220, out: { map: 'starfall', x: 3, y: 5, dir: 'down' }, b: { kind: 'house', style: 'timber', x: 1, y: 1, w: 5, h: 4, door: 2 }, sign: [4, 5] },
+  beach: { name: 'Beach House', town: 'Coralport', map: 'coralport', price: 30000, base: 240, out: { map: 'coralport', x: 5, y: 25, dir: 'down' }, b: { kind: 'house', style: 'beach', x: 3, y: 21, w: 5, h: 4, door: 2 }, sign: [6, 25] },
+};
+const HOUSE_ROWS = ['WWWWWWWWWW', '#........#', '#........#', '#........#', 'WWWW..WWWW', 'FFFFFFFFFF', 'FFFFFFLLFc', 'pFFFFFLLFp', 'FFFFmmFFFF'];
+const HOUSE_PLOTS = [[1, 1], [2, 1], [3, 1], [4, 1], [5, 1], [6, 1], [7, 1], [1, 3], [2, 3], [3, 3], [6, 3], [7, 3]];
+const HOUSE_SLOTS = [[1, 5], [8, 5], [0, 8], [9, 8]];
+const homes = () => (G.homes || (G.homes = {}));
+const owns = (id) => !!(G && G.homes && G.homes[id]);
+for (const [id, H] of Object.entries(HOUSES)) {
+  const map = DATA.maps[H.map];
+  map.buildings.push(Object.assign({}, H.b, { to: { map: 'home_' + id, x: 4, y: 7, dir: 'up' } }));
+  map.props.push({ type: 'sign', x: H.sign[0], y: H.sign[1], script: 'bhHouseSign', house: id });
+  DATA.maps['home_' + id] = {
+    name: H.name, region: map.region, music: 'indoor', outdoor: false, homeId: id,
+    rows: HOUSE_ROWS,
+    warps: [4, 5].map((x) => ({ x, y: 8, to: H.out })),
+    tileScripts: Object.assign({ '9,6': 'bhCabinet' }, Object.fromEntries(HOUSE_SLOTS.map(([x, y], i) => [`${x},${y}`, 'bhHomeSlot' + i]))),
+    props: HOUSE_PLOTS.map(([x, y], n) => ({ type: 'plot', i: H.base + n, x, y, script: 'bhPlot', cond: () => n < ((G.homes && G.homes[id] && G.homes[id].beds) || 6) }))
+      .concat([{ type: 'sign', x: 8, y: 1, script: 'bhBedSign' }]),
+    npcs: [],
+  };
+}
+DATA.achievements.homeowner = { name: 'Homeowner', desc: 'Buy a house of your own.' };
+
+/* Locked until bought */
+{
+  const wt = Game.warpTo.bind(Game);
+  Game.warpTo = function (to, sfx) {
+    const m = to && /^home_(.+)$/.exec(to.map);
+    if (m && !owns(m[1])) { Script.run((s) => s.say([`${HOUSES[m[1]].name} is locked. The sign outside says it is for sale.`])); return Promise.resolve(); }
+    return wt(to, sfx);
+  };
+}
+/* Furniture in your own homes, shared with the bedroom: each piece can only be in one place */
+function placedAll() {
+  const s = new Set((G.room || []).filter(Boolean));
+  for (const h of Object.values(homes())) for (const f of h.room || []) if (f) s.add(f);
+  return s;
+}
+async function homeSlot(s, i) {
+  const id = World.map.homeId; const h = homes()[id]; h.room = h.room || [];
+  const placed = placedAll(); const cur = h.room[i];
+  const own = Object.keys(DATA.furniture).filter((f) => s.has('f_' + f) && !placed.has(f));
+  if (!cur && !own.length) return s.say(placed.size ? 'A free spot. All your furniture is already out.' : 'An empty spot. Homeward Furnishings in Vantage City sells furniture to put here.');
+  const opts = own.map((f) => DATA.furniture[f].name); if (cur) opts.push('Put it away'); opts.push('Cancel');
+  const c = await s.ask(cur ? `The ${DATA.furniture[cur].name}. Swap it for something else?` : 'Put something here?', opts);
+  if (c < own.length) h.room[i] = own[c]; else if (cur && c === own.length) h.room[i] = null; else return;
+  Game.dirty = true; Sound.sfx('confirm');
+  World.props = World.props.filter((pr) => !(pr.type === 'furn' && pr.slot === i));
+  if (h.room[i]) { const [x, y] = HOUSE_SLOTS[i]; World.props.push({ type: 'furn', f: h.room[i], slot: i, x, y, script: 'bhHomeProp' }); }
+}
+{
+  const ld = World.load.bind(World);
+  World.load = function (mid) {
+    const r = ld(mid);
+    const id = this.map && this.map.homeId;
+    if (id && G && owns(id)) {
+      const h = homes()[id];
+      HOUSE_SLOTS.forEach(([x, y], i) => { const f = (h.room || [])[i]; if (f) this.props.push({ type: 'furn', f, slot: i, x, y, script: 'bhHomeProp' }); });
+      const day = Math.floor((G.playtime || 0) / 1200); const g = G.garden || { plots: {} };
+      const watered = HOUSE_PLOTS.some((_, n) => { const pl = g.plots[HOUSES[id].base + n]; return pl && pl.wet > G.playtime; });
+      if (watered && h.visit !== day && Math.random() < 0.35) { h.visitDue = day; this.props.push({ type: 'wildmon', sp: 'seedsprout', x: 4, y: 2, script: 'bhSeedVisitor' }); }
+    }
+    return r;
+  };
+}
+
+/* ---------- Scripts ---------- */
+Object.assign(DATA.scripts, {
+  bhHomeSlot0: (s) => homeSlot(s, 0), bhHomeSlot1: (s) => homeSlot(s, 1), bhHomeSlot2: (s) => homeSlot(s, 2), bhHomeSlot3: (s) => homeSlot(s, 3),
+  bhHomeProp: (s, pr) => homeSlot(s, pr.slot),
+  async bhHouseSign(s, pr) {
+    const id = pr.house; const H = HOUSES[id];
+    if (owns(id)) return s.say([`${H.name}. Home sweet home.`], { sign: true });
+    await s.say([`FOR SALE: ${H.name}, ${H.town}.`, 'Cosy rooms, four furniture spots, a trophy cabinet and a back garden with six beds (room for twelve).', `Price: ${H.price.toLocaleString('en-GB')} Cr.`], { sign: true });
+    if (!s.flag('garden_open')) return s.say(['Mum always said: learn to grow things at home first. Maybe ask her about the garden.']);
+    const c = await s.ask(`Buy ${H.name} for ${H.price.toLocaleString('en-GB')} Cr? You have ${G.money.toLocaleString('en-GB')} Cr.`, ['Buy it!', 'Not yet']);
+    if (c !== 0) return;
+    if (G.money < H.price) return s.say(['Not enough Cr yet. Selling crops at the farm stall, Frontier Trials and battles all help!']);
+    G.money -= H.price; homes()[id] = { beds: 6, room: [], at: Date.now() }; Game.dirty = true; Sound.sfx('quest');
+    await s.say([`You bought ${H.name}! The keys are yours.`], { sfx: 'item' });
+    Game.achieve('homeowner');
+    await s.say(['Mum will want to visit. Probably with a pie.']);
+  },
+  async bhBedSign(s) {
+    const h = homes()[World.map.homeId];
+    if (h.beds >= 12) return s.say(['Your back garden. Twelve beds, all yours.'], { sign: true });
+    const c = await s.ask('Your back garden has six beds. A local gardener can dig six more for 6,000 Cr.', ['Dig them!', 'Not now']);
+    if (c !== 0) return;
+    if (G.money < 6000) return s.say('Not enough Cr yet.');
+    G.money -= 6000; h.beds = 12; Game.dirty = true; Sound.sfx('quest');
+    await Game.warpTo({ map: World.id, x: Game.player.x, y: Game.player.y, dir: Game.player.dir });
+    return s.say('Twelve beds! Time to plant.');
+  },
+  async bhSeedVisitor(s, pr) {
+    const h = homes()[World.map.homeId];
+    await s.say(['A little Seedsprout has popped up between your beds! It must like your watering.']);
+    const m = Mon.create('seedsprout', 12 + Math.floor(Math.random() * 7), { ti: 0 });
+    h.visit = Math.floor((G.playtime || 0) / 1200);
+    World.props = World.props.filter((p) => p !== pr);
+    await s.battle({ kind: 'wild', enemy: [m], bg: 'grass' });
+  },
+});
+
+/* ---------- More furniture, for bigger homes ---------- */
+Object.assign(DATA.furniture, {
+  sofa: { name: 'Comfy Sofa', price: 2200 }, piano: { name: 'Upright Piano', price: 4000 }, clock: { name: 'Grandfather Clock', price: 2600 },
+  petbed: { name: 'Wildmon Bed', price: 900 }, globe: { name: 'Globe', price: 1400 }, lanternstand: { name: 'Lantern Stand', price: 1600 },
+});
+for (const id of ['sofa', 'piano', 'clock', 'petbed', 'globe', 'lanternstand']) {
+  const f = DATA.furniture[id];
+  DATA.items['f_' + id] = { name: f.name, pocket: 'home', price: f.price, desc: 'Furniture. Place it in your bedroom or a home of your own: walk up to an empty spot and press A.' };
+  DATA.shops.furniture.push('f_' + id);
+}
+{
+  const df = drawFurniture;
+  drawFurniture = function (ctx, f, sx, sy, t) {
+    const p = pen(ctx);
+    if (f === 'sofa') { p.r('rgba(0,0,0,0.2)', sx, sy + 13, 16, 3); p.r('#8a3a3a', sx, sy + 2, 16, 12); p.r('#b84a4a', sx + 2, sy + 6, 12, 6); p.r('#6a2a2a', sx, sy + 2, 2, 12); p.r('#6a2a2a', sx + 14, sy + 2, 2, 12); p.r('#d86a6a', sx + 3, sy + 7, 4, 2); return; }
+    if (f === 'piano') { p.r('rgba(0,0,0,0.2)', sx, sy + 13, 16, 3); p.r('#2a1a14', sx + 1, sy - 6, 14, 20); p.r('#4a2e20', sx + 2, sy - 5, 12, 8); p.r('#f4f0e8', sx + 2, sy + 4, 12, 3); for (let x = 3; x < 14; x += 2) p.r('#1a1a1a', sx + x, sy + 4, 1, 2); return; }
+    if (f === 'clock') { p.r('rgba(0,0,0,0.2)', sx + 3, sy + 13, 10, 3); p.r('#5a3a20', sx + 4, sy - 10, 8, 24); p.r('#f4ecd8', sx + 5, sy - 8, 6, 6); p.r('#2a2a2a', sx + 7, sy - 7, 1, 3); p.r('#d8a030', sx + 7, sy + 1 + Math.round(Math.sin(t * 3) * 2), 2, 4); return; }
+    if (f === 'petbed') { p.r('rgba(0,0,0,0.2)', sx + 1, sy + 12, 14, 3); p.r('#5a7ab8', sx + 1, sy + 6, 14, 8); p.r('#e8e0f0', sx + 3, sy + 8, 10, 4); p.r('#f8d060', sx + 6, sy + 9, 4, 2); return; }
+    if (f === 'globe') { p.r('rgba(0,0,0,0.2)', sx + 4, sy + 13, 8, 3); p.r('#6a4a2a', sx + 7, sy + 6, 2, 8); p.r('#6a4a2a', sx + 4, sy + 13, 8, 2); p.r('#3a7ab8', sx + 3, sy - 4, 10, 10); p.r('#5ab060', sx + 5, sy - 2, 3, 3); p.r('#5ab060', sx + 9, sy + 1, 3, 2); return; }
+    if (f === 'lanternstand') { p.r('rgba(0,0,0,0.2)', sx + 4, sy + 13, 8, 3); p.r('#3a3a44', sx + 7, sy - 4, 2, 18); p.r('#d8a030', sx + 4, sy - 10, 8, 7); p.r(Math.floor(t * 2) % 2 ? '#fff0a0' : '#ffe070', sx + 5, sy - 9, 6, 5); return; }
+    return df(ctx, f, sx, sy, t);
+  };
+}
+
+'use strict';
+/* =====================================================================
+   BRIGHTHOLM — Friends (friendship levels 1 to 5, gifts, friend quests,
+   the Friend Book) and town quest boards
+   ===================================================================== */
+const FRIEND_PTS = [0, 3, 7, 12, 18];
+const FRIENDS = {
+  gil: { name: 'Fisher Gil', script: 'bhGil', where: 'Furrow Lane', likes: ['tomato', 'turnip'], loves: ['sweet_pie'], gift2: ['great_lantern', 3], gift5: ['rare_candy', 3],
+    up: ['You keep coming back to see an old fisherman. That is kind of you.', 'You know, you are the best fishing friend I have had in years.', 'I have a fishing secret for you. Come and ask me about it.', 'Best fishing partner in Brightholm. No contest.'],
+    quest: { name: 'The Golden One', type: 'show', target: 'regalfin', ask: 'There is a fish in Furrow Pond I have chased for forty years: a Goldkoi that turns into a Regalfin. Show me a Regalfin before I retire. Please.', reward: ['rare_candy', 2] } },
+  tess: { name: 'Wrangler Tess', script: 'bhTess', where: 'the Stockridge paddock', likes: ['turnip', 'pumpkin'], loves: ['sweet_pie'], gift2: ['super_potion', 3], gift5: ['rare_candy', 3],
+    up: ['You are good with the Steerling. They do not trust just anybody.', 'You could be a wrangler, you know. You have the knack.', 'I have a favour to ask. You are the only one I would ask.', 'Partner. That is what you are. My ranch partner.'],
+    quest: { name: 'Feed the Herd', type: 'item', target: 'pumpkin', qty: 3, ask: 'Winter is coming and my herd needs feeding. Grow me three Pumpkins in autumn? They go mad for them.', reward: ['full_restore', 2] } },
+  bram: { name: 'Foreman Bram', script: 'bhBram', where: 'Quarry Road', likes: ['emberroot', 'potion'], loves: ['hyper_potion'], gift2: ['revive', 2], gift5: ['rare_candy', 3],
+    up: ['You again! The crews like you, you know.', 'Hard worker, you are. I can tell.', 'I need someone who can dig deep. Come and talk to me.', 'You are an honorary member of the Shalebrook crew. Hard hat and all.'],
+    quest: { name: 'Deep Digger', type: 'show', target: 'bedrockbore', ask: 'Old Shale Mine Gritmole grow into Bedrockbore, and they dig better than any machine. Show me one and I will believe it.', reward: ['scroll_cragcharge', 1] } },
+  hilde: { name: 'Quarry Boss Hilde', script: 'bhHilde', where: 'Shalebrook', likes: ['tomato', 'strawberry'], loves: ['hyper_potion'], gift2: ['great_lantern', 3], gift5: ['rare_candy', 3],
+    up: ['You stood up to Paragon. Shalebrook will not forget it.', 'Come by any time. There is always tea on the stove.', 'I have a job for someone I trust. That means you.', 'You are family in Shalebrook now.'],
+    quest: { name: 'Warm Hands', type: 'item', target: 'emberroot', qty: 3, ask: 'The night crews freeze in winter. Emberroot tea keeps them warm. Bring me three roots from your garden?', reward: ['max_potion', 3] } },
+  jaz: { name: 'Skater Jaz', script: 'bhJaz', where: 'Vantage City', likes: ['strawberry', 'sunflower'], loves: ['sweet_pie'], gift2: ['super_potion', 3], gift5: ['rare_candy', 3],
+    up: ['Yo! You still riding my old board? Sick.', 'You are honestly one of the best skaters I know.', 'I have got a challenge for you. A real one.', 'Best friends. Skate crew for life.'],
+    quest: { name: 'Gold on Wheels', type: 'flag', target: 'trial_skate', min: 3, ask: 'Get Gold in Coach Dex\'s Skate Trial. Under fourteen seconds. I believe in you!', reward: ['full_restore', 2] } },
+  dex: { name: 'Coach Dex', script: 'bhDex', where: 'Vantage City', likes: ['tomato', 'sunflower'], loves: ['hyper_potion'], gift2: ['great_lantern', 3], gift5: ['rare_candy', 3],
+    up: ['Nice form today, rider.', 'You are a natural. Seriously.', 'I want to see something with real speed. Come talk to me.', 'If I ever retire, you are running this park.'],
+    quest: { name: 'Fastest in the Sky', type: 'show', target: 'celestrel', ask: 'Nothing in Brightholm moves faster than a Celestrel. Show me one, and I will show you my secret line through the park.', reward: ['rare_candy', 2] } },
+  rigel: { name: 'Apprentice Rigel', npc: { map: 'star_house1', id: 'appr' }, where: 'Starfall', likes: ['snowdrop', 'mintleaf'], loves: ['sweet_pie'], gift2: ['dusk_lantern', 3], gift5: ['rare_candy', 3],
+    up: ['Oh, hello! Seren says I should get out more. You count, right?', 'Want to look through the telescope later? It is amazing tonight.', 'I have a favour to ask. It is about a star.', 'You are my best friend. Do not tell Seren, she will get jealous.'],
+    quest: { name: 'Catch a Falling Star', type: 'show', target: 'novaflare', ask: 'A Comette grows into a Novaflare, and it lights up the whole sky. Seren has only seen one. Show me one, and I will write your name in the observatory log!', reward: ['rare_candy', 2] } },
+  wren: { name: 'Ranger Wren', script: 'bhWren', where: 'Coralport Ranger Station', likes: ['frostkale', 'tomato'], loves: ['sweet_pie'], gift2: ['revive', 3], gift5: ['rare_candy', 3],
+    up: ['Good to see you. Really.', 'You remind me of someone from Aldermere. The good parts.', 'The Rangers need a hand with something. Talk to me.', 'Partner. Ranger Wren and Champion {player}. Has a nice ring to it.'],
+    quest: { name: 'Fog Watch', type: 'show', target: 'fogmantle', ask: 'The Rangers want to study the fog Wildmon of Saltreach. Show me a Fogmantle so we can check it is healthy.', reward: ['full_restore', 2] } },
+  hale: { name: 'Mrs Hale', script: 'bhHale', where: 'Larkfield', likes: ['strawberry', 'sweetroot'], loves: ['sweet_pie'], gift2: ['super_potion', 3], gift5: ['rare_candy', 3],
+    up: ['You are always welcome here, love. You know that.', 'Skye talks about you all the time. Do not tell her I told you.', 'Could you help me with something? It is a surprise for Skye.', 'You are like my own, you know. Both of you.'],
+    quest: { name: 'A Pie for Skye', type: 'item', target: 'sweet_pie', qty: 1, ask: 'Skye\'s birthday is coming. Your mum\'s Sweetroot Pie is her favourite. Could you make one and bring it to me? It is a surprise!', reward: ['full_restore', 2] } },
+  joss: { name: 'Farmer Joss', script: 'bhJoss', where: 'Larkfield', likes: ['turnip', 'sunflower'], loves: ['pumpkin'], gift2: ['seed_pumpkin', 4], gift5: ['rare_candy', 3],
+    up: ['Now then. Good to see a young farmer about.', 'Your garden is coming on nicely. I have been watching.', 'I need a hand before the harvest fair. Come and see me.', 'Best farmer in Larkfield. After me. Just.'],
+    quest: { name: 'Harvest Fair', type: 'item', target: 'sunflower', qty: 5, ask: 'The harvest fair needs sunflowers for the stalls. Five, from your own garden. Summer is the time!', reward: ['seed_pumpkin', 6] } },
+};
+DATA.items.friend_book = { name: 'Friend Book', pocket: 'key', use: 'friends', desc: 'A little book where you keep track of your friends. Use it to see how close you are.' };
+DATA.achievements.best_friend = { name: 'Best Friends', desc: 'Reach friendship level 5 with someone.' };
+const fState = (id) => { G.friends = G.friends || {}; return G.friends[id] || (G.friends[id] = { pts: 0, lv: 1, day: -1, gift: -1 }); };
+const fLevel = (pts) => FRIEND_PTS.filter((p) => pts >= p).length;
+const fDay = () => Math.floor((G.playtime || 0) / 1200);
+const hearts = (lv) => '♥'.repeat(lv) + '♡'.repeat(5 - lv);
+const reqMet = (r) => (r.type === 'item' ? (G.bag[r.target] || 0) >= (r.qty || 1) : r.type === 'show' ? G.party.some((m) => m.sp === r.target) : (G.flags[r.target] || 0) >= r.min);
+const reqText = (r) => (r.type === 'item' ? `Bring ${r.qty || 1} ${DATA.items[r.target].name}.` : r.type === 'show' ? `Show a ${DATA.species[r.target].name} in your team.` : r.ask);
+for (const [id, F] of Object.entries(FRIENDS)) {
+  DATA.quests['fq_' + id] = { name: F.quest.name, kind: 'side', giver: F.name, stages: [F.quest.ask + ' ' + reqText(F.quest)], reward: `${DATA.items[F.quest.reward[0]] ? DATA.items[F.quest.reward[0]].name : ''}${F.quest.reward[1] > 1 ? ' x' + F.quest.reward[1] : ''}` };
+}
+
+async function friendBeat(s, id) {
+  const F = FRIENDS[id]; const f = fState(id); const o = { name: F.name };
+  if (!s.has('friend_book')) { G.bag.friend_book = 1; await s.say(['You jot their name in a little notebook. You can keep track of your friends in the Friend Book in your Bag.'], { sign: true }); }
+  const day = fDay(); let gained = 0;
+  if (f.day !== day) { f.day = day; gained += 1; }
+  const giftable = [...F.loves, ...F.likes].filter((k) => s.has(k));
+  if (giftable.length && f.gift !== day) {
+    const c = await s.ask(`Give ${F.name} a present?`, giftable.map((k) => DATA.items[k].name).concat(['Not today']));
+    if (c < giftable.length) {
+      const k = giftable[c]; s.take(k); f.gift = day; const love = F.loves.includes(k); gained += love ? 5 : 3; Sound.sfx('heal');
+      await s.say([love ? `${DATA.items[k].name}? For me? Oh, this is my favourite thing in the world!` : `${DATA.items[k].name}! You remembered. Thank you!`], o);
+    }
+  }
+  const q = s.quest('fq_' + id);
+  if (q && !q.done && reqMet(F.quest)) {
+    await s.say([`You did it! ${F.quest.type === 'show' ? 'Look at it! Just look at it!' : 'Thank you so much!'}`], o);
+    if (F.quest.type === 'item') s.take(F.quest.target, F.quest.qty || 1);
+    await s.completeQuest('fq_' + id); gained += 5;
+    await s.give(F.quest.reward[0], F.quest.reward[1]);
+  }
+  f.pts += gained; Game.dirty = true;
+  const lv = fLevel(f.pts);
+  while (f.lv < lv) {
+    f.lv += 1; Sound.sfx('quest'); UI.toast && UI.toast('Friendship', `${F.name} ${hearts(f.lv)}`);
+    await s.say([F.up[f.lv - 2]], o);
+    if (f.lv === 2) { await s.say(['Here, I want you to have this.'], o); await s.give(F.gift2[0], F.gift2[1]); }
+    if (f.lv === 3 && !s.quest('fq_' + id)) { await s.say([F.quest.ask], o); await s.startQuest('fq_' + id); }
+    if (f.lv === 5) { await s.say(['Best friends. Here, I have been saving this for you.'], o); await s.give(F.gift5[0], F.gift5[1]); Game.achieve('best_friend'); }
+  }
+}
+for (const [id, F] of Object.entries(FRIENDS)) {
+  if (F.script) {
+    const orig = DATA.scripts[F.script];
+    DATA.scripts[F.script] = async function (s, n) { await friendBeat(s, id); return orig(s, n); };
+  } else {
+    const m = DATA.maps[F.npc.map]; const n = m && m.npcs.find((x) => x.id === F.npc.id);
+    if (n) { const talk = n.talk; n.talk = null; n.script = 'bhFriend_' + id; DATA.scripts['bhFriend_' + id] = async (s) => { await friendBeat(s, id); await s.say(talk, { name: F.name }); }; }
+  }
+}
+UI.useKey = Object.assign(UI.useKey || {}, {
+  async friends() {
+    const lines = Object.entries(FRIENDS).map(([id, F]) => { const f = (G.friends || {})[id]; return f ? `${F.name}  ${hearts(f.lv)}  (${F.where})` : null; }).filter(Boolean);
+    await UI.dialog(lines.length ? ['YOUR FRIENDS'].concat(lines) : ['No friends written down yet. Talk to people around Brightholm!']);
+  },
+});
+
+/* ---------- Quest boards ---------- */
+const BOARD_REQ = {
+  stockridge: [['hayfever', 'Hay Fever', 'item', 'turnip', 3, 600], ['pieday', 'Pie Day', 'item', 'sweet_pie', 1, 1500], ['steerspot', 'Steerling Spotter', 'show', 'steerling', 0, 800],
+    ['cricket', 'Cricket Song', 'show', 'fieldfiddle', 0, 1000], ['remedy', 'Herbal Remedy', 'item', 'potion', 2, 800], ['sunnyside', 'Sunny Side', 'item', 'sunflower', 2, 700]],
+  vantage: [['binday', 'Bin Day', 'show', 'junkbandit', 0, 1500], ['pigeonpost', 'Pigeon Post', 'show', 'cobblecoo', 0, 1200], ['tomatoes', 'Fresh Tomatoes', 'item', 'tomato', 3, 1000],
+    ['snack', 'Midnight Snack', 'item', 'strawberry', 2, 800], ['pluggedin', 'Plugged In', 'show', 'megawatt', 0, 1500], ['rinkrat', 'Rink Rat', 'flag', 'trial_skate', 2, 2000]],
+  coralport: [['shells', 'Shell Collector', 'show', 'fortrab', 0, 1500], ['foghorn', 'Foghorn', 'show', 'fogling', 0, 1000], ['reefpatrol', 'Reef Patrol', 'show', 'octomind', 0, 1500],
+    ['cooltreat', 'Cool Treat', 'item', 'frostkale', 2, 900], ['chilly', 'Chilly Nights', 'item', 'snowdrop', 2, 600], ['bigcatch', 'Big Catch', 'show', 'regalfin', 0, 2500]],
+  starfall: [['shootingstar', 'Shooting Star', 'show', 'novaflare', 0, 2500], ['nightlight', 'Night Light', 'show', 'radiwurm', 0, 2000], ['skywatcher', 'Sky Watcher', 'show', 'celestrel', 0, 2000],
+    ['pumpkinlights', 'Pumpkin Lanterns', 'item', 'pumpkin', 3, 2000], ['embertea', 'Ember Tea', 'item', 'emberroot', 3, 900], ['woolly', 'Woolly Weather', 'show', 'cumulamb', 0, 2500]],
+};
+const BOARD_POS = { stockridge: [16, 11], vantage: [26, 12], coralport: [18, 8], starfall: [8, 9] };
+const BOARD_TOWN = { stockridge: 'Stockridge', vantage: 'Vantage City', coralport: 'Coralport', starfall: 'Starfall' };
+const boardReq = (r) => ({ type: r[2], target: r[3], qty: r[4] || 1, min: r[4] }) ;
+for (const [town, list] of Object.entries(BOARD_REQ)) {
+  for (const r of list) {
+    const R = boardReq(r);
+    const text = r[2] === 'flag' ? 'Get at least Silver in the Vantage Skate Trial.' : reqText(R);
+    DATA.quests['bq_' + r[0]] = { name: r[1], kind: 'side', giver: `${BOARD_TOWN[town]} quest board`, stages: [`${text} Then check the ${BOARD_TOWN[town]} quest board.`], reward: `${r[5]} Cr` };
+  }
+  DATA.maps[town].props.push({ type: 'qboard', x: BOARD_POS[town][0], y: BOARD_POS[town][1], script: 'bhBoard', town });
+}
+{
+  const origDP = drawProp;
+  drawProp = function (ctx, pr, sx, sy, t) {
+    if (pr.type === 'qboard') {
+      const p = pen(ctx);
+      p.r('rgba(0,0,0,0.22)', sx + 1, sy + 13, 14, 3); p.r('#5a3a20', sx + 2, sy + 4, 2, 10); p.r('#5a3a20', sx + 12, sy + 4, 2, 10);
+      p.r('#6a4a2a', sx, sy - 8, 16, 13); p.r('#c89a60', sx + 1, sy - 7, 14, 11);
+      p.r('#f4ecd8', sx + 2, sy - 6, 5, 4); p.r('#f8e070', sx + 8, sy - 5, 5, 4); p.r('#a8e0f0', sx + 3, sy - 1, 5, 4); p.r('#f4ecd8', sx + 9, sy, 4, 3); p.r('#c83a3a', sx + 4, sy - 6, 1, 1);
+      return;
+    }
+    return origDP(ctx, pr, sx, sy, t);
+  };
+}
+Object.assign(DATA.scripts, {
+  async bhBoard(s, pr) {
+    const town = pr.town; const list = BOARD_REQ[town];
+    const label = (r) => { const q = s.quest('bq_' + r[0]); return q && q.done ? `${r[1]} (done)` : q ? `${r[1]}${reqMet(boardReq(r)) ? ' (ready!)' : ' (taken)'}` : r[1]; };
+    await s.say([`THE ${BOARD_TOWN[town].toUpperCase()} QUEST BOARD`, 'Notes pinned up by people around town who need a hand.'], { sign: true });
+    for (;;) {
+      const c = await s.ask('Which note?', list.map(label).concat(['Done']));
+      if (c >= list.length) return;
+      const r = list[c]; const R = boardReq(r); const id = 'bq_' + r[0]; const q = s.quest(id);
+      const text = r[2] === 'flag' ? 'Get at least Silver in the Vantage Skate Trial.' : reqText(R);
+      if (q && q.done) { await s.say([`"${r[1]}": all done. The note says THANK YOU in big letters.`], { sign: true }); continue; }
+      if (!q) {
+        if (await s.ask(`"${r[1]}". ${text} Reward: ${r[5]} Cr. Take it?`, ['Take it', 'Leave it']) === 0) { await s.startQuest(id); await s.say(['You take the note. Bring what they need back to this board.'], { sign: true }); }
+        continue;
+      }
+      if (!reqMet(R)) { await s.say([`"${r[1]}". ${text} Not done yet.`], { sign: true }); continue; }
+      if (r[2] === 'item') s.take(R.target, R.qty);
+      await s.say([r[2] === 'show' ? `You show your ${DATA.species[R.target].name} to the board. A delighted note-writer rushes over to see it!` : 'You pin your delivery to the board. Someone will be very happy.'], { sign: true });
+      await s.completeQuest(id); await s.money(r[5]);
+      if (Object.keys(BOARD_REQ).every((t) => BOARD_REQ[t].every((x) => (s.quest('bq_' + x[0]) || {}).done))) Game.achieve('helping_hand');
+    }
+  },
+});
+DATA.achievements.helping_hand = { name: 'Helping Hand', desc: 'Finish every note on every quest board in Brightholm.' };
+
+'use strict';
+/* =====================================================================
+   BRIGHTHOLM — NPC trades, expeditions for stored Wildmon, town jobs,
+   and the bike
+   ===================================================================== */
+const pickParty = async (title) => (G.party.length ? UI.party({ mode: 'pick', title, hint: 'Choose a Wildmon.' }) : -1);
+
+/* ---------- NPC trades ---------- */
+const TRADES = [
+  { id: 'tr_tilly', map: 'stock_house3', at: [5, 3], look: 'villager2', who: 'Baker Wynne', want: 'yipper', give: 'steerling', nick: 'Crumpet', lv: 10, say: 'My Steerling eats all the bread! Swap it for a Yipper? A Yipper would guard the bakery.' },
+  { id: 'tr_hob', map: 'shalebrook', at: [21, 12], look: 'quarry', who: 'Quarryman Dai', want: 'armlet', give: 'gritmole', nick: 'Digby', lv: 14, say: 'An Armlet would roll the rubble away for me. Trade you my Gritmole, Digby. He is a terrible digger.' },
+  { id: 'tr_vant1', map: 'vantage_apt', at: [2, 3], look: 'student2', who: 'Student Priya', want: 'gibbolt', give: 'binrascal', nick: 'Bandit', lv: 20, say: 'I need a Gibbolt for my study of shiny things. Trade for my Binrascal, Bandit? He keeps eating my notes.' },
+  { id: 'tr_vant2', map: 'vantage_house2', at: [5, 3], look: 'boy', who: 'Theo', want: 'rooftik', give: 'cooper', nick: 'Sir Coo', lv: 22, lustre: true, say: 'I want a Rooftik like my big brother! I will swap my shiny Cooper, Sir Coo. He is very fancy.' },
+  { id: 'tr_coral', map: 'coral_house1', at: [5, 3], look: 'beach', who: 'Surfer Kai', want: 'skimray', give: 'pincrab', nick: 'Shelly', lv: 28, say: 'Skimray are the best surfing buddies. Trade me one? My Pincrab, Shelly, would love a new beach.' },
+  { id: 'tr_salt', map: 'salt_hut', at: [5, 3], look: 'ranger', who: 'Ranger Ewan', want: 'ribbonel', give: 'fogling', nick: 'Wisp', lv: 34, say: 'We study kelp eels. Got a Ribbonel? I will give you Wisp the Fogling. It followed me home.' },
+  { id: 'tr_star', map: 'star_house2', at: [5, 3], look: 'astro', who: 'Astronomer Lyle', want: 'hootlet', give: 'comette', nick: 'Twinkle', lv: 36, say: 'A Hootlet would keep me company on night watch. I will trade you Twinkle, a Comette. It is very bright. Too bright, sometimes.' },
+  { id: 'tr_lark', map: 'skye_home', at: [2, 3], look: 'pip', who: 'Pip', want: 'chirpling', give: 'seedsprout', nick: 'Sprout', lv: 8, say: 'I want a Chirpling that sings! Trade you Sprout? Sprout does not sing. Sprout just sits.' },
+  { id: 'tr_hearth', map: 'star_hearth', at: [2, 5], look: 'hiker', who: 'Hiker Moss', want: 'goatlet', give: 'ashfoal', nick: 'Cinders', lv: 30, say: 'A Goatlet could carry my pack up Lumen Climb. I will swap you Cinders, my Ashfoal. She keeps setting fire to my tent.' },
+  { id: 'tr_climb', map: 'lumen_climb', at: [18, 5], look: 'ace', who: 'Ace Trainer Noor', want: 'celestrel', give: 'frostpuff', nick: 'Nimbus', lv: 50, say: 'I have always wanted a Celestrel. Trade you Nimbus, my Frostpuff? It sneezes snow.' },
+];
+for (const T of TRADES) {
+  const m = DATA.maps[T.map]; if (!m) continue;
+  m.npcs.push({ id: T.id, x: T.at[0], y: T.at[1], dir: 'down', look: T.look, name: T.who, script: 'bhTrade', trade: T.id });
+}
+DATA.achievements.trader = { name: 'Fair Swap', desc: 'Make a trade with someone in Brightholm.' };
+
+/* ---------- Expeditions ---------- */
+const EXPEDITIONS = [
+  { id: 'fields', name: 'Far Reach fields', days: 1, loot: [['seed_turnip', 3], ['seed_sunflower', 3], ['seed_strawberry', 2], ['mintleaf', 3], ['potion', 2]] },
+  { id: 'quarry', name: 'Shalebrook quarry', days: 2, loot: [['revive', 2], ['super_potion', 3], ['great_lantern', 3], ['emberroot', 3]] },
+  { id: 'reef', name: 'Sunward reefs', days: 2, loot: [['hyper_potion', 2], ['full_heal', 2], ['dusk_lantern', 3], ['seed_frostkale', 3]] },
+  { id: 'sky', name: 'Starfall skies', days: 3, loot: [['rare_candy', 1], ['full_restore', 1], ['max_potion', 2], ['seed_pumpkin', 3]] },
+];
+const expDay = () => Math.floor((G.playtime || 0) / 1200);
+async function expeditions(s) {
+  const o = { name: 'Ranger' };
+  G.exped = G.exped || [];
+  const back = G.exped.filter((e) => expDay() >= e.start + e.days);
+  for (const e of back) {
+    const E = EXPEDITIONS.find((x) => x.id === e.dest); const m = e.mon;
+    const [item, n] = E.loot[Math.floor(Math.random() * E.loot.length)];
+    const up = Math.min(100, m.lv + E.days) - m.lv; if (up > 0) { m.lv += up; m.exp = Mon.expAt(DATA.species[m.sp].growth, m.lv); m.hp = Mon.maxHp(m); } G.box.push(m);
+    await s.say([`${Mon.name(m)} is back from the ${E.name}! It found ${n} ${DATA.items[item].name}${up > 0 ? `, and grew ${up} level${up > 1 ? 's' : ''}` : ''}.`], o);
+    await s.give(item, n);
+  }
+  G.exped = G.exped.filter((e) => !back.includes(e));
+  const away = G.exped.map((e) => `${Mon.name(e.mon)} (back in ${Math.max(0, e.start + e.days - expDay())} day${e.start + e.days - expDay() === 1 ? '' : 's'})`);
+  if (away.length) await s.say([`Out exploring: ${away.join(', ')}.`], o);
+  if (G.exped.length >= 3) return s.say(['Three Wildmon are already out. That is the most the Rangers can look after at once.'], o);
+  if (!G.box.length) return s.say(['Expeditions are for Wildmon resting in storage. You have none in storage right now.'], o);
+  if (await s.ask('Send a Wildmon from storage on an expedition?', ['Yes', 'No'], o) !== 0) return;
+  const list = G.box.slice(0, 20);
+  const i = await UI.menu(list.map((m) => `${Mon.name(m)}  Lv ${m.lv}`).concat(['Cancel']), { cls: 'choice', cancel: list.length });
+  if (i < 0 || i >= list.length) return;
+  const d = await s.ask('Where to?', EXPEDITIONS.map((E) => `${E.name} (${E.days} day${E.days > 1 ? 's' : ''})`).concat(['Cancel']), o);
+  if (d >= EXPEDITIONS.length) return;
+  const m = list[i]; G.box.splice(G.box.indexOf(m), 1);
+  G.exped.push({ mon: m, dest: EXPEDITIONS[d].id, start: expDay(), days: EXPEDITIONS[d].days }); Game.dirty = true;
+  await s.say([`${Mon.name(m)} heads off to the ${EXPEDITIONS[d].name}. Come back in ${EXPEDITIONS[d].days} game day${EXPEDITIONS[d].days > 1 ? 's' : ''}!`], o);
+}
+DATA.maps.ranger_station.npcs.push({ id: 'expranger', x: 1, y: 3, dir: 'right', look: 'ranger', name: 'Expedition Ranger', script: 'bhExpedition' });
+DATA.maps.salt_hut.npcs.push({ id: 'expranger2', x: 1, y: 3, dir: 'right', look: 'ranger', name: 'Expedition Ranger', script: 'bhExpedition' });
+
+/* ---------- Town jobs ---------- */
+const JOBS = {
+  forge: { map: 'shalebrook', at: [5, 12], need: 'fire', title: 'The forge has gone cold', ask: 'The smith\'s forge has gone out, and the quarry needs new picks by morning. A Fire-type could light it.', done: 'lights the forge with a burst of flame! The smith cheers.', reward: ['great_lantern', 5], art: 'forge' },
+  bins: { map: 'vantage', at: [3, 22], need: 'water', title: 'A bin fire', ask: 'Somebody dropped a hot coal in this bin and now it is smoking. A Water-type could put it out.', done: 'douses the bin with a splash! The smoke clears.', reward: ['hyper_potion', 3], art: 'smoke' },
+  letter: { map: 'coralport', at: [26, 17], need: 'air', title: 'A letter for Saltreach', ask: 'A note on the post: "Urgent letter for Saltreach Key, ferry is late." An Air-type could fly it over.', done: 'takes the letter and flies off over the sea. It comes back with a thank-you note and a shell.', reward: ['full_heal', 3], art: 'post' },
+  tree: { map: 'furrow_lane', at: [20, 2], need: 'strong', title: 'A fallen tree', ask: 'A tree has come down across the old orchard path. A strong Wildmon (Attack 100 or more) could shift it.', done: 'heaves the tree out of the way! Behind it, an old orchard full of fruit.', reward: ['rare_candy', 2], art: 'log' },
+};
+for (const [id, J] of Object.entries(JOBS)) {
+  const m = DATA.maps[J.map]; if (!m) continue;
+  m.props.push({ type: 'job', job: id, x: J.at[0], y: J.at[1], script: 'bhJob', cond: (g) => !g.flags['job_' + id] });
+}
+{
+  const origDP = drawProp;
+  drawProp = function (ctx, pr, sx, sy, t) {
+    if (pr.type === 'job') {
+      const p = pen(ctx); const art = JOBS[pr.job].art; const k = Math.floor(t * 3) % 2;
+      p.r('rgba(0,0,0,0.2)', sx + 1, sy + 12, 14, 3);
+      if (art === 'forge') { p.r('#4a4a54', sx + 1, sy + 2, 14, 12); p.r('#2a2a30', sx + 4, sy + 5, 8, 6); p.r('#6a6a74', sx + 1, sy + 1, 14, 2); return; }
+      if (art === 'smoke') { p.r('#5a6a5a', sx + 3, sy + 3, 10, 11); p.r('#3a4a3a', sx + 3, sy + 3, 10, 2); p.r('rgba(160,160,160,0.7)', sx + 5 + k, sy - 6, 5, 6); p.r('rgba(200,200,200,0.5)', sx + 4 - k, sy - 12, 6, 5); p.r('#e86a2a', sx + 6, sy + 2, 3, 2); return; }
+      if (art === 'post') { p.r('#6a4a2a', sx + 7, sy + 2, 2, 12); p.r('#c83a3a', sx + 3, sy - 4, 10, 7); p.r('#f4ecd8', sx + 5, sy - 2, 6, 3); return; }
+      if (art === 'log') { p.r('#5a3a20', sx - 2, sy + 5, 20, 7); p.r('#7a5230', sx - 2, sy + 5, 20, 2); p.r('#c89a60', sx + 15, sy + 6, 3, 5); p.r('#4a8a3a', sx + 2, sy + 1, 5, 4); return; }
+    }
+    return origDP(ctx, pr, sx, sy, t);
+  };
+}
+
+/* ---------- The bike ---------- */
+DATA.items.bike = { name: 'Bike', pocket: 'key', use: 'bike', desc: 'A red Brightholm bike. Use it to ride: the fastest way along paths and roads outdoors.' };
+const BIKE_TILES = new Set(['path', 'asphalt', 'pavement', 'crossing', 'concrete', 'dock', 'sand']);
+UI.useKey = Object.assign(UI.useKey || {}, {
+  async bike() {
+    if (!World.map.outdoor) return UI.dialog('There is no room to ride a bike in here.');
+    G.bike = !G.bike; if (G.bike) G.skate = false; Game.dirty = true; Sound.sfx(G.bike ? 'jump' : 'confirm');
+    await UI.dialog(G.bike ? `${G.name} got on the Bike! It is fastest on paths and roads.` : `${G.name} got off the Bike.`);
+  },
+});
+{
+  const sm = Entity.prototype.startMove;
+  Entity.prototype.startMove = function (dir, tx, ty, speed = 1, jump = false) {
+    if (Game.player === this && G && G.bike && World.map && !jump) {
+      if (!World.map.outdoor) G.bike = false;
+      else { const t = World.tile(tx, ty); speed = t && BIKE_TILES.has(t.t) ? 3.6 : 2.2; }
+    }
+    return sm.call(this, dir, tx, ty, speed, jump);
+  };
+  const dw = Game.drawWorld.bind(Game);
+  Game.drawWorld = function (ctx) {
+    dw(ctx);
+    if (G && G.bike && World.map && World.map.outdoor && this.player) {
+      const [cx, cy] = this.camera(); const p = this.player; const x = Math.round(p.drawX - cx), y = Math.round(p.drawY - cy); const P = pen(ctx);
+      if (p.dir === 'left' || p.dir === 'right') { P.r('#1a1a1a', x, y + 11, 5, 5); P.r('#1a1a1a', x + 11, y + 11, 5, 5); P.r('#c83a3a', x + 3, y + 12, 10, 2); }
+      else { P.r('#1a1a1a', x + 7, y + 9, 2, 7); P.r('#c83a3a', x + 5, y + 11, 6, 2); }
+    }
+  };
+}
+DATA.maps.vantage_furniture.npcs.push({ id: 'bikeshop', x: 8, y: 3, dir: 'left', look: 'skater', name: 'Bike Mechanic', script: 'bhBikeShop' });
+
+/* ---------- Scripts ---------- */
+Object.assign(DATA.scripts, {
+  async bhTrade(s, n) {
+    const T = TRADES.find((x) => x.id === n.def.trade); const o = { name: T.who };
+    if (s.flag(T.id)) return s.say([`${T.nick} is very happy with you. And I love my ${DATA.species[T.want].name}!`], o);
+    const c = await s.ask(`${T.say} (Trade a ${DATA.species[T.want].name} for ${T.nick} the ${DATA.species[T.give].name}?)`, ['Trade', 'No thanks'], o);
+    if (c !== 0) return s.say('Oh well. Come back if you change your mind!', o);
+    const i = await pickParty(`Which ${DATA.species[T.want].name} will you trade?`);
+    if (i < 0) return;
+    if (G.party[i].sp !== T.want) return s.say([`That is not a ${DATA.species[T.want].name}!`], o);
+    if (G.party.length === 1) return s.say(['You cannot trade away your only Wildmon!'], o);
+    const old = G.party[i];
+    const m = Mon.create(T.give, Math.max(T.lv, old.lv), { lustre: !!T.lustre, ti: 0 }); m.nick = T.nick; m.met = { map: `Traded with ${T.who}`, lv: m.lv, at: Date.now() }; m.hp = Mon.maxHp(m);
+    G.party[i] = m; s.set(T.id); const d = G.dex[T.give] || (G.dex[T.give] = {}); d.seen = 1; d.caught = 1; Game.dirty = true;
+    Sound.sfx('lustre');
+    await s.say([`You sent ${Mon.name(old)} to ${T.who}...`, `...and ${T.nick} the ${DATA.species[T.give].name} came to you!`], { sign: true });
+    Game.achieve('trader');
+    await s.say(['Look after each other!'], o);
+  },
+  bhExpedition: (s) => expeditions(s),
+  async bhJob(s, pr) {
+    const J = JOBS[pr.job];
+    await s.say([J.title + '.', J.ask], { sign: true });
+    const fits = (m) => m.hp > 0 && (J.need === 'strong' ? Mon.stats(m).atk >= 100 : DATA.species[m.sp].types.includes(J.need));
+    const m = G.party.find(fits);
+    if (!m) return s.say([J.need === 'strong' ? 'None of your team is strong enough. You need Attack of 100 or more.' : `None of your team is a ${J.need[0].toUpperCase() + J.need.slice(1)} type.`]);
+    if (await s.ask(`Ask ${Mon.name(m)} to help?`, ['Yes', 'No']) !== 0) return;
+    s.set('job_' + pr.job); World.props = World.props.filter((p) => p !== pr); Sound.sfx('confirm');
+    await s.say([`${Mon.name(m)} ${J.done}`], { sign: true });
+    m.bond = Math.min(255, (m.bond || 0) + 10);
+    await s.give(J.reward[0], J.reward[1]);
+  },
+  async bhBikeShop(s) {
+    const o = { name: 'Bike Mechanic' };
+    if (s.has('bike')) return s.say(['How is the bike riding? Paths and roads, that is where she flies.'], o);
+    const c = await s.ask('A brand-new Brightholm bike! Fastest thing on two wheels. 8,000 Cr. Want one?', ['Buy it!', 'No thanks'], o);
+    if (c !== 0) return;
+    if (G.money < 8000) return s.say('Come back with 8,000 Cr!', o);
+    G.money -= 8000; await s.give('bike');
+    await s.say(['Use it from your Bag to hop on. It goes fastest on paths and roads.'], o);
+  },
+});
+
+'use strict';
+/* =====================================================================
+   BRIGHTHOLM — mini-games (Frontier Trials) and world events
+   Lantern Lights, Lantern Cards, the Coralport Fishing Contest,
+   the Starfall Bike Race; meteor showers, storms and Market Day.
+   ===================================================================== */
+
+/* ---------- shared overlay helper ---------- */
+const FunUI = {
+  open(title, hint) {
+    const p = UI.panel('fun', title);
+    p.el.style.cssText += ';display:flex;flex-direction:column;align-items:center;gap:6px';
+    const board = h('div', 'funboard'); const foot = h('div', 'box desc', hint || '');
+    board.style.cssText = 'display:grid;gap:3px;margin:6px auto;touch-action:manipulation';
+    p.el.append(board, foot);
+    return { p, board, foot };
+  },
+  cell(size) {
+    const c = h('div', 'funcell');
+    c.style.cssText = `width:${size}px;height:${size}px;border-radius:4px;display:flex;align-items:center;justify-content:center;cursor:pointer;border:2px solid #22263a;box-sizing:border-box;font-size:9px;text-align:center`;
+    return c;
+  },
+};
+
+/* ---------- 1. Lantern Lights (switch every lantern on) ---------- */
+DATA.trials.lights = { name: 'Lantern Lights', where: 'Starfall', host: 'Astronomer Vega', gold: 0, silver: 6,
+  desc: 'Light all 25 lanterns. Each press flips a lantern and its four neighbours. Match the fewest presses for Gold.',
+  rewards: [null, ['great_lantern', 3], ['full_heal', 3], ['rare_candy', 1]] };
+function lanternLights() {
+  return new Promise((res) => {
+    const N = 5; const on = Array(N * N).fill(true); const k = 6 + Math.floor(Math.random() * 3);
+    const flip = (i) => { const x = i % N, y = Math.floor(i / N); for (const [dx, dy] of [[0, 0], [1, 0], [-1, 0], [0, 1], [0, -1]]) { const a = x + dx, b = y + dy; if (a >= 0 && b >= 0 && a < N && b < N) on[b * N + a] = !on[b * N + a]; } };
+    const used = new Set(); while (used.size < k) used.add(Math.floor(Math.random() * N * N));
+    used.forEach(flip);
+    const { p, board, foot } = FunUI.open('Lantern Lights');
+    board.style.gridTemplateColumns = `repeat(${N}, 34px)`;
+    let sel = 12, presses = 0; const cells = [];
+    const draw = () => {
+      cells.forEach((c, i) => { c.style.background = on[i] ? 'radial-gradient(#fff4a0,#e8b830 60%,#8a5a10)' : '#2e3246'; c.style.outline = i === sel ? '2px solid #fff' : 'none'; });
+      foot.textContent = `Presses: ${presses}   Gold: ${k} or fewer   Silver: ${k + DATA.trials.lights.silver} or fewer.   B: give up`;
+    };
+    const press = (i) => {
+      flip(i); presses++; Sound.sfx('select'); draw();
+      if (on.every(Boolean)) { Sound.sfx('confirm'); setTimeout(() => { p.finish(); res({ presses, par: k }); }, 400); }
+    };
+    for (let i = 0; i < N * N; i++) { const c = FunUI.cell(34); c.addEventListener('pointerdown', (e) => { e.preventDefault(); sel = i; press(i); }); cells.push(c); board.appendChild(c); }
+    p.input = (a) => {
+      if (a === 'left' && sel % N) sel--; else if (a === 'right' && sel % N < N - 1) sel++;
+      else if (a === 'up' && sel >= N) sel -= N; else if (a === 'down' && sel < N * (N - 1)) sel += N;
+      else if (a === 'a') return press(sel);
+      else if (a === 'b' || a === 'menu') { p.finish(); return res(null); }
+      draw();
+    };
+    p.done.then(() => res(null));
+    draw();
+  });
+}
+
+/* ---------- 2. Lantern Cards (memory pairs) ---------- */
+DATA.trials.cards = { name: 'Lantern Cards', where: 'Coralport', host: 'Card Sharp Marlo', gold: 12, silver: 18,
+  desc: 'Turn over two cards at a time and find all eight pairs of Wildmon. Fewer turns earn a better trophy.',
+  rewards: [null, ['super_potion', 3], ['hyper_potion', 2], ['rare_candy', 1]] };
+function lanternCards() {
+  return new Promise((res) => {
+    const pool = bhRegionalDex().slice(); const pick = [];
+    while (pick.length < 8) { const sp = pool.splice(Math.floor(Math.random() * pool.length), 1)[0]; if (DATA.species[sp]) pick.push(sp); }
+    const deck = pick.concat(pick).map((sp) => ({ sp, up: false, done: false }));
+    for (let i = deck.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [deck[i], deck[j]] = [deck[j], deck[i]]; }
+    const { p, board, foot } = FunUI.open('Lantern Cards');
+    board.style.gridTemplateColumns = 'repeat(4, 44px)';
+    let sel = 0, turns = 0, open = [], lock = false; const cells = [];
+    const art = (sp) => { const cv = makeCanvas(48, 48); cv.getContext('2d').drawImage(MonArt.get(sp, {}), 0, 0); cv.style.cssText = 'width:40px;height:40px;image-rendering:pixelated'; return cv; };
+    const draw = () => {
+      cells.forEach((c, i) => {
+        const d = deck[i]; c.innerHTML = '';
+        if (d.up || d.done) { c.style.background = d.done ? '#3a5a3a' : '#f4ecd8'; c.appendChild(art(d.sp)); }
+        else { c.style.background = 'repeating-linear-gradient(45deg,#c83a3a,#c83a3a 4px,#e8b830 4px,#e8b830 8px)'; }
+        c.style.outline = i === sel ? '2px solid #fff' : 'none';
+      });
+      foot.textContent = `Turns: ${turns}   Gold: ${DATA.trials.cards.gold} or fewer.   B: give up`;
+    };
+    const flip = (i) => {
+      const d = deck[i]; if (lock || d.up || d.done) return;
+      d.up = true; open.push(i); Sound.sfx('select');
+      if (open.length === 2) {
+        turns++; lock = true; const [a, b] = open;
+        const same = deck[a].sp === deck[b].sp;
+        setTimeout(() => {
+          if (same) { deck[a].done = deck[b].done = true; Sound.sfx('item'); } else { deck[a].up = deck[b].up = false; }
+          open = []; lock = false; draw();
+          if (deck.every((x) => x.done)) setTimeout(() => { p.finish(); res({ turns }); }, 400);
+        }, same ? 300 : 800);
+      }
+      draw();
+    };
+    for (let i = 0; i < 16; i++) { const c = FunUI.cell(44); c.addEventListener('pointerdown', (e) => { e.preventDefault(); sel = i; flip(i); }); cells.push(c); board.appendChild(c); }
+    p.input = (a) => {
+      if (a === 'left' && sel % 4) sel--; else if (a === 'right' && sel % 4 < 3) sel++;
+      else if (a === 'up' && sel >= 4) sel -= 4; else if (a === 'down' && sel < 12) sel += 4;
+      else if (a === 'a') return flip(sel);
+      else if (a === 'b' || a === 'menu') { p.finish(); return res(null); }
+      draw();
+    };
+    p.done.then(() => res(null));
+    draw();
+  });
+}
+
+/* ---------- 3. Coralport Fishing Contest (timing) ---------- */
+DATA.trials.fishing = { name: 'Coralport Fishing Contest', where: 'Coralport', host: 'Old Salt Bryn', gold: 5, silver: 4,
+  desc: 'Five casts. Press A when the float is in the green to hook a fish. Land all five for Gold.',
+  rewards: [null, ['dusk_lantern', 3], ['seed_frostkale', 3], ['rare_candy', 1]] };
+function fishingContest() {
+  return new Promise((res) => {
+    const { p, board, foot } = FunUI.open('Fishing Contest');
+    board.style.cssText += ';display:block;width:240px';
+    const bar = h('div'); bar.style.cssText = 'position:relative;width:240px;height:22px;background:#2a5a8a;border:2px solid #22263a;border-radius:4px;overflow:hidden';
+    const zone = h('div'); zone.style.cssText = 'position:absolute;top:0;height:100%;background:#4aaa4a';
+    const flt = h('div'); flt.style.cssText = 'position:absolute;top:2px;width:6px;height:14px;background:#f4ecd8;border:1px solid #c83a3a;border-radius:3px';
+    const log = h('div'); log.style.cssText = 'margin-top:6px;min-height:16px;text-align:center';
+    bar.append(zone, flt); board.append(bar, log);
+    let cast = 0, hits = 0, z0 = 0, zw = 0, speed = 0, t0 = 0, raf = 0, wait = false;
+    const next = () => {
+      if (cast >= 5) { cancelAnimationFrame(raf); setTimeout(() => { p.finish(); res({ hits }); }, 500); return; }
+      zw = 46 - cast * 6; z0 = 10 + Math.random() * (220 - zw); speed = 2.2 + cast * 0.5 + Math.random() * 0.6; t0 = performance.now(); wait = false;
+      zone.style.left = z0 + 'px'; zone.style.width = zw + 'px';
+      foot.textContent = `Cast ${cast + 1} of 5   Fish landed: ${hits}   A: reel in`;
+    };
+    const pos = () => (Math.sin((performance.now() - t0) / 1000 * speed) * 0.5 + 0.5) * 234;
+    const loop = () => { flt.style.left = pos() + 'px'; raf = requestAnimationFrame(loop); };
+    const reel = () => {
+      if (wait || cast >= 5) return; wait = true;
+      const x = pos() + 3; const ok = x >= z0 && x <= z0 + zw; cast++;
+      if (ok) { hits++; Sound.sfx('item'); const sp = ['goldkoi', 'skimray', 'ribbonel', 'pincrab'][Math.floor(Math.random() * 4)]; log.textContent = `Hooked a ${DATA.species[sp] ? DATA.species[sp].name : 'fish'}!`; }
+      else { Sound.sfx('cancel'); log.textContent = 'It got away...'; }
+      setTimeout(next, 700);
+    };
+    bar.addEventListener('pointerdown', (e) => { e.preventDefault(); reel(); });
+    p.input = (a) => { if (a === 'a') reel(); else if (a === 'b' || a === 'menu') { cancelAnimationFrame(raf); p.finish(); res(null); } };
+    p.done.then(() => { cancelAnimationFrame(raf); res(null); });
+    next(); loop();
+  });
+}
+
+/* ---------- 4. Starfall Bike Race (flags on Starfall Road) ---------- */
+DATA.trials.race = { name: 'Starfall Bike Race', where: 'Starfall Road', host: 'Racer Pia', gold: 16, silver: 24,
+  desc: 'Ride through all five flags on Starfall Road as fast as you can. You need a Bike.',
+  rewards: [null, ['great_lantern', 3], ['max_potion', 2], ['rare_candy', 1]] };
+const RACE_FLAGS = [[6, 6], [13, 5], [21, 6], [27, 8], [10, 8]];
+{
+  const dw = Game.drawWorld.bind(Game);
+  Game.drawWorld = function (ctx) {
+    dw(ctx);
+    if (World.id === 'starfall_road' && Trials.run && Trials.run.id === 'race') {
+      const [cx, cy] = this.camera(); const P = pen(ctx); const wave = Math.floor(this.t * 4) % 2;
+      RACE_FLAGS.forEach(([fx, fy], i) => {
+        if (Trials.run.got.has(i)) return;
+        const x = fx * TS - cx, y = fy * TS - cy;
+        P.r('#5a4a3a', x + 7, y - 2, 2, 16); P.r('#e8b830', x + 9, y - 2 + wave, 6, 5); P.r('#c83a3a', x + 9, y + 1 + wave, 6, 1);
+      });
+    }
+    // meteor shower streaks
+    if (eventOn('meteor') && World.map && World.map.region === 'starfall' && World.map.outdoor && Game.phase().night) {
+      const P = pen(ctx); const t = this.t;
+      for (let i = 0; i < 4; i++) {
+        const ph = (t * 0.6 + i * 0.37) % 1; const sx = ((i * 97 + Math.floor(t * 0.6 + i * 0.37) * 53) % 240); const x = sx + ph * 60, y = 6 + ph * 50 + i * 8;
+        for (let j = 0; j < 8; j++) P.r(`rgba(255,244,200,${0.9 - j * 0.11})`, Math.round(x - j * 2), Math.round(y - j), 2, 1);
+      }
+    }
+  };
+  const oa = Game.onArrive.bind(Game);
+  Game.onArrive = function () {
+    const p = this.player;
+    if (World.id === 'starfall_road' && Trials.run && Trials.run.id === 'race') {
+      RACE_FLAGS.forEach(([fx, fy], i) => { if (fx === p.x && fy === p.y && !Trials.run.got.has(i)) { Trials.run.got.add(i); Sound.sfx('item'); } });
+      if (Trials.run.got.size === RACE_FLAGS.length && !Trials.run.done) { Trials.run.done = performance.now(); Script.run((s) => DATA.scripts.bhRaceDone(s)); }
+    }
+    return oa();
+  };
+  const load0 = World.load.bind(World);
+  World.load = function (id) { load0(id); if (id !== 'starfall_road' && Trials.run && Trials.run.id === 'race') { Trials.run = null; clearInterval(Trials.tick); UI.trialHud(null); } };
+}
+
+/* ---------- world events, by game day ---------- */
+const EVENTS = {
+  meteor: { name: 'Meteor Shower', every: 5, at: 2, where: 'Starfall', text: 'A meteor shower lights up the Starfall sky tonight! Comette are falling with the stars, and lustrous Wildmon are easier to spot.' },
+  storm: { name: 'Sea Storm', every: 7, at: 4, where: 'the Sunward Keys', text: 'A storm is rolling over the Sunward Keys. Fogling drift in on the spray, and the rain never stops.' },
+  market: { name: 'Market Day', every: 4, at: 1, where: 'Stockridge', text: 'It is Market Day in Stockridge! A travelling trader has set up stall by the paddock with rare seeds and supplies.' },
+};
+function eventOn(id) { const E = EVENTS[id]; return !!(G && E && gameDay() % E.every === E.at); }
+{
+  const enc0 = World.encounter.bind(World);
+  World.encounter = function (kind) {
+    const night = Game.phase().night; const reg = this.map && this.map.region;
+    if (kind === 'grass' && eventOn('meteor') && night && reg === 'starfall' && Math.random() < 0.35) {
+      const lv = { starfall_road: 37, lumen_climb: 51 }[this.id] || 40;
+      return Mon.create('comette', lv + Math.floor(Math.random() * 3), { lustreOdds: 1 / 256, mastery: G.mastery });
+    }
+    if (kind === 'grass' && eventOn('storm') && reg === 'sunward' && Math.random() < 0.3) return Mon.create('fogling', 28 + Math.floor(Math.random() * 4), { mastery: G.mastery });
+    const m = enc0(kind);
+    if (m && eventOn('meteor') && night && reg === 'starfall' && !m.lustre && Math.random() < 3 / 1024) m.lustre = true;
+    return m;
+  };
+  const ld = World.load.bind(World);
+  World.load = function (id) {
+    ld(id);
+    const m = this.map; if (!m || !G) return;
+    if (eventOn('storm') && m.region === 'sunward' && m.outdoor) this.weather = 'rain';
+    const d = gameDay(); G.evSeen = G.evSeen || {};
+    for (const [eid, E] of Object.entries(EVENTS)) {
+      const here = (eid === 'meteor' && m.region === 'starfall') || (eid === 'storm' && m.region === 'sunward') || (eid === 'market' && id === 'stockridge');
+      if (here && m.outdoor && eventOn(eid) && G.evSeen[eid] !== d) { G.evSeen[eid] = d; setTimeout(() => UI.toast(E.name, E.text.split('!')[0] + '!', true), 600); }
+    }
+  };
+}
+const MARKET_STOCK = ['seed_pumpkin', 'seed_frostkale', 'seed_strawberry', 'seed_sunflower', 'great_lantern', 'dusk_lantern', 'hyper_potion', 'full_heal', 'revive'].filter((k) => DATA.items[k]);
+DATA.maps.stockridge.npcs.push({ id: 'market_trader', x: 14, y: 10, dir: 'down', look: 'villager', name: 'Travelling Trader', script: 'bhMarket', cond: () => eventOn('market') });
+DATA.maps.bh_bedroom.tileScripts['2,1'] = 'bhAlmanac';
+
+/* ---------- hosts ---------- */
+DATA.maps.star_house1.npcs.push({ id: 'host_lights', x: 5, y: 3, dir: 'down', look: 'astro', name: 'Astronomer Vega', script: 'bhLights' });
+DATA.maps.coral_house2.npcs.push({ id: 'host_cards', x: 5, y: 3, dir: 'down', look: 'gentleman', name: 'Card Sharp Marlo', script: 'bhCards' });
+DATA.maps.coralport.npcs.push({ id: 'host_fish', x: 2, y: 6, dir: 'left', look: 'fisher', name: 'Old Salt Bryn', script: 'bhFishing' });
+DATA.maps.starfall_road.npcs.push({ id: 'host_race', x: 1, y: 9, dir: 'right', look: 'skater2', name: 'Racer Pia', script: 'bhRace' });
+
+const trialAsk = async (s, id, intro) => {
+  const tr = DATA.trials[id]; const best = Trials.best(id); G.flags['trial_seen_' + id] = 1;
+  return s.ask(`${intro}${best ? ` Your best: ${MEDALS[best].name}.` : ''}`, ['Play!', 'Not now'], { name: tr.host });
+};
+Object.assign(DATA.scripts, {
+  async bhLights(s) {
+    const o = { name: 'Astronomer Vega' };
+    if (await trialAsk(s, 'lights', 'Lantern Lights! Every press flips a lantern and its four neighbours. Light all 25. Match the fewest presses for Gold.') !== 0) return s.say('The lanterns will wait. So will the stars.', o);
+    const r = await lanternLights(); if (!r) return s.say('Tricky, is it not? Come back any time.', o);
+    await s.say([`All lit, in ${r.presses} presses! The fewest it could be done in was ${r.par}.`], o);
+    await Trials.award(s, 'lights', r.presses <= r.par ? 3 : r.presses <= r.par + DATA.trials.lights.silver ? 2 : 1, 'Astronomer Vega');
+  },
+  async bhCards(s) {
+    const o = { name: 'Card Sharp Marlo' };
+    if (await trialAsk(s, 'cards', `Lantern Cards! Find all eight pairs of Wildmon. Gold in ${DATA.trials.cards.gold} turns or fewer, Silver in ${DATA.trials.cards.silver}.`) !== 0) return s.say('The deck is always shuffled and ready.', o);
+    const r = await lanternCards(); if (!r) return s.say('Folding? A wise player knows when. Come back soon.', o);
+    await s.say([`Every pair, in ${r.turns} turns!`], o);
+    await Trials.award(s, 'cards', r.turns <= DATA.trials.cards.gold ? 3 : r.turns <= DATA.trials.cards.silver ? 2 : 1, 'Card Sharp Marlo');
+  },
+  async bhFishing(s) {
+    const o = { name: 'Old Salt Bryn' };
+    if (await trialAsk(s, 'fishing', 'The Coralport Fishing Contest! Five casts. Press A when the float is in the green. Land all five for Gold.') !== 0) return s.say('The fish are not going anywhere. Well, they are, but more will come.', o);
+    const r = await fishingContest(); if (!r) return s.say('Reeled in early, eh? Come back when the tide turns.', o);
+    await s.say([`${r.hits} fish out of five!`], o);
+    await Trials.award(s, 'fishing', r.hits >= 5 ? 3 : r.hits >= DATA.trials.fishing.silver ? 2 : 1, 'Old Salt Bryn');
+  },
+  async bhRace(s) {
+    const o = { name: 'Racer Pia' }; G.flags.trial_seen_race = 1; const tr = DATA.trials.race;
+    if (!s.has('bike')) return s.say(['I run the Starfall Bike Race. Five flags along this road, beat the clock.', 'You need a Bike. The mechanic in the Vantage furniture shop sells them.'], o);
+    if (await trialAsk(s, 'race', `The Starfall Bike Race! Ride through all five flags. Gold under ${tr.gold} seconds, Silver under ${tr.silver}.`) !== 0) return s.say('The road is always open.', o);
+    G.bike = true; G.skate = false; Trials.run = { id: 'race', got: new Set(), t0: performance.now() };
+    await s.say(['Flags are out. Three, two, one... GO!'], o);
+    Trials.run.t0 = performance.now();
+    clearInterval(Trials.tick); Trials.tick = setInterval(() => {
+      if (!Trials.run || Trials.run.id !== 'race') { clearInterval(Trials.tick); UI.trialHud(null); return; }
+      const t = ((Trials.run.done || performance.now()) - Trials.run.t0) / 1000;
+      UI.trialHud(`Flags: ${Trials.run.got.size}/5   Time: ${t.toFixed(1)}s   Gold: ${tr.gold}s`);
+    }, 100);
+  },
+  async bhRaceDone(s) {
+    const run = Trials.run; const t = (run.done - run.t0) / 1000; const tr = DATA.trials.race;
+    clearInterval(Trials.tick); Trials.run = null; UI.trialHud(null);
+    await s.say([`All five flags! ${t.toFixed(1)} seconds!`], { name: 'Racer Pia' });
+    await Trials.award(s, 'race', t <= tr.gold ? 3 : t <= tr.silver ? 2 : 1, 'Racer Pia');
+  },
+  async bhMarket(s) {
+    return UI.shop(MARKET_STOCK, 'Market Day prices! Rare seeds from over the hills. Grab them while I am in town.');
+  },
+  async bhAlmanac(s) {
+    const d = gameDay(); const lines = [`The Brightholm Almanac. Today is game day ${d + 1}.`];
+    for (const [id, E] of Object.entries(EVENTS)) {
+      const wait = (E.at - (d % E.every) + E.every) % E.every;
+      lines.push(wait === 0 ? `${E.name} in ${E.where}: TODAY!` : `${E.name} in ${E.where}: in ${wait} day${wait > 1 ? 's' : ''}.`);
+    }
+    if (eventOn('meteor')) lines.push(EVENTS.meteor.text);
+    await s.say(lines, { sign: true });
+  },
+});
+
+'use strict';
+/* =====================================================================
    APP SHELL — offline caching and the install prompt when hosted
    ===================================================================== */
 const AppShell = {
@@ -20820,8 +22015,10 @@ AppShell.init();
    BOOT
    ===================================================================== */
 window.MQ = { Game, World, UI, Save, Settings, DATA, S, Input, Script, BattleScene, BattleEngine, Mon, MonArt, LanternStorage, get G() { return G; }, set G(v) { G = v; } };
-if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', () => Game.boot());
-else Game.boot();
+if (!/[?&]guide=1/.test(location.search)) {
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', () => Game.boot());
+  else Game.boot();
+}
 
 </script>
 </body>
