@@ -736,7 +736,7 @@ const World = {
     this.items = (m.items || []).filter((it) => !G.flags[`item_${id}_${it.id}`]).map((it) => ({ ...it }));
     this.npcs = (m.npcs || []).filter((n) => !n.cond || n.cond(G)).map((n) => new NPC(n));
     this.weather = 'clear';
-    if (m.weather) { const slot = Math.floor(Date.now() / (1000 * 60 * 20)); this.weather = QS.get('weather') || m.weather[slot % m.weather.length]; }
+    if (m.weather) { const slot = Math.floor((((G && G.playtime) || 0) + 400) / 400); this.weather = QS.get('weather') || m.weather[slot % m.weather.length]; }
     this.ambient = [];
     if (m.outdoor) {
       const R = mulberry(Date.now() & 0xffff);
@@ -903,7 +903,7 @@ const Game = {
   },
 
   /* ---- day / night ---- */
-  hour() { const o = QS.get('hour'); if (o !== null) return +o; const d = new Date(); return d.getHours() + d.getMinutes() / 60; },
+  hour() { const o = QS.get('hour'); if (o !== null) return +o; return ((((G && G.playtime) || 0) / 1200) * 24 + 8) % 24; },
   phase() {
     const h = this.hour();
     const keys = [[0, '#4a588f', 1], [4.5, '#4a588f', 1], [6, '#c0b4dc', 0.4], [7.5, '#ffe8d4', 0], [9, '#ffffff', 0], [16.5, '#ffffff', 0], [18, '#ffc890', 0.25], [19.3, '#9a86c4', 0.75], [20.5, '#4a588f', 1], [24, '#4a588f', 1]];

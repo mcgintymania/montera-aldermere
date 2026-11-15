@@ -55,10 +55,10 @@ const Follow = {
     e.dir = p.x < e.x ? 'left' : p.x > e.x ? 'right' : p.y < e.y ? 'up' : 'down';
     Sound.sfx('confirm');
     const now = Date.now();
-    if (!G.partnerT || now - G.partnerT > 15 * 60 * 1000) { G.partnerT = now; m.bond = Math.min(255, (m.bond || 0) + 3); Game.dirty = true; this.heart = 1; }
+    if (!G.partnerT || G.partnerT > G.playtime || G.playtime - G.partnerT > 600) { G.partnerT = G.playtime; m.bond = Math.min(255, (m.bond || 0) + 3); Game.dirty = true; this.heart = 1; }
     await s.say(this.line(m));
-    if ((!G.findT || now - G.findT > 20 * 60 * 1000) && Math.random() < 0.25) {
-      G.findT = now; Game.dirty = true;
+    if ((!G.findT || G.findT > G.playtime || G.playtime - G.findT > 900) && Math.random() < 0.25) {
+      G.findT = G.playtime; Game.dirty = true;
       const r = Math.random(); const id = r < 0.5 ? 'potion' : r < 0.85 ? 'lantern' : 'super_potion';
       await s.say(`Oh? ${Mon.name(m)} is holding something in its mouth...`);
       await s.give(id);

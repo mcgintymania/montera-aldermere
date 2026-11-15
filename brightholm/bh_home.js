@@ -4,16 +4,18 @@
    Homeward Furnishings and decorating your bedroom
    ===================================================================== */
 
-/* ---------- Seasons: each lasts two hours of play ---------- */
+/* ---------- The game clock: a day is 20 minutes of play, a season is 6 days ---------- */
+const DAY_LEN = 1200, GAME_HOUR = DAY_LEN / 24;
 const Season = {
-  LEN: 7200,
+  LEN: DAY_LEN * 6,
   NAMES: ['Spring', 'Summer', 'Autumn', 'Winter'],
   BLURB: ['Blossom on the hedges and fresh shoots in every field.', 'Long, bright days. The sunflowers are taller than you.', 'Golden leaves and pumpkin fields. The harvest fair is coming.', 'Frost on the fences and snow on the hills. Wrap up warm!'],
-  idx() { return G ? Math.floor((G.playtime || 0) / this.LEN) % 4 : 0; },
+  idx() { return Math.floor((this.day() - 1) / 6) % 4; },
   name(i = this.idx()) { return this.NAMES[i]; },
-  year() { return G ? Math.floor((G.playtime || 0) / (this.LEN * 4)) + 1 : 1; },
-  left() { return G ? this.LEN - ((G.playtime || 0) % this.LEN) : this.LEN; },
-  day() { return G ? Math.floor((Date.now() - (G.created || Date.now())) / 86400000) + 1 : 1; },
+  year() { return Math.floor((this.day() - 1) / 24) + 1; },
+  day() { return G ? Math.floor(((G.playtime || 0) + DAY_LEN / 3) / DAY_LEN) + 1 : 1; },
+  dayOfSeason() { return ((this.day() - 1) % 6) + 1; },
+  clock() { const h = Game.hour(), hh = Math.floor(h), mm = Math.floor((h - hh) * 6) * 10; return `${hh}:${String(mm).padStart(2, '0')}`; },
 };
 {
   const up = Game.update.bind(Game);
@@ -57,7 +59,7 @@ const Season = {
     const r = card();
     const add = () => {
       const info = document.querySelector('.panel.card .cinfo'); if (!info || info.querySelector('.cseason')) return;
-      const row = h('div', 'cl cseason'); row.append(h('span', 'ck', 'Season'), h('span', 'cv', `${Season.name()}, Year ${Season.year()} · Day ${Season.day()}`)); info.appendChild(row);
+      const row = h('div', 'cl cseason'); row.append(h('span', 'ck', 'Date'), h('span', 'cv', `${Season.name()} ${Season.dayOfSeason()}, Year ${Season.year()} · ${Season.clock()}`)); info.appendChild(row);
     };
     add(); setTimeout(add, 50);
     return r;
@@ -75,10 +77,13 @@ DATA.crops = {
   sweetroot: { name: 'Sweetroot', season: 2, hours: 36, price: 70, sell: 170, c: '#b05ab0', c2: '#5a9a3a' },
   frostkale: { name: 'Frostkale', season: 3, hours: 48, price: 90, sell: 220, c: '#7ac8c0', c2: '#3a7a8a' },
   snowdrop: { name: 'Snowdrop', season: 3, hours: 24, price: 50, sell: 110, c: '#f8f8ff', c2: '#5a9a5a' },
+  mintleaf: { name: 'Mintleaf', season: -1, hours: 12, price: 30, sell: 40, c: '#5ad070', c2: '#2a8a4a', herb: true },
+  emberroot: { name: 'Emberroot', season: -1, hours: 24, price: 60, sell: 80, c: '#e8743a', c2: '#7a4a2a', herb: true },
 };
 for (const [id, c] of Object.entries(DATA.crops)) {
-  DATA.items['seed_' + id] = { name: `${c.name} Seeds`, pocket: 'garden', price: c.price, sell: Math.floor(c.price / 2), desc: `Plant in ${Season.NAMES[c.season]}. Ready in about ${c.hours / 24 === Math.round(c.hours / 24) ? c.hours / 24 + (c.hours === 24 ? ' day' : ' days') : c.hours + ' hours'}, or twice as fast if you water it.` };
-  DATA.items[id] = { name: c.name, pocket: 'garden', sell: c.sell, desc: `Fresh ${c.name.toLowerCase()} from the family garden. Sells for ${c.sell} Cr.` };
+  const when = c.hours < 24 ? 'half a day' : c.hours === 24 ? 'a day' : `${c.hours / 24} days`;
+  DATA.items['seed_' + id] = { name: `${c.name} Seeds`, pocket: 'garden', price: c.price, sell: Math.floor(c.price / 2), desc: `${c.season < 0 ? 'A herb. Plant in any season.' : `Plant in ${Season.NAMES[c.season]}.`} Ready in ${when}, or twice as fast if you water it.` };
+  DATA.items[id] = { name: c.name, pocket: 'garden', sell: c.sell, desc: c.herb ? `A fresh herb from the family garden. Brew it into Tonics in the kitchen at home.` : `Fresh ${c.name.toLowerCase()} from the family garden. Sells for ${c.sell} Cr, or use it in the kitchen at home.` };
 }
 DATA.items.watering_can = { name: 'Watering Can', pocket: 'key', desc: "Mum's old green watering can. Water a growing crop and it grows twice as fast for a whole day." };
 DATA.furniture = {
@@ -94,14 +99,15 @@ DATA.shops.vantage = DATA.shops.vantage.concat(['seed_turnip', 'seed_sunflower',
 /* ---------- The family garden ---------- */
 const Garden = {
   st() { if (!G.garden) G.garden = { beds: 4, plots: {} }; return G.garden; },
-  tick(pl, now = Date.now()) {
+  tick(pl, now = G.playtime) {
     if (!pl) return pl;
+    if (pl.at > now + 1) { pl.at = now; pl.wet = 0; }
     const wet = Math.max(0, Math.min(now, pl.wet || 0) - pl.at), all = Math.max(0, now - pl.at);
-    pl.prog += (wet * 2 + (all - wet)) / 3600000; pl.at = now; return pl;
+    pl.prog += (wet * 2 + (all - wet)) / GAME_HOUR; pl.at = now; return pl;
   },
   plot(i) { const pl = this.st().plots[i]; return pl ? this.tick(pl) : null; },
   stage(pl) { if (!pl) return -1; const k = pl.prog / DATA.crops[pl.crop].hours; return k >= 1 ? 3 : k >= 0.5 ? 2 : k >= 0.15 ? 1 : 0; },
-  wet(pl) { return !!(pl && pl.wet > Date.now()); },
+  wet(pl) { return !!(pl && pl.wet > G.playtime); },
 };
 DATA.tiles['¤'] = { t: 'soil' };
 TILE_DRAW.soil = function (p) { p.r('#6a4a2a', 0, 0, 16, 16); for (let y = 2; y < 16; y += 4) p.r('#5a3a1e', 1, y, 14, 1); };
@@ -181,6 +187,55 @@ const BUS = [
 }
 
 /* ---------- Bedroom furniture ---------- */
+/* ---------- The kitchen: brew Tonics and treats from your crops ---------- */
+DATA.items.sweet_pie = { name: 'Sweetroot Pie', pocket: 'items', sell: 300, use: 'pie', desc: 'A warm homemade pie. Give it to a Wildmon and its Bond grows a lot.' };
+DATA.recipes = [
+  { out: 'potion', need: { mintleaf: 2 } },
+  { out: 'super_potion', need: { mintleaf: 2, strawberry: 1 } },
+  { out: 'hyper_potion', need: { mintleaf: 3, pumpkin: 1 } },
+  { out: 'antidote', need: { mintleaf: 1, snowdrop: 1 } },
+  { out: 'burn_salve', need: { mintleaf: 1, frostkale: 1 } },
+  { out: 'thaw_tea', need: { emberroot: 1, mintleaf: 1 } },
+  { out: 'unknot', need: { emberroot: 1, tomato: 1 } },
+  { out: 'revive', need: { emberroot: 1, sunflower: 2 } },
+  { out: 'sweet_pie', need: { sweetroot: 2, strawberry: 1 } },
+];
+UI.useKey = Object.assign(UI.useKey || {}, {
+  async pie(k) {
+    if (!G.party.length) return;
+    const t = await UI.party({ mode: 'pick', title: 'Give the Sweetroot Pie to which Wildmon?', hint: 'Choose a Wildmon.' });
+    if (t < 0) return;
+    const m = G.party[t]; S.take(k); m.bond = Math.min(255, (m.bond || 0) + 20); Game.dirty = true; Sound.sfx('heal');
+    await UI.dialog(`${Mon.name(m)} gobbled up the Sweetroot Pie! It looks very happy with you.`);
+  },
+});
+const recipeText = (r) => Object.entries(r.need).map(([k, n]) => `${n} ${DATA.items[k].name}`).join(' + ');
+const canCook = (r) => Object.entries(r.need).every(([k, n]) => (G.bag[k] || 0) >= n);
+DATA.scripts.bhKitchen = async function (s) {
+  const o = { name: 'Kitchen' };
+  if (!s.flag('garden_open')) return s.say('Something smells delicious. Mum is always cooking something.');
+  if (!s.flag('kitchen_intro')) {
+    s.set('kitchen_intro');
+    await s.say(['The family kitchen. Mum has written her recipes on cards pinned to the wall.', 'Herbs and crops from the garden can be brewed into Tonics, cures and treats.']);
+  }
+  for (;;) {
+    const ready = DATA.recipes.filter(canCook);
+    const opts = DATA.recipes.map((r) => `${canCook(r) ? '' : '· '}${DATA.items[r.out].name}: ${recipeText(r)}`);
+    const c = await s.ask(ready.length ? 'What shall we make?' : 'Mum\'s recipe cards. You need more ingredients for these.', opts.concat(['Done']), o);
+    if (c >= DATA.recipes.length) return;
+    const r = DATA.recipes[c];
+    if (!canCook(r)) { await s.say(`You need ${recipeText(r)}.`); continue; }
+    for (const [k, n] of Object.entries(r.need)) s.take(k, n);
+    s.addItem(r.out); Sound.sfx('heal'); Game.achieve('home_cook');
+    await s.say(`You made a ${DATA.items[r.out].name}!`, { sfx: 'item' });
+  }
+};
+DATA.achievements.home_cook = { name: 'Home Cooking', desc: 'Make something in the kitchen at home.' };
+{
+  const hm = DATA.maps.bh_home;
+  hm.tileScripts = Object.assign({}, hm.tileScripts, { '4,1': 'bhKitchen', '5,1': 'bhKitchen', '6,1': 'bhKitchen' });
+}
+
 const ROOM_SLOTS = [[2, 2], [7, 2], [1, 6], [8, 6]];
 {
   const br = DATA.maps.bh_bedroom;
@@ -222,13 +277,13 @@ Object.assign(DATA.scripts, {
     if (!pl) {
       const seeds = Object.keys(DATA.crops).filter((id) => s.has('seed_' + id));
       if (!seeds.length) return s.say(`An empty bed. You have no seeds. The farm stall by the gate sells them. It is ${Season.name()}.`);
-      const c = await s.ask(`An empty bed. It is ${Season.name()}. Plant something?`, seeds.map((id) => `${DATA.crops[id].name} (${Season.name(DATA.crops[id].season)})`).concat(['Cancel']));
+      const c = await s.ask(`An empty bed. It is ${Season.name()}. Plant something?`, seeds.map((id) => `${DATA.crops[id].name} (${DATA.crops[id].season < 0 ? 'any season' : Season.name(DATA.crops[id].season)})`).concat(['Cancel']));
       if (c >= seeds.length) return;
       const id = seeds[c], cr = DATA.crops[id];
-      if (cr.season !== Season.idx()) return s.say(`${cr.name} seeds only grow in ${Season.name(cr.season)}. It is ${Season.name()} now.`);
-      s.take('seed_' + id); g.plots[pr.i] = { crop: id, prog: 0, at: Date.now(), wet: 0, watered: false }; Game.dirty = true; Sound.sfx('confirm');
+      if (cr.season >= 0 && cr.season !== Season.idx()) return s.say(`${cr.name} seeds only grow in ${Season.name(cr.season)}. It is ${Season.name()} now.`);
+      s.take('seed_' + id); g.plots[pr.i] = { crop: id, prog: 0, at: G.playtime, wet: 0, watered: false }; Game.dirty = true; Sound.sfx('confirm');
       await s.say(`You planted the ${cr.name} seeds.`);
-      if (s.has('watering_can')) { const w = await s.ask('Water them now?', ['Yes', 'No']); if (w === 0) { const p2 = g.plots[pr.i]; p2.wet = Date.now() + 86400000; p2.watered = true; Sound.sfx('heal'); await s.say('Splish splash! They will grow twice as fast for a whole day.'); } }
+      if (s.has('watering_can')) { const w = await s.ask('Water them now?', ['Yes', 'No']); if (w === 0) { const p2 = g.plots[pr.i]; p2.wet = G.playtime + DAY_LEN; p2.watered = true; Sound.sfx('heal'); await s.say('Splish splash! They will grow twice as fast for a whole day.'); } }
       return;
     }
     const cr = DATA.crops[pl.crop], st = Garden.stage(pl);
@@ -242,12 +297,12 @@ Object.assign(DATA.scripts, {
     const left = Math.max(0, cr.hours - pl.prog), wet = Garden.wet(pl);
     const lt = left >= 24 ? `about ${Math.ceil(left / 24)} day${Math.ceil(left / 24) > 1 ? 's' : ''}` : `about ${Math.max(1, Math.ceil(left))} hour${Math.ceil(left) > 1 ? 's' : ''}`;
     await s.say(`${cr.name}, growing nicely. Ready in ${wet ? 'half of ' : ''}${lt}${wet ? '. The soil is still damp.' : '.'}`, o);
-    if (!wet && s.has('watering_can') && await s.ask('Water it?', ['Yes', 'No']) === 0) { pl.wet = Date.now() + 86400000; pl.watered = true; Game.dirty = true; Sound.sfx('heal'); await s.say('Splish splash! It will grow twice as fast for a whole day.'); }
+    if (!wet && s.has('watering_can') && await s.ask('Water it?', ['Yes', 'No']) === 0) { pl.wet = G.playtime + DAY_LEN; pl.watered = true; Game.dirty = true; Sound.sfx('heal'); await s.say('Splish splash! It will grow twice as fast for a whole day.'); }
   },
   async bhSeedStall(s) {
     const o = { name: 'Farm Stall' };
     if (!s.flag('garden_open')) return s.say("The family farm stall. Mum sells seeds and buys fresh produce here. Ask her about the garden!");
-    await s.say([`It is ${Season.name()}. ${Object.values(DATA.crops).filter((c) => c.season === Season.idx()).map((c) => c.name).join(' and ')} seeds will grow right now.`, 'Sell your harvest here too. Every Cr counts towards that house of your own!'], o);
+    await s.say([`It is ${Season.name()}. ${Object.values(DATA.crops).filter((c) => c.season === Season.idx()).map((c) => c.name).join(' and ')} seeds will grow right now, and herbs grow all year round.`, 'Sell your harvest here too. Every Cr counts towards that house of your own!'], o);
     return UI.shop(DATA.shops.seeds, 'Seeds for every season, and top Cr for fresh produce!');
   },
   async bhFurniture(s) {
@@ -277,11 +332,12 @@ Object.assign(DATA.scripts, {
       await mum(s);
       s.set('garden_open'); Garden.st();
       await s.say(['Oh, and before you go! You keep saying you want a house of your own one day.', 'Houses cost Cr. Lots of it. So how about the old vegetable beds out front?',
-        'Grow something, sell it at the farm stall, and save up. Crops grow even while you are away. Water them and they grow twice as fast.', `It is ${Season.name()} right now. Here, take my old watering can and some seeds to start.`], o);
+        'Grow something, sell it at the farm stall, and save up. Crops grow day by day while you are out adventuring. Water them and they grow twice as fast.', `It is ${Season.name()} right now. Here, take my old watering can and some seeds to start.`], o);
       await s.give('watering_can');
       const sp = Object.keys(DATA.crops).find((id) => DATA.crops[id].season === Season.idx());
       await s.give('seed_' + sp, 4);
-      return s.say(['Seasons change every couple of hours of adventuring. Each one has its own crops.', 'And the Brightholm Bus stops by the path. Handy for popping home to check on them!'], o);
+      await s.give('seed_mintleaf', 3);
+      return s.say(['Mintleaf grows in any season. Bring some in and I will show you how to brew Tonics in the kitchen.', 'Each season lasts six days, and each one has its own crops.', 'And the Brightholm Bus stops by the path. Handy for popping home to check on them!'], o);
     }
     const g = Garden.st();
     if (g.beds < 8) {
