@@ -559,5 +559,24 @@ Object.assign(DATA.species, {
     habitat: 'Evolves from Steerling at Lv 28', desc: 'A mountain of muscle and shaggy fur. When a herd of Stampede runs, the ground shakes for miles.',
     art: { f: 'bovine', build: 'bison', c: '#6a4a2a', c2: '#3a2416', b: '#c8a878', eye: 'sharp', s: 1.0, horn: 'curl', x: ['ring'] } },
 });
+/* ---------- Quarry Road and Shalebrook Wildmon ---------- */
+Object.assign(DATA.species, {
+  armlet: { n: 199, name: 'Armlet', types: ['rock'], base: [50, 58, 80, 22, 42, 30], growth: 'medium', catch: 140, exp: 66, rarity: 'uncommon', line: 'armlet',
+    evo: [{ to: 'aegadillo', lv: 28 }], moves: [[1, 'tackle'], [1, 'harden'], [6, 'rock_throw'], [10, 'mud_slap'], [14, 'rock_tomb'], [19, 'dig_claw'], [24, 'rock_slide']], traits: ['shell_armor', 'sturdy'],
+    habitat: 'Quarry Road and the Shalebrook quarry', desc: 'Rolls itself into a tight stone ball and bowls down hillsides. Quarry workers find them asleep in the gravel heaps every morning.',
+    art: { f: 'armadillo', build: 'ball', c: '#b8885a', c2: '#e8c070', b: '#f0d8b8', eye: 'cute', s: 0.86, ear: 'round', x: ['studs'] } },
+  aegadillo: { n: 200, name: 'Aegadillo', types: ['rock', 'earth'], base: [85, 100, 135, 30, 65, 40], growth: 'medium', catch: 45, exp: 172, rarity: 'rare', line: 'armlet',
+    evo: [], moves: [[1, 'rock_tomb'], [1, 'dig_claw'], [24, 'rock_slide'], [28, 'tremor'], [36, 'crag_charge'], [44, 'meteor_strike']], traits: ['shell_armor', 'sturdy'],
+    habitat: 'Evolves from Armlet at Lv 28', desc: 'Its plates are harder than quarried granite. A charging Aegadillo has knocked down stone walls without slowing.',
+    art: { f: 'armadillo', build: 'tank', c: '#6a6058', c2: '#d8a048', b: '#c8a888', eye: 'sharp', s: 1.0, ear: 'round', tail: 'club', x: ['claws'] } },
+  sloshum: { n: 201, name: 'Sloshum', types: ['earth'], base: [82, 55, 58, 30, 48, 22], growth: 'medium', catch: 150, exp: 68, rarity: 'uncommon', line: 'sloshum',
+    evo: [{ to: 'rumblehide', lv: 30 }], moves: [[1, 'tackle'], [1, 'growl'], [5, 'mud_slap'], [9, 'headbutt'], [14, 'mud_shot'], [20, 'body_slam'], [26, 'mud_bomb']], traits: ['thick_fur', 'grit'],
+    habitat: 'Muddy pools along Quarry Road', desc: 'Spends all day sunk in warm mud with only its nose showing. It sneezes mud at anyone who wakes it.',
+    art: { f: 'hippo', c: '#7a94c0', c2: '#5a6a98', b: '#f0b8c8', eye: 'sleepy', s: 0.72, tail: 'stub', x: ['spots'] } },
+  rumblehide: { n: 202, name: 'Rumblehide', types: ['earth', 'fighting'], base: [125, 112, 92, 35, 65, 36], growth: 'medium', catch: 45, exp: 180, rarity: 'rare', line: 'sloshum',
+    evo: [], moves: [[1, 'mud_shot'], [1, 'body_slam'], [30, 'tremor'], [34, 'focus_strike'], [40, 'mud_bomb'], [46, 'bulk_up']], traits: ['thick_fur', 'grit'],
+    habitat: 'Evolves from Sloshum at Lv 30', desc: 'Stamps so hard the mud splashes clean over the treetops. Its wide jaw can crack a boulder in one bite.',
+    art: { f: 'hippo', c: '#4a5890', c2: '#e8843a', b: '#e8a0b0', eye: 'sharp', s: 1.0, mouth: 'jaw', back: 'bumps', tail: 'stub' } },
+});
 DATA.speciesList = Object.keys(DATA.species).sort((a, b) => DATA.species[a].n - DATA.species[b].n);
 DATA.items.scroll_hoofstomp = { name: 'Scroll: Hoof Stomp', pocket: 'scrolls', scroll: 'hoof_stomp', sell: 1000, desc: `Teaches Hoof Stomp (normal). Can be used again and again. ${DATA.moves.hoof_stomp.desc}` };

@@ -911,7 +911,43 @@ MonArt.render = function (s, opt) {
     }
   };
 
-  const FORMS = { quad, rabbit, bird, bat, worm, blob, frog, wisp, mineral, bug, fish, jelly, crab, biped, plant, snake, croc, hippo, canine, shark, turtle, raptor, feline, octopus, manta, monkey, hog, bovine };
+  const armadillo = () => { // banded dome of armour plates on stubby legs; the young roll into a ball
+    const k = S, ball = a.build === 'ball', tank = a.build === 'tank';
+    if (ball) {
+      const r = 9.5 * k, cx = 26, cy = GY - r;
+      for (const fx of [-0.15, 0.45]) ell(cx + r * fx, GY - 1, 2.4 * k, 1.6 * k, shade(B, -0.3));
+      ell(cx, cy, r, r, C);
+      const ax = cx + r * 1.5, ay = cy - r * 0.3;
+      for (let i = 0; i < 4; i++) { const R = r * (0.75 + i * 0.42); for (let an = Math.PI * 0.55; an < Math.PI * 1.45; an += 0.03) { const x = ax + Math.cos(an) * R, y = ay + Math.sin(an) * R; if (Math.hypot(x - cx, y - cy) < r - 1.2) px(x, y, shade(C, -0.32)); } }
+      if (has('studs')) for (const [dx, dy] of [[-0.1, -0.7], [0.35, -0.55], [0.55, -0.1]]) ell(cx + dx * r, cy + dy * r, 1.2 * k, 1.1 * k, C2);
+      const hx = cx - r * 0.55, hy = cy + r * 0.38, hr = 4.6 * k;
+      ell(hx + 1.5 * k, hy - hr * 0.95, 1.8 * k, 2.4 * k, shade(B, -0.15));
+      ell(hx, hy, hr, hr * 0.9, B);
+      poly([[hx - hr * 0.5, hy - hr * 0.3], [hx - hr - 4 * k, hy + hr * 0.4], [hx - hr - 3.5 * k, hy + hr * 0.8], [hx - hr * 0.3, hy + hr * 0.8]], B);
+      ell(hx + 1 * k, hy - hr * 0.6, hr * 0.8, hr * 0.4, C);
+      if (!back) { px(hx - hr - 4 * k, hy + hr * 0.5, INK); eye(hx - hr * 0.3, hy - hr * 0.05, 1); }
+      return;
+    }
+    const rx = (tank ? 12 : 10) * k, ry = (tank ? 8.5 : 7) * k, legH = (tank ? 4.5 : 3.5) * k, cx = 29, cy = GY - legH - ry * 0.55;
+    const legW = Math.max(2, Math.round((tank ? 4 : 3) * k));
+    tail(cx + rx * 0.9, cy + ry * 0.3, a.tail || 'thin', shade(C, -0.08));
+    for (const fx of [0.6, 0.1, -0.35, -0.75]) { const x = cx + rx * fx - legW / 2, dark = fx > 0.05; rect(x, cy + ry * 0.4, legW, GY - cy - ry * 0.4 + 1, shade(B, dark ? -0.35 : -0.15)); if (has('claws')) { px(x - 1, GY, '#f4f0e8'); px(x, GY, '#f4f0e8'); } }
+    ell(cx, cy, rx, ry, C);
+    for (let i = 1; i < (tank ? 7 : 6); i++) { const x = cx - rx + (2 * rx * i) / (tank ? 7 : 6); for (let y = Math.floor(cy - ry); y <= cy + ry; y++) { const nx = (x - cx) / rx, ny = (y + 0.5 - cy) / ry; if (nx * nx + ny * ny < 0.84) px(x, y, shade(C, -0.32)); } }
+    for (let x = cx - rx + 2 * k; x <= cx + rx - 2 * k; x += 3 * k) ell(x, cy + ry * 0.66, 1.7 * k, 1.3 * k, C2, { noEdge: true });
+    if (tank || has('spikes')) for (let i = 1; i < 7; i++) { const an = Math.PI * (1.08 + i * 0.12), x = cx + Math.cos(an) * rx * 0.98, y = cy + Math.sin(an) * ry * 0.98; tri([[x - 1.6 * k, y + 1.5 * k], [x + 1.6 * k, y + 1.5 * k], [x + Math.cos(an) * 3.5 * k, y + Math.sin(an) * 3.5 * k]], C2); }
+    if (has('studs')) for (const [dx, dy] of [[-0.45, -0.55], [-0.05, -0.75], [0.35, -0.6]]) ell(cx + dx * rx, cy + dy * ry, 1.3 * k, 1.1 * k, C2);
+    if (has('moss')) for (const [dx, dy] of [[-0.2, -0.85], [0.25, -0.8]]) ell(cx + dx * rx, cy + dy * ry, 3 * k, 1.4 * k, '#6aa040');
+    const hr = (tank ? 4.8 : 4.2) * k, hx = cx - rx - 0.5 * k, hy = cy + ry * 0.3;
+    ell(hx + 1.5 * k, hy - hr * 0.95, 1.8 * k, 2.4 * k, shade(B, -0.15));
+    ell(hx, hy, hr, hr * 0.85, B);
+    poly([[hx - hr * 0.4, hy - hr * 0.55], [hx - hr - 4 * k, hy + hr * 0.25], [hx - hr - 3.6 * k, hy + hr * 0.7], [hx - hr * 0.3, hy + hr * 0.75]], B);
+    ell(hx + 0.5 * k, hy - hr * 0.55, hr * 0.85, hr * 0.45, C);
+    horns(hx, hy, hr, a.horn);
+    if (!back) { px(hx - hr - 4 * k, hy + hr * 0.3, INK); eye(hx - hr * 0.35, hy - hr * 0.1, tank ? 0.8 : 1); if (a.mouth === 'fang') px(hx - hr - 1.5 * k, hy + hr * 0.85, '#ffffff'); }
+  };
+
+  const FORMS = { quad, rabbit, bird, bat, worm, blob, frog, wisp, mineral, bug, fish, jelly, crab, biped, plant, snake, croc, hippo, canine, shark, turtle, raptor, feline, octopus, manta, monkey, hog, bovine, armadillo };
   (FORMS[a.f] || blob)();
 
   for (const [x, y, big] of eyes) {
