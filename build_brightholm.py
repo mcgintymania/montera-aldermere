@@ -6,7 +6,7 @@ src = root / 'brightholm'
 FILES = ['data.js', 'monsters.js', 'battledata.js', 'progressdata.js', 'act1data.js', 'act1maps.js', 'act2data.js', 'act2maps.js', 'act3data.js', 'act3rows.js', 'act3maps.js', 'skyreachdata.js', 'skyreachrows.js', 'skyreachmaps.js', 'frostdata.js', 'frostrows.js', 'frostmaps.js', 'spiredata.js', 'spirerows.js', 'spiremaps.js', 'leaguedata.js', 'leaguerows.js', 'leaguemaps.js', 'postgamedata.js', 'postgamerows.js', 'postgamemaps.js', 'glossarydata.js',
          'bh_data.js',
          'monart.js', 'artdata.js', 'engine.js', 'battle.js', 'ui.js', 'ui2.js', 'progress.js', 'field.js', 'doubles.js', 'act2.js', 'storage.js', 'act3.js', 'skyreach.js', 'frost.js', 'spire.js', 'league.js', 'postgame.js', 'arena.js', 'index.js',
-         'bh_build.js', 'bh_follow.js', 'bh_badges.js', 'bh_story.js', 'bh_town1.js', 'bh_trials.js', 'bh_town2.js',
+         'bh_build.js', 'bh_follow.js', 'bh_badges.js', 'bh_story.js', 'bh_town1.js', 'bh_trials.js', 'bh_town2.js', 'bh_town3.js',
          'pwa.js', 'main.js']
 tpl = (src / 'template.html').read_text()
 css = (src / 'style.css').read_text()

@@ -578,5 +578,24 @@ Object.assign(DATA.species, {
     habitat: 'Evolves from Sloshum at Lv 30', desc: 'Stamps so hard the mud splashes clean over the treetops. Its wide jaw can crack a boulder in one bite.',
     art: { f: 'hippo', c: '#4a5890', c2: '#e8843a', b: '#e8a0b0', eye: 'sharp', s: 1.0, mouth: 'jaw', back: 'bumps', tail: 'stub' } },
 });
+/* ---------- Shalebrook Pass and Vantage City Wildmon ---------- */
+Object.assign(DATA.species, {
+  tuftfang: { n: 203, name: 'Tuftfang', types: ['dark'], base: [48, 62, 40, 38, 40, 72], growth: 'medium', catch: 120, exp: 70, rarity: 'uncommon', line: 'tuftfang',
+    evo: [{ to: 'pouncerra', lv: 30 }], moves: [[1, 'scratch'], [1, 'leer'], [6, 'bite'], [11, 'quick_attack'], [16, 'shadow_swipe'], [22, 'low_kick'], [27, 'crunch']], traits: ['night_eyes', 'keen_eye'],
+    habitat: 'Rocky ledges on Shalebrook Pass', desc: 'A lynx kitten with tufted ears that twitch at the faintest sound. It stalks shadows on the rocks for practice.',
+    art: { f: 'feline', c: '#b89070', c2: '#3a2a20', b: '#f4e4cc', eye: 'cute', s: 0.72, ear: 'tuft', x: ['spots', 'tuft'] } },
+  pouncerra: { n: 204, name: 'Pouncerra', types: ['dark', 'fighting'], base: [75, 108, 65, 50, 65, 112], growth: 'medium', catch: 45, exp: 175, rarity: 'rare', line: 'tuftfang',
+    evo: [], moves: [[1, 'shadow_swipe'], [1, 'low_kick'], [30, 'crunch'], [34, 'focus_strike'], [40, 'eclipse_pulse'], [46, 'bulk_up']], traits: ['night_eyes', 'keen_eye'],
+    habitat: 'Evolves from Tuftfang at Lv 30', desc: 'It lands every pounce without a sound. Mountain climbers say if you see one, it has already been watching you for an hour.',
+    art: { f: 'feline', c: '#7a6a7a', c2: '#2a1a2a', b: '#e8d8e8', eye: 'sharp', s: 1.0, ear: 'tuft', mouth: 'fang', x: ['stripes', 'tuft'] } },
+  gibbolt: { n: 205, name: 'Gibbolt', types: ['electric'], base: [45, 52, 40, 60, 45, 78], growth: 'medium', catch: 140, exp: 68, rarity: 'uncommon', line: 'gibbolt',
+    evo: [{ to: 'surgibbon', lv: 28 }], moves: [[1, 'scratch'], [1, 'thundershock'], [7, 'quick_attack'], [12, 'spark'], [17, 'thunder_wave'], [22, 'thunder_fang'], [27, 'arc_bolt']], traits: ['static', 'pickup'],
+    habitat: 'Rooftops and power lines around Vantage City', desc: 'Swings along power cables and steals shiny things from windowsills. It hums when it is up to something.',
+    art: { f: 'monkey', c: '#e8c040', c2: '#5a4a6a', b: '#fff0c0', eye: 'cute', s: 0.74, tail: 'striped', ear: 'round', x: ['crest'] } },
+  surgibbon: { n: 206, name: 'Surgibbon', types: ['electric', 'dark'], base: [70, 85, 60, 100, 65, 110], growth: 'medium', catch: 45, exp: 172, rarity: 'rare', line: 'gibbolt',
+    evo: [], moves: [[1, 'spark'], [1, 'thunder_fang'], [28, 'crunch'], [32, 'thunderbolt'], [38, 'abyssal_pull'], [44, 'thunderhead']], traits: ['static', 'pickup'],
+    habitat: 'Evolves from Gibbolt at Lv 28', desc: 'Its long arms crackle with stored power. A troop of Surgibbon once blacked out half of Vantage City for fun.',
+    art: { f: 'monkey', c: '#5a4a7a', c2: '#f0d040', b: '#e8d8f0', eye: 'sharp', s: 1.0, tail: 'striped', ear: 'round', x: ['crest', 'hands'] } },
+});
 DATA.speciesList = Object.keys(DATA.species).sort((a, b) => DATA.species[a].n - DATA.species[b].n);
 DATA.items.scroll_hoofstomp = { name: 'Scroll: Hoof Stomp', pocket: 'scrolls', scroll: 'hoof_stomp', sell: 1000, desc: `Teaches Hoof Stomp (normal). Can be used again and again. ${DATA.moves.hoof_stomp.desc}` };
