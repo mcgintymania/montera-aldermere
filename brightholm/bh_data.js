@@ -608,5 +608,24 @@ Object.assign(DATA.species, {
     habitat: 'Evolves from Kilowatt at Lv 32', desc: 'Its shell stores enough power to light a whole street. When it is angry, the coils on its back glow white hot.',
     art: { f: 'turtle', c: '#5a6478', c2: '#f0d040', b: '#e0d8b8', eye: 'sharp', s: 1.0, mouth: 'beak', back: 'crystals' } },
 });
+/* ---------- Sunward Keys Wildmon ---------- */
+Object.assign(DATA.species, {
+  octorb: { n: 209, name: 'Octorb', types: ['water', 'psychic'], base: [52, 35, 50, 68, 58, 47], growth: 'medium', catch: 120, exp: 70, rarity: 'uncommon', line: 'octorb',
+    evo: [{ to: 'octomind', lv: 32 }], moves: [[1, 'bubble'], [1, 'confusion'], [7, 'water_gun'], [12, 'hypnosis'], [17, 'bubble_beam'], [22, 'psybeam'], [28, 'focus_mind']], traits: ['floating', 'shed_skin'],
+    habitat: 'Rock pools around the Sunward Keys', desc: 'A round little octopus that solves puzzles for fun. It unscrews jars, opens shells, and once let itself out of an aquarium.',
+    art: { f: 'octopus', c: '#e88aa8', c2: '#fbd0dc', b: '#fff0f4', eye: 'cute', s: 0.72, x: ['spots'] } },
+  octomind: { n: 210, name: 'Octomind', types: ['water', 'psychic'], base: [85, 55, 75, 118, 95, 72], growth: 'medium', catch: 45, exp: 182, rarity: 'rare', line: 'octorb',
+    evo: [], moves: [[1, 'psybeam'], [1, 'bubble_beam'], [32, 'hydro_pulse'], [38, 'nebula_veil'], [44, 'psy_storm'], [50, 'maelstrom']], traits: ['floating', 'shed_skin'],
+    habitat: 'Evolves from Octorb at Lv 32', desc: 'Its huge head glows when it thinks hard. Divers say it can untie a knot in their air line from across the reef.',
+    art: { f: 'octopus', c: '#8a5ab0', c2: '#e8c0f8', b: '#f0e0ff', eye: 'glow', s: 1.0, horn: 'gem', x: ['stripes'] } },
+  skimray: { n: 211, name: 'Skimray', types: ['water', 'electric'], base: [50, 45, 48, 62, 52, 70], growth: 'medium', catch: 130, exp: 68, rarity: 'uncommon', line: 'skimray',
+    evo: [{ to: 'fulmiray', lv: 33 }], moves: [[1, 'water_gun'], [1, 'thundershock'], [7, 'aqua_jet'], [12, 'spark'], [17, 'bubble_beam'], [23, 'thunder_wave'], [28, 'eel_shock']], traits: ['static', 'riptide_dash'],
+    habitat: 'Shallow sandy water on Sunward Shore', desc: 'A flat little stingray that buries itself in warm sand. Step on one and you will get a fizzy little zap.',
+    art: { f: 'manta', c: '#d8b878', c2: '#f0e070', b: '#f8f0d8', eye: 'cute', s: 0.72, x: ['spots'] } },
+  fulmiray: { n: 212, name: 'Fulmiray', types: ['water', 'electric'], base: [80, 70, 75, 112, 85, 108], growth: 'medium', catch: 45, exp: 180, rarity: 'rare', line: 'skimray',
+    evo: [], moves: [[1, 'eel_shock'], [1, 'bubble_beam'], [33, 'thunderbolt'], [38, 'hydro_pulse'], [44, 'thunderhead'], [50, 'maelstrom']], traits: ['static', 'riptide_dash'],
+    habitat: 'Evolves from Skimray at Lv 33', desc: 'It glides through stormy seas with lightning dancing along its wings. Fishermen head for shore when they see it leap.',
+    art: { f: 'manta', c: '#2a4a8a', c2: '#f0e040', b: '#c8d8f0', eye: 'sharp', s: 1.0, x: ['stripes'] } },
+});
 DATA.speciesList = Object.keys(DATA.species).sort((a, b) => DATA.species[a].n - DATA.species[b].n);
 DATA.items.scroll_hoofstomp = { name: 'Scroll: Hoof Stomp', pocket: 'scrolls', scroll: 'hoof_stomp', sell: 1000, desc: `Teaches Hoof Stomp (normal). Can be used again and again. ${DATA.moves.hoof_stomp.desc}` };
