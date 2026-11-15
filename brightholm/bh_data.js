@@ -597,5 +597,16 @@ Object.assign(DATA.species, {
     habitat: 'Evolves from Gibbolt at Lv 28', desc: 'Its long arms crackle with stored power. A troop of Surgibbon once blacked out half of Vantage City for fun.',
     art: { f: 'monkey', c: '#5a4a7a', c2: '#f0d040', b: '#e8d8f0', eye: 'sharp', s: 1.0, tail: 'striped', ear: 'round', x: ['crest', 'hands'] } },
 });
+/* ---------- Circuit Hall Wildmon ---------- */
+Object.assign(DATA.species, {
+  kilowatt: { n: 207, name: 'Kilowatt', types: ['electric', 'steel'], base: [55, 40, 72, 62, 55, 28], growth: 'medium', catch: 120, exp: 70, rarity: 'uncommon', line: 'kilowatt',
+    evo: [{ to: 'megawatt', lv: 32 }], moves: [[1, 'tackle'], [1, 'thundershock'], [5, 'harden'], [10, 'metal_claw'], [15, 'spark'], [20, 'thunder_wave'], [25, 'magnet_pulse'], [30, 'iron_defense']], traits: ['static', 'iron_hide'],
+    habitat: 'Hums near power stations and the Circuit Hall', desc: 'A slow little tortoise with a battery for a shell. It naps on warm transformers and charges up while it snores.',
+    art: { f: 'turtle', c: '#9aa4b4', c2: '#e8c040', b: '#f0e8c8', eye: 'sleepy', s: 0.72, mouth: 'beak' } },
+  megawatt: { n: 208, name: 'Megawatt', types: ['electric', 'steel'], base: [92, 70, 118, 108, 88, 38], growth: 'medium', catch: 45, exp: 180, rarity: 'rare', line: 'kilowatt',
+    evo: [], moves: [[1, 'magnet_pulse'], [1, 'iron_head'], [32, 'thunderbolt'], [38, 'gyro_slam'], [44, 'thunderhead'], [50, 'plate_shield']], traits: ['static', 'iron_hide'],
+    habitat: 'Evolves from Kilowatt at Lv 32', desc: 'Its shell stores enough power to light a whole street. When it is angry, the coils on its back glow white hot.',
+    art: { f: 'turtle', c: '#5a6478', c2: '#f0d040', b: '#e0d8b8', eye: 'sharp', s: 1.0, mouth: 'beak', back: 'crystals' } },
+});
 DATA.speciesList = Object.keys(DATA.species).sort((a, b) => DATA.species[a].n - DATA.species[b].n);
 DATA.items.scroll_hoofstomp = { name: 'Scroll: Hoof Stomp', pocket: 'scrolls', scroll: 'hoof_stomp', sell: 1000, desc: `Teaches Hoof Stomp (normal). Can be used again and again. ${DATA.moves.hoof_stomp.desc}` };
