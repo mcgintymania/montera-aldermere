@@ -46,6 +46,7 @@ body { font-family: ui-monospace, "Cascadia Mono", Consolas, "Lucida Console", "
 .badges i { width: 10px; height: 10px; border-radius: 50%; background: #2d3560; box-shadow: inset 0 0 0 1px #3c4680; }
 .badges i.on { background: radial-gradient(circle at 35% 35%, #fff3b0, var(--gold) 55%, var(--gold2)); box-shadow: 0 0 4px rgba(242, 194, 48, .6); }
 .champ { color: var(--gold); }
+.pct { padding: 1px 8px; border-radius: 999px; background: #ffd23a22; border: 1px solid #ffd23a88; color: var(--gold); font-size: .85em; white-space: nowrap; }
 .card .small { font-size: 12px; color: var(--dim); }
 .card .actions { margin-top: 10px; display: flex; gap: 8px; flex-wrap: wrap; }
 
@@ -116,7 +117,21 @@ const Aldermere = {
   },
 };
 
+const BH_BADGE_IDS = ['spur', 'bedrock', 'updraft', 'circuit', 'reef', 'wisp', 'starlight', 'homestead'];
+const readSlots = (prefix) => {
+  const out = [];
+  for (const n of [1, 2, 3]) {
+    try { const d = JSON.parse(localStorage.getItem(prefix + n)); if (d && typeof d === 'object' && typeof d.name === 'string' && d.name) out.push(d); } catch { /* unreadable slot */ }
+  }
+  return out;
+};
+const pctOf = (d) => (d && d.completion && typeof d.completion.pct === 'number' ? d.completion.pct : null);
+const pctTag = (d) => { const p = pctOf(d); return p === null ? '' : `<span class="pct" title="Completion">${p >= 100 ? 100 : Math.floor(p)}% complete</span>`; };
+
 const Brightholm = {
+  slots() { return readSlots('mtb_slot_'); },
+  latest() { return this.slots().sort((a, b) => (b.savedAt || 0) - (a.savedAt || 0))[0] || null; },
+  badges(d) { const f = (d && d.flags) || {}; return BH_BADGE_IDS.filter((b) => f['sigil_' + b]).length; },
   tester() { return flag(KEY.tester); },
   unlocked() {
     if (flag(KEY.unlocked)) return true;
@@ -149,7 +164,7 @@ function aldermereCard() {
   let save = '<div class="save"><span class="small">No save yet. Your adventure starts here.</span></div>';
   if (d) {
     const n = Aldermere.badges(d);
-    save = `<div class="save"><span>${esc(d.name)}</span>${badgeDots(n)}${Aldermere.champion(d) ? '<span class="champ">★ Champion</span>' : `<span class="small">${n}/8 Badges</span>`}<span class="small">${fmtTime(d.playtime)}</span></div>`;
+    save = `<div class="save"><span>${esc(d.name)}</span>${badgeDots(n)}${Aldermere.champion(d) ? '<span class="champ">★ Champion</span>' : `<span class="small">${n}/8 Badges</span>`}${pctTag(d)}<span class="small">${fmtTime(d.playtime)}</span></div>`;
   }
   c.innerHTML = `<span class="tag">Game 1</span><span class="play">${d ? 'Continue' : 'Play'}</span><h2>The Lanterns of Aldermere</h2><p>Catch Wildmon, earn eight Badges and stop the Hollow Order.</p>${save}`;
   c.onclick = () => { location.href = 'aldermere.html'; };
@@ -165,7 +180,9 @@ function brightholmCard() {
   const tag = testing ? '<span class="tag test">Tester preview</span>' : playable ? '<span class="tag">Game 2</span>' : '<span class="tag lock">Locked</span>';
   const blurb = '<p>Five years on, a new trainer sets out from Larkfield to become an even greater Champion.</p>';
   if (playable) {
-    c.innerHTML = `${tag}<span class="play">Play</span><h2>The Rising Light of Brightholm</h2>${blurb}`;
+    const d = Brightholm.latest(); let save = '<div class="save"><span class="small">No save yet. Larkfield is waiting.</span></div>';
+    if (d) { const n = Brightholm.badges(d); save = `<div class="save"><span>${esc(d.name)}</span>${badgeDots(n)}${d.flags && d.flags.bh_champion ? '<span class="champ">★ Champion</span>' : `<span class="small">${n}/8 Badges</span>`}${pctTag(d)}<span class="small">${fmtTime(d.playtime)}</span></div>`; }
+    c.innerHTML = `${tag}<span class="play">${d ? 'Continue' : 'Play'}</span><h2>The Rising Light of Brightholm</h2>${blurb}${save}`;
     c.onclick = () => { location.href = 'brightholm.html'; };
   } else {
     c.innerHTML = `${tag}<h2>The Rising Light of Brightholm</h2>${blurb}<div class="save"><span class="small">Beat the Champion in The Lanterns of Aldermere to unlock.</span></div><div class="actions"><button class="btn" type="button" data-act="import">Unlock with a save file</button></div>`;

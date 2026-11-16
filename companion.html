@@ -331,6 +331,9 @@ details.qcard summary { cursor: pointer; }
 .cardbar .btn.ghost { color: var(--page); border-color: var(--page); }
 .cardhint { color: #9aa3c0 !important; margin: 0; font-size: 13px; }
 
+.cols.comp { grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 8px 14px; font-size: 15px; }
+.cols.comp .done { opacity: .7; }
+
 </style>
 </head>
 <body>
@@ -9634,6 +9637,15 @@ let imported = null;
 const fmtTime = (s) => { s = Math.floor(s || 0); const h = Math.floor(s / 3600), m = Math.floor((s % 3600) / 60); return `${h}h ${String(m).padStart(2, '0')}m`; };
 const caughtIn = (d) => Object.keys(d.dex || {}).filter((k) => d.dex[k] && d.dex[k].caught && SP[k]);
 const partyStrip = (d) => { const party = (d.party || []).filter((m) => m && SP[m.sp]); return party.length ? `<h3 class="section">Party</h3><div class="slots">${party.map((m) => `<div class="slot"><a href="#/wildmon/${m.sp}">${img(m.sp, 'px', { lustre: m.lustre, sil: false })}<br>${esc(m.nick || SP[m.sp].name)}</a><br>Lv ${m.lv}</div>`).join('')}</div>` : ''; };
+const compPct = (d) => (d && d.completion && typeof d.completion.pct === 'number' ? Math.min(100, d.completion.pct) : null);
+function compBlock(d, game) {
+  const c = d.completion; const pct = compPct(d);
+  if (pct === null || !Array.isArray(c.parts)) return `<h3 class="section">Completion</h3><p class="muted">Open this save in ${game} and save once to see how complete it is.</p>`;
+  const left = c.parts.filter((p) => p[2] < p[3]);
+  return `<h3 class="section">Completion: ${pct >= 100 ? 100 : pct.toFixed(1)}%</h3><div class="meter${game === 'Brightholm' ? ' b' : ''}" role="progressbar" aria-valuenow="${pct}" aria-valuemax="100"><i style="width:${pct}%"></i></div>
+  <div class="cols comp">${c.parts.map(([, name, have, need]) => `<div class="${have >= need ? 'done' : ''}"><b>${have >= need ? '★' : '☆'} ${esc(name)}</b><br><span class="muted">${need > 1 ? `${have} of ${need}` : have ? 'Done' : 'Not yet'}</span></div>`).join('')}</div>
+  ${left.length ? '' : '<p><b>Everything done. A perfect save!</b></p>'}`;
+}
 const syncBtn = (ids) => `<button class="btn gold" data-sync='${esc(JSON.stringify(ids))}'>Mark these as caught in the Wildbook</button>`;
 function saveSummary(d, label) {
   const dex = d.dex || {}; const seen = Object.values(dex).filter((x) => x && x.seen).length; const own = caughtIn(d).length;
@@ -9645,6 +9657,7 @@ function saveSummary(d, label) {
   <div class="cols"><div><b>Play time</b><br>${fmtTime(d.playtime)}</div><div><b>Credits</b><br>${(d.money || 0).toLocaleString()} Cr</div><div><b>Badges</b><br>${badges.length} of 8</div><div><b>Wildbook</b><br>${own} caught, ${seen} seen</div>${champ ? `<div><b>Roll of Lights</b><br>${d.hof.length} entr${d.hof.length > 1 ? 'ies' : 'y'}</div>` : ''}</div>
   <h3 class="section">Aldermere Wildbook</h3><div class="meter" role="progressbar" aria-valuenow="${own}" aria-valuemax="${IN_A.size}"><i style="width:${(caughtIn(d).filter((k) => IN_A.has(k)).length / IN_A.size) * 100}%"></i></div><p class="muted">${caughtIn(d).filter((k) => IN_A.has(k)).length} of ${IN_A.size}</p>
   <h3 class="section">Badges</h3><div class="chips">${HALLS.map((h) => `<span class="badge" title="${esc(DATA.badges[h.id].name)}" style="width:36px;height:36px;font-size:16px;background:${badges.includes(h) ? DATA.typeColors[h.type] : '#bdb196'}">${esc(DATA.badges[h.id].name[0])}</span>`).join('')}</div>
+  ${compBlock(d, 'Aldermere')}
   ${partyStrip(d)}
   <h3 class="section">Quests finished</h3><p>${done.length ? done.map((k) => esc(ALD_QUESTS[k] ? ALD_QUESTS[k].name : k)).join(', ') : 'None yet.'}</p>
   <h3 class="section">Achievements</h3><p>${ach.length} of ${Object.keys(ALD_ACH).length}${ach.length ? `: ${ach.map((k) => esc(ALD_ACH[k].name)).join(', ')}` : ''}</p>
@@ -9662,6 +9675,7 @@ function bhSaveSummary(d, label) {
   <div class="cols"><div><b>Play time</b><br>${fmtTime(d.playtime)}</div><div><b>Game date</b><br>${SEASONS[Math.floor(day / 6) % 4]} ${(day % 6) + 1}, Year ${Math.floor(day / 24) + 1}</div><div><b>Credits</b><br>${(d.money || 0).toLocaleString()} Cr</div><div><b>Badges</b><br>${badges.length} of 8</div><div><b>Wildbook</b><br>${regional} of ${IN_B.size}</div>${f.bh_champion ? '<div><b>Champion</b><br>Yes</div>' : ''}</div>
   <h3 class="section">Brightholm Wildbook</h3><div class="meter b" role="progressbar" aria-valuenow="${regional}" aria-valuemax="${IN_B.size}"><i style="width:${(regional / IN_B.size) * 100}%"></i></div><p class="muted">${regional} of ${IN_B.size}${own.length > regional ? `, plus ${own.length - regional} brought over with the Lantern Link` : ''}</p>
   <h3 class="section">Badges</h3><div class="chips">${BH.halls.map((h) => `<span class="badge bhb sm" title="${esc(h.name)}" style="${f['sigil_' + h.id] ? `background:radial-gradient(circle at 35% 30%, ${h.c1}, ${h.c2})` : 'background:#bdb196'}">${esc(h.name[0])}</span>`).join('')}</div>
+  ${compBlock(d, 'Brightholm')}
   ${partyStrip(d)}
   <h3 class="section">Frontier Trials</h3><div class="chips">${trials.map(([T, m]) => `<span class="tag medal m${m}" title="${esc(T.name)}">${esc(T.name)}: ${m ? medalName[m] : 'not tried'}</span>`).join('')}</div>
   ${friends.length ? `<h3 class="section">Friends</h3><div class="cols">${friends.map(([k, x]) => `<div><b>${esc(BH.friends[k].name)}</b><br><span class="hearts">${'♥'.repeat(x.lv || 1)}<span class="muted">${'♡'.repeat(5 - (x.lv || 1))}</span></span></div>`).join('')}</div>` : ''}
@@ -9677,7 +9691,7 @@ Pages.progress = () => {
   const play = all.reduce((a, d) => a + (d.playtime || 0), 0);
   return `<h1>My progress</h1><p class="lead">The Companion reads your saves when it runs on the same site as the game, or from an exported save file. Nothing leaves your device.</p>
   ${all.length ? `<div class="page montera"><h2>All of Montera</h2>
-    <div class="cols"><div><b>Montera Wildbook</b><br>${union.size} of ${SPIDS.length} caught</div><div><b>Aldermere</b><br>${[...union].filter((k) => IN_A.has(k)).length} of ${IN_A.size}</div><div><b>Brightholm</b><br>${[...union].filter((k) => IN_B.has(k)).length} of ${IN_B.size}</div><div><b>Lustre Wildmon</b><br>${lustre.size} kinds</div><div><b>Play time</b><br>${fmtTime(play)} across ${all.length} save${all.length > 1 ? 's' : ''}</div></div>
+    <div class="cols"><div><b>Montera Wildbook</b><br>${union.size} of ${SPIDS.length} caught</div><div><b>Aldermere</b><br>${[...union].filter((k) => IN_A.has(k)).length} of ${IN_A.size}</div><div><b>Brightholm</b><br>${[...union].filter((k) => IN_B.has(k)).length} of ${IN_B.size}</div><div><b>Lustre Wildmon</b><br>${lustre.size} kinds</div><div><b>Play time</b><br>${fmtTime(play)} across ${all.length} save${all.length > 1 ? 's' : ''}</div>${[['Aldermere', A], ['Brightholm', B]].map(([g, list]) => { const best = Math.max(-1, ...list.map((x) => compPct(x.d) ?? -1)); return best >= 0 ? `<div><b>${g} completion</b><br>${best >= 100 ? 100 : Math.floor(best)}%${list.length > 1 ? ' (best save)' : ''}</div>` : ''; }).join('')}</div>
     <div class="meter split" role="progressbar" aria-valuenow="${union.size}" aria-valuemax="${SPIDS.length}"><i style="width:${(union.size / SPIDS.length) * 100}%"></i></div>
     ${syncBtn([...union])}</div>` : ''}
   ${A.map((x) => saveSummary(x.d, `slot ${x.n}`)).join('')}
