@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Builds dist/companion.html from the game's data files plus the companion app."""
-import re, pathlib
+import base64, re, pathlib
 root = pathlib.Path(__file__).parent
 src, comp = root / 'src', root / 'companion'
 game_files = re.search(r"\[(.*?)\]", (root / 'build.py').read_text(), re.S).group(1)
@@ -26,8 +26,9 @@ shim = "\n".join([
 ])
 js = "\n".join([
     "'use strict';",
-    "const LOGO_SRC = 'data:image/jpeg;base64," + (src / 'logo.b64').read_text().strip() + "';",
-    "\n".join((src / f).read_text().replace("'use strict';", '', 1) for f in data_files),
+    "const LOGO_SRC = 'data:image/webp;base64," + base64.b64encode((root / 'launcher' / 'logo.webp').read_bytes()).decode() + "';",
+    "\n".join(((root / 'brightholm' / f) if f == 'monart.js' else (src / f)).read_text().replace("'use strict';", '', 1) for f in data_files),
+    "const BH = " + (comp / 'bh_snapshot.json').read_text() + ";",
     shim,
     '(() => {' + (lambda a: a[:a.rindex('start();')] + (comp / 'brightholm.js').read_text() + '\nstart();' + a[a.rindex('start();') + 8:])((comp / 'app.js').read_text().replace("'use strict';", '', 1)) + '})();',
 ])

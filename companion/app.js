@@ -1,9 +1,9 @@
 'use strict';
 /* =====================================================================
-   MONTERA COMPANION — a field guide built from the game's own data.
+   MONTERA COMPANION — a field guide to both games, built from their own data.
    Hash routes: #/  #/story  #/world  #/place/:id  #/halls  #/wildmon
    #/wildmon/:id  #/moves  #/move/:id  #/items  #/item/:id  #/types
-   #/team/:list  #/quests  #/progress  #/glossary
+   #/team/:list  #/quests  #/progress  #/glossary  #/bhplace/:id
    ===================================================================== */
 
 /* ---------- small helpers ---------- */
@@ -16,13 +16,27 @@ const local = {
   get(k, d) { try { const v = localStorage.getItem('montera_companion_' + k); return v == null ? d : JSON.parse(v); } catch { return d; } },
   set(k, v) { try { localStorage.setItem('montera_companion_' + k, JSON.stringify(v)); } catch { /* storage unavailable */ } },
 };
-const prefs = Object.assign({ spoilers: false, view: 'grid', sort: 'n', starter: 'mossling' }, local.get('prefs', {}));
+const prefs = Object.assign({ spoilers: false, view: 'grid', sort: 'n', starter: 'mossling', game: 'aldermere' }, local.get('prefs', {}));
 const savePrefs = () => local.set('prefs', prefs);
 const caught = new Set(local.get('caught', []));
 const saveCaught = () => local.set('caught', [...caught]);
 
+/* ---------- one Montera: Brightholm's data joins Aldermere's ---------- */
+const ALD_QUESTS = Object.assign({}, DATA.quests);
+const ALD_ITEMS = new Set(Object.keys(DATA.items));
+const ALD_ACH = Object.assign({}, DATA.achievements);
+Object.assign(DATA.species, BH.species);
+DATA.speciesList = Object.keys(DATA.species).sort((a, b) => DATA.species[a].n - DATA.species[b].n);
+for (const k of ['moves', 'traits', 'scrolls']) for (const [id, v] of Object.entries(BH[k])) if (!DATA[k][id]) DATA[k][id] = v;
+for (const [id, v] of Object.entries(BH.items_db)) if (!DATA.items[id]) DATA.items[id] = v;
+const BH_ITEMS = new Set(Object.keys(BH.items_db));
 const SP = DATA.species;
 const SPIDS = DATA.speciesList.filter((id) => SP[id]);
+const IN_A = new Set(SPIDS.filter((id) => SP[id].n <= 180));
+const IN_B = new Set(BH.dex.filter((id) => SP[id]));
+const GAMES = { aldermere: ['Aldermere', 'The Lanterns of Aldermere'], brightholm: ['Brightholm', 'The Rising Light of Brightholm'] };
+const gameMarks = (id) => `${IN_A.has(id) ? '<i class="gm a" title="Found in Aldermere">A</i>' : ''}${IN_B.has(id) ? '<i class="gm b" title="Found in Brightholm">B</i>' : ''}`;
+const gameTabs = () => `<div class="gtabs" role="tablist">${Object.entries(GAMES).map(([k, [short, full]]) => `<button role="tab" class="gtab ${k}${prefs.game === k ? ' on' : ''}" aria-selected="${prefs.game === k}" data-game="${k}" title="${esc(full)}">${esc(short)}</button>`).join('')}</div>`;
 const STARTERS = ['mossling', 'firecub', 'puddlepup'];
 const isSecret = (id) => SP[id] && SP[id].rarity === 'legendary';
 const hiddenSp = (id) => !prefs.spoilers && isSecret(id);
@@ -30,9 +44,9 @@ const SECRET_PLACES = ['starfall', 'starfall_peak'];
 const hiddenPlace = (id) => !prefs.spoilers && SECRET_PLACES.includes(id);
 const RARITY = { common: 'Common', uncommon: 'Uncommon', rare: 'Rare', veryrare: 'Very rare', legendary: 'Legendary' };
 const GROWTH = { fast: 'Fast', mfast: 'Medium fast', medium: 'Medium', mslow: 'Medium slow', slow: 'Slow' };
-const METHOD = { grass: 'Tall grass', cave: 'Cave', surf: 'Surfing', fish: 'Fishing' };
+const METHOD = { grass: 'Tall grass', cave: 'Cave', surf: 'Surfing', fish: 'Fishing', dive: 'Diving' };
 const CAT = { phys: 'Physical', spec: 'Spirit', status: 'Status' };
-const POCKET = { items: 'Items', lanterns: 'Lanterns', shards: 'Shards', scrolls: 'Move Scrolls', collect: 'Collectables', key: 'Key items' };
+const POCKET = { items: 'Items', lanterns: 'Lanterns', shards: 'Shards', scrolls: 'Move Scrolls', collect: 'Collectables', garden: 'Garden', home: 'Home', key: 'Key items' };
 
 /* sprites are drawn by the game's own renderer, then cached as images */
 const sprCache = new Map();
@@ -136,16 +150,17 @@ const STORY = [
 
 /* ---------- page shell ---------- */
 const NAV = [
-  ['', 'Home'], ['story', 'Story and lore'], ['world', 'World map'], ['halls', 'Halls and League'],
-  null, ['wildmon', 'Wildbook'], ['moves', 'Moves'], ['items', 'Items'], ['types', 'Type chart'],
-  null, ['team', 'Team builder'], ['quests', 'Quests'], ['progress', 'My progress'], ['glossary', 'Glossary'],
+  ['', 'Home'], ['progress', 'My progress'],
+  null, ['wildmon', 'Wildbook'], ['moves', 'Moves'], ['items', 'Items'], ['types', 'Type chart'], ['team', 'Team builder'],
+  'Each game', ['story', 'Story and lore'], ['world', 'World map'], ['halls', 'Halls and League'], ['quests', 'Quests'],
+  null, ['glossary', 'Glossary'],
 ];
 function buildRail() {
   const hosted = /^https?:$/.test(location.protocol);
-  $('#rail').innerHTML = `<a href="${hosted ? './' : 'montera.html'}" class="play">Play Montera</a><hr>` + NAV.map((n) => (n ? `<a href="#/${n[0]}" data-r="${n[0]}">${esc(n[1])}</a>` : '<hr>')).join('');
+  $('#rail').innerHTML = `<a href="${hosted ? './' : 'montera.html'}" class="play">Play Montera</a><hr>` + NAV.map((n) => (!n ? '<hr>' : typeof n === 'string' ? `<hr><span class="railh">${esc(n)}</span>` : `<a href="#/${n[0]}" data-r="${n[0]}">${esc(n[1])}</a>`)).join('');
 }
 function setActive(root) {
-  $$('#rail a').forEach((a) => a.classList.toggle('on', a.dataset.r === root || (root === 'wildmon' && a.dataset.r === 'wildmon') || (root === 'place' && a.dataset.r === 'world') || (root === 'move' && a.dataset.r === 'moves') || (root === 'item' && a.dataset.r === 'items')));
+  $$('#rail a').forEach((a) => a.classList.toggle('on', a.dataset.r === root || (root === 'wildmon' && a.dataset.r === 'wildmon') || ((root === 'place' || root === 'bhplace') && a.dataset.r === 'world') || (root === 'move' && a.dataset.r === 'moves') || (root === 'item' && a.dataset.r === 'items')));
 }
 
 /* ---------- pages ---------- */
@@ -155,37 +170,37 @@ Pages[''] = () => {
   const visible = SPIDS.filter((id) => !isSecret(id));
   const day = Math.floor(Date.now() / 86400000);
   const pick = visible[(day * 2654435761 >>> 0) % visible.length]; const s = SP[pick];
-  const counts = [[SPIDS.length, 'Wildmon'], [Object.keys(DATA.moves).length, 'moves'], [Object.keys(DATA.items).length, 'items'], [HALLS.length, 'Halls'], [DATA.region.length, 'places']];
+  const counts = [[SPIDS.length, 'Wildmon'], [Object.keys(DATA.moves).length, 'moves'], [Object.keys(DATA.items).length, 'items'], [HALLS.length + BH.halls.length, 'Halls'], [DATA.region.length + BH_PLACES.length, 'places']];
+  const go = (g, r) => `href="#/${r}" data-game="${g}"`;
   return `
   <section class="hero">
     <div>
-      <img class="logo" src="${LOGO_SRC}" alt="Montera: The Lanterns of Aldermere">
-      <p class="lead">A field guide to Aldermere. Look up any Wildmon, plan a team for the next Hall, find where an item is sold, or check how far your save has got.</p>
+      <img class="logo" src="${LOGO_SRC}" alt="Montera">
+      <p class="lead">The field guide to all of Montera. Look up any Wildmon from either game, plan a team for the next Hall, find where an item is sold, or check how far your saves have got.</p>
       <div class="stats">${counts.map(([n, l]) => `<div><b>${n}</b><span>${l}</span></div>`).join('')}</div>
     </div>
     <a class="featured" href="#/wildmon/${pick}" style="text-decoration:none;color:inherit">
       <div class="lanternframe">${img(pick)}</div>
       <h3 style="color:var(--gold2)">Wildmon of the day: ${esc(s.name)}</h3>
-      <div>${s.types.map(typeTag).join('')}</div>
+      <div>${s.types.map(typeTag).join('')} ${gameMarks(pick)}</div>
       <p style="color:#c3c8da;font-size:15px;margin-top:8px;max-width:34ch">${esc(s.desc || '')}</p>
     </a>
   </section>
-  <h2>Where to start</h2>
+  <h2>For both games</h2>
   <div class="tiles">
-    ${[['story', 'The story', 'The Hollow Order, Morrow and the Beacons, act by act.'],
-    ['wildmon', 'Wildbook', 'All 180 Wildmon with stats, moves, evolutions and where to catch them.'],
-    ['halls', 'Hall guide', 'Every Hall Master’s team, type and reward, plus the League.'],
-    ['types', 'Type chart', 'Sixteen types, every matchup, and a dual-type calculator.'],
+    ${[['wildmon', 'Wildbook', `All ${SPIDS.length} Wildmon, with stats, moves, evolutions, a playing card, and where to find each one in both games.`],
+    ['progress', 'My progress', 'Your Aldermere and Brightholm saves side by side, and your Montera Wildbook.'],
     ['team', 'Team builder', 'Pick six and see your weak spots and coverage.'],
-    ['progress', 'My progress', 'Read a save from this browser or an exported .mqsave file.'],
-    ['world', 'World map', 'Every town and route, with encounters, trainers, shops and items.'],
-    ['glossary', 'Glossary', 'Lanterns, Lustre, Bond, Attunement and the rest, explained.']]
+    ['types', 'Type chart', 'Sixteen types, every matchup, and a dual-type calculator.']]
     .map(([r, t, d]) => `<a class="tile" href="#/${r}"><b>${t}</b><span>${d}</span></a>`).join('')}
   </div>
-  <div class="page" style="margin-top:26px">
-    <h2>What is Montera?</h2>
-    <p>Montera: The Lanterns of Aldermere is a monster-catching adventure. You travel the island of Aldermere, catch Wildmon in glass Lanterns, train them, and earn the eight Badges from the island’s Halls. Along the way you get caught up in the Hollow Order’s plan to steal the light from the island’s Wildmon.</p>
-    <p>Your goal is to earn all eight Badges, stop the Hollow Order, and beat the Gatekeepers and the Champion of the Lantern League. After that, the Starfall Isles, the five Wardens and the Battle Spire are waiting.</p>
+  <div class="games">
+    <div class="gcard a"><h2><i class="gm a">A</i> The Lanterns of Aldermere</h2>
+      <p>An island lit by Lanterns. Catch Wildmon, earn eight Badges, and stop the Hollow Order stealing the island’s light. Then the Starfall Isles, the five Wardens and the Battle Spire.</p>
+      <div class="tiles mini">${[['story', 'Story'], ['world', 'World map'], ['halls', 'Halls and League'], ['quests', 'Quests']].map(([r, t]) => `<a class="tile" ${go('aldermere', r)}><b>${t}</b></a>`).join('')}</div></div>
+    <div class="gcard b"><h2><i class="gm b">B</i> The Rising Light of Brightholm</h2>
+      <p>Five years later, a new trainer in a new region. Your Aldermere hero is the Champion, Paragon promises strong Wildmon fast, and there is a farm, a house, friends and trials between the Halls.</p>
+      <div class="tiles mini">${[['story', 'Story'], ['world', 'World map'], ['halls', 'Halls and League'], ['quests', 'Quests and things to do']].map(([r, t]) => `<a class="tile" ${go('brightholm', r)}><b>${t}</b></a>`).join('')}</div></div>
   </div>`;
 };
 
@@ -297,7 +312,7 @@ Pages.halls = () => {
 const starterPicker = () => `<div class="chips">${STARTERS.map((s) => `<button class="chip${prefs.starter === s ? ' on' : ''}" data-starter="${s}">I picked ${esc(SP[s].name)}</button>`).join('')}</div>`;
 
 /* ---------- Wildbook ---------- */
-const LIST = { q: '', type: '', rarity: '', owned: '' };
+const LIST = { q: '', type: '', rarity: '', owned: '', game: '' };
 Pages.wildmon = (id) => (id ? monPage(id) : monList());
 function monRows() {
   const q = LIST.q.toLowerCase();
@@ -308,6 +323,11 @@ function monRows() {
     if (LIST.rarity && s.rarity !== LIST.rarity) return false;
     if (LIST.owned === 'caught' && !caught.has(id)) return false;
     if (LIST.owned === 'missing' && caught.has(id)) return false;
+    if (LIST.game === 'a' && !IN_A.has(id)) return false;
+    if (LIST.game === 'b' && !IN_B.has(id)) return false;
+    if (LIST.game === 'ab' && !(IN_A.has(id) && IN_B.has(id))) return false;
+    if (LIST.game === 'link' && !(IN_A.has(id) && !IN_B.has(id))) return false;
+    if (LIST.game === 'new' && IN_A.has(id)) return false;
     return true;
   });
   const k = prefs.sort; const si = DATA.statKeys.indexOf(k);
@@ -318,16 +338,17 @@ function monResults() {
   const rows = monRows();
   if (!rows.length) return '<div class="empty">No Wildmon match those filters. Clear a filter to see more.</div>';
   if (prefs.view === 'table') {
-    return `<div class="scroll"><table class="tbl"><thead><tr><th>No.</th><th></th><th>Name</th><th>Types</th>${DATA.statKeys.map((k) => `<th class="num">${esc(DATA.statNames[k].replace('Sp. ', 'S'))}</th>`).join('')}<th class="num">Total</th></tr></thead><tbody>
-    ${rows.map((id) => { const s = SP[id]; const hid = hiddenSp(id); return `<tr><td>${s.n}</td><td>${img(id)}</td><td>${spLink(id)}${caught.has(id) ? ' ✓' : ''}</td><td>${hid ? '' : s.types.map(typeTag).join('')}</td>${s.base.map((v) => `<td class="num">${hid ? '?' : v}</td>`).join('')}<td class="num"><b>${hid ? '?' : total(s)}</b></td></tr>`; }).join('')}
+    return `<div class="scroll"><table class="tbl"><thead><tr><th>No.</th><th></th><th>Name</th><th>Games</th><th>Types</th>${DATA.statKeys.map((k) => `<th class="num">${esc(DATA.statNames[k].replace('Sp. ', 'S'))}</th>`).join('')}<th class="num">Total</th></tr></thead><tbody>
+    ${rows.map((id) => { const s = SP[id]; const hid = hiddenSp(id); return `<tr><td>${s.n}</td><td>${img(id)}</td><td>${spLink(id)}${caught.has(id) ? ' ✓' : ''}</td><td>${gameMarks(id)}</td><td>${hid ? '' : s.types.map(typeTag).join('')}</td>${s.base.map((v) => `<td class="num">${hid ? '?' : v}</td>`).join('')}<td class="num"><b>${hid ? '?' : total(s)}</b></td></tr>`; }).join('')}
     </tbody></table></div>`;
   }
-  return `<div class="grid">${rows.map((id) => { const s = SP[id]; const hid = hiddenSp(id); return `<a class="card${caught.has(id) ? ' caught' : ''}" href="#/wildmon/${id}"><span class="no">${s.n}</span><span class="spr">${img(id, 'px')}</span><div class="nm">${esc(spName(id))}</div><div class="pips">${hid ? '' : s.types.map((t) => `<i style="background:${DATA.typeColors[t]}" title="${t}"></i>`).join('')}</div></a>`; }).join('')}</div>`;
+  return `<div class="grid">${rows.map((id) => { const s = SP[id]; const hid = hiddenSp(id); return `<a class="card${caught.has(id) ? ' caught' : ''}" href="#/wildmon/${id}"><span class="no">${s.n}</span><span class="spr">${img(id, 'px')}</span><div class="nm">${esc(spName(id))}</div><div class="pips">${hid ? '' : s.types.map((t) => `<i style="background:${DATA.typeColors[t]}" title="${t}"></i>`).join('')}</div><span class="gms">${gameMarks(id)}</span></a>`; }).join('')}</div>`;
 }
 function monList() {
   const n = SPIDS.filter((id) => caught.has(id)).length;
+  const GF = [['', `All ${SPIDS.length}`], ['a', `Aldermere (${IN_A.size})`], ['b', `Brightholm (${IN_B.size})`], ['ab', `Both games (${SPIDS.filter((id) => IN_A.has(id) && IN_B.has(id)).length})`], ['new', `New in Brightholm (${SPIDS.filter((id) => !IN_A.has(id)).length})`], ['link', `Aldermere only (${SPIDS.filter((id) => IN_A.has(id) && !IN_B.has(id)).length})`]];
   return `<h1>Wildbook</h1>
-  <p class="lead">All ${SPIDS.length} Wildmon of Aldermere. Mark the ones you’ve caught, or load your save on the progress page to fill this in for you. You have ${n} marked.</p>
+  <p class="lead">Every Wildmon in Montera: ${IN_A.size} live in Aldermere and ${IN_B.size} in Brightholm. The <i class="gm a">A</i> and <i class="gm b">B</i> marks show which game each one turns up in. Aldermere-only Wildmon can still reach Brightholm through the Lantern Link. You have ${n} marked as caught.</p>
   <div class="page">
     <div class="tools">
       <input id="wq" type="search" placeholder="Name or number" value="${esc(LIST.q)}" aria-label="Filter by name or number">
@@ -336,6 +357,7 @@ function monList() {
       <select id="ws" aria-label="Sort"><option value="n">Sort by number</option><option value="name">Sort by name</option><option value="total">Sort by base total</option>${DATA.statKeys.map((k) => `<option value="${k}">Sort by ${DATA.statNames[k]}</option>`).join('')}</select>
       <button class="btn ghost" id="wv">${prefs.view === 'grid' ? 'Show as table' : 'Show as grid'}</button>
     </div>
+    <div class="chips gfil" id="wg">${GF.map(([k, l]) => `<button class="chip${LIST.game === k ? ' on' : ''}" data-g="${k}">${esc(l)}</button>`).join('')}</div>
     <div class="chips" id="wt"><button class="chip${!LIST.type ? ' on' : ''}" data-t="">All types</button>${DATA.types.map((t) => `<button class="chip${LIST.type === t ? ' on' : ''}" data-t="${t}">${cap(t)}</button>`).join('')}</div>
     <div id="wres">${monResults()}</div>
   </div>`;
@@ -348,6 +370,7 @@ function bindMonList() {
   $('#wo').addEventListener('change', (e) => { LIST.owned = e.target.value; upd(); });
   $('#ws').addEventListener('change', (e) => { prefs.sort = e.target.value; savePrefs(); upd(); });
   $('#wv').addEventListener('click', (e) => { prefs.view = prefs.view === 'grid' ? 'table' : 'grid'; savePrefs(); e.target.textContent = prefs.view === 'grid' ? 'Show as table' : 'Show as grid'; upd(); });
+  $('#wg').addEventListener('click', (e) => { const b = e.target.closest('[data-g]'); if (!b) return; LIST.game = b.dataset.g; $$('#wg .chip').forEach((c) => c.classList.toggle('on', c === b)); upd(); });
   $('#wt').addEventListener('click', (e) => { const b = e.target.closest('[data-t]'); if (!b) return; LIST.type = b.dataset.t; $$('#wt .chip').forEach((c) => c.classList.toggle('on', c === b)); upd(); });
 }
 
@@ -386,8 +409,6 @@ function monPage(id) {
   const grp = (f) => mults.filter(([, m]) => f(m));
   const multCls = (m) => (m >= 4 ? 'm4' : m >= 2 ? 'm2' : m === 0 ? 'm0' : m <= 0.25 ? 'mq' : m < 1 ? 'mh' : '');
   const multTxt = (m) => (m === 0.5 ? '½' : m === 0.25 ? '¼' : m) + '×';
-  const where = (IX.enc[id] || []);
-  const tr = (IX.trainersUsing[id] || []).filter((tid) => IX.trainerMaps[tid] || HALLS.some((h) => h.master === tid) || GATES.includes(tid) || tid === 'champion_kit');
   const scrolls = Object.entries(DATA.scrolls).filter(([, mv]) => DATA.moves[mv] && canScroll(id, mv) && !s.moves.some(([, m]) => m === mv));
   const traits = (s.traits || []).map((t) => DATA.traits[t]).filter(Boolean);
   const evoUses = Object.entries(IX.evoItem).filter(([, l]) => l.some((x) => x.from === id)).map(([it]) => it);
@@ -400,8 +421,10 @@ function monPage(id) {
         <button class="btn ghost" id="lustre" aria-pressed="false">Show Lustre colours</button>
         <button class="btn${caught.has(id) ? '' : ' ghost'}" id="caughtbtn" aria-pressed="${caught.has(id)}">${caught.has(id) ? 'Caught ✓' : 'Mark as caught'}</button>
         <button class="btn gold" id="addteam">Add to team</button>
+        <button class="btn ghost" id="cardbtn">View as card</button>
       </div>
       <dl class="facts">
+        <dt>Found in</dt><dd>${[IN_A.has(id) && '<i class="gm a">A</i> Aldermere', IN_B.has(id) && '<i class="gm b">B</i> Brightholm'].filter(Boolean).join('<br>') || 'Brightholm (special)'}</dd>
         <dt>Rarity</dt><dd>${RARITY[s.rarity] || s.rarity}</dd>
         <dt>Catch rate</dt><dd>${s.catch} <span class="muted">(${s.catch >= 150 ? 'easy' : s.catch >= 75 ? 'fair' : s.catch >= 30 ? 'tricky' : 'very hard'})</span></dd>
         <dt>Growth</dt><dd>${GROWTH[s.growth] || s.growth} <span class="muted">(${Mon.expAt(s.growth, 100).toLocaleString()} EXP to Lv 100)</span></dd>
@@ -437,14 +460,12 @@ function monPage(id) {
     </tbody></table></div>
     ${scrolls.length ? `<h3 class="section">Can learn from Move Scrolls</h3><p>${scrolls.map(([it, mv]) => `<a href="#/move/${mv}" title="${esc(DATA.items[it] ? DATA.items[it].name : '')}">${esc(DATA.moves[mv].name)}</a>`).join(', ')}</p>` : ''}
   </div>
-  <div class="page"><h2>Where to find it</h2>
-    ${where.length ? encTable(where, true) : `<p>${esc(s.habitat || 'Not found in the wild.')}${IX.prevo[id] ? ` Evolve ${spLink(IX.prevo[id].from)} to get one.` : ''}</p>`}
-  </div>
-  ${tr.length ? `<div class="page"><h2>Trainers who use it</h2><ul>${tr.map((tid) => { const t = DATA.trainers[tid]; const at = (IX.trainerMaps[tid] || []).map(mapRegion).filter(Boolean)[0]; return `<li>${esc(t.cls)} ${esc(t.name)}${at ? `, ${placeLink(at)}` : ''}</li>`; }).join('')}</ul></div>` : ''}`;
+  ${whereBoth(id)}`;
 }
 function bindMonPage(id) {
   if (!SP[id] || hiddenSp(id)) return;
   const lb = $('#lustre'); let on = false;
+  $('#cardbtn').addEventListener('click', () => openCard(id, on));
   lb.addEventListener('click', () => { on = !on; lb.setAttribute('aria-pressed', on); lb.textContent = on ? 'Show normal colours' : 'Show Lustre colours'; $('#dexspr').innerHTML = img(id, 'px', { lustre: on }); });
   $('#caughtbtn').addEventListener('click', (e) => { if (caught.has(id)) caught.delete(id); else caught.add(id); saveCaught(); const c = caught.has(id); e.target.textContent = c ? 'Caught ✓' : 'Mark as caught'; e.target.classList.toggle('ghost', !c); e.target.setAttribute('aria-pressed', c); });
   $('#addteam').addEventListener('click', () => { const t = getTeam(); if (t.length >= 6) { toast('Your team already has six. Remove one first.'); return; } t.push(id); setTeam(t); toast(`${SP[id].name} added to your team.`); });
@@ -505,23 +526,25 @@ function movePage(id) {
 Pages.move = (id) => movePage(id);
 
 /* ---------- Items ---------- */
-const IT = { pocket: 'items', q: '' };
+const IT = { pocket: 'items', q: '', game: '' };
 function itemRows() {
   const q = IT.q.toLowerCase();
-  return Object.keys(DATA.items).filter((id) => { const it = DATA.items[id]; return (q ? it.name.toLowerCase().includes(q) || (it.desc || '').toLowerCase().includes(q) : it.pocket === IT.pocket); }).sort((a, b) => DATA.items[a].name.localeCompare(DATA.items[b].name));
+  return Object.keys(DATA.items).filter((id) => { const it = DATA.items[id]; return (q ? it.name.toLowerCase().includes(q) || (it.desc || '').toLowerCase().includes(q) : it.pocket === IT.pocket) && (!IT.game || (IT.game === 'a' ? ALD_ITEMS.has(id) : BH_ITEMS.has(id))); }).sort((a, b) => DATA.items[a].name.localeCompare(DATA.items[b].name));
 }
 function itemTable() {
   const rows = itemRows();
   if (!rows.length) return '<div class="empty">Nothing matches that search.</div>';
-  return `<div class="scroll"><table class="tbl"><thead><tr><th>Item</th><th class="num">Price</th><th>What it does</th><th>Where</th></tr></thead><tbody>${rows.map((id) => { const it = DATA.items[id]; const sold = [...new Set((IX.soldAt[id] || []).flatMap(shopPlaces))]; const found = (IX.itemsAt[id] || []).length; return `<tr><td>${itLink(id)}</td><td class="num">${it.price ? it.price + ' Cr' : '–'}</td><td style="min-width:240px">${esc(it.desc || '')}</td><td>${sold.length ? `Sold in ${sold.length} town${sold.length > 1 ? 's' : ''}` : ''}${sold.length && found ? '; ' : ''}${found ? `found in ${found} spot${found > 1 ? 's' : ''}` : ''}</td></tr>`; }).join('')}</tbody></table></div>`;
+  return `<div class="scroll"><table class="tbl"><thead><tr><th>Item</th><th>Games</th><th class="num">Price</th><th>What it does</th><th>Where in Aldermere</th></tr></thead><tbody>${rows.map((id) => { const it = DATA.items[id]; const sold = [...new Set((IX.soldAt[id] || []).flatMap(shopPlaces))]; const found = (IX.itemsAt[id] || []).length; return `<tr><td>${itLink(id)}</td><td>${ALD_ITEMS.has(id) ? '<i class="gm a">A</i>' : ''}${BH_ITEMS.has(id) ? '<i class="gm b">B</i>' : ''}</td><td class="num">${it.price ? it.price + ' Cr' : '–'}</td><td style="min-width:240px">${esc(it.desc || '')}</td><td>${sold.length ? `Sold in ${sold.length} town${sold.length > 1 ? 's' : ''}` : ''}${sold.length && found ? '; ' : ''}${found ? `found in ${found} spot${found > 1 ? 's' : ''}` : ''}</td></tr>`; }).join('')}</tbody></table></div>`;
 }
 Pages.items = () => `<h1>Items</h1><p class="lead">Everything that goes in your Bag, sorted by pocket. Search looks across every pocket.</p>
   <div class="page"><div class="tools"><input id="iq" type="search" placeholder="Search all items" value="${esc(IT.q)}" aria-label="Search items"></div>
+  <div class="chips" id="ig">${[['', 'Both games'], ['a', 'Aldermere'], ['b', 'Brightholm']].map(([k, l]) => `<button class="chip${IT.game === k ? ' on' : ''}" data-ig="${k}">${l}</button>`).join('')}</div>
   <div class="chips" id="ip">${Object.entries(POCKET).map(([k, v]) => `<button class="chip${IT.pocket === k ? ' on' : ''}" data-p="${k}">${v}</button>`).join('')}</div>
   <div id="ires">${itemTable()}</div></div>`;
 function bindItems() {
   const upd = () => { $('#ires').innerHTML = itemTable(); };
   $('#iq').addEventListener('input', (e) => { IT.q = e.target.value; upd(); });
+  $('#ig').addEventListener('click', (e) => { const b = e.target.closest('[data-ig]'); if (!b) return; IT.game = b.dataset.ig; $$('#ig .chip').forEach((c) => c.classList.toggle('on', c === b)); upd(); });
   $('#ip').addEventListener('click', (e) => { const b = e.target.closest('[data-p]'); if (!b) return; IT.pocket = b.dataset.p; IT.q = ''; $('#iq').value = ''; $$('#ip .chip').forEach((c) => c.classList.toggle('on', c === b)); upd(); });
 }
 Pages.item = (id) => {
@@ -533,8 +556,12 @@ Pages.item = (id) => {
   document.title = `${it.name}, Montera Companion`;
   return `<div class="page"><span class="muted">${POCKET[it.pocket] || ''}</span><h1 style="color:var(--ink)">${esc(it.name)}</h1><p>${esc(it.desc || '')}</p>
   <dl class="facts">${it.price ? `<dt>Price</dt><dd>${it.price} Cr</dd>` : ''}${it.sell ? `<dt>Sells for</dt><dd>${it.sell} Cr</dd>` : ''}${mv && DATA.moves[mv] ? `<dt>Teaches</dt><dd>${mvLink(mv)} ${typeTag(DATA.moves[mv].type)}</dd>` : ''}</dl>
-  <h3 class="section">Where to buy it</h3><p>${sold.length ? sold.map(placeLink).join(', ') : 'Not sold in any Mart.'}</p>
-  <h3 class="section">Where to find it</h3>${found.length ? `<ul>${found.map((f) => `<li>${placeLink(mapRegion(f.map))}${DATA.maps[f.map].name !== regionName(mapRegion(f.map)) ? ` (${esc(DATA.maps[f.map].name)})` : ''}${f.hidden ? ' <span class="tag">hidden</span>' : ''}</li>`).join('')}</ul>` : '<p class="muted">Not lying around anywhere. It may be a gift or a reward.</p>'}
+  ${ALD_ITEMS.has(id) ? `<div class="gsec a"><h3><i class="gm a">A</i> In Aldermere</h3>
+  <p><b>Buy it:</b> ${sold.length ? sold.map(placeLink).join(', ') : 'not sold in any Mart.'}</p>
+  ${found.length ? `<p><b>Find it:</b></p><ul>${found.map((f) => `<li>${placeLink(mapRegion(f.map))}${DATA.maps[f.map].name !== regionName(mapRegion(f.map)) ? ` (${esc(DATA.maps[f.map].name)})` : ''}${f.hidden ? ' <span class="tag">hidden</span>' : ''}</li>`).join('')}</ul>` : '<p class="muted">Not lying around anywhere. It may be a gift or a reward.</p>'}</div>` : ''}
+  ${BH_ITEMS.has(id) ? (() => { const bs = [...new Set((BHX.soldAt[id] || []).map((k) => BH_SHOP_AT[k]).filter(Boolean))]; const bf = BHX.itemsAt[id] || []; return `<div class="gsec b"><h3><i class="gm b">B</i> In Brightholm</h3>
+  <p><b>Buy it:</b> ${bs.length ? bs.map(bhLink).join(', ') : 'not sold in any shop.'}</p>
+  ${bf.length ? `<p><b>Find it:</b></p><ul>${bf.map((f) => `<li>${bhLink(bhPlaceOf(f.map))}${f.map !== bhPlaceOf(f.map) && BHM[f.map] ? ` (${esc(BHM[f.map].name)})` : ''}${f.hidden ? ' <span class="tag">hidden</span>' : ''}</li>`).join('')}</ul>` : '<p class="muted">Not lying around anywhere. It may be a gift, a reward or grown in the garden.</p>'}</div>`; })() : ''}
   ${evo.length ? `<h3 class="section">Evolves</h3><ul>${evo.map((e) => `<li>${spLink(e.from)} into ${spLink(e.to)}</li>`).join('')}</ul>` : ''}</div>`;
 };
 
@@ -621,43 +648,76 @@ Pages.quests = () => {
   <div class="page"><h2>Achievements</h2><div class="cols">${Object.values(DATA.achievements).map((a) => `<div><b>${esc(a.name)}</b><br><span class="muted">${esc(a.desc)}</span></div>`).join('')}</div></div>`;
 };
 
-/* ---------- Progress (reads the game's save) ---------- */
-function readSlots() {
+/* ---------- Progress (reads both games' saves) ---------- */
+function readSlots(prefix) {
   const out = [];
-  for (const n of [1, 2, 3]) { try { const v = localStorage.getItem('mq_slot_' + n); if (v) { const d = JSON.parse(v); if (d && d.name) out.push({ n, d }); } } catch { /* unreadable slot */ } }
+  for (const n of [1, 2, 3]) { try { const v = localStorage.getItem(prefix + n); if (v) { const d = JSON.parse(v); if (d && d.name) out.push({ n, d }); } } catch { /* unreadable slot */ } }
   return out;
 }
 function parseSave(text) {
-  text = String(text || '').trim(); let o = null;
+  text = String(text || '').trim(); let o = null; let game = 'aldermere';
   try { o = JSON.parse(decodeURIComponent(escape(atob(text)))); } catch { try { o = JSON.parse(text); } catch { return null; } }
-  if (o && o.format === 'MQSAVE') o = o.data;
-  return o && typeof o.name === 'string' && o.dex ? o : null;
+  if (o && o.format === 'MTBSAVE') game = 'brightholm';
+  if (o && (o.format === 'MQSAVE' || o.format === 'MTBSAVE')) o = o.data;
+  if (!(o && typeof o.name === 'string' && o.dex)) return null;
+  if (o.flags && (['bristling', 'blazeling', 'snapling'].includes(o.flags.starter) || Object.keys(o.flags).some((k) => /^sigil_(spur|bedrock|updraft|circuit|reef|wisp|starlight|homestead)$/.test(k)))) game = 'brightholm';
+  return { game, d: o };
 }
 let imported = null;
 const fmtTime = (s) => { s = Math.floor(s || 0); const h = Math.floor(s / 3600), m = Math.floor((s % 3600) / 60); return `${h}h ${String(m).padStart(2, '0')}m`; };
+const caughtIn = (d) => Object.keys(d.dex || {}).filter((k) => d.dex[k] && d.dex[k].caught && SP[k]);
+const partyStrip = (d) => { const party = (d.party || []).filter((m) => m && SP[m.sp]); return party.length ? `<h3 class="section">Party</h3><div class="slots">${party.map((m) => `<div class="slot"><a href="#/wildmon/${m.sp}">${img(m.sp, 'px', { lustre: m.lustre, sil: false })}<br>${esc(m.nick || SP[m.sp].name)}</a><br>Lv ${m.lv}</div>`).join('')}</div>` : ''; };
+const syncBtn = (ids) => `<button class="btn gold" data-sync='${esc(JSON.stringify(ids))}'>Mark these as caught in the Wildbook</button>`;
 function saveSummary(d, label) {
-  const dex = d.dex || {}; const seen = Object.values(dex).filter((x) => x && x.seen).length; const own = Object.values(dex).filter((x) => x && x.caught).length;
+  const dex = d.dex || {}; const seen = Object.values(dex).filter((x) => x && x.seen).length; const own = caughtIn(d).length;
   const badges = HALLS.filter((h) => d.flags && d.flags['sigil_' + h.id]);
   const done = Object.entries(d.quests || {}).filter(([, q]) => q && q.done).map(([k]) => k);
-  const ach = Object.keys(d.ach || {}).filter((k) => d.ach[k] && DATA.achievements[k]);
-  const party = (d.party || []).filter((m) => m && SP[m.sp]);
+  const ach = Object.keys(d.ach || {}).filter((k) => d.ach[k] && ALD_ACH[k]);
   const champ = Array.isArray(d.hof) && d.hof.length;
-  return `<div class="page"><h2>${esc(d.name)} <span class="muted" style="font-size:16px">${esc(label)}</span></h2>
+  return `<div class="page gsave a"><h2><i class="gm a">A</i> ${esc(d.name)} <span class="muted" style="font-size:16px">Aldermere, ${esc(label)}</span></h2>
   <div class="cols"><div><b>Play time</b><br>${fmtTime(d.playtime)}</div><div><b>Credits</b><br>${(d.money || 0).toLocaleString()} Cr</div><div><b>Badges</b><br>${badges.length} of 8</div><div><b>Wildbook</b><br>${own} caught, ${seen} seen</div>${champ ? `<div><b>Roll of Lights</b><br>${d.hof.length} entr${d.hof.length > 1 ? 'ies' : 'y'}</div>` : ''}</div>
-  <h3 class="section">Wildbook</h3><div class="meter" role="progressbar" aria-valuenow="${own}" aria-valuemax="${SPIDS.length}"><i style="width:${(own / SPIDS.length) * 100}%"></i></div>
+  <h3 class="section">Aldermere Wildbook</h3><div class="meter" role="progressbar" aria-valuenow="${own}" aria-valuemax="${IN_A.size}"><i style="width:${(caughtIn(d).filter((k) => IN_A.has(k)).length / IN_A.size) * 100}%"></i></div><p class="muted">${caughtIn(d).filter((k) => IN_A.has(k)).length} of ${IN_A.size}</p>
   <h3 class="section">Badges</h3><div class="chips">${HALLS.map((h) => `<span class="badge" title="${esc(DATA.badges[h.id].name)}" style="width:36px;height:36px;font-size:16px;background:${badges.includes(h) ? DATA.typeColors[h.type] : '#bdb196'}">${esc(DATA.badges[h.id].name[0])}</span>`).join('')}</div>
-  ${party.length ? `<h3 class="section">Party</h3><div class="slots">${party.map((m) => `<div class="slot"><a href="#/wildmon/${m.sp}">${img(m.sp, 'px', { lustre: m.lustre, sil: false })}<br>${esc(m.nick || SP[m.sp].name)}</a><br>Lv ${m.lv}</div>`).join('')}</div>` : ''}
-  <h3 class="section">Quests finished</h3><p>${done.length ? done.map((k) => esc(DATA.quests[k] ? DATA.quests[k].name : k)).join(', ') : 'None yet.'}</p>
-  <h3 class="section">Achievements</h3><p>${ach.length} of ${Object.keys(DATA.achievements).length}${ach.length ? `: ${ach.map((k) => esc(DATA.achievements[k].name)).join(', ')}` : ''}</p>
-  <h3 class="section">Still to catch</h3><p class="muted">${SPIDS.filter((id) => !(dex[id] && dex[id].caught)).length} Wildmon left.</p>
-  <button class="btn gold" data-sync='${esc(JSON.stringify(Object.keys(dex).filter((k) => dex[k] && dex[k].caught)))}'>Mark these as caught in the Wildbook</button></div>`;
+  ${partyStrip(d)}
+  <h3 class="section">Quests finished</h3><p>${done.length ? done.map((k) => esc(ALD_QUESTS[k] ? ALD_QUESTS[k].name : k)).join(', ') : 'None yet.'}</p>
+  <h3 class="section">Achievements</h3><p>${ach.length} of ${Object.keys(ALD_ACH).length}${ach.length ? `: ${ach.map((k) => esc(ALD_ACH[k].name)).join(', ')}` : ''}</p>
+  ${syncBtn(caughtIn(d))}</div>`;
+}
+function bhSaveSummary(d, label) {
+  const f = d.flags || {}; const own = caughtIn(d); const regional = own.filter((k) => IN_B.has(k)).length;
+  const badges = BH.halls.filter((h) => f['sigil_' + h.id]);
+  const done = Object.entries(d.quests || {}).filter(([, q]) => q && q.done).map(([k]) => k).filter((k) => BH.quests[k]);
+  const trials = Object.entries(BH.trials).map(([k, T]) => [T, f['trial_' + k] || 0]);
+  const friends = Object.entries(d.friends || {}).filter(([k]) => BH.friends[k]);
+  const homes = Object.keys(d.homes || {}).filter((k) => BH.houses[k]);
+  const day = Math.floor((d.playtime || 0) / 1200); const SEASONS = ['Spring', 'Summer', 'Autumn', 'Winter'];
+  return `<div class="page gsave b"><h2><i class="gm b">B</i> ${esc(d.name)} <span class="muted" style="font-size:16px">Brightholm, ${esc(label)}</span></h2>
+  <div class="cols"><div><b>Play time</b><br>${fmtTime(d.playtime)}</div><div><b>Game date</b><br>${SEASONS[Math.floor(day / 6) % 4]} ${(day % 6) + 1}, Year ${Math.floor(day / 24) + 1}</div><div><b>Credits</b><br>${(d.money || 0).toLocaleString()} Cr</div><div><b>Badges</b><br>${badges.length} of 8</div><div><b>Wildbook</b><br>${regional} of ${IN_B.size}</div>${f.bh_champion ? '<div><b>Champion</b><br>Yes</div>' : ''}</div>
+  <h3 class="section">Brightholm Wildbook</h3><div class="meter b" role="progressbar" aria-valuenow="${regional}" aria-valuemax="${IN_B.size}"><i style="width:${(regional / IN_B.size) * 100}%"></i></div><p class="muted">${regional} of ${IN_B.size}${own.length > regional ? `, plus ${own.length - regional} brought over with the Lantern Link` : ''}</p>
+  <h3 class="section">Badges</h3><div class="chips">${BH.halls.map((h) => `<span class="badge bhb sm" title="${esc(h.name)}" style="${f['sigil_' + h.id] ? `background:radial-gradient(circle at 35% 30%, ${h.c1}, ${h.c2})` : 'background:#bdb196'}">${esc(h.name[0])}</span>`).join('')}</div>
+  ${partyStrip(d)}
+  <h3 class="section">Frontier Trials</h3><div class="chips">${trials.map(([T, m]) => `<span class="tag medal m${m}" title="${esc(T.name)}">${esc(T.name)}: ${m ? medalName[m] : 'not tried'}</span>`).join('')}</div>
+  ${friends.length ? `<h3 class="section">Friends</h3><div class="cols">${friends.map(([k, x]) => `<div><b>${esc(BH.friends[k].name)}</b><br><span class="hearts">${'♥'.repeat(x.lv || 1)}<span class="muted">${'♡'.repeat(5 - (x.lv || 1))}</span></span></div>`).join('')}</div>` : ''}
+  ${homes.length ? `<h3 class="section">Houses</h3><p>${homes.map((k) => esc(BH.houses[k].name)).join(', ')}</p>` : ''}
+  <h3 class="section">Quests finished</h3><p>${done.length ? done.map((k) => esc(BH.quests[k].name)).join(', ') : 'None yet.'}</p>
+  ${syncBtn(own)}</div>`;
 }
 Pages.progress = () => {
-  const slots = readSlots();
-  return `<h1>My progress</h1><p class="lead">The Companion can read your saves when it runs in the same browser and site as the game. You can also load a .mqsave file exported from the game’s title screen. Nothing leaves your device.</p>
-  ${slots.map((s) => saveSummary(s.d, `save slot ${s.n}`)).join('')}
-  ${imported ? saveSummary(imported, 'loaded file') : ''}
-  <div class="page"><h2>Load a save file</h2>${slots.length ? '' : '<p>No saves found in this browser.</p>'}
+  const A = readSlots('mq_slot_'), B = readSlots('mtb_slot_');
+  const all = [...A.map((x) => x.d), ...B.map((x) => x.d), ...(imported ? [imported.d] : [])];
+  const union = new Set(all.flatMap(caughtIn));
+  const lustre = new Set(all.flatMap((d) => (d.party || []).concat(d.box || []).filter((m) => m && m.lustre && SP[m.sp]).map((m) => m.sp)));
+  const play = all.reduce((a, d) => a + (d.playtime || 0), 0);
+  return `<h1>My progress</h1><p class="lead">The Companion reads your saves when it runs on the same site as the game, or from an exported save file. Nothing leaves your device.</p>
+  ${all.length ? `<div class="page montera"><h2>All of Montera</h2>
+    <div class="cols"><div><b>Montera Wildbook</b><br>${union.size} of ${SPIDS.length} caught</div><div><b>Aldermere</b><br>${[...union].filter((k) => IN_A.has(k)).length} of ${IN_A.size}</div><div><b>Brightholm</b><br>${[...union].filter((k) => IN_B.has(k)).length} of ${IN_B.size}</div><div><b>Lustre Wildmon</b><br>${lustre.size} kinds</div><div><b>Play time</b><br>${fmtTime(play)} across ${all.length} save${all.length > 1 ? 's' : ''}</div></div>
+    <div class="meter split" role="progressbar" aria-valuenow="${union.size}" aria-valuemax="${SPIDS.length}"><i style="width:${(union.size / SPIDS.length) * 100}%"></i></div>
+    ${syncBtn([...union])}</div>` : ''}
+  ${A.map((x) => saveSummary(x.d, `slot ${x.n}`)).join('')}
+  ${B.map((x) => bhSaveSummary(x.d, `slot ${x.n}`)).join('')}
+  ${imported ? (imported.game === 'brightholm' ? bhSaveSummary(imported.d, 'loaded file') : saveSummary(imported.d, 'loaded file')) : ''}
+  <div class="page"><h2>Load a save file</h2>${all.length ? '' : '<p>No saves found in this browser.</p>'}
+  <p class="muted">Export a save from either game’s title screen (.mqsave from Aldermere, .mtbsave from Brightholm).</p>
   <div class="tools"><input type="file" id="sfile" aria-label="Choose a save file"></div>
   <details><summary>Or paste the save text</summary><textarea id="stext" rows="4" style="width:100%;margin-top:8px;border-radius:8px;border:2px solid var(--line);padding:8px"></textarea><button class="btn" id="sparse" style="margin-top:8px">Read save</button></details>
   <p id="serr" class="warn" hidden>That doesn’t look like a Montera save. Export it again from the game and try once more.</p></div>`;
@@ -666,7 +726,7 @@ function bindProgress() {
   const load = (txt) => { const d = parseSave(txt); if (!d) { $('#serr').hidden = false; return; } imported = d; route(); };
   $('#sfile').addEventListener('change', (e) => { const f = e.target.files[0]; if (f) f.text().then(load); });
   $('#sparse').addEventListener('click', () => load($('#stext').value));
-  $$('[data-sync]').forEach((b) => b.addEventListener('click', () => { const ids = JSON.parse(b.dataset.sync); caught.clear(); ids.forEach((id) => SP[id] && caught.add(id)); saveCaught(); toast(`${caught.size} Wildmon marked as caught.`); }));
+  $$('[data-sync]').forEach((b) => b.addEventListener('click', () => { const ids = JSON.parse(b.dataset.sync); ids.forEach((id) => SP[id] && caught.add(id)); saveCaught(); toast(`${caught.size} Wildmon marked as caught.`); }));
 }
 
 /* ---------- Glossary ---------- */
@@ -685,7 +745,8 @@ function searchIndex() {
   for (const id of SPIDS) if (!hiddenSp(id)) out.push({ l: SP[id].name, k: `Wildmon No. ${SP[id].n}`, h: `#/wildmon/${id}`, sp: id });
   for (const [id, m] of Object.entries(DATA.moves)) out.push({ l: m.name, k: `${cap(m.type)} move`, h: `#/move/${id}` });
   for (const [id, it] of Object.entries(DATA.items)) out.push({ l: it.name, k: POCKET[it.pocket] || 'Item', h: `#/item/${id}` });
-  for (const r of DATA.region) if (!hiddenPlace(r.id)) out.push({ l: r.name, k: 'Place', h: `#/place/${r.id}` });
+  for (const r of DATA.region) if (!hiddenPlace(r.id)) out.push({ l: r.name, k: 'Place in Aldermere', h: `#/place/${r.id}`, g: 'aldermere' });
+  for (const id of BH_PLACES) if (!bhHiddenPlace(id)) out.push({ l: BHM[id].name, k: 'Place in Brightholm', h: `#/bhplace/${id}`, g: 'brightholm' });
   for (const [n] of DATA.terms) out.push({ l: n, k: 'Glossary', h: `#/glossary/${n.toLowerCase().replace(/[^a-z]+/g, '-')}` });
   for (const t of DATA.types) out.push({ l: cap(t), k: 'Type', h: '#/types' });
   return out;
@@ -706,10 +767,10 @@ function bindSearch() {
   q.addEventListener('keydown', (e) => {
     if (e.key === 'ArrowDown') { sel = Math.min(hits.length - 1, sel + 1); draw(); e.preventDefault(); }
     else if (e.key === 'ArrowUp') { sel = Math.max(0, sel - 1); draw(); e.preventDefault(); }
-    else if (e.key === 'Enter' && hits[sel]) { location.hash = hits[sel].h; q.value = ''; hits = []; draw(); q.blur(); }
+    else if (e.key === 'Enter' && hits[sel]) { if (hits[sel].g) { prefs.game = hits[sel].g; savePrefs(); } location.hash = hits[sel].h; q.value = ''; hits = []; draw(); q.blur(); }
     else if (e.key === 'Escape') { q.value = ''; hits = []; draw(); q.blur(); }
   });
-  box.addEventListener('click', () => { q.value = ''; hits = []; draw(); });
+  box.addEventListener('click', (e) => { const a = e.target.closest('a'); const h = a && hits.find((x) => x.h === a.getAttribute('href')); if (h && h.g) { prefs.game = h.g; savePrefs(); } q.value = ''; hits = []; draw(); });
   document.addEventListener('click', (e) => { if (!e.target.closest('.search')) { hits = []; draw(); } });
   document.addEventListener('keydown', (e) => { if (e.key === '/' && document.activeElement.tagName !== 'INPUT' && document.activeElement.tagName !== 'TEXTAREA') { e.preventDefault(); q.focus(); } });
 }
@@ -729,6 +790,8 @@ function route() {
   const parts = (location.hash.replace(/^#\/?/, '') || '').split('/');
   const root = decodeURIComponent(parts[0] || ''); const arg = parts[1] ? decodeURIComponent(parts[1]) : '';
   const page = Pages[root];
+  if (root === 'place' && prefs.game !== 'aldermere') { prefs.game = 'aldermere'; savePrefs(); }
+  if (root === 'bhplace' && prefs.game !== 'brightholm') { prefs.game = 'brightholm'; savePrefs(); }
   const main = $('#main');
   document.title = root ? `${TITLES[root] || 'Montera'}, Montera Companion` : TITLES[''];
   if (root === 'glossary') main.innerHTML = Pages.glossary();
@@ -756,6 +819,7 @@ function start() {
     const r = e.target.closest('[data-reveal]'); if (r) { r.closest('.veil').classList.remove('closed'); return; }
     if (e.target.closest('[data-spoilers]')) { setSpoilers(true); route(); return; }
     const st = e.target.closest('[data-starter]'); if (st) { prefs.starter = st.dataset.starter; savePrefs(); route(); }
+    const gt = e.target.closest('[data-game]'); if (gt) { prefs.game = gt.dataset.game; savePrefs(); route(); }
   });
   addEventListener('hashchange', route);
   if (/^https?:$/.test(location.protocol)) {

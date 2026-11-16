@@ -6,8 +6,9 @@ root = pathlib.Path(__file__).parent
 dist, site, pwa = root / 'dist', root / 'site', root / 'pwa'
 if '--no-build' not in sys.argv:
     subprocess.run([sys.executable, str(root / 'build.py')], check=True)
-    subprocess.run([sys.executable, str(root / 'build_companion.py')], check=True)
     subprocess.run([sys.executable, str(root / 'build_brightholm.py')], check=True)
+    subprocess.run([sys.executable, str(root / 'tools' / 'bh_snapshot.py')], check=True)
+    subprocess.run([sys.executable, str(root / 'build_companion.py')], check=True)
 subprocess.run([sys.executable, str(root / 'build_launcher.py')] + (['--release'] if '--release' in sys.argv else []), check=True)
 
 site.mkdir(exist_ok=True)
