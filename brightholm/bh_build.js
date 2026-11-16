@@ -1,4 +1,6 @@
 'use strict';
+for (const k of Object.keys(DATA.quests)) if (!BH_BASE.own.quests.includes(k)) BH_BASE.quests.add(k);
+for (const k of Object.keys(DATA.achievements)) if (!BH_BASE.own.ach.includes(k)) BH_BASE.ach.add(k);
 /* =====================================================================
    BRIGHTHOLM — building materials and the Larkfield barn Hall
    ===================================================================== */

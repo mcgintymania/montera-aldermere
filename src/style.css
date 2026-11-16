@@ -340,3 +340,15 @@ body.touch.landscape #controls > * { pointer-events: auto; opacity: .85; }
 .panel.savefile .sfbox { flex: 1; min-height: calc(var(--u) * 30); resize: none; font: inherit; font-size: calc(var(--u) * 4.6); line-height: 1.25; word-break: break-all; padding: calc(var(--u) * 3); border: var(--u) solid var(--ink); border-radius: calc(var(--u) * 3); background: #fffaee; color: var(--ink); -webkit-user-select: text; user-select: text; }
 .panel.savefile .sfbox.hidden { display: none; }
 .panel.savefile .err { text-align: center; font-size: calc(var(--u) * 5.6); min-height: calc(var(--u) * 7); }
+
+.comphead { display: flex; justify-content: space-between; align-items: baseline; font-size: calc(var(--u) * 8); font-weight: bold; }
+.comphead .cpv { font-size: calc(var(--u) * 11); color: #9a5a00; }
+.cpbar { height: calc(var(--u) * 5); background: #0002; border: calc(var(--u) * .5) solid var(--ink); border-radius: calc(var(--u) * 3); overflow: hidden; flex: none; }
+.cpbar i, .cpb i { display: block; height: 100%; background: linear-gradient(90deg, #e86a2a, #ffd23a); }
+.complist { overflow-y: auto; flex: 1; min-height: 0; font-size: calc(var(--u) * 6); cursor: auto; }
+.cprow { display: grid; grid-template-columns: calc(var(--u) * 8) 1fr calc(var(--u) * 34) calc(var(--u) * 20); align-items: center; column-gap: calc(var(--u) * 2); margin-bottom: calc(var(--u) * 2.5); }
+.cprow .cpm { color: #9a5a00; }
+.cprow.on { opacity: .75; }
+.cprow .cpb { height: calc(var(--u) * 3); background: #0002; border-radius: calc(var(--u) * 2); overflow: hidden; }
+.cprow .cpc { text-align: right; font-size: calc(var(--u) * 5.4); }
+.cprow .cph { grid-column: 2 / -1; font-size: calc(var(--u) * 5.2); opacity: .75; }

@@ -1,4 +1,5 @@
 'use strict';
+const BH_BASE = { quests: new Set(Object.keys(DATA.quests)), ach: new Set(Object.keys(DATA.achievements)) };
 /* =====================================================================
    BRIGHTHOLM — Larkfield, the Far Reach
    ===================================================================== */
@@ -794,3 +795,4 @@ Object.assign(DATA.species, {
 });
 DATA.speciesList = Object.keys(DATA.species).sort((a, b) => DATA.species[a].n - DATA.species[b].n);
 DATA.items.scroll_hoofstomp = { name: 'Scroll: Hoof Stomp', pocket: 'scrolls', scroll: 'hoof_stomp', sell: 1000, desc: `Teaches Hoof Stomp (normal). Can be used again and again. ${DATA.moves.hoof_stomp.desc}` };
+BH_BASE.own = { quests: Object.keys(DATA.quests).filter((k) => !BH_BASE.quests.has(k)), ach: Object.keys(DATA.achievements).filter((k) => !BH_BASE.ach.has(k)) };

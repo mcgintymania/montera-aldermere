@@ -366,19 +366,23 @@ const UI = {
         const row = h('div', 'srow');
         ['Bloom', 'Tide', 'Spark', 'Forge', 'Veil', 'Gale', 'Frost', 'Iron'].forEach((n) => { const s = h('div', 'sig' + (G.flags['sigil_' + n.toLowerCase()] ? ' on' : '')); s.title = n + ' Badge'; row.appendChild(s); });
         sig.appendChild(row); body.appendChild(sig);
-        body.appendChild(h('div', 'hint', `Adventure started ${new Date(G.created).toLocaleDateString()}   ▶ Achievements`));
+        body.appendChild(h('div', 'hint', `Adventure started ${new Date(G.created).toLocaleDateString()}   ▶ Completion ${Math.floor(Completion.summary().pct)}%`));
+      } else if (page === 1) {
+        Completion.render(body);
+        body.appendChild(h('div', 'hint', '◀ Card   ▶ Achievements'));
       } else {
         const ids = Object.keys(DATA.achievements); const got = ids.filter((k) => G.ach[k]).length;
         body.appendChild(h('div', 'sh', `Achievements  ${got}/${ids.length}`));
         const l = h('div', 'achlist');
         ids.forEach((k) => { const a = DATA.achievements[k]; const r = h('div', 'ach' + (G.ach[k] ? ' on' : '')); r.append(h('span', 'am', G.ach[k] ? '★' : '☆'), h('span', 'an', a.name), h('span', 'ad', a.desc)); l.appendChild(r); });
         body.appendChild(l);
-        body.appendChild(h('div', 'hint', '◀ Card'));
+        body.appendChild(h('div', 'hint', '◀ Completion   ▶ Card'));
       }
     };
-    body.addEventListener('pointerdown', (e) => { e.preventDefault(); page = 1 - page; Sound.sfx('select'); draw(); });
+    body.addEventListener('pointerdown', (e) => { if (e.target.closest('.complist, .achlist')) return; e.preventDefault(); page = (page + 1) % 3; Sound.sfx('select'); draw(); });
     p.input = (a) => {
-      if (a === 'left' || a === 'right' || a === 'a') { page = 1 - page; Sound.sfx('select'); draw(); }
+      if (a === 'right' || a === 'a') { page = (page + 1) % 3; Sound.sfx('select'); draw(); }
+      else if (a === 'left') { page = (page + 2) % 3; Sound.sfx('select'); draw(); }
       else if (a === 'b' || a === 'menu') { Sound.sfx('cancel'); p.finish(); }
     };
     draw(); return p.done;

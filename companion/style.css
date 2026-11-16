@@ -311,3 +311,6 @@ details.qcard summary { cursor: pointer; }
 .cardbar { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; }
 .cardbar .btn.ghost { color: var(--page); border-color: var(--page); }
 .cardhint { color: #9aa3c0 !important; margin: 0; font-size: 13px; }
+
+.cols.comp { grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 8px 14px; font-size: 15px; }
+.cols.comp .done { opacity: .7; }
