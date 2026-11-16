@@ -21133,7 +21133,7 @@ function aldermereSaves() {
   }
   return out;
 }
-const linkCap = () => Math.min(70, 10 + Prog.sigils() * 7);
+const linkCap = () => (G.flags.bh_champion ? 70 : 10 + Prog.sigils() * 5);
 Object.assign(DATA.scripts, {
   async bhLink(s) {
     const o = { name: 'Lantern Link' };
@@ -21148,7 +21148,7 @@ Object.assign(DATA.scripts, {
     if (!all.length) return s.say(['There is no Wildmon in that adventure the Link can call.'], o);
     const cap = linkCap();
     const labels = all.map((m) => `${m.nick ? m.nick + ' (' + DATA.species[m.sp].name + ')' : DATA.species[m.sp].name}  Lv ${Math.max(5, Math.min(m.lv || 5, cap))}${m.lustre ? ' ✦' : ''}`);
-    await s.say([`Choose a Wildmon to call over. It will arrive at Lv ${cap} at most. Earn more Badges to call them stronger.`], o);
+    await s.say([G.flags.bh_champion ? `Choose a Wildmon to call over. As Champion, it can arrive at full strength, up to Lv ${cap}.` : `Choose a Wildmon to call over. It will arrive at Lv ${cap} at most. Each Badge lets it arrive 5 levels stronger, and becoming Champion lets it arrive at full strength.`], o);
     const i = await UI.menu(labels.concat(['Cancel']), { cls: 'choice', cancel: labels.length });
     if (i < 0 || i >= all.length) return;
     const src = all[i];
