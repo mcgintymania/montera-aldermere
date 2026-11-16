@@ -1,4 +1,4 @@
-const CACHE = 'montera-a62e0622b644';
+const CACHE = 'montera-0dd164f93a4b';
 const SHELL = ["./", "index.html", "aldermere.html", "brightholm.html", "companion.html", "logo.webp", "manifest.webmanifest", "icons/apple-touch-icon.png", "icons/favicon-64.png", "icons/icon-192.png", "icons/icon-512.png", "icons/maskable-192.png", "icons/maskable-512.png"];
 const FONTS = 'montera-fonts';
 const PAGES = ['aldermere.html', 'brightholm.html', 'companion.html'];
