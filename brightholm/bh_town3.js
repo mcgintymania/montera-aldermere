@@ -294,7 +294,7 @@ DATA.maps.vantage = {
     { id: 'skye_v', x: 27, y: 9, dir: 'up', look: 'skye', name: 'Skye', script: 'bhSkyeVantage', cond: (g) => !g.flags.paragon_lobby },
   ],
 };
-DATA.restPoints.vantage = { map: 'vantage_hearth', x: 4, y: 4, dir: 'up', text: 'Nurse Opal: All rested! Vantage City never sleeps, but your Wildmon should.' };
+DATA.restPoints.vantage = { map: 'vantage_hearth', x: 4, y: 4, dir: 'up', text: 'Hearthkeeper Opal: All rested! Vantage City never sleeps, but your Wildmon should.' };
 DATA.maps.vantage_hearth = Object.assign({}, DATA.maps.stock_hearth, {
   name: 'Vantage Hearthhouse', region: 'vantage',
   warps: [5, 6].map((x) => ({ x, y: 7, to: { map: 'vantage', x: 5, y: 7, dir: 'down' } })),
@@ -470,7 +470,7 @@ DATA.mapEnter.skate_park = () => {
 /* ---------- Scripts ---------- */
 Object.assign(DATA.scripts, {
   async bhNurse3(s) {
-    const o = { name: 'Nurse Opal' };
+    const o = { name: 'Hearthkeeper Opal' };
     s.setRestPoint('vantage');
     const yes = await s.ask('Welcome to the Vantage Hearthhouse! Shall I rest your Wildmon?', ['Yes', 'No'], o);
     if (yes !== 0) return s.say('Come back any time. We never close.', o);

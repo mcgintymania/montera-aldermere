@@ -1085,7 +1085,7 @@ const Game = {
     Sound.play(World.map.music);
     await UI.dialog([`${G.name} has no Wildmon left that can fight!`, `${G.name} dropped ${lost} Cr in the panic and hurried back to safety...`]);
     await this.fadeIn(400);
-    await UI.dialog(G.rest === 'fernwick' ? 'Nurse Ama: Your Wildmon are all better now. Please take care out there!' : 'Mum: Oh, love! Have a rest... There, your Wildmon look much better now.');
+    await UI.dialog(G.rest === 'fernwick' ? 'Hearthkeeper Ama: Your Wildmon are all better now. Please take care out there!' : 'Mum: Oh, love! Have a rest... There, your Wildmon look much better now.');
     UI.hud(true); this.autosave();
   },
   interact() {

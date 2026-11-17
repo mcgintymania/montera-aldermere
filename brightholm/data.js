@@ -357,9 +357,9 @@ DATA.scripts = {
   },
 
   async nurse(s) {
-    const o = { name: 'Nurse Ama' };
+    const o = { name: 'Hearthkeeper Ama' };
     s.setRestPoint('fernwick');
-    await s.say(['Welcome to the Fernwick Hearthhouse! We restore tired Wildmon to full health, free of charge.',
+    await s.say(['Welcome to the Fernwick Hearthhouse! Come in and sit by the fire. Tired Wildmon rest here, and it never costs a thing.',
       "You haven't got a partner yet, have you? Come back when you do. We'll take very good care of them."], o);
   },
 };
@@ -957,10 +957,10 @@ Object.assign(DATA.scripts, {
   },
 
   async nurse(s) {
-    const o = { name: 'Nurse Ama' };
+    const o = { name: 'Hearthkeeper Ama' };
     s.setRestPoint('fernwick');
     if (!G.party.length) {
-      return s.say(['Welcome to the Fernwick Hearthhouse! We restore tired Wildmon to full health, free of charge.',
+      return s.say(['Welcome to the Fernwick Hearthhouse! Come in and sit by the fire. Tired Wildmon rest here, and it never costs a thing.',
         "You haven't got a partner yet, have you? Come back when you do. We'll take very good care of them."], o);
     }
     const yes = await s.ask('Welcome to the Hearthhouse! Shall I rest your Wildmon by the fire?', ['Yes', 'No'], o);

@@ -5,7 +5,7 @@
 DATA.terms = [
   ['Wildmon', 'The creatures of Aldermere.', 'Wildmon live everywhere: in tall grass, caves, water and towns. Trainers catch them in Lanterns, raise them and battle alongside them.'],
   ['Lantern', 'What you catch Wildmon in.', 'Throw a Lantern at a weakened wild Wildmon to catch it. Different Lanterns work better in different situations. See the Lanterns tab.'],
-  ['Hearthhouse', 'Every town\'s rest stop.', 'Talk to the nurse to fully heal your team. The Hearthhouse you last rested at is where you wake up if your whole team fades out.'],
+  ['Hearthhouse', 'Every town\'s rest stop.', 'Talk to the Hearthkeeper to rest your whole team by the fire. The Hearthhouse you last rested at is where you wake up if your whole team fades out.'],
   ['Lantern Shelf', 'Storage for Wildmon you are not carrying.', 'Every Hearthhouse has a Lantern Shelf. All shelves are linked to the Lantern Warehouse in Port Calder, so you can reach your stored Wildmon from any town.'],
   ['Lantern Warehouse', 'Where storage space is upgraded.', 'Keeper Lumley in Port Calder upgrades your storage: Shelf (30), Storeroom (90), Warehouse (240) and Bunker (600). Bigger tiers cost Credits and need more Badges.'],
   ['Hall', 'A battle arena in a major town.', 'Each of the eight Halls has a puzzle to solve and trainers to beat before you can challenge its Hall Master.'],

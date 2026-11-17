@@ -91,7 +91,7 @@ const Eclipse = { on() { return !!(G && G.flags.eclipse && !G.flags.eclipse_over
   };
 }
 DATA.badges.frost = { name: 'Frost Badge', hall: 'Frost Hall', town: 'Frosthaven', master: 'Torvald' };
-DATA.restPoints.frosthaven = { map: 'frost_hearth', x: 4, y: 4, dir: 'up', text: 'Nurse Sigrid: Your Wildmon are all better now. Please take care out there!' };
+DATA.restPoints.frosthaven = { map: 'frost_hearth', x: 4, y: 4, dir: 'up', text: 'Hearthkeeper Sigrid: Your Wildmon are all better now. Please take care out there!' };
 if (typeof GLIDE_ORDER !== 'undefined') GLIDE_ORDER.push('frosthaven');
 {
   const bg0 = BattleScene.bg.bind(BattleScene);

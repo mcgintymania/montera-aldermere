@@ -65,7 +65,7 @@ DATA.maps.frosthaven = {
     { id: 'fv3', x: 12, y: 16, dir: 'down', look: 'boy', move: 'wander', name: 'Boy', talk: ['Have you got a Mushling? Everyone in Frosthaven has a Mushling!'] },
   ],
 };
-DATA.maps.frost_hearth = HEARTH('Frosthaven Hearthhouse', 'frosthaven', 'frosthaven', { map: 'frosthaven', x: 7, y: 8, dir: 'down' }, 'Nurse Sigrid',
+DATA.maps.frost_hearth = HEARTH('Frosthaven Hearthhouse', 'frosthaven', 'frosthaven', { map: 'frosthaven', x: 7, y: 8, dir: 'down' }, 'Hearthkeeper Sigrid',
   [{ id: 'fhh', x: 9, y: 5, dir: 'left', look: 'skier', move: 'wander', name: 'Skier', talk: ['The Hearthhouse fire never goes out. Thank goodness.'] }]);
 DATA.maps.frost_mart = MART('Frosthaven Mart', 'frosthaven', { map: 'frosthaven', x: 12, y: 8, dir: 'down' }, 'frosthaven',
   [{ id: 'fmc', x: 7, y: 4, dir: 'up', look: 'girl', move: 'wander', name: 'Girl', talk: ['Hot Cocoa! It heals 120 HP and it\'s cheaper than a Grand Tonic. Everyone up here swears by it.'] }]);

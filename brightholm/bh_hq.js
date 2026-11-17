@@ -166,7 +166,7 @@ DATA.maps.paragon_hq = {
     { id: 'hq_c2', x: 17, y: 2, dir: 'down', look: 'cadet', trainer: 'hq_c2', sight: 2, name: 'Paragon Cadet Rufus' },
     { id: 'hq_c3', x: 13, y: 7, dir: 'left', look: 'cadet2', trainer: 'hq_c3', sight: 4, name: 'Paragon Cadet Nova' },
     { id: 'hq_admin', x: 3, y: 10, dir: 'right', look: 'admin', name: 'Admin Oren', script: 'bhOren', cond: (g) => !g.flags.beat_hq_admin },
-    { id: 'ranger_f', x: 11, y: 13, dir: 'left', look: 'ranger', name: 'Ranger', talk: ['We are carrying every grey Wildmon down to the Hearthhouse. Nurse Opal has never been so busy.'], cond: (g) => !!g.flags.hq_done },
+    { id: 'ranger_f', x: 11, y: 13, dir: 'left', look: 'ranger', name: 'Ranger', talk: ['We are carrying every grey Wildmon down to the Hearthhouse. Hearthkeeper Opal has never been so busy.'], cond: (g) => !!g.flags.hq_done },
   ],
 };
 {

@@ -76,7 +76,7 @@ DATA.maps.glasswater = {
     { id: 'tguard', x: 17, y: 10, dir: 'down', look: 'grunt', name: 'Security', cond: (g) => !g.flags.beat_morrow, talk: ['Morrow Lumen Industries welcomes visitors to the lobby.', 'The upper floors are staff only. Not that you could get up there anyway.'] },
   ],
 };
-DATA.maps.glass_hearth = HEARTH('Glasswater Hearthhouse', 'glasswater', 'glasswater', { map: 'glasswater', x: 7, y: 9, dir: 'down' }, 'Nurse Opal',
+DATA.maps.glass_hearth = HEARTH('Glasswater Hearthhouse', 'glasswater', 'glasswater', { map: 'glasswater', x: 7, y: 9, dir: 'down' }, 'Hearthkeeper Opal',
   [{ id: 'gh1', x: 9, y: 5, dir: 'left', look: 'scientist', move: 'wander', name: 'Researcher', script: 'gwScientist' }]);
 DATA.maps.glass_mart = MART('Glasswater Mart', 'glasswater', { map: 'glasswater', x: 26, y: 9, dir: 'down' }, 'glasswater',
   [{ id: 'gm1', x: 7, y: 4, dir: 'up', look: 'gentleman', move: 'wander', name: 'Collector', talk: ['A Kin Lantern for duplicates, a Dusk Lantern for night, a Swift Lantern to open with...', 'Choosing the right Lantern is half the fun of catching!'] }]);
@@ -209,7 +209,7 @@ DATA.maps.saltmere = {
     { id: 'sm2', x: 20, y: 20, dir: 'left', look: 'villager2', move: 'turn', name: 'Netmender', talk: ['Mind the marsh grass. The Wildmon in it are slippery little things.'] },
   ],
 };
-DATA.maps.salt_hearth = HEARTH('Saltmere Hearthhouse', 'saltmere', 'saltmere', { map: 'saltmere', x: 7, y: 14, dir: 'down' }, 'Nurse Brine');
+DATA.maps.salt_hearth = HEARTH('Saltmere Hearthhouse', 'saltmere', 'saltmere', { map: 'saltmere', x: 7, y: 14, dir: 'down' }, 'Hearthkeeper Brine');
 DATA.maps.salt_mart = MART('Saltmere Mart', 'saltmere', { map: 'saltmere', x: 18, y: 14, dir: 'down' }, 'saltmere');
 DATA.maps.salt_house = HOUSE('Stilt House', 'saltmere', { map: 'saltmere', x: 11, y: 14, dir: 'down' },
   [{ id: 'sgran', x: 7, y: 4, dir: 'left', look: 'old', script: 'saltGran' }], { '1,1': 'Jars of pickled samphire.' });
@@ -252,7 +252,7 @@ DATA.maps.ashgrave = {
     { id: 'ag2', x: 8, y: 20, dir: 'right', look: 'medium', move: 'wander', name: 'Mourner', talk: ['Shroudfly carry messages to those who have passed. I send one every spring.'] },
   ],
 };
-DATA.maps.ash_hearth = HEARTH('Ashgrave Hearthhouse', 'ashgrave', 'ashgrave', { map: 'ashgrave', x: 7, y: 8, dir: 'down' }, 'Nurse Vale');
+DATA.maps.ash_hearth = HEARTH('Ashgrave Hearthhouse', 'ashgrave', 'ashgrave', { map: 'ashgrave', x: 7, y: 8, dir: 'down' }, 'Hearthkeeper Vale');
 DATA.maps.ash_mart = MART('Ashgrave Mart', 'ashgrave', { map: 'ashgrave', x: 12, y: 8, dir: 'down' }, 'ashgrave');
 DATA.maps.ash_house = HOUSE('Ashgrave Cottage', 'ashgrave', { map: 'ashgrave', x: 18, y: 15, dir: 'down' },
   [{ id: 'agran', x: 7, y: 4, dir: 'left', look: 'old', script: 'ashGran' }], { '1,1': 'Pressed flowers in old books.' });

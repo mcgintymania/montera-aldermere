@@ -207,10 +207,10 @@ BUILD_STYLE.plant = { roof: '#5a6270', wall: '#c8ccd4', vent: true };
 
 /* Hearthhouse rest points */
 Object.assign(DATA.restPoints = DATA.restPoints || {}, {
-  mossgate: { map: 'moss_hearth', x: 4, y: 4, dir: 'up', text: 'Nurse Bryony: Your Wildmon are all better now. Please take care out there!' },
-  port_calder: { map: 'calder_hearth', x: 4, y: 4, dir: 'up', text: 'Nurse Lena: Your Wildmon are all better now. Please take care out there!' },
-  voltara: { map: 'volt_hearth', x: 4, y: 4, dir: 'up', text: 'Nurse Joule: Your Wildmon are all better now. Please take care out there!' },
-  cinderhollow: { map: 'cinder_hearth', x: 4, y: 4, dir: 'up', text: 'Nurse Ember: Your Wildmon are all better now. Please take care out there!' },
+  mossgate: { map: 'moss_hearth', x: 4, y: 4, dir: 'up', text: 'Hearthkeeper Bryony: Your Wildmon are all better now. Please take care out there!' },
+  port_calder: { map: 'calder_hearth', x: 4, y: 4, dir: 'up', text: 'Hearthkeeper Lena: Your Wildmon are all better now. Please take care out there!' },
+  voltara: { map: 'volt_hearth', x: 4, y: 4, dir: 'up', text: 'Hearthkeeper Joule: Your Wildmon are all better now. Please take care out there!' },
+  cinderhollow: { map: 'cinder_hearth', x: 4, y: 4, dir: 'up', text: 'Hearthkeeper Ember: Your Wildmon are all better now. Please take care out there!' },
 });
 
 DATA.badges.spark = { name: 'Spark Badge', hall: 'Spark Hall', town: 'Voltara', master: 'Rhea' };

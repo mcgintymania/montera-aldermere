@@ -173,7 +173,7 @@ DATA.maps.voltara = {
     { id: 'vk2', x: 9, y: 22, dir: 'right', look: 'villager2', move: 'wander', name: 'Woman', script: 'voltWoman' },
   ],
 };
-DATA.maps.volt_hearth = HEARTH('Voltara Hearthhouse', 'voltara', 'voltara', { map: 'voltara', x: 9, y: 7, dir: 'down' }, 'Nurse Joule',
+DATA.maps.volt_hearth = HEARTH('Voltara Hearthhouse', 'voltara', 'voltara', { map: 'voltara', x: 9, y: 7, dir: 'down' }, 'Hearthkeeper Joule',
   [{ id: 'vh1', x: 9, y: 5, dir: 'left', look: 'engineer', move: 'wander', name: 'Engineer', talk: ['Even the Hearthhouse is running on a backup generator.', 'Hearthhouses always get power first. Wildmon health comes before everything.'] }]);
 DATA.maps.volt_mart = MART('Voltara Mart', 'voltara', { map: 'voltara', x: 15, y: 7, dir: 'down' }, 'voltara',
   [{ id: 'vm1', x: 7, y: 4, dir: 'up', look: 'lass', move: 'wander', name: 'Shopper', talk: ['Bright Lanterns are the best you can buy in a shop. Worth every Credit for a rare catch.'] }]);
@@ -357,7 +357,7 @@ DATA.maps.cinderhollow = {
     { id: 'c2', x: 10, y: 22, dir: 'down', look: 'villager', move: 'wander', name: 'Bather', talk: ['Ahh, the hot springs. Nothing better after a long swim.', 'Did you come over on a board? Brave!'] },
   ],
 };
-DATA.maps.cinder_hearth = HEARTH('Cinderhollow Hearthhouse', 'cinderhollow', 'cinderhollow', { map: 'cinderhollow', x: 8, y: 13, dir: 'down' }, 'Nurse Ember',
+DATA.maps.cinder_hearth = HEARTH('Cinderhollow Hearthhouse', 'cinderhollow', 'cinderhollow', { map: 'cinderhollow', x: 8, y: 13, dir: 'down' }, 'Hearthkeeper Ember',
   [{ id: 'ch1', x: 9, y: 5, dir: 'left', look: 'swimmer', move: 'wander', name: 'Swimmer', talk: ['I swam all the way from Route 4! Never again.'] }]);
 DATA.maps.cinder_mart = MART('Cinderhollow Mart', 'cinderhollow', { map: 'cinderhollow', x: 19, y: 13, dir: 'down' }, 'cinderhollow');
 DATA.maps.cinder_house = HOUSE('Smith\'s Cottage', 'cinderhollow', { map: 'cinderhollow', x: 19, y: 19, dir: 'down' },

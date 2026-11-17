@@ -67,7 +67,7 @@ DATA.maps.skyreach = {
     { id: 'sk3', x: 12, y: 21, dir: 'right', look: 'scientist', name: 'Geologist', talk: ['Those standing stones hum when the wind blows. The locals say the stones are Wildmon. Resonite, they call them.', 'I\'ve been listening to them for a month. I think one of them just said my name.'] },
   ],
 };
-DATA.maps.sky_hearth = HEARTH('Skyreach Hearthhouse', 'skyreach', 'skyreach', { map: 'skyreach', x: 8, y: 8, dir: 'down' }, 'Nurse Cirra',
+DATA.maps.sky_hearth = HEARTH('Skyreach Hearthhouse', 'skyreach', 'skyreach', { map: 'skyreach', x: 8, y: 8, dir: 'down' }, 'Hearthkeeper Cirra',
   [{ id: 'shh', x: 9, y: 5, dir: 'left', look: 'pilot', move: 'wander', name: 'Courier Pilot', talk: ['I fly Lanterns between the Hearthhouses and the Warehouse in Port Calder.', 'Busiest job in Aldermere. Your Wildmon are in safe hands!'] }]);
 DATA.maps.sky_mart = MART('Skyreach Mart', 'skyreach', { map: 'skyreach', x: 14, y: 8, dir: 'down' }, 'skyreach');
 DATA.maps.sky_house = HOUSE('Glider Workshop', 'skyreach', { map: 'skyreach', x: 8, y: 15, dir: 'down' },

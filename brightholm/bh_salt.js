@@ -118,7 +118,7 @@ DATA.encounters.saltreach = {
     night: [['phantabby', 26, 33, 37], ['wispet', 18, 33, 36], ['hootlet', 16, 33, 36], ['octorb', 14, 33, 36], ['gloamshade', 10, 34, 37], ['tuftfang', 16, 33, 36]] },
   fish: { day: [['ribbonel', 35, 33, 37], ['octorb', 25, 33, 36], ['skimray', 25, 33, 36], ['nibbit', 15, 33, 37]], night: [['ribbonel', 40, 33, 37], ['octorb', 25, 33, 36], ['lumifin', 20, 34, 37], ['nibbit', 15, 33, 37]] },
 };
-DATA.restPoints.saltreach = { map: 'salt_hearth', x: 4, y: 4, dir: 'up', text: 'Nurse Maren: Rested and ready. Stay out of the fog after dark!' };
+DATA.restPoints.saltreach = { map: 'salt_hearth', x: 4, y: 4, dir: 'up', text: 'Hearthkeeper Maren: Rested and ready. Stay out of the fog after dark!' };
 DATA.maps.salt_hearth = Object.assign({}, DATA.maps.stock_hearth, {
   name: 'Saltreach Hearthhouse', region: 'sunward',
   warps: [5, 6].map((x) => ({ x, y: 7, to: { map: 'saltreach', x: 6, y: 10, dir: 'down' } })),
@@ -260,7 +260,7 @@ Object.assign(DATA.scripts, {
     await Game.warpTo({ map: 'sunward_shore', x: 16, y: 32, dir: 'up' });
   },
   async bhNurse5(s) {
-    const o = { name: 'Nurse Maren' }; s.setRestPoint('saltreach');
+    const o = { name: 'Hearthkeeper Maren' }; s.setRestPoint('saltreach');
     const yes = await s.ask('Welcome to the Saltreach Hearthhouse. Shall I rest your Wildmon?', ['Yes', 'No'], o);
     if (yes !== 0) return s.say('Stay out of the fog after dark!', o);
     await s.healParty(); await s.wait(800); await s.say('Rested and ready!', o);

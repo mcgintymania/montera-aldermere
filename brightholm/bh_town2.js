@@ -223,7 +223,7 @@ DATA.maps.shalebrook = {
   ],
 };
 DATA.encounters.shalebrook = { fish: { day: [['sloshum', 50, 10, 13], ['nibbit', 40, 10, 13], ['flopfin', 10, 9, 12]], night: [['sloshum', 45, 10, 13], ['nibbit', 40, 10, 13], ['lumifin', 15, 10, 13]] } };
-DATA.restPoints.shalebrook = { map: 'shale_hearth', x: 4, y: 4, dir: 'up', text: 'Nurse Ingrid: All rested up. Solid as stone again!' };
+DATA.restPoints.shalebrook = { map: 'shale_hearth', x: 4, y: 4, dir: 'up', text: 'Hearthkeeper Ingrid: All rested up. Solid as stone again!' };
 
 DATA.maps.shale_hearth = Object.assign({}, DATA.maps.stock_hearth, {
   name: 'Shalebrook Hearthhouse', region: 'shalebrook',
@@ -375,7 +375,7 @@ Object.assign(DATA.scripts, {
     await s.say(['Petra beat me. Twice!', 'Her Aegadillo is like a walking wall. You need Water or Grass moves, trust me.', 'Mum always said I rush things. Maybe Petra has a point about thinking before you push.'], { name: 'Skye' });
   },
   async bhNurse2(s) {
-    const o = { name: 'Nurse Ingrid' };
+    const o = { name: 'Hearthkeeper Ingrid' };
     s.setRestPoint('shalebrook');
     const yes = await s.ask('Welcome to the Shalebrook Hearthhouse! Shall I rest your Wildmon?', ['Yes', 'No'], o);
     if (yes !== 0) return s.say('The hearth is always warm. Come back any time.', o);

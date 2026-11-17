@@ -154,7 +154,7 @@ DATA.maps.starfall = {
   ],
 };
 DATA.encounters.starfall = { fish: DATA.encounters.starfall_road.fish };
-DATA.restPoints.starfall = { map: 'star_hearth', x: 4, y: 4, dir: 'up', text: 'Nurse Vela: All rested! Clear skies tonight, perfect for stargazing.' };
+DATA.restPoints.starfall = { map: 'star_hearth', x: 4, y: 4, dir: 'up', text: 'Hearthkeeper Vela: All rested! Clear skies tonight, perfect for stargazing.' };
 DATA.maps.star_hearth = Object.assign({}, DATA.maps.stock_hearth, {
   name: 'Starfall Hearthhouse', region: 'starfall',
   warps: [5, 6].map((x) => ({ x, y: 7, to: { map: 'starfall', x: 5, y: 14, dir: 'down' } })),
@@ -252,7 +252,7 @@ DATA.badges.starlight = { name: 'Starlight Badge', hall: 'Starfall Hall', town: 
 /* ---------- Scripts ---------- */
 Object.assign(DATA.scripts, {
   async bhNurse7(s) {
-    const o = { name: 'Nurse Vela' }; s.setRestPoint('starfall');
+    const o = { name: 'Hearthkeeper Vela' }; s.setRestPoint('starfall');
     const yes = await s.ask('Welcome to the Starfall Hearthhouse! Shall I rest your Wildmon?', ['Yes', 'No'], o);
     if (yes !== 0) return s.say('Clear skies!', o);
     await s.healParty(); await s.wait(800); await s.say('All rested! Clear skies tonight, perfect for stargazing.', o);

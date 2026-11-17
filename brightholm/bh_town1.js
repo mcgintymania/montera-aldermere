@@ -160,7 +160,7 @@ DATA.maps.stock_hall = {
     { id: 'skye_h', x: 5, y: 3, dir: 'right', look: 'skye', script: 'bhSkyeHall1', cond: (g) => !g.flags.skye_hall1_done },
   ],
 };
-DATA.restPoints.stockridge = { map: 'stock_hearth', x: 4, y: 4, dir: 'up', text: 'Nurse Bryony: There we are. All better. Mind how you go!' };
+DATA.restPoints.stockridge = { map: 'stock_hearth', x: 4, y: 4, dir: 'up', text: 'Hearthkeeper Bryony: There we are. All better. Mind how you go!' };
 
 {
   const fl = DATA.maps.furrow_lane;
@@ -205,7 +205,7 @@ function renderRanchHall(b) {
 
 Object.assign(DATA.scripts, {
   async bhNurse(s) {
-    const o = { name: 'Nurse Bryony' };
+    const o = { name: 'Hearthkeeper Bryony' };
     s.setRestPoint('stockridge');
     const yes = await s.ask('Welcome to the Stockridge Hearthhouse! Shall I rest your Wildmon by the fire?', ['Yes', 'No'], o);
     if (yes !== 0) return s.say('The kettle is always on. Come back any time.', o);

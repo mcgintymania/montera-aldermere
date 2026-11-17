@@ -99,7 +99,7 @@ DATA.maps.ironmouth = {
     { id: 'iw3', x: 8, y: 13, dir: 'down', look: 'boy', move: 'wander', name: 'Boy', talk: ['Have you seen a Wiremouse? They live in the clock tower and steal the gears!'] },
   ],
 };
-DATA.maps.iron_hearth = HEARTH('Ironmouth Hearthhouse', 'ironmouth', 'ironmouth', { map: 'ironmouth', x: 7, y: 7, dir: 'down' }, 'Nurse Ingrid');
+DATA.maps.iron_hearth = HEARTH('Ironmouth Hearthhouse', 'ironmouth', 'ironmouth', { map: 'ironmouth', x: 7, y: 7, dir: 'down' }, 'Hearthkeeper Ingrid');
 DATA.maps.iron_mart = MART('Ironmouth Mart', 'ironmouth', { map: 'ironmouth', x: 12, y: 7, dir: 'down' }, 'ironmouth');
 DATA.maps.iron_house = HOUSE('Foreman\'s House', 'ironmouth', { map: 'ironmouth', x: 21, y: 19, dir: 'down' },
   [{ id: 'foreman', x: 7, y: 4, dir: 'left', look: 'worker', script: 'foreman' }], { '1,1': 'Old photos of the foundry. Two young men in one of them: Vance, and a silver-haired man.' });

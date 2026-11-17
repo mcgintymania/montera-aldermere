@@ -43,7 +43,7 @@ DATA.maps.starfall = {
     { id: 'sf2', x: 28, y: 10, dir: 'left', look: 'gentleman', name: 'Old Sailor', talk: ['That steel door up there? The Order built something in a bunker on this island. Years ago.', 'Nobody\'s been inside since. Nobody wants to.'] },
   ],
 };
-DATA.maps.star_hearth = HEARTH('Starfall Hearthhouse', 'starfall', 'starfall', { map: 'starfall', x: 8, y: 21, dir: 'down' }, 'Nurse Stella',
+DATA.maps.star_hearth = HEARTH('Starfall Hearthhouse', 'starfall', 'starfall', { map: 'starfall', x: 8, y: 21, dir: 'down' }, 'Hearthkeeper Stella',
   [{ id: 'shop', x: 9, y: 5, dir: 'left', look: 'clerk', name: 'Clerk', script: 'shop5', shop: 'lantern_isle' }]);
 DATA.maps.starfall_peak = {
   name: 'Starfall Peak', region: 'starfall_peak', music: 'starfall', outdoor: true, border: 'T', rows: ROWS8.starfall_peak,

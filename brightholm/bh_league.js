@@ -25,7 +25,7 @@ Object.assign(DATA.trainers, {
   mira: { cls: 'Ace Trainer', name: 'Mira', look: 'ace2', team: [['celestrel', 54], ['refractor', 54], ['aegadillo', 55]], prize: 63, ai: 'tactical', pot: 16,
     intro: 'Eight Badges, and you still have to climb the mountain. Everyone does. Battle me!', lose: 'You are ready. I can tell.', after: 'The Gatekeepers will not go easy. Neither will the Champion.' },
   jonah: { cls: 'Ace Trainer', name: 'Jonah', look: 'ace', team: [['pouncerra', 55], ['surgibbon', 55], ['slithersea', 55]], prize: 63, ai: 'tactical', pot: 16,
-    intro: 'I have been training on this mountain for a year. Let us see who wants it more.', lose: 'You want it more.', after: 'Rest at the top. The League has a Hearthhouse nurse.' },
+    intro: 'I have been training on this mountain for a year. Let us see who wants it more.', lose: 'You want it more.', after: 'Rest at the top. The League has a Hearthkeeper.' },
   corin: { cls: 'Veteran', name: 'Corin', look: 'gentleman', team: [['scarecrown', 55], ['megawatt', 56], ['gloomowl', 56]], prize: 63, ai: 'tactical', pot: 16,
     intro: 'I watched {legend} climb this road five years ago. You have the same look in your eye.', lose: 'The same look indeed.', after: 'Good luck up there. I mean it.' },
   skye4: { cls: 'Rival', name: 'Skye', look: 'skye', team: [], prize: 200, ai: 'expert', items: { hyper_potion: 2 }, pot: 20, music: 'champion',
@@ -111,7 +111,7 @@ function renderLeague(b) {
 }
 
 /* ---------- Inside the League ---------- */
-DATA.restPoints.lumen = { map: 'lumen_lobby', x: 6, y: 5, dir: 'up', text: 'Nurse Aurora: Your team is ready. The Gatekeepers are waiting.' };
+DATA.restPoints.lumen = { map: 'lumen_lobby', x: 6, y: 5, dir: 'up', text: 'Hearthkeeper Aurora: Your team is ready. The Gatekeepers are waiting.' };
 DATA.shops.lumen = ['full_restore', 'max_potion', 'hyper_potion', 'revive', 'full_heal', 'great_lantern'].filter((k) => DATA.items[k]);
 DATA.maps.lumen_lobby = {
   name: 'Brightholm League', region: 'league', music: 'league', outdoor: false,
@@ -119,9 +119,9 @@ DATA.maps.lumen_lobby = {
   warps: [6, 7].map((x) => ({ x, y: 9, to: { map: 'lumen_climb', x: 14, y: 8, dir: 'down' } })),
   triggers: [{ x: 6, y: 0, w: 2, h: 1, script: 'bhLeagueIn' }],
   npcs: [
-    { id: 'nurse', x: 1, y: 2, dir: 'down', look: 'nurse', name: 'Nurse Aurora', script: 'bhLeagueNurse' },
+    { id: 'nurse', x: 1, y: 2, dir: 'down', look: 'nurse', name: 'Hearthkeeper Aurora', script: 'bhLeagueNurse' },
     { id: 'clerk', x: 12, y: 2, dir: 'down', look: 'clerk', name: 'League Clerk', script: 'bhLeagueClerk' },
-    { id: 'lgg', x: 8, y: 2, dir: 'down', look: 'leagueguard', name: 'League Guard', talk: ['Through that door: four Gatekeepers, one after another, and then the Champion.', 'Once you go through, rest here first. There is no nurse inside.'] },
+    { id: 'lgg', x: 8, y: 2, dir: 'down', look: 'leagueguard', name: 'League Guard', talk: ['Through that door: four Gatekeepers, one after another, and then the Champion.', 'Once you go through, rest here first. There is no Hearthkeeper inside.'] },
   ],
 };
 const GK_ROOMS = [
@@ -220,14 +220,14 @@ Object.assign(DATA.scripts, {
     await Game.fadeOut(250); s.remove('skye_f4'); await Game.fadeIn(250);
   },
   async bhLeagueNurse(s) {
-    const o = { name: 'Nurse Aurora' }; s.setRestPoint('lumen');
+    const o = { name: 'Hearthkeeper Aurora' }; s.setRestPoint('lumen');
     if (await s.ask('Welcome to the Brightholm League. Shall I rest your Wildmon?', ['Yes', 'No'], o) !== 0) return s.say('Good luck in there.', o);
     await s.healParty(); await s.wait(800); await s.say('Your team is ready. The Gatekeepers are waiting.', o);
   },
   async bhLeagueClerk(s) { return UI.shop(DATA.shops.lumen, 'The best supplies in Brightholm, for the best trainers in Brightholm.'); },
   async bhLeagueIn(s) {
     if (!s.flag('beat_skye4')) { await s.say(['The great doors are shut. Skye is waiting for you on the mountain path.']); return Game.warpTo({ map: 'lumen_lobby', x: 6, y: 2, dir: 'down' }); }
-    const c = await s.ask('Go through to the Gatekeepers? There is no nurse inside.', ['Go', 'Not yet']);
+    const c = await s.ask('Go through to the Gatekeepers? There is no Hearthkeeper inside.', ['Go', 'Not yet']);
     if (c !== 0) return Game.warpTo({ map: 'lumen_lobby', x: 6, y: 2, dir: 'down' });
     const first = GK_ROOMS.find((R) => !G.flags['beat_' + R.tid]);
     await Game.warpTo({ map: first ? first.id : 'lumen_champ', x: first ? 5 : 6, y: first ? 9 : 11, dir: 'up' }, 'door');

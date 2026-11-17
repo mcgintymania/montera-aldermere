@@ -66,7 +66,7 @@ DATA.maps.lantern_isle = {
     { id: 'li2', x: 5, y: 17, dir: 'right', look: 'old', move: 'turn', name: 'Old Man', talk: ['The Lantern League was founded by the very people who built the eight Beacons.', 'Four Gatekeepers guard the way to the Champion. One for each of the old Beacon Keepers.'] },
   ],
 };
-DATA.maps.isle_hearth = HEARTH('Lantern Isle Hearthhouse', 'lantern_isle', 'lantern_isle', { map: 'lantern_isle', x: 6, y: 15, dir: 'down' }, 'Nurse Aurelia');
+DATA.maps.isle_hearth = HEARTH('Lantern Isle Hearthhouse', 'lantern_isle', 'lantern_isle', { map: 'lantern_isle', x: 6, y: 15, dir: 'down' }, 'Hearthkeeper Aurelia');
 DATA.maps.isle_mart = MART('League Mart', 'lantern_isle', { map: 'lantern_isle', x: 23, y: 15, dir: 'down' }, 'lantern_isle');
 
 /* ---------- THE LEAGUE ---------- */
@@ -165,7 +165,7 @@ Object.assign(DATA.scripts, {
     return s.say(['Once you go through the Sanctum door, you can\'t come back out without starting over.', 'Make sure you\'re ready. I believe in you!'], o);
   },
   async leagueNurse(s) {
-    const o = { name: 'Nurse Aurelia' };
+    const o = { name: 'Hearthkeeper Aurelia' };
     await s.say(['Welcome to the Lantern League. Let me look after your Wildmon before you go in.'], o);
     await s.healParty(); s.setRestPoint('lantern_isle');
     return s.say(['Your Wildmon are fighting fit. Good luck in there!'], o);

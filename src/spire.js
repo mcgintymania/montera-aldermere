@@ -53,7 +53,7 @@ Object.defineProperty(DATA.allies.kit2, 'team', {
 
 /* ---------- Badge, rest points, glider ---------- */
 DATA.badges.iron = { name: 'Iron Badge', hall: 'Iron Hall', town: 'Ironmouth', master: 'Vance' };
-DATA.restPoints.ironmouth = { map: 'iron_hearth', x: 4, y: 4, dir: 'up', text: 'Nurse Ingrid: Your Wildmon are all better now. Please take care out there!' };
+DATA.restPoints.ironmouth = { map: 'iron_hearth', x: 4, y: 4, dir: 'up', text: 'Hearthkeeper Ingrid: Your Wildmon are all better now. Please take care out there!' };
 DATA.restPoints.drowned_spire = { map: 'spire_base', x: 16, y: 6, dir: 'left', text: 'Sable: There. They\'re patched up. Try not to fall off this time.' };
 if (typeof GLIDE_ORDER !== 'undefined') GLIDE_ORDER.push('ironmouth');
 {

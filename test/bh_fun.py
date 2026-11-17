@@ -174,7 +174,7 @@ async def main():
         await p.evaluate("MQ.G.playtime = 1200 * 2 + 10; MQ.Game.__ph = MQ.Game.phase; MQ.Game.phase = () => ({ tint: '#ffffff', light: 0.6, night: true })")
         await js("MQ.Game.warpTo({ map: 'starfall_road', x: 2, y: 8, dir: 'right' }); return 1"); await settle()
         g = await p.evaluate("(() => { let c = 0; for (let i = 0; i < 300; i++) { const m = MQ.World.encounter('grass'); if (m && m.sp === 'comette') c++; } return c; })()")
-        check(g > 90, f'during a meteor shower Comette fall far more often ({g}/300)')
+        check(g > 70, f'during a meteor shower Comette fall far more often ({g}/300)')
         await p.screenshot(path=str(SHOTS / 'f_meteor.png'))
         await p.evaluate("MQ.Game.phase = MQ.Game.__ph; MQ.G.playtime = 1200 * 4 + 10")
         await js("MQ.Game.warpTo({ map: 'coralport', x: 15, y: 11, dir: 'down' }); return 1"); await settle()

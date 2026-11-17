@@ -158,9 +158,9 @@ DATA.items.climbing_gear && (DATA.items.climbing_gear.desc = DATA.items.climbing
 /* ---------- Badges, rest points, battle backdrops ---------- */
 DATA.badges.veil = { name: 'Veil Badge', hall: 'Veil Hall', town: 'Ashgrave', master: 'Vesper' };
 Object.assign(DATA.restPoints, {
-  glasswater: { map: 'glass_hearth', x: 4, y: 4, dir: 'up', text: 'Nurse Opal: Your Wildmon are all better now. Please take care out there!' },
-  saltmere: { map: 'salt_hearth', x: 4, y: 4, dir: 'up', text: 'Nurse Brine: Your Wildmon are all better now. Please take care out there!' },
-  ashgrave: { map: 'ash_hearth', x: 4, y: 4, dir: 'up', text: 'Nurse Vale: Your Wildmon are all better now. Please take care out there!' },
+  glasswater: { map: 'glass_hearth', x: 4, y: 4, dir: 'up', text: 'Hearthkeeper Opal: Your Wildmon are all better now. Please take care out there!' },
+  saltmere: { map: 'salt_hearth', x: 4, y: 4, dir: 'up', text: 'Hearthkeeper Brine: Your Wildmon are all better now. Please take care out there!' },
+  ashgrave: { map: 'ash_hearth', x: 4, y: 4, dir: 'up', text: 'Hearthkeeper Vale: Your Wildmon are all better now. Please take care out there!' },
 });
 {
   const bg0 = BattleScene.bg.bind(BattleScene);

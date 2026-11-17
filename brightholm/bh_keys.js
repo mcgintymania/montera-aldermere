@@ -151,7 +151,7 @@ DATA.maps.coralport = {
     { id: 'pkid', x: 19, y: 24, dir: 'up', look: 'pip', move: 'wander', name: 'Kid', talk: ['I found an Octorb in a rock pool! It opened my lunchbox and ate my sandwich.'] },
   ],
 };
-DATA.restPoints.coralport = { map: 'coral_hearth', x: 4, y: 4, dir: 'up', text: 'Nurse Leilani: All rested! Mind the sunburn out there.' };
+DATA.restPoints.coralport = { map: 'coral_hearth', x: 4, y: 4, dir: 'up', text: 'Hearthkeeper Leilani: All rested! Mind the sunburn out there.' };
 DATA.mapEnter.coralport = () => { G.flags.visit_coralport = 1; };
 DATA.maps.coral_hearth = Object.assign({}, DATA.maps.stock_hearth, {
   name: 'Coralport Hearthhouse', region: 'sunward',
@@ -335,7 +335,7 @@ Object.assign(DATA.scripts, {
     return s.say(['Ranger Wren is in the station on the left. Go on!'], o);
   },
   async bhNurse4(s) {
-    const o = { name: 'Nurse Leilani' };
+    const o = { name: 'Hearthkeeper Leilani' };
     s.setRestPoint('coralport');
     const yes = await s.ask('Aloha! Welcome to the Coralport Hearthhouse. Shall I rest your Wildmon?', ['Yes', 'No'], o);
     if (yes !== 0) return s.say('Stay out of the midday sun!', o);

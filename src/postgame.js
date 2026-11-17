@@ -41,5 +41,5 @@
   const mig0 = Save.migrate.bind(Save);
   Save.migrate = function (d) { d = mig0(d); if (d && typeof d === 'object') { if (typeof d.bp !== 'number') d.bp = 0; if (!Array.isArray(d.hof)) d.hof = []; } return d; };
 }
-DATA.restPoints.starfall = { map: 'star_hearth', x: 4, y: 4, dir: 'up', text: 'Nurse Stella: Your Wildmon are all better now. Enjoy the stars!' };
+DATA.restPoints.starfall = { map: 'star_hearth', x: 4, y: 4, dir: 'up', text: 'Hearthkeeper Stella: Your Wildmon are all better now. Enjoy the stars!' };
 if (typeof GLIDE_ORDER !== 'undefined') GLIDE_ORDER.push('starfall');

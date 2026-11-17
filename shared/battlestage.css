@@ -1,0 +1,15 @@
+/* side-on battles: plates along the top, yours on the left */
+.benemy { left: auto; right: calc(var(--u) * 4); top: calc(var(--u) * 4); width: calc(var(--u) * 108); }
+.bplayer { left: calc(var(--u) * 4); right: auto; top: calc(var(--u) * 4); width: calc(var(--u) * 108); }
+.benemy .bname { flex-direction: row-reverse; }
+.benemy .hprow { flex-direction: row-reverse; }
+.benemy .hpbar { transform: scaleX(-1); }
+.bplayer .broster.up { top: 100%; bottom: auto; left: calc(var(--u) * 4); margin-top: calc(var(--u) * 2); padding: calc(var(--u) * 1.5) calc(var(--u) * 2.5); background: rgba(16, 20, 32, .72); }
+.benemy .broster { left: auto; right: calc(var(--u) * 4); }
+.bweather { top: calc(var(--u) * 40); }
+.dbox.dp0 { left: calc(var(--u) * 4); right: auto; top: calc(var(--u) * 4); }
+.dbox.dp1 { left: calc(var(--u) * 4); right: auto; top: calc(var(--u) * 29); }
+.dbox.de0 { left: auto; right: calc(var(--u) * 4); top: calc(var(--u) * 4); }
+.dbox.de1 { left: auto; right: calc(var(--u) * 4); top: calc(var(--u) * 29); }
+.dbox.de0 .bname, .dbox.de1 .bname, .dbox.de0 .hprow, .dbox.de1 .hprow { flex-direction: row-reverse; }
+.dbox.de0 .hpbar, .dbox.de1 .hpbar { transform: scaleX(-1); }

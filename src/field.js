@@ -253,7 +253,7 @@ DATA.items.brush_hook = { name: 'Brush Hook', pocket: 'key', desc: 'A hooked bla
 /* ---------- Hearthhouses everywhere ---------- */
 DATA.restPoints = {
   emberlow: { map: 'emberlow_home', x: 5, y: 3, dir: 'down', text: 'Mum: Oh, love! Have a rest... There, your Wildmon look much better now.' },
-  fernwick: { map: 'fern_hearth', x: 4, y: 4, dir: 'up', text: 'Nurse Ama: Your Wildmon are all better now. Please take care out there!' },
+  fernwick: { map: 'fern_hearth', x: 4, y: 4, dir: 'up', text: 'Hearthkeeper Ama: Your Wildmon are all better now. Please take care out there!' },
 };
 Game.whiteout = async function () {
   const lost = Math.floor(G.money / 4); G.money -= lost;
@@ -268,11 +268,11 @@ Game.whiteout = async function () {
   UI.hud(true); this.autosave();
 };
 DATA.scripts.nurse = async function (s, npc) {
-  const name = (npc && npc.def && npc.def.name) || 'Nurse Ama'; const o = { name };
+  const name = (npc && npc.def && npc.def.name) || 'Hearthkeeper Ama'; const o = { name };
   const rest = World.map.rest || 'fernwick'; s.setRestPoint(rest);
   const town = (DATA.region.find((r) => r.id === World.map.region) || { name: 'Fernwick' }).name;
   if (!G.party.length) {
-    return s.say([`Welcome to the ${town} Hearthhouse! We restore tired Wildmon to full health, free of charge.`,
+    return s.say([`Welcome to the ${town} Hearthhouse! Come in and sit by the fire. Tired Wildmon rest here, and it never costs a thing.`,
       "You haven't got a partner yet, have you? Come back when you do. We'll take very good care of them."], o);
   }
   const yes = await s.ask('Welcome to the Hearthhouse! Shall I rest your Wildmon by the fire?', ['Yes', 'No'], o);

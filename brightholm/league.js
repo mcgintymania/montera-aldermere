@@ -93,7 +93,7 @@ const Credits = {
         ${H('HALL MASTERS')}${L('Hazel &middot; Coral &middot; Rhea &middot; Brann')}${L('Vesper &middot; Aerin &middot; Torvald &middot; Vance')}
         ${H('GATEKEEPERS OF THE LANTERN LEAGUE')}${L('Ilsa &middot; Nyx &middot; Brigid &middot; Thane')}
         ${H('THE HOLLOW ORDER')}${L('Morrow &middot; Sable &middot; Corvin')}
-        ${H('AND')}${L('Professor Thorne &middot; Mum &middot; Captain Rook &middot; Keeper Lumley')}${L('every nurse, sailor, climber, skier and shopkeeper in Aldermere')}
+        ${H('AND')}${L('Professor Thorne &middot; Mum &middot; Captain Rook &middot; Keeper Lumley')}${L('every Hearthkeeper, sailor, climber, skier and shopkeeper in Aldermere')}
         ${H('THE WILDMON')}${L(`${DATA.speciesList.length} of them, and every one worth meeting`)}
         <div style="margin-top:80px;font-size:22px;letter-spacing:2px">Thank you for playing</div>
         <div style="margin-top:14px;font-size:13px;color:#c8a8f8">The Starfall Isles are waiting...</div>
@@ -117,7 +117,7 @@ const Credits = {
   },
 };
 
-DATA.restPoints.lantern_isle = { map: 'isle_hearth', x: 4, y: 4, dir: 'up', text: 'Nurse Aurelia: Your Wildmon are all better now. Good luck in the League!' };
+DATA.restPoints.lantern_isle = { map: 'isle_hearth', x: 4, y: 4, dir: 'up', text: 'Hearthkeeper Aurelia: Your Wildmon are all better now. Good luck in the League!' };
 if (typeof GLIDE_ORDER !== 'undefined') GLIDE_ORDER.push('lantern_isle');
 
 /* ---------- Leaving the Sanctum closes every gate again ---------- */

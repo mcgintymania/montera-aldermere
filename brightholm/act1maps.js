@@ -177,7 +177,7 @@ DATA.maps.moss_hearth = {
   warps: [{ x: 5, y: 7, to: { map: 'mossgate', x: 6, y: 16, dir: 'down' } }, { x: 6, y: 7, to: { map: 'mossgate', x: 6, y: 16, dir: 'down' } }],
   tileScripts: { '10,3': 'storagePc' },
   npcs: [
-    { id: 'nurse', x: 4, y: 2, dir: 'down', look: 'nurse', name: 'Nurse Bryony', script: 'nurse' },
+    { id: 'nurse', x: 4, y: 2, dir: 'down', look: 'nurse', name: 'Hearthkeeper Bryony', script: 'nurse' },
     { id: 'mh1', x: 8, y: 5, dir: 'left', look: 'hiker', move: 'wander', name: 'Hiker',
       talk: ['I was heading north to Ironmouth, but a rockslide has closed Route 9.', 'They say it won\'t be cleared until... well, nobody knows. Strange times.'] },
   ],
@@ -351,7 +351,7 @@ DATA.maps.calder_hearth = {
   warps: [{ x: 5, y: 7, to: { map: 'port_calder', x: 8, y: 7, dir: 'down' } }, { x: 6, y: 7, to: { map: 'port_calder', x: 8, y: 7, dir: 'down' } }],
   tileScripts: { '10,3': 'storagePc' },
   npcs: [
-    { id: 'nurse', x: 4, y: 2, dir: 'down', look: 'nurse', name: 'Nurse Lena', script: 'nurse' },
+    { id: 'nurse', x: 4, y: 2, dir: 'down', look: 'nurse', name: 'Hearthkeeper Lena', script: 'nurse' },
     { id: 'ch1', x: 9, y: 5, dir: 'left', look: 'sailor', move: 'wander', name: 'Sailor',
       talk: ['The Hollow Order says it is a clean-energy company. Morrow Lumen Industries, they call it.', 'Clean energy, my foot. Since they showed up, every lantern in the harbour has been flickering.'] },
   ],

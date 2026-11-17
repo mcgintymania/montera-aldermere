@@ -265,7 +265,7 @@ Object.assign(DATA.scripts, {
     const o = { name: 'Skye' };
     if (s.flag('skye_after')) return s.say(["I'll be at the ferry the minute it opens. See you in the Sunward Keys!"], o);
     s.set('skye_after');
-    await s.say(['{player}. Thanks for coming to get me. Really.', 'The nurse says my team is not hurt. Just... dimmed. Like their light was poured out.', 'The Rangers know about grey Wildmon. The ferry clerk said they are all down in the Sunward Keys.',
+    await s.say(['{player}. Thanks for coming to get me. Really.', 'The Hearthkeeper says my team is not hurt. Just... dimmed. Like their light was poured out.', 'The Rangers know about grey Wildmon. The ferry clerk said they are all down in the Sunward Keys.',
       "As soon as the ferries run again I'm going down there to find out how to fix them. And then I'm going to beat you fair and square. No machines."], o);
   },
   async bhHallGuide4(s) {

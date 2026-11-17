@@ -215,7 +215,7 @@ DATA.achievements.glider = { name: 'Frequent Flyer', desc: 'Fly somewhere with t
   };
 }
 DATA.badges.gale = { name: 'Gale Badge', hall: 'Gale Hall', town: 'Skyreach', master: 'Aerin' };
-DATA.restPoints.skyreach = { map: 'sky_hearth', x: 4, y: 4, dir: 'up', text: 'Nurse Cirra: Your Wildmon are all better now. Please take care out there!' };
+DATA.restPoints.skyreach = { map: 'sky_hearth', x: 4, y: 4, dir: 'up', text: 'Hearthkeeper Cirra: Your Wildmon are all better now. Please take care out there!' };
 
 /* ---------- Allies for double battles ---------- */
 DATA.allies.wren2 = { name: 'Wren', look: 'wren', team: [['solstag', 36], ['waspire', 35], ['beamwyrm', 35]] };
