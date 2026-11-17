@@ -712,9 +712,9 @@ DATA.scripts = {
   },
 
   async nurse(s) {
-    const o = { name: 'Nurse Ama' };
+    const o = { name: 'Hearthkeeper Ama' };
     s.setRestPoint('fernwick');
-    await s.say(['Welcome to the Fernwick Hearthhouse! We restore tired Wildmon to full health, free of charge.',
+    await s.say(['Welcome to the Fernwick Hearthhouse! Come in and sit by the fire. Tired Wildmon rest here, and it never costs a thing.',
       "You haven't got a partner yet, have you? Come back when you do. We'll take very good care of them."], o);
   },
 };
@@ -1312,10 +1312,10 @@ Object.assign(DATA.scripts, {
   },
 
   async nurse(s) {
-    const o = { name: 'Nurse Ama' };
+    const o = { name: 'Hearthkeeper Ama' };
     s.setRestPoint('fernwick');
     if (!G.party.length) {
-      return s.say(['Welcome to the Fernwick Hearthhouse! We restore tired Wildmon to full health, free of charge.',
+      return s.say(['Welcome to the Fernwick Hearthhouse! Come in and sit by the fire. Tired Wildmon rest here, and it never costs a thing.',
         "You haven't got a partner yet, have you? Come back when you do. We'll take very good care of them."], o);
     }
     const yes = await s.ask('Welcome to the Hearthhouse! Shall I rest your Wildmon by the fire?', ['Yes', 'No'], o);
@@ -2565,7 +2565,7 @@ DATA.maps.moss_hearth = {
   warps: [{ x: 5, y: 7, to: { map: 'mossgate', x: 6, y: 16, dir: 'down' } }, { x: 6, y: 7, to: { map: 'mossgate', x: 6, y: 16, dir: 'down' } }],
   tileScripts: { '10,3': 'storagePc' },
   npcs: [
-    { id: 'nurse', x: 4, y: 2, dir: 'down', look: 'nurse', name: 'Nurse Bryony', script: 'nurse' },
+    { id: 'nurse', x: 4, y: 2, dir: 'down', look: 'nurse', name: 'Hearthkeeper Bryony', script: 'nurse' },
     { id: 'mh1', x: 8, y: 5, dir: 'left', look: 'hiker', move: 'wander', name: 'Hiker',
       talk: ['I was heading north to Ironmouth, but a rockslide has closed Route 9.', 'They say it won\'t be cleared until... well, nobody knows. Strange times.'] },
   ],
@@ -2739,7 +2739,7 @@ DATA.maps.calder_hearth = {
   warps: [{ x: 5, y: 7, to: { map: 'port_calder', x: 8, y: 7, dir: 'down' } }, { x: 6, y: 7, to: { map: 'port_calder', x: 8, y: 7, dir: 'down' } }],
   tileScripts: { '10,3': 'storagePc' },
   npcs: [
-    { id: 'nurse', x: 4, y: 2, dir: 'down', look: 'nurse', name: 'Nurse Lena', script: 'nurse' },
+    { id: 'nurse', x: 4, y: 2, dir: 'down', look: 'nurse', name: 'Hearthkeeper Lena', script: 'nurse' },
     { id: 'ch1', x: 9, y: 5, dir: 'left', look: 'sailor', move: 'wander', name: 'Sailor',
       talk: ['The Hollow Order says it is a clean-energy company. Morrow Lumen Industries, they call it.', 'Clean energy, my foot. Since they showed up, every lantern in the harbour has been flickering.'] },
   ],
@@ -3542,7 +3542,7 @@ DATA.maps.voltara = {
     { id: 'vk2', x: 9, y: 22, dir: 'right', look: 'villager2', move: 'wander', name: 'Woman', script: 'voltWoman' },
   ],
 };
-DATA.maps.volt_hearth = HEARTH('Voltara Hearthhouse', 'voltara', 'voltara', { map: 'voltara', x: 9, y: 7, dir: 'down' }, 'Nurse Joule',
+DATA.maps.volt_hearth = HEARTH('Voltara Hearthhouse', 'voltara', 'voltara', { map: 'voltara', x: 9, y: 7, dir: 'down' }, 'Hearthkeeper Joule',
   [{ id: 'vh1', x: 9, y: 5, dir: 'left', look: 'engineer', move: 'wander', name: 'Engineer', talk: ['Even the Hearthhouse is running on a backup generator.', 'Hearthhouses always get power first. Wildmon health comes before everything.'] }]);
 DATA.maps.volt_mart = MART('Voltara Mart', 'voltara', { map: 'voltara', x: 15, y: 7, dir: 'down' }, 'voltara',
   [{ id: 'vm1', x: 7, y: 4, dir: 'up', look: 'lass', move: 'wander', name: 'Shopper', talk: ['Bright Lanterns are the best you can buy in a shop. Worth every Credit for a rare catch.'] }]);
@@ -3726,7 +3726,7 @@ DATA.maps.cinderhollow = {
     { id: 'c2', x: 10, y: 22, dir: 'down', look: 'villager', move: 'wander', name: 'Bather', talk: ['Ahh, the hot springs. Nothing better after a long swim.', 'Did you come over on a board? Brave!'] },
   ],
 };
-DATA.maps.cinder_hearth = HEARTH('Cinderhollow Hearthhouse', 'cinderhollow', 'cinderhollow', { map: 'cinderhollow', x: 8, y: 13, dir: 'down' }, 'Nurse Ember',
+DATA.maps.cinder_hearth = HEARTH('Cinderhollow Hearthhouse', 'cinderhollow', 'cinderhollow', { map: 'cinderhollow', x: 8, y: 13, dir: 'down' }, 'Hearthkeeper Ember',
   [{ id: 'ch1', x: 9, y: 5, dir: 'left', look: 'swimmer', move: 'wander', name: 'Swimmer', talk: ['I swam all the way from Route 4! Never again.'] }]);
 DATA.maps.cinder_mart = MART('Cinderhollow Mart', 'cinderhollow', { map: 'cinderhollow', x: 19, y: 13, dir: 'down' }, 'cinderhollow');
 DATA.maps.cinder_house = HOUSE('Smith\'s Cottage', 'cinderhollow', { map: 'cinderhollow', x: 19, y: 19, dir: 'down' },
@@ -4467,7 +4467,7 @@ DATA.maps.glasswater = {
     { id: 'tguard', x: 17, y: 10, dir: 'down', look: 'grunt', name: 'Security', cond: (g) => !g.flags.beat_morrow, talk: ['Morrow Lumen Industries welcomes visitors to the lobby.', 'The upper floors are staff only. Not that you could get up there anyway.'] },
   ],
 };
-DATA.maps.glass_hearth = HEARTH('Glasswater Hearthhouse', 'glasswater', 'glasswater', { map: 'glasswater', x: 7, y: 9, dir: 'down' }, 'Nurse Opal',
+DATA.maps.glass_hearth = HEARTH('Glasswater Hearthhouse', 'glasswater', 'glasswater', { map: 'glasswater', x: 7, y: 9, dir: 'down' }, 'Hearthkeeper Opal',
   [{ id: 'gh1', x: 9, y: 5, dir: 'left', look: 'scientist', move: 'wander', name: 'Researcher', script: 'gwScientist' }]);
 DATA.maps.glass_mart = MART('Glasswater Mart', 'glasswater', { map: 'glasswater', x: 26, y: 9, dir: 'down' }, 'glasswater',
   [{ id: 'gm1', x: 7, y: 4, dir: 'up', look: 'gentleman', move: 'wander', name: 'Collector', talk: ['A Kin Lantern for duplicates, a Dusk Lantern for night, a Swift Lantern to open with...', 'Choosing the right Lantern is half the fun of catching!'] }]);
@@ -4600,7 +4600,7 @@ DATA.maps.saltmere = {
     { id: 'sm2', x: 20, y: 20, dir: 'left', look: 'villager2', move: 'turn', name: 'Netmender', talk: ['Mind the marsh grass. The Wildmon in it are slippery little things.'] },
   ],
 };
-DATA.maps.salt_hearth = HEARTH('Saltmere Hearthhouse', 'saltmere', 'saltmere', { map: 'saltmere', x: 7, y: 14, dir: 'down' }, 'Nurse Brine');
+DATA.maps.salt_hearth = HEARTH('Saltmere Hearthhouse', 'saltmere', 'saltmere', { map: 'saltmere', x: 7, y: 14, dir: 'down' }, 'Hearthkeeper Brine');
 DATA.maps.salt_mart = MART('Saltmere Mart', 'saltmere', { map: 'saltmere', x: 18, y: 14, dir: 'down' }, 'saltmere');
 DATA.maps.salt_house = HOUSE('Stilt House', 'saltmere', { map: 'saltmere', x: 11, y: 14, dir: 'down' },
   [{ id: 'sgran', x: 7, y: 4, dir: 'left', look: 'old', script: 'saltGran' }], { '1,1': 'Jars of pickled samphire.' });
@@ -4643,7 +4643,7 @@ DATA.maps.ashgrave = {
     { id: 'ag2', x: 8, y: 20, dir: 'right', look: 'medium', move: 'wander', name: 'Mourner', talk: ['Shroudfly carry messages to those who have passed. I send one every spring.'] },
   ],
 };
-DATA.maps.ash_hearth = HEARTH('Ashgrave Hearthhouse', 'ashgrave', 'ashgrave', { map: 'ashgrave', x: 7, y: 8, dir: 'down' }, 'Nurse Vale');
+DATA.maps.ash_hearth = HEARTH('Ashgrave Hearthhouse', 'ashgrave', 'ashgrave', { map: 'ashgrave', x: 7, y: 8, dir: 'down' }, 'Hearthkeeper Vale');
 DATA.maps.ash_mart = MART('Ashgrave Mart', 'ashgrave', { map: 'ashgrave', x: 12, y: 8, dir: 'down' }, 'ashgrave');
 DATA.maps.ash_house = HOUSE('Ashgrave Cottage', 'ashgrave', { map: 'ashgrave', x: 18, y: 15, dir: 'down' },
   [{ id: 'agran', x: 7, y: 4, dir: 'left', look: 'old', script: 'ashGran' }], { '1,1': 'Pressed flowers in old books.' });
@@ -5188,7 +5188,7 @@ DATA.maps.skyreach = {
     { id: 'sk3', x: 12, y: 21, dir: 'right', look: 'scientist', name: 'Geologist', talk: ['Those standing stones hum when the wind blows. The locals say the stones are Wildmon. Resonite, they call them.', 'I\'ve been listening to them for a month. I think one of them just said my name.'] },
   ],
 };
-DATA.maps.sky_hearth = HEARTH('Skyreach Hearthhouse', 'skyreach', 'skyreach', { map: 'skyreach', x: 8, y: 8, dir: 'down' }, 'Nurse Cirra',
+DATA.maps.sky_hearth = HEARTH('Skyreach Hearthhouse', 'skyreach', 'skyreach', { map: 'skyreach', x: 8, y: 8, dir: 'down' }, 'Hearthkeeper Cirra',
   [{ id: 'shh', x: 9, y: 5, dir: 'left', look: 'pilot', move: 'wander', name: 'Courier Pilot', talk: ['I fly Lanterns between the Hearthhouses and the Warehouse in Port Calder.', 'Busiest job in Aldermere. Your Wildmon are in safe hands!'] }]);
 DATA.maps.sky_mart = MART('Skyreach Mart', 'skyreach', { map: 'skyreach', x: 14, y: 8, dir: 'down' }, 'skyreach');
 DATA.maps.sky_house = HOUSE('Glider Workshop', 'skyreach', { map: 'skyreach', x: 8, y: 15, dir: 'down' },
@@ -5831,7 +5831,7 @@ DATA.maps.frosthaven = {
     { id: 'fv3', x: 12, y: 16, dir: 'down', look: 'boy', move: 'wander', name: 'Boy', talk: ['Have you got a Mushling? Everyone in Frosthaven has a Mushling!'] },
   ],
 };
-DATA.maps.frost_hearth = HEARTH('Frosthaven Hearthhouse', 'frosthaven', 'frosthaven', { map: 'frosthaven', x: 7, y: 8, dir: 'down' }, 'Nurse Sigrid',
+DATA.maps.frost_hearth = HEARTH('Frosthaven Hearthhouse', 'frosthaven', 'frosthaven', { map: 'frosthaven', x: 7, y: 8, dir: 'down' }, 'Hearthkeeper Sigrid',
   [{ id: 'fhh', x: 9, y: 5, dir: 'left', look: 'skier', move: 'wander', name: 'Skier', talk: ['The Hearthhouse fire never goes out. Thank goodness.'] }]);
 DATA.maps.frost_mart = MART('Frosthaven Mart', 'frosthaven', { map: 'frosthaven', x: 12, y: 8, dir: 'down' }, 'frosthaven',
   [{ id: 'fmc', x: 7, y: 4, dir: 'up', look: 'girl', move: 'wander', name: 'Girl', talk: ['Hot Cocoa! It heals 120 HP and it\'s cheaper than a Grand Tonic. Everyone up here swears by it.'] }]);
@@ -6436,7 +6436,7 @@ DATA.maps.ironmouth = {
     { id: 'iw3', x: 8, y: 13, dir: 'down', look: 'boy', move: 'wander', name: 'Boy', talk: ['Have you seen a Wiremouse? They live in the clock tower and steal the gears!'] },
   ],
 };
-DATA.maps.iron_hearth = HEARTH('Ironmouth Hearthhouse', 'ironmouth', 'ironmouth', { map: 'ironmouth', x: 7, y: 7, dir: 'down' }, 'Nurse Ingrid');
+DATA.maps.iron_hearth = HEARTH('Ironmouth Hearthhouse', 'ironmouth', 'ironmouth', { map: 'ironmouth', x: 7, y: 7, dir: 'down' }, 'Hearthkeeper Ingrid');
 DATA.maps.iron_mart = MART('Ironmouth Mart', 'ironmouth', { map: 'ironmouth', x: 12, y: 7, dir: 'down' }, 'ironmouth');
 DATA.maps.iron_house = HOUSE('Foreman\'s House', 'ironmouth', { map: 'ironmouth', x: 21, y: 19, dir: 'down' },
   [{ id: 'foreman', x: 7, y: 4, dir: 'left', look: 'worker', script: 'foreman' }], { '1,1': 'Old photos of the foundry. Two young men in one of them: Vance, and a silver-haired man.' });
@@ -7010,7 +7010,7 @@ DATA.maps.lantern_isle = {
     { id: 'li2', x: 5, y: 17, dir: 'right', look: 'old', move: 'turn', name: 'Old Man', talk: ['The Lantern League was founded by the very people who built the eight Beacons.', 'Four Gatekeepers guard the way to the Champion. One for each of the old Beacon Keepers.'] },
   ],
 };
-DATA.maps.isle_hearth = HEARTH('Lantern Isle Hearthhouse', 'lantern_isle', 'lantern_isle', { map: 'lantern_isle', x: 6, y: 15, dir: 'down' }, 'Nurse Aurelia');
+DATA.maps.isle_hearth = HEARTH('Lantern Isle Hearthhouse', 'lantern_isle', 'lantern_isle', { map: 'lantern_isle', x: 6, y: 15, dir: 'down' }, 'Hearthkeeper Aurelia');
 DATA.maps.isle_mart = MART('League Mart', 'lantern_isle', { map: 'lantern_isle', x: 23, y: 15, dir: 'down' }, 'lantern_isle');
 
 /* ---------- THE LEAGUE ---------- */
@@ -7109,7 +7109,7 @@ Object.assign(DATA.scripts, {
     return s.say(['Once you go through the Sanctum door, you can\'t come back out without starting over.', 'Make sure you\'re ready. I believe in you!'], o);
   },
   async leagueNurse(s) {
-    const o = { name: 'Nurse Aurelia' };
+    const o = { name: 'Hearthkeeper Aurelia' };
     await s.say(['Welcome to the Lantern League. Let me look after your Wildmon before you go in.'], o);
     await s.healParty(); s.setRestPoint('lantern_isle');
     return s.say(['Your Wildmon are fighting fit. Good luck in there!'], o);
@@ -7472,7 +7472,7 @@ DATA.maps.starfall = {
     { id: 'sf2', x: 28, y: 10, dir: 'left', look: 'gentleman', name: 'Old Sailor', talk: ['That steel door up there? The Order built something in a bunker on this island. Years ago.', 'Nobody\'s been inside since. Nobody wants to.'] },
   ],
 };
-DATA.maps.star_hearth = HEARTH('Starfall Hearthhouse', 'starfall', 'starfall', { map: 'starfall', x: 8, y: 21, dir: 'down' }, 'Nurse Stella',
+DATA.maps.star_hearth = HEARTH('Starfall Hearthhouse', 'starfall', 'starfall', { map: 'starfall', x: 8, y: 21, dir: 'down' }, 'Hearthkeeper Stella',
   [{ id: 'shop', x: 9, y: 5, dir: 'left', look: 'clerk', name: 'Clerk', script: 'shop5', shop: 'lantern_isle' }]);
 DATA.maps.starfall_peak = {
   name: 'Starfall Peak', region: 'starfall_peak', music: 'starfall', outdoor: true, border: 'T', rows: ROWS8.starfall_peak,
@@ -7722,7 +7722,7 @@ for (const sp of WARDENS) DATA.achievements['legend_' + sp] = { name: `${DATA.sp
 DATA.terms = [
   ['Wildmon', 'The creatures of Aldermere.', 'Wildmon live everywhere: in tall grass, caves, water and towns. Trainers catch them in Lanterns, raise them and battle alongside them.'],
   ['Lantern', 'What you catch Wildmon in.', 'Throw a Lantern at a weakened wild Wildmon to catch it. Different Lanterns work better in different situations. See the Lanterns tab.'],
-  ['Hearthhouse', 'Every town\'s rest stop.', 'Talk to the nurse to fully heal your team. The Hearthhouse you last rested at is where you wake up if your whole team fades out.'],
+  ['Hearthhouse', 'Every town\'s rest stop.', 'Talk to the Hearthkeeper to rest your whole team by the fire. The Hearthhouse you last rested at is where you wake up if your whole team fades out.'],
   ['Lantern Shelf', 'Storage for Wildmon you are not carrying.', 'Every Hearthhouse has a Lantern Shelf. All shelves are linked to the Lantern Warehouse in Port Calder, so you can reach your stored Wildmon from any town.'],
   ['Lantern Warehouse', 'Where storage space is upgraded.', 'Keeper Lumley in Port Calder upgrades your storage: Shelf (30), Storeroom (90), Warehouse (240) and Bunker (600). Bigger tiers cost Credits and need more Badges.'],
   ['Hall', 'A battle arena in a major town.', 'Each of the eight Halls has a puzzle to solve and trainers to beat before you can challenge its Hall Master.'],
