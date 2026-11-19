@@ -78,3 +78,5 @@ Known test-harness limits (not game bugs): the Spark Hall plate in `act2.py` and
 - Save keys are `mq_slot_1..3`; exports are base64 JSON `{format: 'MQSAVE', data}`.
 - No comments or text about how the game was made; code only.
 - New Wildmon must pass `test/unique.js`.
+
+| `brightholm/bh_map.js` | The Brightholm Map (places you have visited, kept in `G.bhPlaces`), and Trail Boots, the map and the Camp Pack: Dad hands over the boots and map after the first battle, Cassidy gives the Camp Pack with the first Badge, and older saves get any that are missing as a parcel from Mum |

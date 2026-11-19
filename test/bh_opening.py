@@ -167,6 +167,8 @@ async def main():
         g = await p.evaluate("({ party: MQ.G.party.map(m => m.sp), starter: MQ.G.flags.starter, skye: MQ.G.flags.skye_starter, left: !!MQ.G.flags.skye_left, book: !!MQ.G.flags.has_wildbook, lanterns: MQ.G.bag.lantern || 0 })")
         check(g['party'] == ['blazeling'] and g['skye'] == 'snapling', f'pick Blazeling (middle Lantern); Skye takes the Water type that beats it: {g}')
         check(battled and g['left'] and g['book'] and g['lanterns'] >= 5, 'first battle with Skye, then the Wildbook and Lanterns')
+        kit = await p.evaluate("({ boots: MQ.G.bag.running_shoes || 0, map: MQ.G.bag.town_map || 0, log: LOG.join(' ') })")
+        check(kit['boots'] == 1 and kit['map'] == 1 and 'Trail Boots' in kit['log'], f'Dad hands over Trail Boots and the Brightholm Map: {kit["boots"]}, {kit["map"]}')
         await run(p, "await MQ.Game.warpTo({map:'larkfield',x:13,y:23,dir:'down'}); await T.sleep(600); await T.step('down'); await T.sleep(900); await T.clear(40); return 1", 'road south with a partner')
         check(await p.evaluate("MQ.World.id") == 'furrow_lane', 'with a partner, the road south opens onto Furrow Lane')
         await run(p, "await MQ.Game.warpTo({map:'skye_home',x:4,y:4,dir:'up'}); await T.sleep(500); await T.talkAt(7,2); return 1", 'Mrs Hale')
