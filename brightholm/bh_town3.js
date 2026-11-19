@@ -407,7 +407,7 @@ DATA.maps.vantage_hall = {
   warps: [6, 7, 8].map((x) => ({ x, y: 16, to: { map: 'vantage', x: 29, y: 21, dir: 'down' } })),
   npcs: [
     { id: 'zara', x: 7, y: 2, dir: 'down', look: 'zara', script: 'bhZara', name: 'Zara' },
-    { id: 'rio', x: 12, y: 13, dir: 'left', look: 'skater', trainer: 'rio', sight: 1, name: 'Skater Rio' },
+    { id: 'rio', x: 11, y: 14, dir: 'up', look: 'skater', trainer: 'rio', sight: 1, name: 'Skater Rio' },
     { id: 'pia', x: 9, y: 11, dir: 'right', look: 'skater2', trainer: 'pia', sight: 1, name: 'Skater Pia' },
     { id: 'guide', x: 10, y: 15, dir: 'left', look: 'clerk', script: 'bhHallGuide3', name: 'Hall Guide' },
   ],
